@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FCRA Violation Review System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="creditor-container">
+      <img src="Ally_Financial.svg" alt="Ally Financial" class="creditor-logo">
+    </div>
+    
+    <div class="breadcrumb">
+      <span id="breadcrumb-text">ALLY — EQUIFAX — FEB. 11, 2025</span>
+    </div>
+    
+    <div class="bureau-selectors">
+      <div class="bureau-btn active" data-bureau="equifax">
+        <img src="EQ_Logo.png" alt="Equifax" class="bureau-logo">
+        <img src="EQ_White_Logo.png" alt="Equifax" class="bureau-logo-alt">
+      </div>
+      <div class="bureau-btn" data-bureau="experian">
+        <img src="EX_Logo.svg" alt="Experian" class="bureau-logo">
+        <img src="EX_White_Logo.svg" alt="Experian" class="bureau-logo-alt">
+      </div>
+      <div class="bureau-btn" data-bureau="transunion">
+        <img src="TU_Logo.svg" alt="TransUnion" class="bureau-logo">
+        <img src="TU_White_Logo.svg" alt="TransUnion" class="bureau-logo-alt">
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Controls -->
+  <div class="nav-controls">
+    <button class="nav-arrow prev-single" title="Previous Page">◀</button>
+    <button class="nav-arrow prev-all" title="Previous Creditor">◀◀</button>
+    <div class="page-indicator">Page 1 of 3</div>
+    <button class="nav-arrow next-all" title="Next Creditor">▶▶</button>
+    <button class="nav-arrow next-single" title="Next Page">▶</button>
+  </div>
+
+  <!-- Violation Counter -->
+  <div class="violation-counter">
+    <div class="counter-pill">
+      <span class="counter-icon">⚠️</span>
+      Violations on this page: <span id="violation-count">0</span>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Credit Report Image + Boxes -->
+    <div class="report-container" id="report-container">
+      <!-- Violation boxes will be dynamically generated here -->
+      <div class="image-placeholder-text" id="placeholder-text">
+        <strong>Select Bureau & Creditor</strong>
+        <span>to begin VioTagging!</span>
+      </div>
+    </div>
+
+    <!-- Document Icons Panel -->
+    <div class="doc-icons">
+      <div class="doc-icon" onclick="showDocument('print')">
+        <div class="icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9V2h12v7"></path>
+            <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"></path>
+            <path d="M6 14h12v8H6z"></path>
+          </svg>
+        </div>
+        <div class="icon-label">PRINT<br>COMPLETE</div>
+      </div>
+      
+      <div class="doc-icon" onclick="showDocument('denial')">
+        <div class="icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+          </svg>
+        </div>
+        <div class="icon-label">CREDIT<br>DENIALS</div>
+      </div>
+      
+      <div class="doc-icon" onclick="showDocument('trauma')">
+        <div class="icon-circle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+          </svg>
+        </div>
+        <div class="icon-label">SYSTEMIC<br>TRAUMA</div>
+      </div>
+    </div>
+
+    <!-- FCRA Review Panel -->
+    <div class="fcra-panel">
+      <div class="panel-header">
+        <h2>FCRA REVIEW</h2>
+        <span class="violation-badge">0</span>
+      </div>
+
+      <div id="violation-entries-container">
+        <!-- Violation entries will be dynamically generated here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Violation Breakdown Modal (Hidden by Default) -->
+  <div id="breakdown-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Systematic FCRA Violation Report</h2>
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+      </div>
+      
+      <div class="modal-body">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-title">Creditor's Total Violations</div>
+            <div class="stat-value">84</div>
+            <div class="stat-desc">Bankruptcy status misreported post-discharge</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-title">Case-Wide Severe Violations (All Bureaus)</div>
+            <div class="stat-value">365</div>
+            <div class="stat-desc">Failed to update/correct despite legal resolution</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-title">Creditor's Bureau Violations</div>
+            <div class="stat-value">17</div>
+            <div class="stat-desc">Failed to update/correct despite legal resolution</div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-title">Case-Wide Severe Violations by Bureau</div>
+            <div class="stat-value">401</div>
+            <div class="stat-desc">Failed to update/correct despite legal resolution</div>
+          </div>
+          
+          <!-- Additional stat cards would go here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Document Viewer Modal (Hidden by Default) -->
+  <div id="document-modal" class="modal">
+    <div class="modal-content document-content">
+      <div class="modal-header">
+        <h2 id="document-title">Document Title</h2>
+        <span class="close-modal" onclick="closeDocumentModal()">&times;</span>
+      </div>
+      
+      <div class="modal-body document-body" id="document-body">
+        <!-- Document content will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- CSV Data Loading (Hidden, just for accessing CSV data) -->
+  <input type="file" id="csvFileInput" style="display: none;" accept=".csv">
+
+  <script src="script.js"></script>
+</body>
+</html>
