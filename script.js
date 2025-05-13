@@ -42,6 +42,9 @@ AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A)
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
+  // Configure the image container to match VioTagger's exact specs
+  configureReportContainer();
+  
   // Parse the CSV data
   processCSVData(sampleCsvData);
   
@@ -55,6 +58,32 @@ document.addEventListener('DOMContentLoaded', function() {
   // Log the CSV data
   console.log('CSV data processed with correct coordinates:', appState.csvData);
 });
+
+// ===== CONTAINER CONFIGURATION =====
+
+// Configure the report container to match VioTagger's specs
+function configureReportContainer() {
+  const container = document.getElementById('report-container');
+  
+  // Set explicit dimensions matching VioTagger
+  container.style.width = '810px';
+  container.style.height = '920px';
+  container.style.position = 'relative';
+  container.style.overflow = 'hidden';
+  
+  // Ensure box coordinates match VioTagger's system
+  container.style.padding = '0';
+  container.style.margin = '0';
+  container.style.boxSizing = 'border-box';
+  
+  // Center the container
+  const wrapper = document.querySelector('.main-content');
+  if (wrapper) {
+    wrapper.style.justifyContent = 'center';
+  }
+  
+  console.log('Container configured to match VioTagger specs: 810x920px');
+}
 
 // ===== CSV DATA PROCESSING =====
 
@@ -378,16 +407,33 @@ function renderViolationsForBureau(bureau) {
     return;
   }
   
-  // Create boxes
+  // Create an image element to ensure proper report display
+  const reportImg = document.createElement('img');
+  reportImg.id = 'report-img';
+  reportImg.src = imageFileName; // Set to actual image path in production
+  reportImg.style.position = 'absolute';
+  reportImg.style.top = '50%';
+  reportImg.style.left = '50%';
+  reportImg.style.width = '778px'; // Matches VioTagger's image width
+  reportImg.style.transform = 'translate(-50%, -50%)';
+  reportImg.style.pointerEvents = 'none';
+  reportImg.style.zIndex = '0';
+  
+  container.appendChild(reportImg);
+  
+  // Create boxes with EXACT positioning from CSV
   violations.forEach(violation => {
     // Create box element with CORRECT X, Y, Width, Height values
     const box = document.createElement('div');
     box.id = violation.id;
     box.className = `violation-box ${violation.Severity}`;
+    
+    // Set exact position and dimensions from CSV data
     box.style.left = `${violation.X}px`;
     box.style.top = `${violation.Y}px`;
     box.style.width = `${violation.Width}px`;
     box.style.height = `${violation.Height}px`;
+    
     box.setAttribute('data-active', 'true');
     box.setAttribute('data-mode', violation.Mode); // Store mode for reference
     box.setAttribute('data-severity', violation.Severity); // Store severity for reference
@@ -405,14 +451,17 @@ function renderViolationsForBureau(bureau) {
   // Update counter
   updateViolationCounter();
   
-  // Set the image background
+  // Set the image background - as backup in case img element doesn't load
   container.style.backgroundImage = `url('${imageFileName}')`;
   
   // Hide placeholder when image is loaded
   document.getElementById('placeholder-text').style.display = 'none';
   
+  // Add a class to indicate an image is loaded
+  container.classList.add('image-loaded');
+  
   // Log for debugging
-  console.log(`Rendered ${violations.length} violation boxes for ${bureau} using correct coordinates`);
+  console.log(`Rendered ${violations.length} violation boxes for ${bureau} using exact VioTagger coordinates`);
 }
 
 // Render violation entries in sidebar

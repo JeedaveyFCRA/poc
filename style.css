@@ -254,9 +254,9 @@ body {
 /* ===== VIOLATION BOXES ===== */
 .violation-box {
   position: absolute;
-  border: 5px solid; /* Increase border thickness from 3px to 5px (5pts) */
-  border-radius: 24px; /* Increase border radius from 8px to 24px */
-  background-color: rgba(255, 255, 255, 0.15);
+  border: 5px solid; /* 5px border (5pts) */
+  border-radius: 24px; /* 24px corner radius */
+  background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent background */
   cursor: pointer;
   transition: var(--transition);
   box-sizing: border-box;
@@ -656,4 +656,53 @@ body {
   .stats-grid {
     grid-template-columns: 1fr;
   }
+
+/* Additional CSS to match VioTagger's box styling */
+
+/* Make the violation boxes match VioTagger's styling */
+.violation-box {
+  position: absolute;
+  border: 5px solid; /* 5px border (5pts) */
+  border-radius: 24px; /* 24px corner radius */
+  background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent background */
+  cursor: pointer;
+  transition: var(--transition);
+  box-sizing: border-box;
+  z-index: 2;
 }
+
+/* Ensure the image container exactly matches VioTagger's specs */
+.report-container {
+  flex: 0 0 auto; /* Don't grow, don't shrink, respect exact dimensions */
+  position: relative;
+  width: 810px; 
+  height: 920px;
+  background-color: #ffffff !important; /* White background */
+  border: 1px solid #ffffff !important; /* White border */
+  border-radius: 12px; /* Match VioTagger's rounded corners */
+  overflow: hidden;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Style the report image to match VioTagger's approach */
+#report-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 778px; /* Match VioTagger's image width */
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Add .image-loaded class styles */
+.image-loaded .image-placeholder-text {
+  opacity: 0;
+}
+
+
+}
+
+
