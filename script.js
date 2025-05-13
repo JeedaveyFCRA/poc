@@ -29,12 +29,12 @@ AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f)
 AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),43,688,360,20,Unverifiable Account,false
 AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),404,761,360,20,,Missing Account History,false
 
-AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),123,319,510,18,INCLUDED_IN_CHAPTER_13,true
-AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),123,364,510,18,Chapter 13 Dismissal,false
-AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),123,387,509,18,Inaccurate Reporting,false
-AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),123,408,510,18,Still Showing as Active,true
-AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),123,429,510,18,Unverifiable Account,false
-AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),123,473,510,18,Missing Account History,false
+AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),123,319,510,20,INCLUDED_IN_CHAPTER_13,true
+AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),123,364,510,20,Chapter 13 Dismissal,false
+AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),123,387,509,20,Inaccurate Reporting,false
+AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),123,408,510,20,Still Showing as Active,true
+AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),123,429,510,20,Unverifiable Account,false
+AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),123,473,510,20,Missing Account History,false
 
 AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),47,264,711,28,INCLUDED_IN_CHAPTER_13,true
 AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),47,389,711,28,Chapter 13 Dismissal,false
