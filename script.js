@@ -6,13 +6,6 @@ const appState = {
   currentPage: 1,
   totalPages: 3,
   
-  // Image sources for each bureau (these will be derived from CSV)
-  reportImages: {
-    equifax: 'AL-EQ-2024-04-25-P57.png',
-    experian: 'AL-EX-2024-04-25-P05.png',
-    transunion: 'AL-TU-2024-04-25-P07.png'
-  },
-  
   // Violation tracking
   violationCount: 0,
   activeViolations: [],
@@ -24,11 +17,10 @@ const appState = {
   currentDocumentType: null,
   
   // CSV Data
-  csvData: [],
-  hasLoadedCSV: false
+  csvData: []
 };
 
-// Sample CSV data for testing (to be replaced by actual CSV data)
+// Actual sample CSV data for testing
 const sampleCsvData = `Image,Severity,Label,Codes,X,Y,Width,Height,Mode,SOF
 AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),100,100,180,40,INCLUDED_IN_CHAPTER_13,true
 AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),320,150,200,50,Chapter 7 Dismissal,false
@@ -37,9 +29,16 @@ AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f)
 AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),450,350,160,35,Unverifiable Account,false
 AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),700,450,150,30,Missing Account History,false
 AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),120,110,175,45,INCLUDED_IN_CHAPTER_13,true
-AL-EX-2024-04-25-P05.png,severe,Failure to Update Accounts,§1681s-2(b),350,160,210,55,Still Showing as Due,false
-AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),200,120,180,40,Wrong Status Code,false
-AL-TU-2024-04-25-P07.png,serious,Improper Discharge Reporting,§1681c(f),400,250,160,35,Not Showing Discharge,true`;
+AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),350,160,210,55,Chapter 7 Dismissal,false
+AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),580,200,190,45,Inaccurate Reporting,false
+AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),160,310,170,40,Still Showing as Active,true
+AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),440,360,160,35,Unverifiable Account,false
+AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),690,460,150,30,Missing Account History,false
+AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),130,120,175,45,INCLUDED_IN_CHAPTER_13,true
+AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),360,170,210,55,Chapter 7 Dismissal,false
+AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),590,210,190,45,Inaccurate Reporting,false
+AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),170,320,170,40,Still Showing as Active,true
+AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),450,370,160,35,Unverifiable Account,false`;
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -50,21 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
   initBureauSelectors();
   initNavigationControls();
   
-  // Load initial credit report
-  loadCreditReport();
-  
-  // Setup CSV file input event listener
-  document.getElementById('csvFileInput').addEventListener('change', handleCSVFile);
+  // Load initial credit report (default to Equifax)
+  loadCreditReport('equifax');
 });
 
 // ===== CSV DATA PROCESSING =====
 
-// Process the CSV data (either from string or file)
+// Process the CSV data
 function processCSVData(csvContent) {
   // Clear existing data
   appState.csvData = [];
-  appState.allViolations = [];
-  appState.activeViolations = [];
   
   // Parse CSV
   const lines = csvContent.split('\n');
@@ -95,43 +89,21 @@ function processCSVData(csvContent) {
     // Add unique ID for tracking
     entry.id = `box-${i}`;
     
+    // Determine which bureau this belongs to
+    if (entry.Image.includes('-EQ-')) {
+      entry.bureau = 'equifax';
+    } else if (entry.Image.includes('-EX-')) {
+      entry.bureau = 'experian';
+    } else if (entry.Image.includes('-TU-')) {
+      entry.bureau = 'transunion';
+    } else {
+      entry.bureau = 'unknown';
+    }
+    
     appState.csvData.push(entry);
   }
   
-  // Extract unique image filenames to update reportImages
-  const uniqueImages = [...new Set(appState.csvData.map(item => item.Image))];
-  
-  // Update report images mapping based on bureaus in filenames
-  appState.reportImages = {};
-  
-  uniqueImages.forEach(filename => {
-    if (filename.includes('-EQ-')) {
-      appState.reportImages.equifax = filename;
-    } else if (filename.includes('-EX-')) {
-      appState.reportImages.experian = filename;
-    } else if (filename.includes('-TU-')) {
-      appState.reportImages.transunion = filename;
-    }
-  });
-  
-  // Mark as loaded
-  appState.hasLoadedCSV = true;
-  
   console.log('CSV data processed:', appState.csvData);
-}
-
-// Handle CSV file upload
-function handleCSVFile(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const csvContent = e.target.result;
-    processCSVData(csvContent);
-    loadCreditReport(); // Reload with new data
-  };
-  reader.readAsText(file);
 }
 
 // ===== CORE FUNCTIONS =====
@@ -142,7 +114,10 @@ function toggleViolation(boxId) {
   const box = document.getElementById(boxId);
   const entry = document.getElementById(`entry-${boxId}`);
   
-  if (!box || !entry) return;
+  if (!box || !entry) {
+    console.error(`Elements for box ID ${boxId} not found`);
+    return;
+  }
   
   // Determine current state
   const isActive = box.getAttribute('data-active') === 'true';
@@ -365,12 +340,23 @@ function showDocument(type) {
 
 // ===== VIOLATION BOX RENDERING =====
 
-// Render violation boxes for current image
-function renderViolationBoxes(filename) {
-  // Get container
-  const container = document.getElementById('report-container');
+// Render violation boxes for current bureau
+function renderViolationsForBureau(bureau) {
+  // Filter violations for this bureau
+  const violations = appState.csvData.filter(item => item.bureau === bureau);
   
-  // Clear existing boxes
+  // Log count for verification
+  console.log(`Found ${violations.length} violations for bureau ${bureau}`);
+  
+  // Track IDs for active state
+  const violationIds = violations.map(v => v.id);
+  
+  // Update state
+  appState.allViolations = violationIds;
+  appState.activeViolations = [...violationIds]; // All are active by default
+  
+  // Get container and clear it
+  const container = document.getElementById('report-container');
   container.innerHTML = '';
   
   // Add placeholder if needed - will be hidden when report loads
@@ -380,15 +366,17 @@ function renderViolationBoxes(filename) {
   placeholder.innerHTML = '<strong>Select Bureau & Creditor</strong><span>to begin VioTagging!</span>';
   container.appendChild(placeholder);
   
-  // Filter violations for this image
-  const violations = appState.csvData.filter(item => item.Image === filename);
-  appState.allViolations = violations.map(v => v.id);
-  
-  // Reset active violations (all are active by default)
-  appState.activeViolations = [...appState.allViolations];
+  // Find the correct image filename for this bureau
+  let imageFileName = '';
+  if (violations.length > 0) {
+    imageFileName = violations[0].Image;
+  } else {
+    console.error(`No violations found for bureau: ${bureau}`);
+    return;
+  }
   
   // Create boxes
-  violations.forEach((violation, index) => {
+  violations.forEach(violation => {
     // Create box element
     const box = document.createElement('div');
     box.id = violation.id;
@@ -398,7 +386,9 @@ function renderViolationBoxes(filename) {
     box.style.width = `${violation.Width}px`;
     box.style.height = `${violation.Height}px`;
     box.setAttribute('data-active', 'true');
-    box.onclick = () => toggleViolation(violation.id);
+    box.setAttribute('data-mode', violation.Mode); // Store mode for reference
+    box.setAttribute('data-severity', violation.Severity); // Store severity for reference
+    box.onclick = function() { toggleViolation(violation.id); };
     
     container.appendChild(box);
   });
@@ -409,9 +399,14 @@ function renderViolationBoxes(filename) {
   // Update counter
   updateViolationCounter();
   
+  // Set the image background
+  container.style.backgroundImage = `url('${imageFileName}')`;
+  
   // Hide placeholder when image is loaded
-  container.style.backgroundImage = `url('${filename}')`;
   document.getElementById('placeholder-text').style.display = 'none';
+  
+  // Log for debugging
+  console.log(`Rendered ${violations.length} violation boxes for ${bureau}`);
 }
 
 // Render violation entries in sidebar
@@ -420,6 +415,7 @@ function renderViolationEntries(violations) {
   entriesContainer.innerHTML = '';
   
   violations.forEach(violation => {
+    // Create entry HTML with proper content from CSV
     const entryHtml = `
       <div class="violation-entry" data-box="${violation.id}" id="entry-${violation.id}">
         <div class="entry-header">
@@ -427,10 +423,11 @@ function renderViolationEntries(violations) {
           <span class="toggle-btn" onclick="toggleViolation('${violation.id}')">×</span>
         </div>
         <div class="violation-blurb">
-          ${violation.Label}
+          ${violation.Label} 
+          <span class="violation-mode">(${violation.Mode})</span>
         </div>
         <div class="entry-footer">
-          <a href="#" class="breakdown-link" onclick="showBreakdown('${violation.id}')">View Violation Breakdown</a>
+          <a href="#" class="breakdown-link" onclick="event.preventDefault(); showBreakdown('${violation.id}')">View Violation Breakdown</a>
         </div>
       </div>
     `;
@@ -461,10 +458,7 @@ function initBureauSelectors() {
       btn.classList.add('active');
       
       // Load appropriate content
-      loadCreditReport();
-      
-      // Update breadcrumb
-      updateBreadcrumb();
+      loadCreditReport(bureau);
     });
   });
 }
@@ -475,7 +469,7 @@ function initNavigationControls() {
   document.querySelector('.prev-single').addEventListener('click', () => {
     if (appState.currentPage > 1) {
       appState.currentPage--;
-      loadCreditReport();
+      loadCreditReport(appState.currentBureau);
       updateBreadcrumb();
     }
   });
@@ -483,7 +477,7 @@ function initNavigationControls() {
   document.querySelector('.next-single').addEventListener('click', () => {
     if (appState.currentPage < appState.totalPages) {
       appState.currentPage++;
-      loadCreditReport();
+      loadCreditReport(appState.currentBureau);
       updateBreadcrumb();
     }
   });
@@ -506,7 +500,7 @@ function initNavigationControls() {
 
 // Update the breadcrumb display
 function updateBreadcrumb() {
-  const breadcrumb = document.querySelector('.breadcrumb span');
+  const breadcrumb = document.getElementById('breadcrumb-text');
   
   // Format bureau name for display
   let bureauDisplay = '';
@@ -528,9 +522,10 @@ function updateBreadcrumb() {
   // Get date from filename or use default
   let dateDisplay = "APR. 25, 2024";
   
-  // Try to parse date from current image filename
-  const currentImage = appState.reportImages[appState.currentBureau];
-  if (currentImage) {
+  // Try to parse date from current image
+  const violations = appState.csvData.filter(item => item.bureau === appState.currentBureau);
+  if (violations.length > 0) {
+    const currentImage = violations[0].Image;
     const dateParts = currentImage.match(/(\d{4})-(\d{2})-(\d{2})/);
     if (dateParts) {
       const year = dateParts[1];
@@ -549,21 +544,16 @@ function updateBreadcrumb() {
 }
 
 // Load credit report based on current state
-function loadCreditReport() {
-  if (!appState.hasLoadedCSV) {
-    console.warn('No CSV data loaded. Using sample data.');
+function loadCreditReport(bureau) {
+  // Update state if needed
+  if (bureau) {
+    appState.currentBureau = bureau;
   }
   
-  // Determine which image to show based on current bureau
-  const imageFileName = appState.reportImages[appState.currentBureau];
+  console.log(`Loading report for bureau: ${appState.currentBureau}`);
   
-  if (!imageFileName) {
-    console.error(`No image found for bureau: ${appState.currentBureau}`);
-    return;
-  }
-  
-  // Render the violation boxes
-  renderViolationBoxes(imageFileName);
+  // Render violations for this bureau
+  renderViolationsForBureau(appState.currentBureau);
   
   // Update page indicator
   document.querySelector('.page-indicator').textContent = 
@@ -571,6 +561,4 @@ function loadCreditReport() {
     
   // Update breadcrumb
   updateBreadcrumb();
-  
-  console.log(`Loaded report: ${imageFileName}`);
 }
