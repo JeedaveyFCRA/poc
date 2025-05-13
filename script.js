@@ -102,67 +102,72 @@ function setupMobileSupport() {
     }
   }
   
-  // Setup mobile tab navigation (FCRA panel / Documents)
-  function setupMobileTabs() {
-    const mobileTabsContainer = document.querySelector('.mobile-tabs');
-    
-    // Show/hide based on screen size
-    if (window.innerWidth <= 830) {
-      if (mobileTabsContainer) {
-        mobileTabsContainer.style.display = 'flex';
-      } else {
-        // Create tab container if it doesn't exist
-        const tabContainer = document.createElement('div');
-        tabContainer.className = 'mobile-tabs';
-        
-        // Create violation tab
-        const violationsTab = document.createElement('button');
-        violationsTab.className = 'tab-button active';
-        violationsTab.textContent = 'Violations';
-        violationsTab.dataset.tab = 'violations';
-        
-        // Create documents tab
-        const documentsTab = document.createElement('button');
-        documentsTab.className = 'tab-button';
-        documentsTab.textContent = 'Documents';
-        documentsTab.dataset.tab = 'documents';
-        
-        // Add tabs to container
-        tabContainer.appendChild(violationsTab);
-        tabContainer.appendChild(documentsTab);
-        
-        // Add before FCRA panel
-        const fcraPanel = document.querySelector('.fcra-panel');
-        if (fcraPanel && fcraPanel.parentNode) {
-          fcraPanel.parentNode.insertBefore(tabContainer, fcraPanel);
-        }
-        
-        // Add tab click handlers
-        setupTabHandlers();
+
+
+// Inside setupMobileTabs function, update the tab styling
+function setupMobileTabs() {
+  const mobileTabsContainer = document.querySelector('.mobile-tabs');
+  
+  // Show/hide based on screen size
+  if (window.innerWidth <= 767) { // Changed from 830 to 767 for better phone detection
+    if (mobileTabsContainer) {
+      mobileTabsContainer.style.display = 'flex';
+    } else {
+      // Create tab container if it doesn't exist
+      const tabContainer = document.createElement('div');
+      tabContainer.className = 'mobile-tabs';
+      
+      // Create violation tab
+      const violationsTab = document.createElement('button');
+      violationsTab.className = 'tab-button active';
+      violationsTab.textContent = 'Violations';
+      violationsTab.dataset.tab = 'violations';
+      
+      // Create documents tab
+      const documentsTab = document.createElement('button');
+      documentsTab.className = 'tab-button';
+      documentsTab.textContent = 'Documents';
+      documentsTab.dataset.tab = 'documents';
+      
+      // Add tabs to container
+      tabContainer.appendChild(violationsTab);
+      tabContainer.appendChild(documentsTab);
+      
+      // Add before report container instead of FCRA panel
+      const reportContainer = document.querySelector('.report-container');
+      if (reportContainer && reportContainer.parentNode) {
+        reportContainer.parentNode.insertBefore(tabContainer, reportContainer);
       }
       
-      // Set initial states based on active tab
-      const activeTab = document.querySelector('.tab-button.active');
-      if (activeTab) {
-        const selectedTab = activeTab.dataset.tab;
-        
-        if (selectedTab === 'violations') {
-          document.querySelector('.fcra-panel').style.display = 'block';
-          document.querySelector('.doc-icons').style.display = 'none';
-        } else if (selectedTab === 'documents') {
-          document.querySelector('.fcra-panel').style.display = 'none';
-          document.querySelector('.doc-icons').style.display = 'flex';
-        }
-      }
-    } else {
-      // On larger screens, show both panels and hide tabs
-      if (mobileTabsContainer) {
-        mobileTabsContainer.style.display = 'none';
-      }
-      document.querySelector('.fcra-panel').style.display = 'block';
-      document.querySelector('.doc-icons').style.display = 'flex';
+      // Add tab click handlers
+      setupTabHandlers();
     }
+    
+    // Set initial states based on active tab
+    const activeTab = document.querySelector('.tab-button.active');
+    if (activeTab) {
+      const selectedTab = activeTab.dataset.tab;
+      
+      if (selectedTab === 'violations') {
+        document.querySelector('.fcra-panel').style.display = 'block';
+        document.querySelector('.doc-icons').style.display = 'none';
+      } else if (selectedTab === 'documents') {
+        document.querySelector('.fcra-panel').style.display = 'none';
+        document.querySelector('.doc-icons').style.display = 'flex';
+      }
+    }
+  } else {
+    // On larger screens, show both panels and hide tabs
+    if (mobileTabsContainer) {
+      mobileTabsContainer.style.display = 'none';
+    }
+    document.querySelector('.fcra-panel').style.display = 'block';
+    document.querySelector('.doc-icons').style.display = 'flex';
   }
+}
+
+    
+
   
   // Handle tab clicks
   function setupTabHandlers() {

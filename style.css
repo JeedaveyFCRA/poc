@@ -718,6 +718,91 @@ body {
   }
 }
 
+
+/* Mobile-specific fixes based on screenshot */
+@media (max-width: 767px) {
+  /* Fix container scale for phone screens */
+  :root {
+    --container-scale: 0.75; /* Better scaling for phones */
+  }
+  
+  /* Center the report better */
+  .report-container {
+    margin: 0 auto;
+    transform-origin: top center;
+    transform: scale(var(--container-scale));
+    height: calc(920px * var(--container-scale));
+  }
+  
+  /* Match the counter pill to screenshot */
+  .counter-pill {
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+    justify-content: center;
+  }
+  
+  .counter-icon {
+    font-size: 20px;
+    margin-right: 8px;
+    color: #f9a825; /* Yellow warning color from screenshot */
+  }
+  
+  /* Style tabs to match screenshot */
+  .mobile-tabs {
+    display: flex;
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tab-button {
+    flex: 1;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background: white;
+    color: #2196f3; /* Blue color for tabs */
+    border: none;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .tab-button.active {
+    color: #2196f3;
+    border-bottom: 3px solid #e53935; /* Red underline for active tab */
+  }
+  
+  /* Adjust navigation controls for mobile */
+  .nav-controls {
+    background-color: #f5f5f5;
+    padding: 15px 0;
+  }
+  
+  .page-indicator {
+    font-size: 16px;
+    color: #666;
+    font-weight: normal;
+  }
+  
+  /* Hide side panels on mobile when not in their tab */
+  .fcra-panel, .doc-icons {
+    margin-top: 10px;
+  }
+  
+  /* Make boxes more touch-friendly */
+  .violation-box {
+    min-width: 40px;
+    min-height: 25px;
+  }
+}
+
+
 @media (max-width: 600px) {
   /* For smaller phones */
   :root {
