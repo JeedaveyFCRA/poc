@@ -46,6 +46,9 @@ AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A)
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
+  // Ensure UI is properly initialized
+  ensureUIInitialization();
+  
   // Configure the image container to match VioTagger's exact specs
   configureReportContainer();
   
@@ -55,15 +58,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize event listeners
   initBureauSelectors();
   initNavigationControls();
-
-  // Set up mobile and touch support
-  setupMobileSupport();
   
-  // Load initial credit report (default to Equifax)
-  loadCreditReport('equifax');
+  // Load initial credit report (default to current bureau or equifax)
+  loadCreditReport(appState.currentBureau || 'equifax');
   
   // Log the CSV data
   console.log('CSV data processed with correct coordinates:', appState.csvData);
+  
+  // Note: Mobile support is now handled by viotagger-mobile.js
 });
 
 // ===== CONTAINER CONFIGURATION =====
@@ -498,6 +500,65 @@ function renderViolationEntries(violations) {
   });
 }
 
+
+
+
+
+// ... existing code in script.js ...
+
+
+// Ensure proper initialization of UI elements
+function ensureUIInitialization() {
+  // Check if we need to initialize the bureau selector
+  const activeBureau = document.querySelector('.bureau-btn.active');
+  if (!activeBureau) {
+    // No active bureau, select Equifax by default
+    const equifaxBtn = document.querySelector('.bureau-btn[data-bureau="equifax"]');
+    if (equifaxBtn) {
+      equifaxBtn.classList.add('active');
+      appState.currentBureau = 'equifax';
+    }
+  }
+  
+  // Make sure panels exist and have correct classes
+  const violationsPanel = document.querySelector('.fcra-panel');
+  const documentsPanel = document.querySelector('.doc-icons');
+  
+  if (violationsPanel && !violationsPanel.classList.contains('panel')) {
+    violationsPanel.classList.add('panel', 'violations-panel');
+  }
+  
+  if (documentsPanel && !documentsPanel.classList.contains('panel')) {
+    documentsPanel.classList.add('panel', 'documents-panel');
+  }
+  
+  // Set initial visibility for panels
+  if (window.innerWidth <= 767) {
+    // On mobile, show only the active panel
+    const activeTabPanel = document.querySelector('.tab-button.active')?.dataset.panel || 'violations';
+    
+    if (violationsPanel) {
+      violationsPanel.style.display = activeTabPanel === 'violations' ? 'block' : 'none';
+    }
+    
+    if (documentsPanel) {
+      documentsPanel.style.display = activeTabPanel === 'documents' ? 'flex' : 'none';
+    }
+  } else {
+    // On desktop, show both panels
+    if (violationsPanel) violationsPanel.style.display = 'block';
+    if (documentsPanel) documentsPanel.style.display = 'flex';
+  }
+  
+  // Make sure report container is properly configured
+  const reportContainer = document.getElementById('report-container');
+  if (reportContainer) {
+    reportContainer.style.width = '810px';
+    reportContainer.style.height = '920px';
+  }
+}
+
+
 // ===== INITIALIZATION FUNCTIONS =====
 
 // Initialize bureau selector buttons
@@ -606,6 +667,7 @@ function updateBreadcrumb() {
 }
 
 // Load credit report based on current state
+// Load credit report based on current state
 function loadCreditReport(bureau) {
   // Update state if needed
   if (bureau) {
@@ -614,13 +676,39 @@ function loadCreditReport(bureau) {
   
   console.log(`Loading report for bureau: ${appState.currentBureau}`);
   
+  // Ensure bureau buttons are synced with state
+  const activeBureauBtn = document.querySelector(`.bureau-btn[data-bureau="${appState.currentBureau}"]`);
+  if (activeBureauBtn) {
+    // Remove active class from all buttons
+    document.querySelectorAll('.bureau-btn').forEach(btn => btn.classList.remove('active'));
+    // Add active class to current bureau
+    activeBureauBtn.classList.add('active');
+  }
+  
   // Render violations for this bureau
   renderViolationsForBureau(appState.currentBureau);
   
   // Update page indicator
-  document.querySelector('.page-indicator').textContent = 
-    `Page ${appState.currentPage} of ${appState.totalPages}`;
+  const pageIndicator = document.querySelector('.page-indicator');
+  if (pageIndicator) {
+    pageIndicator.textContent = `Page ${appState.currentPage} of ${appState.totalPages}`;
+  }
     
   // Update breadcrumb
   updateBreadcrumb();
+  
+  // Update panel visibility based on screen size
+  if (window.innerWidth <= 767) {
+    const activeTabPanel = document.querySelector('.tab-button.active')?.dataset.panel || 'violations';
+    const violationsPanel = document.querySelector('.fcra-panel');
+    const documentsPanel = document.querySelector('.doc-icons');
+    
+    if (violationsPanel) {
+      violationsPanel.style.display = activeTabPanel === 'violations' ? 'block' : 'none';
+    }
+    
+    if (documentsPanel) {
+      documentsPanel.style.display = activeTabPanel === 'documents' ? 'flex' : 'none';
+    }
+  }
 }
