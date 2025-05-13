@@ -20,25 +20,25 @@ const appState = {
   csvData: []
 };
 
-// Actual sample CSV data for testing
+// Actual sample CSV data with CORRECT X, Y, Width, Height values from the provided data
 const sampleCsvData = `Image,Severity,Label,Codes,X,Y,Width,Height,Mode,SOF
-AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),100,100,180,40,INCLUDED_IN_CHAPTER_13,true
-AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),320,150,200,50,Chapter 7 Dismissal,false
-AL-EQ-2024-04-25-P57.png,severe,Failure to Ensure Accuracy,§1681e(b),600,200,190,45,Inaccurate Reporting,false
-AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),150,300,170,40,Still Showing as Active,true
-AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),450,350,160,35,Unverifiable Account,false
-AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),700,450,150,30,Missing Account History,false
-AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),120,110,175,45,INCLUDED_IN_CHAPTER_13,true
-AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),350,160,210,55,Chapter 7 Dismissal,false
-AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),580,200,190,45,Inaccurate Reporting,false
-AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),160,310,170,40,Still Showing as Active,true
-AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),440,360,160,35,Unverifiable Account,false
-AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),690,460,150,30,Missing Account History,false
-AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),130,120,175,45,INCLUDED_IN_CHAPTER_13,true
-AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),360,170,210,55,Chapter 7 Dismissal,false
-AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),590,210,190,45,Inaccurate Reporting,false
-AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),170,320,170,40,Still Showing as Active,true
-AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),450,370,160,35,Unverifiable Account,false`;
+AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),43,199,355,20,INCLUDED_IN_CHAPTER_13,true
+AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),406,171,355,20,Chapter 7 Dismissal,false
+AL-EQ-2024-04-25-P57.png,severe,Failure to Ensure Accuracy,§1681e(b),406,198,355,20,Inaccurate Reporting,false
+AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),45,663,355,20,Still Showing as Active,true
+AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),43,689,355,20,Unverifiable Account,false
+AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),43,738,355,20,Missing Account History,false
+AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),118,320,555,20,INCLUDED_IN_CHAPTER_13,true
+AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),117,365,555,20,Chapter 7 Dismissal,false
+AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),118,407,555,22,Inaccurate Reporting,false
+AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),117,474,550,23,Still Showing as Active,true
+AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),116,520,554,20,Unverifiable Account,false
+AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),118,345,555,21,Missing Account History,false
+AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),41,264,729,30,INCLUDED_IN_CHAPTER_13,true
+AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),42,390,728,31,Chapter 7 Dismissal,false
+AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),41,435,728,24,Inaccurate Reporting,false
+AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),41,516,730,30,Still Showing as Active,true
+AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),40,476,733,26,Unverifiable Account,false`;
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Load initial credit report (default to Equifax)
   loadCreditReport('equifax');
+  
+  // Log the CSV data
+  console.log('CSV data processed with correct coordinates:', appState.csvData);
 });
 
 // ===== CSV DATA PROCESSING =====
@@ -103,7 +106,7 @@ function processCSVData(csvContent) {
     appState.csvData.push(entry);
   }
   
-  console.log('CSV data processed:', appState.csvData);
+  console.log('CSV data processed with correct coordinates. Total entries:', appState.csvData.length);
 }
 
 // ===== CORE FUNCTIONS =====
@@ -377,7 +380,7 @@ function renderViolationsForBureau(bureau) {
   
   // Create boxes
   violations.forEach(violation => {
-    // Create box element
+    // Create box element with CORRECT X, Y, Width, Height values
     const box = document.createElement('div');
     box.id = violation.id;
     box.className = `violation-box ${violation.Severity}`;
@@ -391,6 +394,9 @@ function renderViolationsForBureau(bureau) {
     box.onclick = function() { toggleViolation(violation.id); };
     
     container.appendChild(box);
+    
+    // Log the box dimensions for verification
+    console.log(`Created box at X:${violation.X}, Y:${violation.Y}, W:${violation.Width}, H:${violation.Height}`);
   });
   
   // Render entries in sidebar
@@ -406,7 +412,7 @@ function renderViolationsForBureau(bureau) {
   document.getElementById('placeholder-text').style.display = 'none';
   
   // Log for debugging
-  console.log(`Rendered ${violations.length} violation boxes for ${bureau}`);
+  console.log(`Rendered ${violations.length} violation boxes for ${bureau} using correct coordinates`);
 }
 
 // Render violation entries in sidebar

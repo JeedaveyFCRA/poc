@@ -206,18 +206,26 @@ body {
   max-width: 1800px;
   margin: 0 auto;
   width: 100%;
+  justify-content: center; /* Center content horizontally */
 }
 
 /* ===== REPORT CONTAINER ===== */
 .report-container {
-  flex: 1;
+  /* Remove flexible sizing */
+  flex: 0 0 auto; /* Don't grow, don't shrink, respect exact dimensions */
+  
+  /* Enforce exact dimensions */
+  width: 810px;
+  height: 920px;
+  
+  /* Ensure image doesn't resize */
+  background-size: 810px 920px;
+  
+  /* Keep other properties */
   position: relative;
   border-radius: var(--border-radius);
   background-color: var(--white);
   box-shadow: var(--box-shadow);
-  width: 810px;
-  height: 920px;
-  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -601,12 +609,16 @@ body {
     align-items: center;
   }
   
-  .report-container {
-    width: 100%;
-    max-width: 810px;
-    height: auto;
-    aspect-ratio: 810/920;
-  }
+ .report-container {
+    /* Don't override width/height with percentage */
+    width: 810px;
+    height: 920px;
+  
+  /* If screen is too small, allow scaling down proportionally */
+  max-width: 100%;
+  transform-origin: top center;
+  transform: scale(var(--container-scale, 1));
+}
   
   .doc-icons {
     flex-direction: row;
