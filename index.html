@@ -43,24 +43,22 @@
     <button class="nav-arrow next-single" title="Next Page">▶</button>
   </div>
 
-<!-- Violation Counter -->
-<div class="violation-counter">
-  <div class="counter-pill">
-    <span class="counter-icon">⚠️</span>
-    Violations on this page: <span id="violation-count">6</span>
+  <!-- Mobile Tab Navigation - This is the ONLY mobile tabs container we need -->
+  <div class="mobile-tabs">
+    <button class="tab-button active" data-panel="violations">Violations</button>
+    <button class="tab-button" data-panel="documents">Documents</button>
   </div>
-</div>
+
+  <!-- Violation Counter -->
+  <div class="violation-counter">
+    <div class="counter-pill">
+      <span class="counter-icon">⚠️</span>
+      Violations on this page: <span id="violation-count">6</span>
+    </div>
+  </div>
 
   <!-- Main Content Area -->
   <div class="main-content">
-
-<!-- Mobile Tab Navigation (hidden by default, shown on small screens) -->
-<div class="mobile-tabs" style="display: none;">
-  <button class="tab-button active" data-tab="violations">Violations</button>
-  <button class="tab-button" data-tab="documents">Documents</button>
-</div>
-
-
     <!-- Credit Report Image + Boxes -->
     <div class="report-container" id="report-container">
       <!-- Violation boxes will be dynamically generated here -->
@@ -71,7 +69,7 @@
     </div>
 
     <!-- Document Icons Panel -->
-    <div class="doc-icons">
+    <div class="doc-icons panel documents-panel">
       <div class="doc-icon" onclick="showDocument('print')">
         <div class="icon-circle">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
@@ -105,7 +103,7 @@
     </div>
 
     <!-- FCRA Review Panel -->
-    <div class="fcra-panel">
+    <div class="fcra-panel panel violations-panel active">
       <div class="panel-header">
         <h2>FCRA REVIEW</h2>
         <span class="violation-badge">0</span>
@@ -175,5 +173,6 @@
   <input type="file" id="csvFileInput" style="display: none;" accept=".csv">
 
   <script src="script.js"></script>
+  <script src="viotagger-mobile.js"></script>
 </body>
 </html>
