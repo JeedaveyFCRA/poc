@@ -603,6 +603,23 @@ body {
   display: none; /* Hidden by default */
 }
 
+
+/* Touch feedback ripple effect */
+@keyframes touch-ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.touch-feedback {
+  animation: touch-ripple 0.3s ease-out;
+}
+
 /* ===== RESPONSIVE STYLES ===== */
 @media (max-width: 1200px) {
   .main-content {
@@ -610,16 +627,16 @@ body {
     align-items: center;
   }
   
- .report-container {
+  .report-container {
     /* Don't override width/height with percentage */
     width: 810px;
     height: 920px;
   
-  /* If screen is too small, allow scaling down proportionally */
-  max-width: 100%;
-  transform-origin: top center;
-  transform: scale(var(--container-scale, 1));
-}
+    /* If screen is too small, allow scaling down proportionally */
+    max-width: 100%;
+    transform-origin: top center;
+    transform: scale(var(--container-scale, 1));
+  }
   
   .doc-icons {
     flex-direction: row;
@@ -657,53 +674,108 @@ body {
   .stats-grid {
     grid-template-columns: 1fr;
   }
-
-/* Additional CSS to match VioTagger's box styling */
-
-/* Make the violation boxes match VioTagger's styling */
-.violation-box {
-  position: absolute;
-  border: 5px solid; /* 5px border (5pts) */
-  border-radius: 24px; /* 24px corner radius */
-  background-color: rgba(255, 255, 255, 0.15); /* Semi-transparent background */
-  cursor: pointer;
-  transition: var(--transition);
-  box-sizing: border-box;
-  z-index: 2;
 }
 
-/* Ensure the image container exactly matches VioTagger's specs */
-.report-container {
-  flex: 0 0 auto; /* Don't grow, don't shrink, respect exact dimensions */
-  position: relative;
-  width: 810px; 
-  height: 920px;
-  background-color: #ffffff !important; /* White background */
-  border: 1px solid #ffffff !important; /* White border */
-  border-radius: 12px; /* Match VioTagger's rounded corners */
-  overflow: hidden;
-  cursor: crosshair;
-  user-select: none;
-  -webkit-user-drag: none;
+/* Mobile responsiveness enhancements */
+@media (max-width: 830px) {
+  /* For tablets and mobile */
+  :root {
+    --container-scale: 0.85;
+  }
+  
+  .report-container {
+    transform: scale(var(--container-scale, 0.85));
+    height: calc(920px * var(--container-scale, 0.85));
+    margin-bottom: 20px;
+  }
+  
+  /* Add mobile tab navigation */
+  .mobile-tabs {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--border-gray);
+    margin-bottom: 15px;
+  }
+  
+  .tab-button {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background: var(--light-gray);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .tab-button.active {
+    background: var(--white);
+    border-bottom: 3px solid var(--red);
+  }
+  
+  /* Allow content scrolling on mobile */
+  .fcra-panel {
+    max-height: 400px;
+  }
 }
 
-/* Style the report image to match VioTagger's approach */
-#report-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 778px; /* Match VioTagger's image width */
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 0;
+@media (max-width: 600px) {
+  /* For smaller phones */
+  :root {
+    --container-scale: 0.6;
+  }
+  
+  /* Reduce font sizes for better mobile experience */
+  body {
+    font-size: 14px;
+  }
+  
+  .violation-blurb {
+    font-size: 13px;
+  }
+  
+  /* Make buttons more touch-friendly */
+  .button, .toggle-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Touch-friendly code labels */
+  .code-label {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  /* Adjust padding for smaller screens */
+  .violation-entry {
+    padding: 12px 10px;
+  }
+  
+  /* Touch-optimized modal close button */
+  .close-modal {
+    font-size: 32px;
+    padding: 10px;
+  }
 }
 
-/* Add .image-loaded class styles */
-.image-loaded .image-placeholder-text {
-  opacity: 0;
+/* Add touch device detection */
+@media (hover: none) {
+  /* Improve tap targets for touch devices */
+  .violation-box {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  /* Disable hover effects on touch devices */
+  .violation-box:hover,
+  .button:hover,
+  .doc-icon:hover {
+    transform: none;
+  }
+  
+  /* Add active state for touch feedback */
+  .violation-box:active,
+  .button:active,
+  .doc-icon:active {
+    opacity: 0.7;
+  }
 }
-
-
-}
-
-

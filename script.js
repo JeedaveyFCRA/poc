@@ -40,6 +40,170 @@ AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),41,435,728
 AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),41,516,730,30,Still Showing as Active,true
 AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),40,476,733,26,Unverifiable Account,false`;
 
+
+
+// ===== MOBILE & TOUCH SUPPORT =====
+function setupMobileSupport() {
+  // Calculate and apply container scaling for different screen sizes
+  function updateContainerScale() {
+    const container = document.getElementById('report-container');
+    if (!container) return;
+    
+    // Get container and window dimensions
+    const containerWidth = 810; // Original width
+    const windowWidth = window.innerWidth;
+    
+    // Calculate scale if window is smaller than container
+    if (windowWidth < containerWidth + 40) { // Add some margin
+      // Calculate scale factor (with minimum scale limit)
+      const scaleFactor = Math.max(0.5, (windowWidth - 40) / containerWidth);
+      
+      // Set CSS variable for use in media queries
+      document.documentElement.style.setProperty('--container-scale', scaleFactor.toFixed(2));
+      
+      // Update violation box sizes if they exist
+      adjustViolationBoxesForScale(scaleFactor);
+    } else {
+      // Reset to default
+      document.documentElement.style.setProperty('--container-scale', '1');
+    }
+  }
+  
+  // Adjust violation boxes positioning for mobile scaling
+  function adjustViolationBoxesForScale(scale) {
+    // If needed, make specific adjustments to boxes when scaled
+    // This might not be necessary if CSS scale works well
+  }
+  
+  // Add touch support for violation boxes
+  function setupTouchSupport() {
+    // Detect touch device
+    const isTouchDevice = 'ontouchstart' in window || 
+                          navigator.maxTouchPoints > 0 ||
+                          navigator.msMaxTouchPoints > 0;
+    
+    if (isTouchDevice) {
+      document.body.classList.add('touch-device');
+      
+      // Add specific touch event handlers if needed
+      document.addEventListener('touchstart', function(e) {
+        // Handle touch start events
+      }, {passive: true});
+      
+      // Add visual feedback for touch
+      document.querySelectorAll('.violation-box, .button, .doc-icon').forEach(el => {
+        el.addEventListener('touchstart', function() {
+          this.classList.add('touch-feedback');
+          setTimeout(() => {
+            this.classList.remove('touch-feedback');
+          }, 300);
+        }, {passive: true});
+      });
+    }
+  }
+  
+  // Setup mobile tab navigation (FCRA panel / Documents)
+  function setupMobileTabs() {
+    const mobileTabsContainer = document.querySelector('.mobile-tabs');
+    
+    // Show/hide based on screen size
+    if (window.innerWidth <= 830) {
+      if (mobileTabsContainer) {
+        mobileTabsContainer.style.display = 'flex';
+      } else {
+        // Create tab container if it doesn't exist
+        const tabContainer = document.createElement('div');
+        tabContainer.className = 'mobile-tabs';
+        
+        // Create violation tab
+        const violationsTab = document.createElement('button');
+        violationsTab.className = 'tab-button active';
+        violationsTab.textContent = 'Violations';
+        violationsTab.dataset.tab = 'violations';
+        
+        // Create documents tab
+        const documentsTab = document.createElement('button');
+        documentsTab.className = 'tab-button';
+        documentsTab.textContent = 'Documents';
+        documentsTab.dataset.tab = 'documents';
+        
+        // Add tabs to container
+        tabContainer.appendChild(violationsTab);
+        tabContainer.appendChild(documentsTab);
+        
+        // Add before FCRA panel
+        const fcraPanel = document.querySelector('.fcra-panel');
+        if (fcraPanel && fcraPanel.parentNode) {
+          fcraPanel.parentNode.insertBefore(tabContainer, fcraPanel);
+        }
+        
+        // Add tab click handlers
+        setupTabHandlers();
+      }
+      
+      // Set initial states based on active tab
+      const activeTab = document.querySelector('.tab-button.active');
+      if (activeTab) {
+        const selectedTab = activeTab.dataset.tab;
+        
+        if (selectedTab === 'violations') {
+          document.querySelector('.fcra-panel').style.display = 'block';
+          document.querySelector('.doc-icons').style.display = 'none';
+        } else if (selectedTab === 'documents') {
+          document.querySelector('.fcra-panel').style.display = 'none';
+          document.querySelector('.doc-icons').style.display = 'flex';
+        }
+      }
+    } else {
+      // On larger screens, show both panels and hide tabs
+      if (mobileTabsContainer) {
+        mobileTabsContainer.style.display = 'none';
+      }
+      document.querySelector('.fcra-panel').style.display = 'block';
+      document.querySelector('.doc-icons').style.display = 'flex';
+    }
+  }
+  
+  // Handle tab clicks
+  function setupTabHandlers() {
+    document.querySelectorAll('.tab-button').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remove active class from all tabs
+        document.querySelectorAll('.tab-button').forEach(t => {
+          t.classList.remove('active');
+        });
+        
+        // Add active class to clicked tab
+        this.classList.add('active');
+        
+        // Show/hide content based on selected tab
+        const selectedTab = this.dataset.tab;
+        
+        if (selectedTab === 'violations') {
+          document.querySelector('.fcra-panel').style.display = 'block';
+          document.querySelector('.doc-icons').style.display = 'none';
+        } else if (selectedTab === 'documents') {
+          document.querySelector('.fcra-panel').style.display = 'none';
+          document.querySelector('.doc-icons').style.display = 'flex';
+        }
+      });
+    });
+  }
+  
+  // Initialize mobile support
+  updateContainerScale();
+  setupTouchSupport();
+  setupMobileTabs();
+  
+  // Reapply on resize
+  window.addEventListener('resize', function() {
+    updateContainerScale();
+    setupMobileTabs();
+  });
+}
+
+
+
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
   // Configure the image container to match VioTagger's exact specs
@@ -51,6 +215,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize event listeners
   initBureauSelectors();
   initNavigationControls();
+
+  // Set up mobile and touch support
+  setupMobileSupport();
   
   // Load initial credit report (default to Equifax)
   loadCreditReport('equifax');

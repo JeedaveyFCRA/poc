@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>FCRA Violation Review System</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
@@ -53,6 +53,14 @@
 
   <!-- Main Content Area -->
   <div class="main-content">
+
+<!-- Mobile Tab Navigation (hidden by default, shown on small screens) -->
+<div class="mobile-tabs" style="display: none;">
+  <button class="tab-button active" data-tab="violations">Violations</button>
+  <button class="tab-button" data-tab="documents">Documents</button>
+</div>
+
+
     <!-- Credit Report Image + Boxes -->
     <div class="report-container" id="report-container">
       <!-- Violation boxes will be dynamically generated here -->
