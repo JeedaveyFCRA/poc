@@ -20,26 +20,25 @@ const appState = {
   csvData: []
 };
 
-// Preloaded sample CSV data for testing/initialization
+// Actual sample CSV data with CORRECT X, Y, Width, Height values from the provided data
 const sampleCsvData = `Image,Severity,Label,Codes,X,Y,Width,Height,Mode,SOF
-AL-EQ-2024-04-25-P57.png,🔴,Account Status: INCLUDED_IN_CHAPTER_13,§1681c(f); §1681e(b),43,199,355,20,sample,true
-AL-EQ-2024-04-25-P57.png,🔴,Reported Balance: $0,§1681e(b); §1681c(f),406,171,355,20,sample,false
-AL-EQ-2024-04-25-P57.png,🔴,Balance: $0,§1681e(b); §1681c(f),406,198,355,20,sample,false
-AL-EQ-2024-04-25-P57.png,🟠,Date Reported: Oct 25, 2018,§1681c(a)(4); §1681e(b),45,663,355,20,sample,true
-AL-EQ-2024-04-25-P57.png,🟠,Bankruptcy Completed,§1681e(b),43,689,355,20,sample,false
-AL-EQ-2024-04-25-P57.png,🟡,On Record Until: 09/2025,§1681e(b); §1681c(a)(1),43,738,355,20,sample,false
-AL-EX-2024-04-25-P05.png,🔴,Status: Discharged through Bankruptcy Chapter 13,§1681s-2(a)(1)(A); §1681c(a)(4); §1681e(b),118,320,555,20,sample,true
-AL-EX-2024-04-25-P05.png,🟠,Status Updated: Oct 2018,§1681c(a)(4); §1681s-2(a)(1)(A),117,365,555,20,sample,false
-AL-EX-2024-04-25-P05.png,🔴,Balance: -,§1681e(b); §1681c(f),118,407,555,22,sample,false
-AL-EX-2024-04-25-P05.png,🟠,Balance Updated: -,§1681e(b); §1681c(a)(4),117,474,550,23,sample,true
-AL-EX-2024-04-25-P05.png,🟠,Recent Payment: -,§1681e(b),116,520,554,20,sample,false
-AL-EX-2024-04-25-P05.png,🟠,Monthly Payment: -,§1681e(b),118,345,555,21,sample,false
-AL-TU-2024-04-25-P07.png,🟠,Date Updated: 02/19/2024,§1681s-2(a)(1)(A); §1681e(b),41,264,729,30,sample,true
-AL-TU-2024-04-25-P07.png,🔴,Pay Status: >Account Included in Bankruptcy<,§1681c(f); §1681e(b),42,390,728,31,sample,false
-AL-TU-2024-04-25-P07.png,🟠,Date Closed: 02/19/2024,§1681s-2(a)(1)(A); §1681e(b),41,435,728,24,sample,false
-AL-TU-2024-04-25-P07.png,🔴,Remarks: CHAPTER 13 BANKRUPTCY,§1681c(f); §1681e(b),41,516,730,30,sample,true
-AL-TU-2024-04-25-P07.png,🟡,On Record Until: 09/2025,§1681e(b); §1681c(a)(1),40,476,733,26,sample,false`;
-
+AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),43,199,355,20,INCLUDED_IN_CHAPTER_13,true
+AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),406,171,355,20,Chapter 7 Dismissal,false
+AL-EQ-2024-04-25-P57.png,severe,Failure to Ensure Accuracy,§1681e(b),406,198,355,20,Inaccurate Reporting,false
+AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),45,663,355,20,Still Showing as Active,true
+AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),43,689,355,20,Unverifiable Account,false
+AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),43,738,355,20,Missing Account History,false
+AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),118,320,555,20,INCLUDED_IN_CHAPTER_13,true
+AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),117,365,555,20,Chapter 7 Dismissal,false
+AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),118,407,555,22,Inaccurate Reporting,false
+AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),117,474,550,23,Still Showing as Active,true
+AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),116,520,554,20,Unverifiable Account,false
+AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),118,345,555,21,Missing Account History,false
+AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),41,264,729,30,INCLUDED_IN_CHAPTER_13,true
+AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),42,390,728,31,Chapter 7 Dismissal,false
+AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),41,435,728,24,Inaccurate Reporting,false
+AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),41,516,730,30,Still Showing as Active,true
+AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),40,476,733,26,Unverifiable Account,false`;
 
 
 
