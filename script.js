@@ -22,23 +22,23 @@ const appState = {
 
 // Actual sample CSV data with CORRECT X, Y, Width, Height values from the provided data
 const sampleCsvData = `Image,Severity,Label,Codes,X,Y,Width,Height,Mode,SOF
-AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),43,199,355,20,INCLUDED_IN_CHAPTER_13,true
-AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),406,171,355,20,Chapter 7 Dismissal,false
-AL-EQ-2024-04-25-P57.png,severe,Failure to Ensure Accuracy,§1681e(b),406,198,355,20,Inaccurate Reporting,false
-AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),45,663,355,20,Still Showing as Active,true
-AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),43,689,355,20,Unverifiable Account,false
-AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),43,738,355,20,Missing Account History,false
-AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),118,320,555,20,INCLUDED_IN_CHAPTER_13,true
-AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),117,365,555,20,Chapter 7 Dismissal,false
-AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),118,407,555,22,Inaccurate Reporting,false
-AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),117,474,550,23,Still Showing as Active,true
-AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),116,520,554,20,Unverifiable Account,false
-AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),118,345,555,21,Missing Account History,false
-AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),41,264,729,30,INCLUDED_IN_CHAPTER_13,true
-AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),42,390,728,31,Chapter 7 Dismissal,false
-AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),41,435,728,24,Inaccurate Reporting,false
-AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),41,516,730,30,Still Showing as Active,true
-AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),40,476,733,26,Unverifiable Account,false`;
+AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),43,198,360,20,INCLUDED_IN_CHAPTER_13,true
+AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),404,174,360,20,Chapter 7 Dismissal,false
+AL-EQ-2024-04-25-P57.png,severe,Failure to Ensure Accuracy,§1681e(b),404,198,360,20,Inaccurate Reporting,false
+AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),43,661,360,20,Still Showing as Active,true
+AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),43,688,360,20,Unverifiable Account,false
+AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),404,761,360,20,,Missing Account History,false
+AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),123,321,510,15,INCLUDED_IN_CHAPTER_13,true
+AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),123,366,510,15,Chapter 7 Dismissal,false
+AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),123,388,510,15,Inaccurate Reporting,false
+AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),123,410,510,15,Still Showing as Active,true
+AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),123,431,510,15,Unverifiable Account,false
+AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),123,475,510,15,Missing Account History,false
+AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),47,264,711,28,INCLUDED_IN_CHAPTER_13,true
+AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),47,389,711,28,Chapter 7 Dismissal,false
+AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),47,429,711,28,Inaccurate Reporting,false
+AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),47,516,711,28,Still Showing as Active,true
+AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),47,473,711,28,Unverifiable Account,false`;
 
 
 
