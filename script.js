@@ -31,7 +31,7 @@ AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),40
 
 AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),123,319,510,20,INCLUDED_IN_CHAPTER_13,true
 AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),123,364,510,20,Chapter 13 Dismissal,false
-AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),123,387,509,20,Inaccurate Reporting,false
+AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),123,386,509,20,Inaccurate Reporting,false
 AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),123,408,510,20,Still Showing as Active,true
 AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),123,429,510,20,Unverifiable Account,false
 AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),123,473,510,20,Missing Account History,false
