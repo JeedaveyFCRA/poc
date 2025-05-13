@@ -1,714 +1,1587 @@
-// ===== STATE MANAGEMENT =====
-const appState = {
-  // Core application state
-  currentCreditor: 'AL',
-  currentBureau: 'equifax',
-  currentPage: 1,
-  totalPages: 3,
-  
-  // Violation tracking
-  violationCount: 0,
-  activeViolations: [],
-  allViolations: [],
-  
-  // Modal state
-  breakdownVisible: false,
-  documentVisible: false,
-  currentDocumentType: null,
-  
-  // CSV Data
-  csvData: []
-};
+// ========== GLOBAL STATE ==========
 
-// Actual sample CSV data with CORRECT X, Y, Width, Height values from the provided data
+let isDrawing = false;
+let isMultiSelectMode = false;
+let startX, startY;
+let currentBox = null;
+let currentHints = [];
+let tagData = [];
+let allImageData = {};
+let imageName = "";
+let copiedTags = []; // Buffer to store copied tag data
+let boxGroups = {}; // For storing groups of boxes
+let groupCounter = 0; // For generating unique group IDs
+let undoStack = []; // For storing undo history
+
+// Preloaded sample CSV data for testing/initialization
 const sampleCsvData = `Image,Severity,Label,Codes,X,Y,Width,Height,Mode,SOF
-AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),43,199,355,20,INCLUDED_IN_CHAPTER_13,true
-AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),406,171,355,20,Chapter 7 Dismissal,false
-AL-EQ-2024-04-25-P57.png,severe,Failure to Ensure Accuracy,§1681e(b),406,198,355,20,Inaccurate Reporting,false
-AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),45,663,355,20,Still Showing as Active,true
-AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),43,689,355,20,Unverifiable Account,false
-AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),43,738,355,20,Missing Account History,false
-AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),118,320,555,20,INCLUDED_IN_CHAPTER_13,true
-AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),117,365,555,20,Chapter 7 Dismissal,false
-AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),118,407,555,22,Inaccurate Reporting,false
-AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),117,474,550,23,Still Showing as Active,true
-AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),116,520,554,20,Unverifiable Account,false
-AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),118,345,555,21,Missing Account History,false
-AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),41,264,729,30,INCLUDED_IN_CHAPTER_13,true
-AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),42,390,728,31,Chapter 7 Dismissal,false
-AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),41,435,728,24,Inaccurate Reporting,false
-AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),41,516,730,30,Still Showing as Active,true
-AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),40,476,733,26,Unverifiable Account,false`;
+AL-EQ-2024-04-25-P57.png,🔴,Account Status: INCLUDED_IN_CHAPTER_13,§1681c(f); §1681e(b),43,199,355,20,sample,true
+AL-EQ-2024-04-25-P57.png,🔴,Reported Balance: $0,§1681e(b); §1681c(f),406,171,355,20,sample,false
+AL-EQ-2024-04-25-P57.png,🔴,Balance: $0,§1681e(b); §1681c(f),406,198,355,20,sample,false
+AL-EQ-2024-04-25-P57.png,🟠,Date Reported: Oct 25, 2018,§1681c(a)(4); §1681e(b),45,663,355,20,sample,true
+AL-EQ-2024-04-25-P57.png,🟠,Bankruptcy Completed,§1681e(b),43,689,355,20,sample,false
+AL-EQ-2024-04-25-P57.png,🟡,On Record Until: 09/2025,§1681e(b); §1681c(a)(1),43,738,355,20,sample,false
+AL-EX-2024-04-25-P05.png,🔴,Status: Discharged through Bankruptcy Chapter 13,§1681s-2(a)(1)(A); §1681c(a)(4); §1681e(b),118,320,555,20,sample,true
+AL-EX-2024-04-25-P05.png,🟠,Status Updated: Oct 2018,§1681c(a)(4); §1681s-2(a)(1)(A),117,365,555,20,sample,false
+AL-EX-2024-04-25-P05.png,🔴,Balance: -,§1681e(b); §1681c(f),118,407,555,22,sample,false
+AL-EX-2024-04-25-P05.png,🟠,Balance Updated: -,§1681e(b); §1681c(a)(4),117,474,550,23,sample,true
+AL-EX-2024-04-25-P05.png,🟠,Recent Payment: -,§1681e(b),116,520,554,20,sample,false
+AL-EX-2024-04-25-P05.png,🟠,Monthly Payment: -,§1681e(b),118,345,555,21,sample,false
+AL-TU-2024-04-25-P07.png,🟠,Date Updated: 02/19/2024,§1681s-2(a)(1)(A); §1681e(b),41,264,729,30,sample,true
+AL-TU-2024-04-25-P07.png,🔴,Pay Status: >Account Included in Bankruptcy<,§1681c(f); §1681e(b),42,390,728,31,sample,false
+AL-TU-2024-04-25-P07.png,🟠,Date Closed: 02/19/2024,§1681s-2(a)(1)(A); §1681e(b),41,435,728,24,sample,false
+AL-TU-2024-04-25-P07.png,🔴,Remarks: CHAPTER 13 BANKRUPTCY,§1681c(f); §1681e(b),41,516,730,30,sample,true
+AL-TU-2024-04-25-P07.png,🟡,On Record Until: 09/2025,§1681e(b); §1681c(a)(1),40,476,733,26,sample,false`;
 
+// Load sample data function
+function loadSampleData() {
+  try {
+    // Process CSV data
+    const lines = sampleCsvData.split('\n');
+    const headers = lines[0].split(',');
+    
+    // Skip header row
+    for (let i = 1; i < lines.length; i++) {
+      const values = lines[i].split(',');
+      const imgName = values[0];
+      
+      // Create tag object with exact integer values
+      const tag = {
+        severity: values[1],
+        label: values[2],
+        codes: values[3].split('; '), // Split codes by semicolon
+        x: parseInt(values[4], 10),   // Ensure integer
+        y: parseInt(values[5], 10),   // Ensure integer
+        width: parseInt(values[6], 10), // Ensure integer
+        height: parseInt(values[7], 10), // Ensure integer
+        sof: values[9].toLowerCase() === 'true'
+      };
+      
+      // Add tag to appropriate image entry
+      if (!allImageData[imgName]) {
+        allImageData[imgName] = [];
+      }
+      allImageData[imgName].push(tag);
+    }
+    
+    showStatus("✅ Sample data loaded", 3000);
+    return true;
+  } catch (e) {
+    console.error("Error loading sample data:", e);
+    showStatus("❌ Error loading sample data", 3000);
+    return false;
+  }
+}
 
+// ========== DOM ELEMENTS ==========
 
+const imageContainer = document.getElementById("image-container");
+const reportImg = document.getElementById("report-img");
+const popup = document.getElementById("popup");
+const violationPreset = document.getElementById("violationPreset");
+const saveTagBtn = document.getElementById("saveTag");
+const cancelTagBtn = document.getElementById("cancelTag");
+const statusBox = document.getElementById("status-message");
 
+// ========== INITIAL LOAD ==========
+loadAllProgress();
 
-// ===== INITIALIZATION =====
-document.addEventListener('DOMContentLoaded', function() {
-  // Ensure UI is properly initialized
-  ensureUIInitialization();
-  
-  // Configure the image container to match VioTagger's exact specs
-  configureReportContainer();
-  
-  // Parse the CSV data
-  processCSVData(sampleCsvData);
-  
-  // Initialize event listeners
-  initBureauSelectors();
-  initNavigationControls();
-  
-  // Load initial credit report (default to current bureau or equifax)
-  loadCreditReport(appState.currentBureau || 'equifax');
-  
-  // Log the CSV data
-  console.log('CSV data processed with correct coordinates:', appState.csvData);
-  
-  // Note: Mobile support is now handled by viotagger-mobile.js
+// If no data exists, load sample data
+if (Object.keys(allImageData).length === 0) {
+  loadSampleData();
+}
+
+// ========== IMAGE DRAWING ==========
+
+imageContainer.addEventListener("mousedown", (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains("resize-handle")) return;
+  if (e.target.classList.contains("draw-box")) {
+    clearSelection();
+    e.target.classList.add("selected");
+    return;
+  }
+
+  clearSelection();
+  isDrawing = true;
+  const rect = imageContainer.getBoundingClientRect();
+  startX = Math.round(e.clientX - rect.left); // Use Math.round for integer values
+  startY = Math.round(e.clientY - rect.top);
+
+  currentBox = document.createElement("div");
+  currentBox.className = "draw-box";
+  currentBox.style.left = `${startX}px`;
+  currentBox.style.top = `${startY}px`;
+  imageContainer.appendChild(currentBox);
 });
 
-// ===== CONTAINER CONFIGURATION =====
+imageContainer.addEventListener("mousemove", (e) => {
+  if (!isDrawing || !currentBox) return;
+  const rect = imageContainer.getBoundingClientRect();
+  let x = Math.round(e.clientX - rect.left); // Use Math.round for integer values
+  let y = Math.round(e.clientY - rect.top);
+  let width = Math.abs(x - startX);
+  let height = Math.abs(y - startY);
+  currentBox.style.width = `${width}px`;
+  currentBox.style.height = `${height}px`;
+  currentBox.style.left = `${Math.min(x, startX)}px`;
+  currentBox.style.top = `${Math.min(y, startY)}px`;
 
-// Configure the report container to match VioTagger's specs
-function configureReportContainer() {
-  const container = document.getElementById('report-container');
-  
-  // Set explicit dimensions matching VioTagger
-  container.style.width = '810px';
-  container.style.height = '920px';
-  container.style.position = 'relative';
-  container.style.overflow = 'hidden';
-  
-  // Ensure box coordinates match VioTagger's system
-  container.style.padding = '0';
-  container.style.margin = '0';
-  container.style.boxSizing = 'border-box';
-  
-  // Center the container
-  const wrapper = document.querySelector('.main-content');
-  if (wrapper) {
-    wrapper.style.justifyContent = 'center';
-  }
-  
-  console.log('Container configured to match VioTagger specs: 810x920px');
-}
-
-// ===== CSV DATA PROCESSING =====
-
-// Process the CSV data
-function processCSVData(csvContent) {
-  // Clear existing data
-  appState.csvData = [];
-  
-  // Parse CSV
-  const lines = csvContent.split('\n');
-  const headers = lines[0].split(',');
-  
-  for (let i = 1; i < lines.length; i++) {
-    if (lines[i].trim() === '') continue;
-    
-    const values = lines[i].split(',');
-    const entry = {};
-    
-    for (let j = 0; j < headers.length; j++) {
-      let value = values[j];
-      
-      // Convert numeric fields to numbers
-      if (['X', 'Y', 'Width', 'Height'].includes(headers[j])) {
-        value = parseInt(value);
-      }
-      
-      // Convert boolean fields
-      if (headers[j] === 'SOF') {
-        value = value.toLowerCase() === 'true';
-      }
-      
-      entry[headers[j]] = value;
+  // Always update the latest tag log entry (whether selected or not)
+  const logEntries = document.querySelectorAll(".tag-entry");
+  if (logEntries.length > 0) {
+    const lastEntry = logEntries[logEntries.length - 1];
+    const xCoord = parseInt(currentBox.style.left, 10);
+    const yCoord = parseInt(currentBox.style.top, 10);
+    const width = parseInt(currentBox.style.width, 10);
+    const height = parseInt(currentBox.style.height, 10);
+    const posDiv = lastEntry.querySelector(".tag-position");
+    if (posDiv) {
+      posDiv.textContent = `(${xCoord}, ${yCoord}) | ${width}×${height}`;
     }
-    
-    // Add unique ID for tracking
-    entry.id = `box-${i}`;
-    
-    // Determine which bureau this belongs to
-    if (entry.Image.includes('-EQ-')) {
-      entry.bureau = 'equifax';
-    } else if (entry.Image.includes('-EX-')) {
-      entry.bureau = 'experian';
-    } else if (entry.Image.includes('-TU-')) {
-      entry.bureau = 'transunion';
-    } else {
-      entry.bureau = 'unknown';
-    }
-    
-    appState.csvData.push(entry);
   }
-  
-  console.log('CSV data processed with correct coordinates. Total entries:', appState.csvData.length);
-}
+});
 
-// ===== CORE FUNCTIONS =====
+imageContainer.addEventListener("mouseup", (e) => {
+  if (!isDrawing || !currentBox) return;
+  isDrawing = false;
 
-// Toggle violation boxes and their panels
-function toggleViolation(boxId) {
-  // Get DOM elements
-  const box = document.getElementById(boxId);
-  const entry = document.getElementById(`entry-${boxId}`);
-  
-  if (!box || !entry) {
-    console.error(`Elements for box ID ${boxId} not found`);
+  if (currentBox.offsetWidth < 10 || currentBox.offsetHeight < 10) {
+    imageContainer.removeChild(currentBox);
+    currentBox = null;
     return;
   }
+
+  makeBoxInteractive(currentBox, tagData);
+  showPopup(e.clientX, e.clientY);
+});
+
+
+// ========== POPUP CANCEL LOGIC ==========
+cancelTagBtn.addEventListener("click", () => {
+  if (currentBox && imageContainer.contains(currentBox)) {
+    imageContainer.removeChild(currentBox);
+  }
+  popup.style.display = "none";
+  currentBox = null;
+});
+
+saveTagBtn.addEventListener("click", () => {
+  const selectedIndex = violationPreset.selectedIndex;
+  if (selectedIndex <= 0) return showStatus("⚠️ Please select a violation", 4000);
+
+  const hint = currentHints[selectedIndex - 1];
   
-  // Determine current state
-  const isActive = box.getAttribute('data-active') === 'true';
-  
-  if (isActive) {
-    // Deactivate
-    box.classList.add('inactive');
-    box.setAttribute('data-active', 'false');
-    
-    // Remove from active list
-    appState.activeViolations = appState.activeViolations.filter(id => id !== boxId);
-    
-    // Hide panel with animation
-    entry.classList.add('hidden');
-  } else {
-    // Activate
-    box.classList.remove('inactive');
-    box.setAttribute('data-active', 'true');
-    
-    // Add to active list
-    if (!appState.activeViolations.includes(boxId)) {
-      appState.activeViolations.push(boxId);
+  // Use exact integer values for all coordinates
+  const x = parseInt(currentBox.style.left, 10);
+  const y = parseInt(currentBox.style.top, 10);
+  const width = parseInt(currentBox.style.width, 10);
+  const height = parseInt(currentBox.style.height, 10);
+
+  const tag = {
+    label: hint.label,
+    codes: hint.covers,
+    severity: hint.severity,
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+    sof: document.getElementById("sofCheckbox").checked
+  };
+
+  tagData.push(tag);
+  if (!allImageData[imageName]) allImageData[imageName] = [];
+  allImageData[imageName] = tagData;
+
+  currentBox.classList.add("selected");
+  updateTagLog();
+  saveAllProgress();
+
+  // 🔄 Updated box binding with tag index tracking
+  const boxToBind = currentBox;
+  const tagIndex = tagData.length - 1; // Get index of the newly added tag
+  boxToBind.dataset.tagIndex = tagIndex; // Store the index on the box
+  setTimeout(() => {
+    if (boxToBind) makeBoxInteractive(boxToBind, tagData);
+  }, 0);
+
+  popup.style.display = "none";
+  currentBox = null;
+  showStatus("✅ Violation tag added", 3000);
+});
+
+// ========== BOX EDITING FUNCTIONALITY ==========
+
+function setupBoxEditing() {
+  // Double-click handler for boxes
+  imageContainer.addEventListener('dblclick', (e) => {
+    if (e.target.classList.contains('draw-box')) {
+      const box = e.target;
+      showEditModal(box);
     }
-    
-    // Show panel with animation
-    entry.classList.remove('hidden');
-  }
-  
-  // Update the counter with animation
-  updateViolationCounter();
-}
+  });
 
-// Update the violation counter with animation
-function updateViolationCounter() {
-  const count = appState.activeViolations.length;
-  const countElement = document.getElementById('violation-count');
-  const badgeElement = document.querySelector('.violation-badge');
-  
-  // Apply animation
-  countElement.classList.add('updating');
-  
-  // Update count
-  countElement.textContent = count;
-  if (badgeElement) badgeElement.textContent = count;
-  
-  // Store in state
-  appState.violationCount = count;
-  
-  // Remove animation class after delay
-  setTimeout(() => {
-    countElement.classList.remove('updating');
-  }, 300);
-}
+  // Modal confirm handler
+  document.getElementById('editBoxConfirm').addEventListener('click', () => {
+    applyBoxEdits();
+  });
 
-// Show violation breakdown modal
-function showBreakdown(boxId) {
-  const modal = document.getElementById('breakdown-modal');
+  // Modal cancel handler
+  document.getElementById('editBoxCancel').addEventListener('click', hideEditModal);
   
-  // Set state
-  appState.breakdownVisible = true;
-  
-  // Show modal with animation
-  modal.style.display = 'flex';
-  setTimeout(() => {
-    modal.classList.add('visible');
-  }, 10);
-  
-  // Prevent body scrolling
-  document.body.style.overflow = 'hidden';
-  
-  return false; // Prevent default link behavior
-}
-
-// Close any modal
-function closeModal() {
-  const breakdownModal = document.getElementById('breakdown-modal');
-  const documentModal = document.getElementById('document-modal');
-  
-  // Hide modals with animation
-  breakdownModal.classList.remove('visible');
-  documentModal.classList.remove('visible');
-  
-  // Reset state
-  appState.breakdownVisible = false;
-  appState.documentVisible = false;
-  
-  // After animation finishes, reset display
-  setTimeout(() => {
-    if (!appState.breakdownVisible) breakdownModal.style.display = 'none';
-    if (!appState.documentVisible) documentModal.style.display = 'none';
-    
-    // Re-enable body scrolling
-    document.body.style.overflow = 'auto';
-  }, 300);
-}
-
-// Close document modal specifically
-function closeDocumentModal() {
-  const modal = document.getElementById('document-modal');
-  
-  // Reset state
-  appState.documentVisible = false;
-  
-  // Hide with animation
-  modal.classList.remove('visible');
-  
-  // After animation, reset display
-  setTimeout(() => {
-    if (!appState.documentVisible) {
-      modal.style.display = 'none';
-      document.body.style.overflow = 'auto';
+  // Add Enter key support
+  document.getElementById('editBoxModal').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      applyBoxEdits();
+    } else if (e.key === 'Escape') {
+      hideEditModal();
     }
-  }, 300);
-}
-
-// Show document based on type
-function showDocument(type) {
-  const modal = document.getElementById('document-modal');
-  const titleElement = document.getElementById('document-title');
-  const bodyElement = document.getElementById('document-body');
-  
-  // Set state
-  appState.documentVisible = true;
-  appState.currentDocumentType = type;
-  
-  // Prepare the modal
-  modal.style.display = 'flex';
-  
-  // Set content based on document type
-  switch(type) {
-    case 'print':
-      titleElement.textContent = 'Complete Credit Report';
-      bodyElement.innerHTML = `
-        <div style="padding: 20px; text-align: center;">
-          <h3>Equifax Credit Report PDF</h3>
-          <p>Comprehensive credit report for Ally Financial, showing all tradelines, inquiries, and account details.</p>
-          <div style="margin: 30px 0; padding: 20px; background: #f5f5f5; border-radius: 8px;">
-            <p style="margin-bottom: 20px;">This document would typically display the full credit report PDF here.</p>
-            <button class="button" onclick="window.print()">Print Credit Report</button>
-          </div>
-        </div>
-      `;
-      break;
-      
-    case 'denial':
-      titleElement.textContent = 'Credit Denial Letters';
-      bodyElement.innerHTML = `
-        <div style="padding: 20px;">
-          <h3>Rocket Mortgage Denial Letter</h3>
-          <p style="color: #666; font-size: 12px;">April 10, 2025</p>
-          
-          <div style="margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
-            <p>Dear Applicant,</p>
-            <p style="margin: 15px 0;">We regret to inform you that your mortgage application has been declined. Our decision was based on information contained in your credit report from Equifax.</p>
-            
-            <div style="margin: 20px 0; padding: 15px; background: #f9f9f9; border-left: 4px solid #e53935;">
-              <p><strong>Reason for Denial:</strong></p>
-              <ul style="margin-top: 10px; padding-left: 20px;">
-                <li>Bankruptcy reported on credit history</li>
-                <li>Delinquent payment history with multiple creditors</li>
-                <li>Debt-to-income ratio exceeds our lending parameters</li>
-              </ul>
-            </div>
-            
-            <p>You have the right to obtain a free copy of your credit report from Equifax, the consumer reporting agency that was used in our credit decision.</p>
-            
-            <p style="margin-top: 20px;">Sincerely,<br>Rocket Mortgage Underwriting Team</p>
-          </div>
-          
-          <div style="margin-top: 30px;">
-            <h3>Best Egg Loan Denial</h3>
-            <p style="color: #666; font-size: 12px;">May 2, 2025</p>
-            <!-- Additional denial letter would go here -->
-          </div>
-        </div>
-      `;
-      break;
-      
-    case 'trauma':
-      titleElement.textContent = 'Systemic Emotional Impact Statement';
-      bodyElement.innerHTML = `
-        <div style="padding: 20px;">
-          <h3>Client Impact Statement</h3>
-          <p style="color: #666; font-size: 12px;">Filed May 8, 2025</p>
-          
-          <div style="margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; line-height: 1.6;">
-            <p>The continued misreporting of my bankruptcy discharge has created significant emotional and financial hardship for me and my family:</p>
-            
-            <p style="margin-top: 15px;"><strong>Financial Impact:</strong></p>
-            <ul style="margin: 10px 0 20px 0; padding-left: 20px;">
-              <li>Lost a critical refinancing opportunity that would have saved $423/month</li>
-              <li>Wasted $737 on mortgage application fees and appraisal costs</li>
-              <li>Forced to use high-interest credit cards for emergency home repairs</li>
-              <li>Unable to secure auto financing for necessary vehicle replacement</li>
-            </ul>
-            
-            <p><strong>Emotional/Mental Health Impact:</strong></p>
-            <ul style="margin: 10px 0; padding-left: 20px;">
-              <li>Persistent anxiety and sleep disruption worrying about credit status</li>
-              <li>Embarrassment when denied credit in front of family members</li>
-              <li>Relationship strain with spouse over financial limitations</li>
-              <li>Depression symptoms requiring therapy sessions ($140/session, not covered by insurance)</li>
-            </ul>
-            
-            <p style="margin-top: 20px;">Despite following all proper procedures for disputing these errors over a 13-month period, the violations continue. This demonstrates a systemic failure and willful disregard for consumer protection laws that has profoundly impacted my financial security and mental wellbeing.</p>
-          </div>
-        </div>
-      `;
-      break;
-  }
-  
-  // Show with animation
-  setTimeout(() => {
-    modal.classList.add('visible');
-  }, 10);
-  
-  // Prevent body scrolling
-  document.body.style.overflow = 'hidden';
-}
-
-// ===== VIOLATION BOX RENDERING =====
-
-// Render violation boxes for current bureau
-function renderViolationsForBureau(bureau) {
-  // Filter violations for this bureau
-  const violations = appState.csvData.filter(item => item.bureau === bureau);
-  
-  // Log count for verification
-  console.log(`Found ${violations.length} violations for bureau ${bureau}`);
-  
-  // Track IDs for active state
-  const violationIds = violations.map(v => v.id);
-  
-  // Update state
-  appState.allViolations = violationIds;
-  appState.activeViolations = [...violationIds]; // All are active by default
-  
-  // Get container and clear it
-  const container = document.getElementById('report-container');
-  container.innerHTML = '';
-  
-  // Add placeholder if needed - will be hidden when report loads
-  const placeholder = document.createElement('div');
-  placeholder.className = 'image-placeholder-text';
-  placeholder.id = 'placeholder-text';
-  placeholder.innerHTML = '<strong>Select Bureau & Creditor</strong><span>to begin VioTagging!</span>';
-  container.appendChild(placeholder);
-  
-  // Find the correct image filename for this bureau
-  let imageFileName = '';
-  if (violations.length > 0) {
-    imageFileName = violations[0].Image;
-  } else {
-    console.error(`No violations found for bureau: ${bureau}`);
-    return;
-  }
-  
-  // Create an image element to ensure proper report display
-  const reportImg = document.createElement('img');
-  reportImg.id = 'report-img';
-  reportImg.src = imageFileName; // Set to actual image path in production
-  reportImg.style.position = 'absolute';
-  reportImg.style.top = '50%';
-  reportImg.style.left = '50%';
-  reportImg.style.width = '778px'; // Matches VioTagger's image width
-  reportImg.style.transform = 'translate(-50%, -50%)';
-  reportImg.style.pointerEvents = 'none';
-  reportImg.style.zIndex = '0';
-  
-  container.appendChild(reportImg);
-  
-  // Create boxes with EXACT positioning from CSV
-  violations.forEach(violation => {
-    // Create box element with CORRECT X, Y, Width, Height values
-    const box = document.createElement('div');
-    box.id = violation.id;
-    box.className = `violation-box ${violation.Severity}`;
-    
-    // Set exact position and dimensions from CSV data
-    box.style.left = `${violation.X}px`;
-    box.style.top = `${violation.Y}px`;
-    box.style.width = `${violation.Width}px`;
-    box.style.height = `${violation.Height}px`;
-    
-    box.setAttribute('data-active', 'true');
-    box.setAttribute('data-mode', violation.Mode); // Store mode for reference
-    box.setAttribute('data-severity', violation.Severity); // Store severity for reference
-    box.onclick = function() { toggleViolation(violation.id); };
-    
-    container.appendChild(box);
-    
-    // Log the box dimensions for verification
-    console.log(`Created box at X:${violation.X}, Y:${violation.Y}, W:${violation.Width}, H:${violation.Height}`);
   });
   
-  // Render entries in sidebar
-  renderViolationEntries(violations);
-  
-  // Update counter
-  updateViolationCounter();
-  
-  // Set the image background - as backup in case img element doesn't load
-  container.style.backgroundImage = `url('${imageFileName}')`;
-  
-  // Hide placeholder when image is loaded
-  document.getElementById('placeholder-text').style.display = 'none';
-  
-  // Add a class to indicate an image is loaded
-  container.classList.add('image-loaded');
-  
-  // Log for debugging
-  console.log(`Rendered ${violations.length} violation boxes for ${bureau} using exact VioTagger coordinates`);
-}
-
-// Render violation entries in sidebar
-function renderViolationEntries(violations) {
-  const entriesContainer = document.getElementById('violation-entries-container');
-  entriesContainer.innerHTML = '';
-  
-  violations.forEach(violation => {
-    // Create entry HTML with proper content from CSV
-    const entryHtml = `
-      <div class="violation-entry" data-box="${violation.id}" id="entry-${violation.id}">
-        <div class="entry-header">
-          <span class="code-label code-${violation.Severity}">${violation.Codes}</span>
-          <span class="toggle-btn" onclick="toggleViolation('${violation.id}')">×</span>
-        </div>
-        <div class="violation-blurb">
-          ${violation.Label} 
-          <span class="violation-mode">(${violation.Mode})</span>
-        </div>
-        <div class="entry-footer">
-          <a href="#" class="breakdown-link" onclick="event.preventDefault(); showBreakdown('${violation.id}')">View Violation Breakdown</a>
-        </div>
-      </div>
-    `;
-    
-    entriesContainer.innerHTML += entryHtml;
+  // Optional: Close when clicking outside modal
+  document.getElementById('editBoxModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('editBoxModal')) {
+      hideEditModal();
+    }
   });
 }
 
-
-
-
-
-// ... existing code in script.js ...
-
-
-// Ensure proper initialization of UI elements
-function ensureUIInitialization() {
-  // Check if we need to initialize the bureau selector
-  const activeBureau = document.querySelector('.bureau-btn.active');
-  if (!activeBureau) {
-    // No active bureau, select Equifax by default
-    const equifaxBtn = document.querySelector('.bureau-btn[data-bureau="equifax"]');
-    if (equifaxBtn) {
-      equifaxBtn.classList.add('active');
-      appState.currentBureau = 'equifax';
-    }
-  }
-  
-  // Make sure panels exist and have correct classes
-  const violationsPanel = document.querySelector('.fcra-panel');
-  const documentsPanel = document.querySelector('.doc-icons');
-  
-  if (violationsPanel && !violationsPanel.classList.contains('panel')) {
-    violationsPanel.classList.add('panel', 'violations-panel');
-  }
-  
-  if (documentsPanel && !documentsPanel.classList.contains('panel')) {
-    documentsPanel.classList.add('panel', 'documents-panel');
-  }
-  
-  // Set initial visibility for panels
-  if (window.innerWidth <= 767) {
-    // On mobile, show only the active panel
-    const activeTabPanel = document.querySelector('.tab-button.active')?.dataset.panel || 'violations';
-    
-    if (violationsPanel) {
-      violationsPanel.style.display = activeTabPanel === 'violations' ? 'block' : 'none';
+function setupKeyboardShortcuts() {
+  document.addEventListener('keydown', (e) => {
+    // Only process if not in a text field or textarea
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+      return;
     }
     
-    if (documentsPanel) {
-      documentsPanel.style.display = activeTabPanel === 'documents' ? 'flex' : 'none';
+    // Copy selected boxes (Ctrl+C)
+    if (e.ctrlKey && e.key === 'c') {
+      e.preventDefault(); // Prevent browser's copy action
+      copySelectedBoxes();
     }
-  } else {
-    // On desktop, show both panels
-    if (violationsPanel) violationsPanel.style.display = 'block';
-    if (documentsPanel) documentsPanel.style.display = 'flex';
+    
+    // Paste copied boxes (Ctrl+V)
+    if (e.ctrlKey && e.key === 'v') {
+      e.preventDefault(); // Prevent browser's paste action
+      pasteBoxes();
+    }
+    
+    // Group selected boxes (Ctrl+G)
+    if (e.ctrlKey && e.key === 'g') {
+      e.preventDefault();
+      groupSelectedBoxes();
+    }
+    
+    // Ungroup selected group (Ctrl+U)
+    if (e.ctrlKey && e.key === 'u') {
+      e.preventDefault();
+      ungroupSelectedBoxes();
+    }
+    
+    // Undo last action (Ctrl+Z)
+    if (e.ctrlKey && e.key === 'z') {
+      e.preventDefault();
+      undoLastAction();
+    }
+    
+    // Delete selected boxes (Delete key)
+    if (e.key === 'Delete') {
+      e.preventDefault();
+      deleteSelectedBoxes();
+    }
+  });
+}
+
+function showEditModal(box) {
+  const modal = document.getElementById('editBoxModal');
+  
+  // Use exact integer values from the style properties
+  const x = parseInt(box.style.left, 10);
+  const y = parseInt(box.style.top, 10);
+  const width = parseInt(box.style.width, 10);
+  const height = parseInt(box.style.height, 10);
+
+  // Populate coordinate inputs with exact integers
+  document.getElementById('editBoxX').value = x;
+  document.getElementById('editBoxY').value = y;
+  document.getElementById('editBoxW').value = width;
+  document.getElementById('editBoxH').value = height;
+  
+  // Get current tag data
+  const tagIndex = parseInt(box.dataset.tagIndex, 10);
+  const tag = tagData[tagIndex];
+  
+  // Store current box element for exact reference when applying edits
+  modal.dataset.currentBoxId = box.dataset.tagIndex;
+  
+  // Populate violation dropdown
+  populateViolationDropdown(tag);
+  
+  // Set sign-off checkbox
+  document.getElementById('editBoxSignOff').checked = tag.sof === true;
+  
+  // Show modal
+  modal.style.display = 'block';
+  clearSelection();
+  box.classList.add('selected');
+  box.classList.add('editing'); // Add class for visual indication
+  
+  // Focus first field for immediate keyboard entry
+  document.getElementById('editBoxX').focus();
+}
+
+function populateViolationDropdown(tag) {
+  const dropdown = document.getElementById('editBoxViolation');
+  dropdown.innerHTML = '';
+  
+  // Get current bureauCode from imageName
+  const bureauCode = imageName.includes("-EQ-") ? "EQ" : 
+                     imageName.includes("-EX-") ? "EX" : 
+                     imageName.includes("-TU-") ? "TU" : null;
+  
+  if (!bureauCode || !hintLookup[bureauCode]) {
+    // Fallback if no hints available
+    const option = document.createElement('option');
+    option.value = tag.label || '';
+    option.textContent = tag.label || 'Unknown';
+    dropdown.appendChild(option);
+    return;
   }
   
-  // Make sure report container is properly configured
-  const reportContainer = document.getElementById('report-container');
-  if (reportContainer) {
-    reportContainer.style.width = '810px';
-    reportContainer.style.height = '920px';
+  // Add all options from hintLookup
+  hintLookup[bureauCode].forEach(hint => {
+    const option = document.createElement('option');
+    option.value = hint.label;
+    option.textContent = `${hint.severity} ${hint.label} (${hint.covers.length} code${hint.covers.length > 1 ? 's' : ''})`;
+    
+    // Store additional data as attributes for later retrieval
+    option.dataset.severity = hint.severity;
+    option.dataset.codes = JSON.stringify(hint.covers);
+    
+    dropdown.appendChild(option);
+    
+    // Select the current value
+    if (hint.label === tag.label) {
+      option.selected = true;
+    }
+  });
+}
+
+function applyBoxEdits() {
+  const modal = document.getElementById('editBoxModal');
+  const tagIndex = parseInt(modal.dataset.currentBoxId, 10);
+  
+  // Find box by index attribute for more reliability
+  const box = document.querySelector(`.draw-box[data-tag-index="${tagIndex}"]`);
+  if (!box) {
+    showStatus("⚠️ Could not find the box to edit", 3000);
+    hideEditModal();
+    return;
+  }
+
+  // Get exact values from form as integers
+  const newX = parseInt(document.getElementById('editBoxX').value, 10);
+  const newY = parseInt(document.getElementById('editBoxY').value, 10);
+  const newW = parseInt(document.getElementById('editBoxW').value, 10);
+  const newH = parseInt(document.getElementById('editBoxH').value, 10);
+  const newViolation = document.getElementById('editBoxViolation').value;
+  const newSignOff = document.getElementById('editBoxSignOff').checked;
+  
+  // Validate coordinate values
+  if (isNaN(newX) || isNaN(newY) || isNaN(newW) || isNaN(newH)) {
+    showStatus("⚠️ Please enter valid numbers", 3000);
+    return;
+  }
+  
+  if (newW < 10 || newH < 10) {
+    showStatus("⚠️ Width and height must be at least 10px", 3000);
+    return;
+  }
+  
+  // Get selected option to access all violation data
+  const selectedOption = document.getElementById('editBoxViolation').selectedOptions[0];
+  const newSeverity = selectedOption.dataset.severity;
+  const newCodes = JSON.parse(selectedOption.dataset.codes || '[]');
+
+  // Save state for undo
+  saveToUndoStack();
+
+  // Update box position and size with exact values
+  box.style.left = `${newX}px`;
+  box.style.top = `${newY}px`;
+  box.style.width = `${newW}px`;
+  box.style.height = `${newH}px`;
+
+  // Update the associated tag data with exact values
+  if (tagIndex >= 0 && tagData[tagIndex]) {
+    const tag = tagData[tagIndex];
+    
+    // Update position and size with exact integers
+    tag.x = newX;
+    tag.y = newY;
+    tag.width = newW;
+    tag.height = newH;
+    
+    // Update violation data
+    tag.label = newViolation;
+    tag.severity = newSeverity;
+    tag.codes = newCodes;
+    tag.sof = newSignOff;
+    
+    // Update storage and UI
+    allImageData[imageName] = tagData;
+    updateTagLog();
+    saveAllProgress();
+  }
+
+  box.classList.remove('editing'); // Remove editing indicator
+  hideEditModal();
+  showStatus("✅ Box updated", 2000);
+}
+
+function hideEditModal() {
+  const modal = document.getElementById('editBoxModal');
+  modal.style.display = 'none';
+  
+  // Find and remove any editing class
+  const editingBox = document.querySelector('.draw-box.editing');
+  if (editingBox) {
+    editingBox.classList.remove('editing');
   }
 }
 
-
-// ===== INITIALIZATION FUNCTIONS =====
-
-// Initialize bureau selector buttons
-function initBureauSelectors() {
-  const bureauButtons = document.querySelectorAll('.bureau-btn');
+function copySelectedBoxes() {
+  const selectedBoxes = document.querySelectorAll('.draw-box.selected');
+  if (selectedBoxes.length === 0) {
+    showStatus("⚠️ No boxes selected to copy", 3000);
+    return;
+  }
   
-  bureauButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Extract bureau from data attribute
-      const bureau = btn.getAttribute('data-bureau');
+  copiedTags = [];
+  
+  selectedBoxes.forEach(box => {
+    const tagIndex = parseInt(box.dataset.tagIndex, 10);
+    if (tagIndex >= 0 && tagData[tagIndex]) {
+      // Create a deep copy of the tag with exact coordinates
+      const tag = tagData[tagIndex];
+      copiedTags.push({
+        ...JSON.parse(JSON.stringify(tag)),
+        x: parseInt(tag.x, 10),
+        y: parseInt(tag.y, 10),
+        width: parseInt(tag.width, 10),
+        height: parseInt(tag.height, 10)
+      });
+    }
+  });
+  
+  showStatus(`✅ Copied ${copiedTags.length} box(es)`, 3000);
+}
+
+function pasteBoxes() {
+  if (copiedTags.length === 0) {
+    showStatus("⚠️ Nothing to paste", 3000);
+    return;
+  }
+  
+  // Save state for undo
+  saveToUndoStack();
+  
+  // Clear any current selection
+  clearSelection();
+  
+  // Calculate offset for pasted boxes (20px right and down)
+  const OFFSET_X = 20;
+  const OFFSET_Y = 20;
+  
+  // Create new boxes from copied tags
+  copiedTags.forEach(originalTag => {
+    // Create a new tag with offset position using exact integer values
+    const newTag = JSON.parse(JSON.stringify(originalTag));
+    newTag.x = parseInt(newTag.x, 10) + OFFSET_X;
+    newTag.y = parseInt(newTag.y, 10) + OFFSET_Y;
+    newTag.width = parseInt(newTag.width, 10);
+    newTag.height = parseInt(newTag.height, 10);
+    
+    // Ensure the new box is within bounds
+    const containerWidth = imageContainer.clientWidth;
+    const containerHeight = imageContainer.clientHeight;
+    
+    if (newTag.x + newTag.width > containerWidth) {
+      newTag.x = containerWidth - newTag.width;
+    }
+    
+    if (newTag.y + newTag.height > containerHeight) {
+      newTag.y = containerHeight - newTag.height;
+    }
+    
+    // Add the new tag to the data
+    tagData.push(newTag);
+    
+    // Create and render the new box with exact integer dimensions
+    const box = document.createElement("div");
+    box.className = "draw-box selected";
+    box.style.left = `${newTag.x}px`;
+    box.style.top = `${newTag.y}px`;
+    box.style.width = `${newTag.width}px`;
+    box.style.height = `${newTag.height}px`;
+    box.dataset.tagIndex = tagData.length - 1;
+    
+    // Make the new box interactive
+    makeBoxInteractive(box, tagData);
+    
+    // Add resize handles
+    ["tl", "tr", "bl", "br"].forEach(pos => {
+      const handle = document.createElement("div");
+      handle.className = `resize-handle ${pos}`;
+      box.appendChild(handle);
+    });
+    
+    imageContainer.appendChild(box);
+  });
+  
+  // Update storage and UI
+  allImageData[imageName] = tagData;
+  updateTagLog();
+  saveAllProgress();
+  
+  showStatus(`✅ Pasted ${copiedTags.length} box(es)`, 3000);
+}
+
+function makeBoxInteractive(box, tagArray) {
+  let offsetX, offsetY, isDragging = false;
+
+  // Store the tag index on the box when making it interactive
+  if (!box.dataset.tagIndex) {
+    const x = parseInt(box.style.left, 10);
+    const y = parseInt(box.style.top, 10);
+    const tagIndex = tagArray.findIndex(t => 
+      parseInt(t.x, 10) === x && 
+      parseInt(t.y, 10) === y);
+    if (tagIndex !== -1) box.dataset.tagIndex = tagIndex;
+  }
+
+  // Make box focusable for keyboard interactions
+  box.setAttribute('tabindex', '0');
+  
+  // Mouse drag handling
+  box.addEventListener("mousedown", (e) => {
+    if (e.target.classList.contains("resize-handle")) return;
+    e.stopPropagation();
+    
+    // Check if we're part of a multi-selection
+    const selectedBoxes = document.querySelectorAll('.draw-box.selected');
+    const isPartOfMultiSelection = selectedBoxes.length > 1 && box.classList.contains('selected');
+    
+    // If this is part of multi-selection, let the multi-box handler take over
+    if (isPartOfMultiSelection) {
+      return; // The setupMultiBoxMovement handler will handle this
+    }
+    
+    // Check if this box is part of a group
+    const groupId = box.dataset.groupId;
+    
+    // Otherwise, handle as a single box drag
+    isDragging = true;
+    offsetX = e.offsetX;
+    offsetY = e.offsetY;
+    
+    // If shift key is pressed, allow multi-select without clearing
+    if (!e.shiftKey) {
+      clearSelection();
       
-      // Skip if already selected
-      if (bureau === appState.currentBureau) return;
-      
-      // Update state
-      appState.currentBureau = bureau;
-      
-      // Update UI
-      bureauButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      // Load appropriate content
-      loadCreditReport(bureau);
+      // If box is part of a group and not using shift-select, select the whole group
+      if (groupId && !e.shiftKey) {
+        selectGroup(groupId);
+        return; // Exit early as we've handled selection
+      }
+    }
+    
+    // Add selection to the clicked box
+    box.classList.add("selected");
+    box.focus(); // Focus the box when selected
+  });
+
+  // Keyboard arrow key movement
+  box.addEventListener("keydown", (e) => {
+    if (!box.classList.contains("selected")) return;
+    
+    const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+    if (arrowKeys.includes(e.key)) {
+      e.preventDefault();
+      const step = e.shiftKey ? 10 : 1; // Larger steps when Shift is held
+      const container = imageContainer.getBoundingClientRect();
+      let x = parseInt(box.style.left, 10);
+      let y = parseInt(box.style.top, 10);
+      const width = parseInt(box.style.width, 10);
+      const height = parseInt(box.style.height, 10);
+
+      switch(e.key) {
+        case 'ArrowUp': y = Math.max(0, y - step); break;
+        case 'ArrowDown': y = Math.min(container.height - height, y + step); break;
+        case 'ArrowLeft': x = Math.max(0, x - step); break;
+        case 'ArrowRight': x = Math.min(container.width - width, x + step); break;
+      }
+
+      // Update position with exact integer values
+      box.style.left = `${x}px`;
+      box.style.top = `${y}px`;
+
+      // Update data model with exact integers
+      if (box.dataset.tagIndex !== undefined) {
+        const tagIndex = parseInt(box.dataset.tagIndex, 10);
+        const tag = tagArray[tagIndex];
+        if (tag) {
+          tag.x = x;
+          tag.y = y;
+          updateTagLog();
+          saveAllProgress();
+        }
+      }
+    }
+  });
+
+  // Mouse movement handling
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    const rect = imageContainer.getBoundingClientRect();
+    const newX = Math.round(e.clientX - rect.left - offsetX);
+    const newY = Math.round(e.clientY - rect.top - offsetY);
+    
+    // Use integer values for position
+    box.style.left = `${newX}px`;
+    box.style.top = `${newY}px`;
+
+    // Update the associated tag data with integers
+    if (box.dataset.tagIndex !== undefined) {
+      const tagIndex = parseInt(box.dataset.tagIndex, 10);
+      const tag = tagArray[tagIndex];
+      if (tag) {
+        tag.x = newX;
+        tag.y = newY;
+        // Width and height should already be integers
+        tag.width = parseInt(box.style.width, 10);
+        tag.height = parseInt(box.style.height, 10);
+        updateTagLog();
+      }
+    }
+
+    const logEntry = document.querySelector(".tag-entry.selected");
+    if (logEntry) {
+      const posDiv = logEntry.querySelector(".tag-position");
+      if (posDiv) {
+        posDiv.textContent = `(${newX}, ${newY}) | ${parseInt(box.style.width, 10)}×${parseInt(box.style.height, 10)}`;
+      }
+    }
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (isDragging) {
+      isDragging = false;
+      saveAllProgress();
+    }
+  });
+
+  // Add resize handles with improved integer tracking
+  ["tl", "tr", "bl", "br"].forEach(pos => {
+    const handle = document.createElement("div");
+    handle.className = `resize-handle ${pos}`;
+    box.appendChild(handle);
+
+    let isResizing = false;
+
+    handle.addEventListener("mousedown", (e) => {
+      e.stopPropagation();
+      isResizing = true;
+
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const startLeft = parseInt(box.style.left, 10);
+      const startTop = parseInt(box.style.top, 10);
+      const startWidth = parseInt(box.style.width, 10);
+      const startHeight = parseInt(box.style.height, 10);
+
+      function doResize(moveEvent) {
+        if (!isResizing) return;
+
+        const dx = Math.round(moveEvent.clientX - startX);
+        const dy = Math.round(moveEvent.clientY - startY);
+
+        // Use integers for all position/size calculations
+        let newLeft = startLeft;
+        let newTop = startTop;
+        let newWidth = startWidth;
+        let newHeight = startHeight;
+
+        if (pos.includes("l")) {
+          newLeft = startLeft + dx;
+          newWidth = startWidth - dx;
+        }
+        if (pos.includes("r")) {
+          newWidth = startWidth + dx;
+        }
+        if (pos.includes("t")) {
+          newTop = startTop + dy;
+          newHeight = startHeight - dy;
+        }
+        if (pos.includes("b")) {
+          newHeight = startHeight + dy;
+        }
+
+        // Ensure minimum size and use rounded integers
+        newWidth = Math.max(20, newWidth);
+        newHeight = Math.max(20, newHeight);
+
+        // Apply integer values to the box
+        box.style.left = `${newLeft}px`;
+        box.style.top = `${newTop}px`;
+        box.style.width = `${newWidth}px`;
+        box.style.height = `${newHeight}px`;
+
+        // Update the associated tag data with integer values
+        if (box.dataset.tagIndex !== undefined) {
+          const tagIndex = parseInt(box.dataset.tagIndex, 10);
+          const tag = tagArray[tagIndex];
+          if (tag) {
+            tag.x = newLeft;
+            tag.y = newTop;
+            tag.width = newWidth;
+            tag.height = newHeight;
+            updateTagLog();
+          }
+        }
+
+
+
+const logEntry = document.querySelector(".tag-entry.selected");
+        if (logEntry) {
+          const posDiv = logEntry.querySelector(".tag-position");
+          if (posDiv) {
+            posDiv.textContent = `(${newLeft}, ${newTop}) | ${newWidth}×${newHeight}`;
+          }
+        }
+      }
+
+      function stopResize() {
+        isResizing = false;
+        saveAllProgress();
+        window.removeEventListener("mousemove", doResize);
+        window.removeEventListener("mouseup", stopResize);
+      }
+
+      window.addEventListener("mousemove", doResize);
+      window.addEventListener("mouseup", stopResize);
     });
   });
 }
 
-// Initialize navigation controls
-function initNavigationControls() {
-  // Single page navigation
-  document.querySelector('.prev-single').addEventListener('click', () => {
-    if (appState.currentPage > 1) {
-      appState.currentPage--;
-      loadCreditReport(appState.currentBureau);
-      updateBreadcrumb();
+function setupMultiBoxMovement() {
+  let isDraggingMultiple = false;
+  let startMouseX, startMouseY;
+  let boxStartPositions = [];
+  
+  // Global mousedown handler for multi-box dragging
+  imageContainer.addEventListener("mousedown", (e) => {
+    // Skip if we clicked on a resize handle
+    if (e.target.classList.contains("resize-handle")) return;
+    
+    // Clear selection if clicking on the background (not on a box)
+    if (!e.target.classList.contains("draw-box")) {
+      clearSelection();
     }
   });
   
-  document.querySelector('.next-single').addEventListener('click', () => {
-    if (appState.currentPage < appState.totalPages) {
-      appState.currentPage++;
-      loadCreditReport(appState.currentBureau);
-      updateBreadcrumb();
+  // Global handler for starting a multi-box drag
+  document.addEventListener("mousedown", (e) => {
+    // Only handle box drag starts
+    if (!e.target.classList.contains("draw-box")) return;
+    
+    const selectedBoxes = document.querySelectorAll('.draw-box.selected');
+    // If this box is part of a multi-selection
+    if (selectedBoxes.length > 1 && e.target.classList.contains('selected')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      isDraggingMultiple = true;
+      startMouseX = e.clientX;
+      startMouseY = e.clientY;
+      
+      // Store the starting positions of all selected boxes with exact integer values
+      boxStartPositions = [];
+      selectedBoxes.forEach(box => {
+        boxStartPositions.push({
+          box: box,
+          startX: parseInt(box.style.left, 10),
+          startY: parseInt(box.style.top, 10),
+          tagIndex: parseInt(box.dataset.tagIndex, 10)
+        });
+      });
+      
+      // Prevent the individual box handler from taking over
+      e.stopImmediatePropagation();
+    }
+  }, true); // Use capture phase to intercept before individual handlers
+  
+  // Global mousemove handler for multi-box dragging
+  document.addEventListener("mousemove", (e) => {
+    if (!isDraggingMultiple) return;
+    
+    // Use integer values for delta calculations
+    const deltaX = Math.round(e.clientX - startMouseX);
+    const deltaY = Math.round(e.clientY - startMouseY);
+    
+    // Move all boxes by the same delta, ensuring integer values
+    boxStartPositions.forEach(item => {
+      const newX = item.startX + deltaX;
+      const newY = item.startY + deltaY;
+      
+      item.box.style.left = `${newX}px`;
+      item.box.style.top = `${newY}px`;
+      
+      // Update the data model with integers
+      if (item.tagIndex >= 0 && tagData[item.tagIndex]) {
+        tagData[item.tagIndex].x = newX;
+        tagData[item.tagIndex].y = newY;
+      }
+    });
+    
+    // Update the tag log to reflect the new positions
+    updateTagLog();
+  });
+  
+  // Global mouseup handler for multi-box dragging
+  document.addEventListener("mouseup", (e) => {
+    if (isDraggingMultiple) {
+      isDraggingMultiple = false;
+      
+      // Save all changes to storage
+      allImageData[imageName] = tagData;
+      saveAllProgress();
     }
   });
-  
-  // Multi-page navigation (creditor level)
-  document.querySelector('.prev-all').addEventListener('click', () => {
-    console.log('Previous creditor would be loaded here');
-    // This would navigate to previous creditor in a real implementation
-  });
-  
-  document.querySelector('.next-all').addEventListener('click', () => {
-    console.log('Next creditor would be loaded here');
-    // This would navigate to next creditor in a real implementation
-  });
-  
-  // Update page indicator
-  document.querySelector('.page-indicator').textContent = 
-    `Page ${appState.currentPage} of ${appState.totalPages}`;
 }
 
-// Update the breadcrumb display
-function updateBreadcrumb() {
-  const breadcrumb = document.getElementById('breadcrumb-text');
+function deleteSelectedBoxes() {
+  const selectedBoxes = document.querySelectorAll('.draw-box.selected');
   
-  // Format bureau name for display
-  let bureauDisplay = '';
-  switch(appState.currentBureau) {
-    case 'equifax':
-      bureauDisplay = 'EQUIFAX';
-      break;
-    case 'experian':
-      bureauDisplay = 'EXPERIAN';
-      break;
-    case 'transunion':
-      bureauDisplay = 'TRANSUNION';
-      break;
+  if (selectedBoxes.length === 0) {
+    showStatus("⚠️ No boxes selected to delete", 3000);
+    return;
   }
   
-  // Format creditor name (Ally)
-  const creditorDisplay = 'ALLY';
+  // Save current state for undo
+  saveToUndoStack();
   
-  // Get date from filename or use default
-  let dateDisplay = "APR. 25, 2024";
+  // Track deleted indices and groups to update
+  const deletedIndices = [];
+  const groupsToUpdate = new Set();
   
-  // Try to parse date from current image
-  const violations = appState.csvData.filter(item => item.bureau === appState.currentBureau);
-  if (violations.length > 0) {
-    const currentImage = violations[0].Image;
-    const dateParts = currentImage.match(/(\d{4})-(\d{2})-(\d{2})/);
-    if (dateParts) {
-      const year = dateParts[1];
-      const month = parseInt(dateParts[2]);
-      const day = parseInt(dateParts[3]);
+  // First pass: identify what we're deleting and which groups need updates
+  selectedBoxes.forEach(box => {
+    const tagIndex = parseInt(box.dataset.tagIndex, 10);
+    if (tagIndex >= 0) {
+      deletedIndices.push(tagIndex);
       
-      const monthNames = ["JAN.", "FEB.", "MAR.", "APR.", "MAY", "JUN.", 
-                         "JUL.", "AUG.", "SEP.", "OCT.", "NOV.", "DEC."];
+      // If this box is part of a group, mark the group for updating
+      if (box.dataset.groupId) {
+        groupsToUpdate.add(box.dataset.groupId);
+      }
       
-      dateDisplay = `${monthNames[month-1]} ${day}, ${year}`;
+      // Remove the element from DOM
+      box.remove();
     }
-  }
+  });
   
-  // Update breadcrumb text
-  breadcrumb.textContent = `${creditorDisplay} — ${bureauDisplay} — ${dateDisplay}`;
+  // Sort indices in descending order to avoid reindex issues when splicing
+  deletedIndices.sort((a, b) => b - a);
+  
+  // Remove tags from tagData
+  deletedIndices.forEach(index => {
+    tagData.splice(index, 1);
+  });
+  
+  // Update group information
+  groupsToUpdate.forEach(groupId => {
+    if (boxGroups[groupId]) {
+      // Filter out deleted indices
+      boxGroups[groupId] = boxGroups[groupId].filter(idx => !deletedIndices.includes(idx));
+      
+      // Adjust indices that have shifted due to deletion
+      boxGroups[groupId] = boxGroups[groupId].map(idx => {
+        // Count how many deleted indices were before this one
+        const shift = deletedIndices.filter(delIdx => delIdx < idx).length;
+        return idx - shift;
+      });
+      
+      // If group is now empty, remove it
+      if (boxGroups[groupId].length === 0) {
+        delete boxGroups[groupId];
+      }
+    }
+  });
+  
+  // Update storage
+  allImageData[imageName] = tagData;
+  saveAllProgress();
+  saveGroups();
+  
+  // Re-render everything to ensure indices are correct
+  renderTags();
+  updateTagLog();
+  
+  showStatus(`🗑️ Deleted ${selectedBoxes.length} box(es)`, 3000);
 }
 
-// Load credit report based on current state
-// Load credit report based on current state
-function loadCreditReport(bureau) {
-  // Update state if needed
-  if (bureau) {
-    appState.currentBureau = bureau;
+function groupSelectedBoxes() {
+  const selectedBoxes = document.querySelectorAll('.draw-box.selected');
+  
+  if (selectedBoxes.length < 2) {
+    showStatus("⚠️ Select at least 2 boxes to group", 3000);
+    return;
   }
   
-  console.log(`Loading report for bureau: ${appState.currentBureau}`);
+  // Save current state for undo
+  saveToUndoStack();
   
-  // Ensure bureau buttons are synced with state
-  const activeBureauBtn = document.querySelector(`.bureau-btn[data-bureau="${appState.currentBureau}"]`);
-  if (activeBureauBtn) {
-    // Remove active class from all buttons
-    document.querySelectorAll('.bureau-btn').forEach(btn => btn.classList.remove('active'));
-    // Add active class to current bureau
-    activeBureauBtn.classList.add('active');
+  // Generate a unique group ID
+  const groupId = `group_${Date.now()}_${groupCounter++}`;
+  
+  // Store the indices of the boxes in this group
+  boxGroups[groupId] = [];
+  
+  // Add a data attribute to each box in the group
+  selectedBoxes.forEach(box => {
+    const tagIndex = parseInt(box.dataset.tagIndex, 10);
+    if (tagIndex >= 0) {
+      // Store group info on the box element
+      box.dataset.groupId = groupId;
+      
+      // Store group info in our groups tracking object
+      boxGroups[groupId].push(tagIndex);
+      
+      // Add a visual indicator for grouped boxes
+      box.classList.add('grouped');
+    }
+  });
+  
+  // Store group information in local storage
+  saveGroups();
+  
+  showStatus(`✅ Grouped ${selectedBoxes.length} boxes`, 3000);
+}
+
+function ungroupSelectedBoxes() {
+  const selectedBoxes = document.querySelectorAll('.draw-box.selected');
+  
+  if (selectedBoxes.length === 0) {
+    showStatus("⚠️ No boxes selected to ungroup", 3000);
+    return;
   }
   
-  // Render violations for this bureau
-  renderViolationsForBureau(appState.currentBureau);
+  // Check if any selected box is part of a group
+  let foundGroup = false;
+  let groupsToRemove = new Set();
   
-  // Update page indicator
-  const pageIndicator = document.querySelector('.page-indicator');
-  if (pageIndicator) {
-    pageIndicator.textContent = `Page ${appState.currentPage} of ${appState.totalPages}`;
+  selectedBoxes.forEach(box => {
+    if (box.dataset.groupId) {
+      foundGroup = true;
+      groupsToRemove.add(box.dataset.groupId);
+    }
+  });
+  
+  if (!foundGroup) {
+    showStatus("⚠️ Selected boxes are not in a group", 3000);
+    return;
   }
+  
+  // Save current state for undo
+  saveToUndoStack();
+  
+  // Process each group to remove
+  groupsToRemove.forEach(groupId => {
+    // Get all boxes in this group
+    const groupBoxes = document.querySelectorAll(`.draw-box[data-group-id="${groupId}"]`);
     
-  // Update breadcrumb
-  updateBreadcrumb();
-  
-  // Update panel visibility based on screen size
-  if (window.innerWidth <= 767) {
-    const activeTabPanel = document.querySelector('.tab-button.active')?.dataset.panel || 'violations';
-    const violationsPanel = document.querySelector('.fcra-panel');
-    const documentsPanel = document.querySelector('.doc-icons');
+    // Remove group attributes from each box
+    groupBoxes.forEach(box => {
+      box.removeAttribute('data-group-id');
+      box.classList.remove('grouped');
+    });
     
-    if (violationsPanel) {
-      violationsPanel.style.display = activeTabPanel === 'violations' ? 'block' : 'none';
+    // Remove the group from our tracking
+    delete boxGroups[groupId];
+  });
+  
+  // Update storage
+  saveGroups();
+  
+  showStatus("✅ Boxes ungrouped", 3000);
+}
+
+function saveGroups() {
+  // Store group information in local storage
+  try {
+    localStorage.setItem("violationGroups", JSON.stringify(boxGroups));
+  } catch (e) {
+    console.error("Error saving groups:", e);
+  }
+}
+
+function loadGroups() {
+  // Load group information from local storage
+  try {
+    const savedGroups = localStorage.getItem("violationGroups");
+    if (savedGroups) {
+      boxGroups = JSON.parse(savedGroups);
+      
+      // Apply group attributes to boxes
+      Object.entries(boxGroups).forEach(([groupId, tagIndices]) => {
+        tagIndices.forEach(tagIndex => {
+          const box = document.querySelector(`.draw-box[data-tag-index="${tagIndex}"]`);
+          if (box) {
+            box.dataset.groupId = groupId;
+            box.classList.add('grouped');
+          }
+        });
+      });
+    }
+  } catch (e) {
+    console.error("Error loading groups:", e);
+  }
+}
+
+function saveToUndoStack() {
+  // Save current state to undo stack
+  const state = {
+    tagData: JSON.parse(JSON.stringify(tagData)),
+    boxGroups: JSON.parse(JSON.stringify(boxGroups))
+  };
+  
+  undoStack.push(state);
+  
+  // Limit undo stack size to prevent memory issues
+  if (undoStack.length > 20) {
+    undoStack.shift(); // Remove oldest item
+  }
+}
+
+function undoLastAction() {
+  if (undoStack.length === 0) {
+    showStatus("⚠️ Nothing to undo", 3000);
+    return;
+  }
+  
+  // Get the last saved state
+  const lastState = undoStack.pop();
+  
+  // Restore tag data
+  tagData = lastState.tagData;
+  
+  // Restore groups data
+  boxGroups = lastState.boxGroups;
+  
+  // Update the storage
+  allImageData[imageName] = tagData;
+  saveAllProgress();
+  saveGroups();
+  
+  // Re-render the boxes
+  renderTags();
+  updateTagLog();
+  
+  // Re-apply group classes
+  Object.entries(boxGroups).forEach(([groupId, tagIndices]) => {
+    tagIndices.forEach(tagIndex => {
+      const box = document.querySelector(`.draw-box[data-tag-index="${tagIndex}"]`);
+      if (box) {
+        box.dataset.groupId = groupId;
+        box.classList.add('grouped');
+      }
+    });
+  });
+  
+  showStatus("↩️ Undo successful", 3000);
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  setupBoxEditing();
+  setupKeyboardShortcuts();
+  setupMultiBoxMovement();
+  loadGroups(); // Load saved groups
+});
+
+// ========== PREVIEW MODAL LOGIC ==========
+
+const previewModal = document.getElementById("previewModal");
+const previewTableBody = document.querySelector("#previewTable tbody");
+const previewCancel = document.getElementById("previewCancel");
+const previewConfirm = document.getElementById("previewConfirm");
+
+let queuedExportFunction = null;
+
+// This function is used by both CSV export and Airtable sync
+function openPreviewModal(callback) {
+  // Store the function to call after confirmation
+  queuedExportFunction = callback;
+
+  // Clear old rows
+  previewTableBody.innerHTML = "";
+
+  const mode = document.getElementById("modeSelector")?.value || "unspecified";
+  let rowCount = 0;
+
+  Object.entries(allImageData).forEach(([imgName, tags]) => {
+    tags.forEach(tag => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${imgName}</td>
+        <td>${tag.severity}</td>
+        <td>${tag.label}</td>
+        <td>${tag.codes.join("; ")}</td>
+        <td>${mode}</td>
+      `;
+      previewTableBody.appendChild(row);
+      rowCount++;
+    });
+  });
+
+  // Only show modal if we have data
+  if (rowCount === 0) {
+    showStatus("⚠️ No data to preview", 3000);
+    return;
+  }
+
+  previewModal.style.display = "block";
+}
+
+previewCancel.addEventListener("click", () => {
+  previewModal.style.display = "none";
+  queuedExportFunction = null;
+});
+
+previewConfirm.addEventListener("click", () => {
+  if (queuedExportFunction) {
+    // Execute the callback (either exportCSV or the Airtable sync)
+    queuedExportFunction();
+  }
+  previewModal.style.display = "none";
+});
+
+
+
+
+
+// ========== RADIO BUTTON LOGIC (REVISED WITH DATE BUTTONS) ==========
+
+const creditorRadioGroup = document.getElementById("creditorRadioGroup");
+const dateGroup = document.getElementById("dateGroup");
+const dateButtons = document.getElementById("dateButtons");
+
+// Disable all creditor radios on load
+document.querySelectorAll('input[name="creditor"]').forEach(r => r.disabled = true);
+
+// Helper to get the selected radio bureau
+function getSelectedBureau() {
+  const selected = document.querySelector('input[name="bureau"]:checked');
+  return selected ? selected.value : null;
+}
+
+// Helper to get selected creditor radio
+function getSelectedCreditor() {
+  const selected = document.querySelector('input[name="creditor"]:checked');
+  return selected ? selected.value : null;
+}
+
+// Enable creditor radio buttons when bureau is selected
+document.querySelectorAll('input[name="bureau"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    const bureau = getSelectedBureau();
+    if (!bureau) return;
+
+    console.log("Bureau selected:", bureau);
+    console.log("Available creditors for bureau:", imageMap[bureau]);
+
+    // Enable all creditor radios
+    creditorRadioGroup.querySelectorAll('input[name="creditor"]').forEach(r => {
+      r.disabled = false;
+    });
+
+    // Clear any previously selected creditor
+    const checkedCreditor = document.querySelector('input[name="creditor"]:checked');
+    if (checkedCreditor) checkedCreditor.checked = false;
+
+    // Clear date group
+    dateButtons.innerHTML = "";
+    dateGroup.style.display = "none";
+  });
+});
+
+document.querySelectorAll('input[name="creditor"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    const bureau = getSelectedBureau();
+    const creditor = radio.value;
+
+    // 🧪 DEBUG START (Safe version)
+    console.log("Selected bureau:", bureau);
+    console.log("Selected creditor:", creditor);
+    console.log("Matching imageMap entry:", imageMap && imageMap[bureau] && imageMap[bureau][creditor]);
+    // 🧪 DEBUG END
+
+    dateButtons.innerHTML = "";
+    dateGroup.style.display = "none";
+
+    if (imageMap[bureau] && imageMap[bureau][creditor]) {
+      const fullNames = imageMap[bureau][creditor];
+      if (fullNames.length > 0) {
+        fullNames.forEach(fullImageName => {
+          const displayLabel = fullImageName;
+          const btn = document.createElement("button");
+          btn.className = "date-button";
+          btn.textContent = displayLabel;
+          btn.addEventListener("click", () => {
+            loadRemoteImage(fullImageName, bureau);
+          });
+          dateButtons.appendChild(btn);
+        });
+        dateGroup.style.display = "block";
+        console.log("✅ Date buttons created:", fullNames.length);
+      } else {
+        console.warn("⚠️ No images found for that creditor");
+      }
+    } else {
+      console.warn("❌ imageMap match failed — check key names");
+    }
+  });
+});
+
+function loadRemoteImage(fullImageName, bureau) {
+  // Ensure .png is only added once
+  imageName = fullImageName.endsWith(".png") ? fullImageName : `${fullImageName}.png`;
+  const imagePath = `/assets/images/${bureau}/${imageName}`;
+
+  reportImg.src = imagePath;
+
+  reportImg.onload = () => {
+    clearCanvas();
+    popup.style.display = "none";
+    clearSelection();
+    tagData = allImageData[imageName] || [];
+    renderTags();
+    updateTagLog();
+    populateDropdown();
+    renderHints();
+    
+    // Add this line to add a class when image is loaded
+    imageContainer.classList.add('image-loaded');
+    
+    showStatus(`✅ Loaded image: ${imageName}`, 3000);
+  };
+
+  reportImg.onerror = () => {
+    // Remove the class if image fails to load
+    imageContainer.classList.remove('image-loaded');
+    showStatus("❌ Image failed to load: " + imagePath, 4000);
+  };
+}
+
+// ========== HINTS + POPUP ==========
+
+function populateDropdown() {
+  violationPreset.innerHTML = '<option disabled selected>Select a violation</option>';
+  if (!imageName.includes("-")) return;
+
+  const bureauCode = imageName.includes("-EQ-") ? "EQ" : imageName.includes("-EX-") ? "EX" : "TU";
+  currentHints = hintLookup[bureauCode] || [];
+
+  currentHints.forEach((hint) => {
+    const option = document.createElement("option");
+    option.textContent = `${hint.severity} ${hint.label} (${hint.covers.length} code${hint.covers.length > 1 ? 's' : ''})`;
+    violationPreset.appendChild(option);
+  });
+}
+
+function renderHints() {
+  const sidebar = document.getElementById("sidebar-hints");
+  sidebar.innerHTML = "";
+
+  const bureauCode = imageName.includes("-EQ-") ? "EQ" :
+                     imageName.includes("-EX-") ? "EX" :
+                     imageName.includes("-TU-") ? "TU" : null;
+
+  if (!bureauCode || !hintLookup[bureauCode]) return;
+
+  hintLookup[bureauCode].forEach((hint) => {
+    const div = document.createElement("div");
+    div.className = `hint-box ${hint.severity === '🔴' ? 'severe' :
+                                hint.severity === '🟠' ? 'serious' : 'minor'}`;
+    div.innerHTML = `
+      <div class="hint-label">${hint.label}</div>
+      <div class="hint-codes">${hint.covers.join(", ")}</div>
+      <div class="hint-action">${hint.action}</div>
+    `;
+    sidebar.appendChild(div);
+  });
+}
+
+function showPopup(x, y) {
+  popup.style.left = `${x + 10}px`;
+  popup.style.top = `${y + 10}px`;
+  popup.style.display = "block";
+  populateDropdown();
+}
+
+// ========== LOCAL STORAGE ==========
+function saveAllProgress() {
+  try {
+    localStorage.setItem("violationTagsAll", JSON.stringify(allImageData));
+  } catch (e) {
+    console.error("Storage error", e);
+    showStatus("⚠️ Error saving data", 4000);
+  }
+}
+
+function loadAllProgress() {
+  try {
+    const data = localStorage.getItem("violationTagsAll");
+    if (data) allImageData = JSON.parse(data);
+  } catch (e) {
+    console.error("Load error", e);
+    showStatus("⚠️ Error loading saved tags", 4000);
+  }
+}
+
+// ========== CANVAS ==========
+
+function clearCanvas() {
+  [...imageContainer.querySelectorAll(".draw-box")].forEach(el => el.remove());
+}
+
+function clearSelection() {
+  document.querySelectorAll(".draw-box.selected").forEach(box => box.classList.remove("selected"));
+}
+
+function selectGroup(groupId) {
+  if (!groupId) return false;
+  
+  // Find all boxes with this group ID
+  const groupBoxes = document.querySelectorAll(`.draw-box[data-group-id="${groupId}"]`);
+  
+  if (groupBoxes.length === 0) return false;
+  
+  // Select all boxes in the group
+  groupBoxes.forEach(box => {
+    box.classList.add("selected");
+  });
+  
+  return true;
+}
+
+function renderTags() {
+  clearCanvas();
+  
+  // Ensure we're working with fresh data
+  tagData = allImageData[imageName] || [];
+  
+  // Track index for proper tag association
+  tagData.forEach((tag, index) => {
+    const box = document.createElement("div");
+    box.className = "draw-box";
+    
+    // Use exact integer values for dimensions
+    box.style.left = `${parseInt(tag.x, 10)}px`;
+    box.style.top = `${parseInt(tag.y, 10)}px`;
+    box.style.width = `${parseInt(tag.width, 10)}px`;
+    box.style.height = `${parseInt(tag.height, 10)}px`;
+    box.dataset.tagIndex = index; // Store index on box element
+
+    // Check if this tag is part of a group
+    for (const [groupId, tagIndices] of Object.entries(boxGroups)) {
+      if (tagIndices.includes(index)) {
+        box.dataset.groupId = groupId;
+        box.classList.add('grouped');
+        break;
+      }
     }
     
-    if (documentsPanel) {
-      documentsPanel.style.display = activeTabPanel === 'documents' ? 'flex' : 'none';
+    // Add box to container
+    imageContainer.appendChild(box);
+    
+    // Make box interactive with proper tag association
+    makeBoxInteractive(box, tagData);
+    
+    // Add resize handles after box is initialized
+    ["tl", "tr", "bl", "br"].forEach(pos => {
+      const handle = document.createElement("div");
+      handle.className = `resize-handle ${pos}`;
+      box.appendChild(handle);
+    });
+  });
+}
+
+function updateTagLog() {
+  const log = document.getElementById("tag-log");
+  log.innerHTML = "";
+
+  const mode = document.getElementById("modeSelector")?.value || "unspecified";
+
+  tagData.forEach((tag, index) => {
+    const div = document.createElement("div");
+    div.className = "tag-entry";
+    
+    // Add selected class if corresponding box is selected
+    const box = document.querySelector(`.draw-box[data-tag-index="${index}"]`);
+    if (box && box.classList.contains('selected')) {
+      div.classList.add('selected');
+    }
+    
+    const severity = tag.severity || "❓";
+    const label = tag.label || "(No label)";
+    const codes = tag.codes?.join(", ") || "(No codes)";
+    const sofNote = tag.sof ? " [SOF]" : "";
+    
+    // Ensure all values are integers for display
+    const x = tag.x != null ? parseInt(tag.x, 10) : "?";
+    const y = tag.y != null ? parseInt(tag.y, 10) : "?";
+    const width = tag.width != null ? parseInt(tag.width, 10) : "?";
+    const height = tag.height != null ? parseInt(tag.height, 10) : "?";
+    
+    const pos = `(${x}, ${y}) | ${width}×${height} [Mode: ${mode}]${sofNote}`;
+    
+    div.innerHTML = `
+      <div class="tag-label">${severity} <strong>${label}</strong></div>
+      <div class="tag-codes">${codes}</div>
+      <div class="tag-position">${pos}</div>
+    `;
+    
+    // Add click handler to select corresponding box
+    div.addEventListener('click', (event) => {
+      if (!box) return;
+      
+      // If shift key is down, add to selection without clearing
+      if (!event.shiftKey) {
+        clearSelection();
+      }
+      
+      box.classList.add('selected');
+      div.classList.add('selected');
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    
+    log.appendChild(div);
+  });
+}
+
+// ========== STATUS MESSAGES ==========
+
+function showStatus(message, duration = 3000) {
+  const statusBox = document.getElementById("status-message");
+  if (!statusBox) return; // Guard against missing element
+  
+  // Clear any existing timeout
+  if (statusBox._timeoutId) {
+    clearTimeout(statusBox._timeoutId);
+  }
+  
+  // Show the message with appropriate styling
+  statusBox.textContent = message;
+  statusBox.style.opacity = "1";
+  
+  // Apply color based on message type
+  if (message.includes("❌") || message.includes("⚠️")) {
+    statusBox.style.backgroundColor = message.includes("⚠️") ? "#ff9800" : "#f44336";
+    statusBox.style.color = "white";
+  } else if (message.includes("✅")) {
+    statusBox.style.backgroundColor = "#4caf50";
+    statusBox.style.color = "white";
+  } else {
+    statusBox.style.backgroundColor = "#2196f3";
+    statusBox.style.color = "white";
+  }
+  
+  // Clear after duration
+  if (duration > 0) {
+    statusBox._timeoutId = setTimeout(() => {
+      statusBox.style.opacity = "0";
+    }, duration);
+  }
+}
+
+// ========== TOP PANEL BUTTONS ==========
+
+// ✅ Export CSV function (called after preview confirmation)
+async function exportCSV() {
+  const btn = document.getElementById("exportCSV");
+  btn.classList.add('button-active');
+
+  try {
+    // Robust CSV escaping function
+    const escapeCSV = (value) => {
+      if (value === null || value === undefined) return '';
+      value = String(value);
+      if (/[",\n]/.test(value)) {
+        return `"${value.replace(/"/g, '""')}"`;
+      }
+      return value;
+    };
+
+    // Process all tags with proper escaping
+    const mode = document.getElementById("modeSelector")?.value || "unspecified";
+
+    const allTags = Object.entries(allImageData).flatMap(([imgName, tags]) => {
+      return tags.map(tag => [
+        escapeCSV(imgName),
+        escapeCSV(tag.severity),
+        escapeCSV(tag.label),
+        escapeCSV(tag.codes.join("; ")),
+        parseInt(tag.x, 10),
+        parseInt(tag.y, 10),
+        parseInt(tag.width, 10),
+        parseInt(tag.height, 10),
+        escapeCSV(mode),
+        tag.sof ? "TRUE" : "FALSE"
+      ]);
+    });
+
+    if (!allTags.length) {
+      showStatus("⚠️ No data to export", 3000);
+      return;
+    }
+
+    // Create header row with proper escaping
+    const headers = [
+      "Image", "Severity", "Label", "Codes", "X", "Y", "Width", "Height", "Mode", "SOF"
+    ].map(escapeCSV);
+
+    // Build CSV content
+    const csvContent = [
+      headers.join(","),
+      ...allTags.map(row => row.join(","))
+    ].join("\n");
+
+    // Create and trigger download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `violation_tags_export_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    showStatus("📤 CSV exported", 3000);
+  } catch (error) {
+    console.error("Export error:", error);
+    showStatus("⚠️ Error exporting CSV", 3000);
+  } finally {
+    if (btn) {
+      btn.classList.remove('button-active');
     }
   }
 }
+
+// ✅ CSV Button — now launches preview modal before export
+document.getElementById("exportCSV").addEventListener("click", function () {
+  openPreviewModal(exportCSV);
+});
+
