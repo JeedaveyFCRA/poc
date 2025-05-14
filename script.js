@@ -16,146 +16,59 @@ const appState = {
   documentVisible: false,
   currentDocumentType: null,
   
+  // CSV Data
+  csvData: []
+};
+
+// Actual sample CSV data with CORRECT X, Y, Width, Height values from the provided data
+const sampleCsvData = `Image,Severity,Label,Codes,X,Y,Width,Height,Mode,SOF
+AL-EQ-2024-04-25-P57.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),43,198,360,20,INCLUDED_IN_CHAPTER_13,true
+AL-EQ-2024-04-25-P57.png,severe,Failed to Update After Notice,§1681s-2(b),404,174,360,20,Chapter 13 Dismissal,false
+AL-EQ-2024-04-25-P57.png,severe,Failure to Ensure Accuracy,§1681e(b),404,198,360,20,Inaccurate Reporting,false
+AL-EQ-2024-04-25-P57.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),43,661,360,20,Still Showing as Active,true
+AL-EQ-2024-04-25-P57.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),43,688,360,20,Unverifiable Account,false
+AL-EQ-2024-04-25-P57.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),404,761,360,20,,Missing Account History,false
+
+AL-EX-2024-04-25-P05.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),123,319,510,20,INCLUDED_IN_CHAPTER_13,true
+AL-EX-2024-04-25-P05.png,severe,Failed to Update After Notice,§1681s-2(b),123,364,510,20,Chapter 13 Dismissal,false
+AL-EX-2024-04-25-P05.png,severe,Failure to Ensure Accuracy,§1681e(b),123,386,509,20,Inaccurate Reporting,false
+AL-EX-2024-04-25-P05.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),123,408,510,20,Still Showing as Active,true
+AL-EX-2024-04-25-P05.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),123,429,510,20,Unverifiable Account,false
+AL-EX-2024-04-25-P05.png,minor,Failed to Disclose Complete Info,§1681g(a)(1),123,473,510,20,Missing Account History,false
+
+AL-TU-2024-04-25-P07.png,severe,Bankruptcy Status Misreported,§1681s-2(a)(1)(A),47,264,711,28,INCLUDED_IN_CHAPTER_13,true
+AL-TU-2024-04-25-P07.png,severe,Failed to Update After Notice,§1681s-2(b),47,389,711,28,Chapter 13 Dismissal,false
+AL-TU-2024-04-25-P07.png,severe,Failure to Ensure Accuracy,§1681e(b),47,429,711,28,Inaccurate Reporting,false
+AL-TU-2024-04-25-P07.png,serious,Improper Bankruptcy Discharge Status,§1681c(f),47,516,711,28,Still Showing as Active,true
+AL-TU-2024-04-25-P07.png,serious,Failed to Delete Disputed Info,§1681i(a)(5)(A),47,473,711,28,Unverifiable Account,false`;
 
 
 
 
-
-
-
-
-// ===== AIRTABLE INTEGRATION =====
-// Airtable credentials
-const AIRTABLE_TOKEN = 'patiiNzMeWbsIHD29.b5c3d562339758fef9d454a5f7b25aa5702f10a8e0d1506d8682de7ddbf80e77';
-const AIRTABLE_BASE_ID = 'apppDRYBhN8W65aL5';
-const AIRTABLE_TABLE_NAME = 'ExportedViolations';
-
-// Fetch violations from Airtable API
-async function fetchViolationsFromAirtable() {
-  console.log('Fetching violations from Airtable...');
-  
-  try {
-    // Construct the API URL
-    const apiUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`;
-    
-    // Set up the request with proper authorization
-    const response = await fetch(apiUrl, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    // Check if the request was successful
-    if (!response.ok) {
-      throw new Error(`Airtable API error: ${response.status} ${response.statusText}`);
-    }
-    
-    // Parse the JSON response
-    const data = await response.json();
-    console.log('Raw Airtable data:', data);
-    
-    // Clear existing CSV data
-    appState.csvData = [];
-    
-    // Process each record from Airtable
-    data.records.forEach((record, index) => {
-      const fields = record.fields;
-      
-      // Create an entry object with the required fields
-      const entry = {
-        // Required fields with proper type conversion
-        Image: fields.Image || '',
-        Severity: fields.Severity || 'minor',
-        Label: fields.Label || 'Unnamed Violation',
-        Codes: fields.Codes || '',
-        X: parseInt(fields.X) || 0,
-        Y: parseInt(fields.Y) || 0,
-        Width: parseInt(fields.Width) || 0,
-        Height: parseInt(fields.Height) || 0,
-        Mode: fields.VioTrigger || '', // Formerly Mode
-        SOF: fields.SOF === true || fields.SOF === 'true',
-        
-        // Add unique ID for tracking
-        id: `box-${index + 1}`
-      };
-      
-      // Determine which bureau this belongs to
-      if (entry.Image.includes('-EQ-')) {
-        entry.bureau = 'equifax';
-      } else if (entry.Image.includes('-EX-')) {
-        entry.bureau = 'experian';
-      } else if (entry.Image.includes('-TU-')) {
-        entry.bureau = 'transunion';
-      } else {
-        entry.bureau = 'unknown';
-      }
-      
-      // Add to the CSV data array
-      appState.csvData.push(entry);
-    });
-    
-    console.log('Fetched Airtable records:', appState.csvData);
-    
-    // If we have data and bureau is selected, render it
-    if (appState.csvData.length > 0 && appState.currentBureau) {
-      renderViolationsForBureau(appState.currentBureau);
-    } else {
-      console.log('Waiting for bureau selection to render violations');
-    }
-    
-    return true;
-  } catch (error) {
-    console.error('Error fetching data from Airtable:', error);
-    
-    // Show error message on the page
-    const placeholder = document.getElementById('placeholder-text');
-    if (placeholder) {
-      placeholder.innerHTML = '<strong>Error Loading Data</strong><span>Please check your connection and refresh.</span>';
-      placeholder.style.display = 'block';
-    }
-    
-    return false;
-  }
-}
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', function() {
   // Ensure UI is properly initialized
   ensureUIInitialization();
   
-  // Configure the image container to match the POC site specs
+  // Configure the image container to match VioTagger's exact specs
   configureReportContainer();
+  
+  // Parse the CSV data
+  processCSVData(sampleCsvData);
   
   // Initialize event listeners
   initBureauSelectors();
   initNavigationControls();
   
-  // Fetch data from Airtable
-  fetchViolationsFromAirtable().then(success => {
-    if (success) {
-      console.log('Successfully loaded violation data from Airtable');
-    } else {
-      console.warn('Failed to load data from Airtable');
-    }
-    
-    // Note: We don't automatically load a credit report here
-    // since the POC site starts with the placeholder message
-  });
+  // Load initial credit report (default to current bureau or equifax)
+  loadCreditReport(appState.currentBureau || 'equifax');
+  
+  // Log the CSV data
+  console.log('CSV data processed with correct coordinates:', appState.csvData);
+  
+  // Note: Mobile support is now handled by viotagger-mobile.js
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ===== CONTAINER CONFIGURATION =====
 
