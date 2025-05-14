@@ -30,8 +30,10 @@ const AIRTABLE_TOKEN = 'patiiNzMeWbsIHD29.b5c3d562339758fef9d454a5f7b25aa5702f10
 const AIRTABLE_BASE_ID = 'apppDRYBhN8W65aL5';
 const AIRTABLE_TABLE_NAME = 'ExportedViolations';
 
-// Replace the hardcoded CSV data with data fetched from Airtable
+// Fetch violations from Airtable API
 async function fetchViolationsFromAirtable() {
+  console.log('Fetching violations from Airtable...');
+  
   try {
     // Construct the API URL
     const apiUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`;
@@ -52,6 +54,7 @@ async function fetchViolationsFromAirtable() {
     
     // Parse the JSON response
     const data = await response.json();
+    console.log('Raw Airtable data:', data);
     
     // Clear existing CSV data
     appState.csvData = [];
@@ -95,16 +98,22 @@ async function fetchViolationsFromAirtable() {
     
     console.log('Fetched Airtable records:', appState.csvData);
     
-    // Render the violations for the current bureau
-    renderViolationsForBureau(appState.currentBureau);
+    // If we have data and bureau is selected, render it
+    if (appState.csvData.length > 0 && appState.currentBureau) {
+      renderViolationsForBureau(appState.currentBureau);
+    } else {
+      console.log('Waiting for bureau selection to render violations');
+    }
     
     return true;
   } catch (error) {
     console.error('Error fetching data from Airtable:', error);
     
-    // Fall back to initial state if needed
-    if (appState.csvData.length === 0) {
-      alert('Failed to load violation data. Please check your connection and refresh the page.');
+    // Show error message on the page
+    const placeholder = document.getElementById('placeholder-text');
+    if (placeholder) {
+      placeholder.innerHTML = '<strong>Error Loading Data</strong><span>Please check your connection and refresh.</span>';
+      placeholder.style.display = 'block';
     }
     
     return false;
@@ -116,24 +125,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // Ensure UI is properly initialized
   ensureUIInitialization();
   
-  // Configure the image container to match VioTagger's exact specs
+  // Configure the image container to match the POC site specs
   configureReportContainer();
   
-  // Fetch data from Airtable instead of processing hardcoded CSV
+  // Initialize event listeners
+  initBureauSelectors();
+  initNavigationControls();
+  
+  // Fetch data from Airtable
   fetchViolationsFromAirtable().then(success => {
-    if (!success) {
-      console.warn('Falling back to local data processing if available');
+    if (success) {
+      console.log('Successfully loaded violation data from Airtable');
+    } else {
+      console.warn('Failed to load data from Airtable');
     }
+    
+    // Note: We don't automatically load a credit report here
+    // since the POC site starts with the placeholder message
   });
-  
-  // Initialize event listeners
-  initBureauSelectors();
-  initNavigationControls();
-  
-  // Load initial credit report (default to current bureau or equifax)
-  // Note: This is now handled by fetchViolationsFromAirtable
-  
-  // Note: Mobile support is now handled by viotagger-mobile.js
 });
 
 
@@ -147,30 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-// ===== INITIALIZATION =====
-document.addEventListener('DOMContentLoaded', function() {
-  // Ensure UI is properly initialized
-  ensureUIInitialization();
-  
-  // Configure the image container to match VioTagger's exact specs
-  configureReportContainer();
-  
-  // Parse the CSV data
-  processCSVData(sampleCsvData);
-  
-  // Initialize event listeners
-  initBureauSelectors();
-  initNavigationControls();
-  
-  // Load initial credit report (default to current bureau or equifax)
-  loadCreditReport(appState.currentBureau || 'equifax');
-  
-  // Log the CSV data
-  console.log('CSV data processed with correct coordinates:', appState.csvData);
-  
-  // Note: Mobile support is now handled by viotagger-mobile.js
-});
 
 // ===== CONTAINER CONFIGURATION =====
 
