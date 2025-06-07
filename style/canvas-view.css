@@ -1,0 +1,141 @@
+/* canvas-view.css */
+
+/* Outer container for the credit report PNG */
+#Image_Canvas_Container {
+  position: absolute;
+  top: 140px;
+  left: 15px;
+  width: 810px;
+  height: 920px;
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* very faint shadow */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* The image inside the container */
+.report-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Canvas Heading Layout */
+#Canvas_Heading_Container {
+  position: absolute;
+  top: 164px;
+  left: 15px;
+  width: 810px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+#Canvas_Heading_Background {
+  background-image: url('../assets/icons/canvas-heading-background.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 533px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  position: relative; /* Required for z-index to take effect */
+}
+
+#Canvas_Heading_Text {
+  font-family: "jaf-bernino-sans-comp", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.5px;
+  margin: 0;
+  position: relative;
+  top: 2px;
+  z-index: 4; /* Slightly above background */
+}
+
+/* Base styles for all arrow images to prevent FOUC */
+img.canvas-arrow {
+  opacity: 0; /* Start invisible */
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Once loaded, make visible */
+img.canvas-arrow.loaded {
+  opacity: 1;
+}
+
+/* Arrow hover states */
+#Canvas_Arrow_Left:hover {
+  content: url("../assets/icons/canvas-arrow-left-hover.png");
+}
+
+#Canvas_Arrow_Right:hover {
+  content: url("../assets/icons/canvas-arrow-right-hover.png");
+}
+
+#Canvas_Arrow_Group_Left:hover {
+  content: url("../assets/icons/canvas-arrow-group-left-hover.png");
+}
+
+#Canvas_Arrow_Group_Right:hover {
+  content: url("../assets/icons/canvas-arrow-group-right-hover.png");
+}
+
+/* Add this to canvas-view.css */
+
+/* Bureau logo styles for interactive behavior */
+.bureau-logo {
+  transition: all 0.2s ease-in-out;
+  opacity: 0.6;
+  cursor: pointer; /* Always show pointer cursor on logos */
+}
+
+.bureau-logo.active {
+  opacity: 1;
+  border-bottom: 2px solid #007bff; /* Highlight color for active bureau */
+}
+
+.bureau-logo:hover {
+  opacity: 0.9;
+}
+
+
+/* Dimmed state for Report View containers */
+.dimmed {
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease-in-out !important;
+}
+
+#FCRA_Button {
+  cursor: pointer;
+  transition: filter 0.2s ease-in-out;
+  z-index: 16;
+  position: absolute;
+  pointer-events: auto;
+}
+
+#FCRA_Button:hover {
+  filter: drop-shadow(0 6px 4px white); /* shifted, smaller white glow */
+}
+
+#SysWide_FCRA_Popup {
+  z-index: 25;
+  position: absolute;
+  pointer-events: auto;
+}
+
+#SysWide_FCRA_Popup img {
+  filter: drop-shadow(0 0 8px white);
+}

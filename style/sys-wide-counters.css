@@ -1,0 +1,164 @@
+/* Remove conflicting body styles and start with background-png */
+.background-png {
+  position: absolute;
+  left: 1096px;
+  top: 160px;
+  width: 798px;
+  height: 717px;
+  background-image: url('../assets/icons/sys-wide-popup.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  z-index: 8;
+}
+
+.violation-content {
+  position: absolute;
+  left: 64px;
+  top: 48px;
+  width: 700px;
+  height: 630px;
+  padding: 25px;
+  box-sizing: border-box;
+  z-index: 9;
+}
+
+.report-title {
+  font-family: "jaf-bernino-sans-comp", sans-serif !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  font-size: 36pt;
+  color: #253541;
+  text-align: left;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.section {
+  margin-bottom: 13px;
+  position: relative;
+  z-index: 0;
+}
+
+.section-title {
+  font-family: "Space Grotesk", sans-serif !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  font-size: 16pt;
+  margin-bottom: 13px;
+  color: rgba(0, 0, 0, 0.9);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  z-index: 0;
+}
+
+.violation-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.violation-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: calc(33.333% - 9px);
+  height: 48px;
+  font-size: 11pt;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50px;
+  padding: 2px 8px 2px -3.7px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  border: 3pt solid rgba(0, 0, 0, 0.9);
+  margin-left: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Add severity-specific border colors */
+.severe.violation-item { border-color: #ff0000; }
+.serious.violation-item { border-color: #ff6f00; }
+.minor.violation-item { border-color: #ffc107; }
+
+.count-badge {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3pt solid #253541;
+  font-family: "jaf-bernino-sans-comp", sans-serif !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  font-size: 20pt;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 8px;
+  margin-left: -3.7px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  z-index: 2;
+}
+
+/* Severity text colors with consistent border */
+.severe .count-badge { color: #ff0000; border-color: #253541; }
+.serious .count-badge { color: #ff6f00; border-color: #253541; }
+.minor .count-badge { color: #ffc107; border-color: #253541; }
+.total .count-badge { color: #253541; border-color: #253541; }
+
+.violation-label {
+  line-height: 1.2;
+  font-family: "Space Grotesk", sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: 11pt;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-left: 0;
+}
+
+/* Main violation counter */
+#violation-count {
+  position: absolute !important;
+  top: 302px !important;
+  left: 1053px !important;
+  width: 45px !important;
+  height: 33px !important;
+  color: #253541 !important;
+  font-family: "jaf-bernino-sans-comp", sans-serif !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  font-size: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 8 !important;
+  pointer-events: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Severity Badge Colors */
+.severity-badge {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.severity-badge.severe { background-color: #ff0000; }
+.severity-badge.serious { background-color: #ff6f00; }
+.severity-badge.minor { background-color: #ffc107; }

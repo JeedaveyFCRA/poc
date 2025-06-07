@@ -1,0 +1,14 @@
+/* dim-overlay.css */
+/* Standardized dimming effect for all overlays */
+
+.dim-overlay {
+  position: absolute;
+  background: white !important;
+  opacity: 0.3 !important;
+  clip-path: inset(0 round 24px);
+  border-radius: 24px;
+  pointer-events: none;
+  display: none;
+  z-index: 21 !important;
+  transition: opacity 0.3s ease-in-out !important;
+}

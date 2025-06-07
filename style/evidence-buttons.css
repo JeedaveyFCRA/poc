@@ -1,0 +1,40 @@
+/* evidence-buttons.css */
+/* Styles for the Evidence Icon Bar */
+
+/* Style for all evidence icons */
+.evidence-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+/* Container for icon + click area */
+.evidence-button {
+  position: absolute;
+  width: 53px;
+  height: 53px;
+  cursor: pointer;
+}
+
+/* Label text below each icon */
+.evidence-label {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 450;
+  font-size: 9.5pt;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 1.2;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Selected state - uses the *-selected.png version */
+.evidence-icon.selected {
+  filter: none; /* Remove any filters when selected */
+}
+
+/* Hover state - only applies when not selected */
+.evidence-button:hover .evidence-icon:not(.selected) {
+  filter: drop-shadow(0 0 10px white);
+}

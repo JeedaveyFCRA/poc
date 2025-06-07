@@ -1,0 +1,88 @@
+{
+  "navigation": {
+    "backButton": {
+      "src": "assets/icons/back-button.png",
+      "alt": "Back to Evidence Menu",
+      "position": {
+        "x": 1179,
+        "y": 1004,
+        "width": 32,
+        "height": 32
+      }
+    },
+    "closeButton": {
+      "src": "assets/icons/evidence-close.png",
+      "alt": "Close Evidence View",
+      "position": {
+        "x": 1827,
+        "y": 1004,
+        "width": 32,
+        "height": 32
+      }
+    }
+  },
+  "content": {
+    "print": {
+      "heading": "Print Documents",
+      "items": [
+        {
+          "title": "Credit Report - Page 1",
+          "content": "Sample print document content 1"
+        },
+        {
+          "title": "Credit Report - Page 2", 
+          "content": "Sample print document content 2"
+        }
+      ]
+    },
+    "denial": {
+      "heading": "Credit Denials", 
+      "items": [
+        {
+          "title": "Mortgage Denial - Chase",
+          "content": "Sample denial content 1"
+        },
+        {
+          "title": "Auto Loan Denial - Wells Fargo",
+          "content": "Sample denial content 2"
+        }
+      ]
+    },
+    "trauma": {
+      "heading": "Systemic Trauma",
+      "items": [
+        {
+          "title": "Financial Impact Assessment",
+          "content": "Sample trauma content 1"
+        }
+      ]
+    },
+    "bkdoc": {
+      "heading": "Bankruptcy Documents",
+      "items": [
+        {
+          "title": "Chapter 7 Filing",
+          "content": "Sample bankruptcy content 1"
+        }
+      ]
+    },
+    "addl": {
+      "heading": "Misreporting",
+      "items": [
+        {
+          "title": "Supporting Documentation",
+          "content": "Sample additional evidence 1"
+        }
+      ]
+    },
+    "alerts": {
+      "heading": "Damaging Alerts",
+      "items": [
+        {
+          "title": "Credit Monitoring Alert",
+          "content": "Sample alert content 1"
+        }
+      ]
+    }
+  }
+}

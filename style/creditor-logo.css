@@ -1,0 +1,33 @@
+/* Ensure logo container has relative positioning */
+#Creditor_Logo_Container {
+  position: relative;
+}
+
+/* Creditor logo image (left-side box) */
+#Creditor_Logo_Image {
+  max-width: 75%;
+  max-height: 65%;
+  object-fit: contain;
+}
+
+
+/* Base arrow style */
+.creditor-arrow {
+  position: absolute;
+  top: 50%;
+  width: auto;            /* ✅ Prevent stretching horizontally */
+  height: 24px;           /* ✅ Set fixed height only */
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* Left arrow position */
+.creditor-arrow.left {
+  left: 10px;
+}
+
+/* Right arrow position */
+.creditor-arrow.right {
+  right: 10px;
+}

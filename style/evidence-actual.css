@@ -1,0 +1,194 @@
+/* evidence-actual.css */
+/* Styling for the main evidence document display area */
+
+/* Main container for evidence document content */
+#Evidence_Actual_Container {
+  position: absolute !important;
+  left: 1179px !important;
+  top: 66px !important;
+  width: 694px !important;
+  height: 904px !important;
+  background-color: transparent !important; /* No background fill */
+  border: none !important; /* No stroke/border */
+  box-shadow: none !important; /* No drop shadow */
+  padding: 40px !important;
+  box-sizing: border-box !important;
+  z-index: 250 !important; /* HIGHEST: Above everything including matters box (200) */
+  overflow-y: auto !important; /* Allow scrolling for long content */
+  display: none !important; /* Hidden by default */
+  transition: opacity 0.3s ease-in-out !important;
+  visibility: hidden !important; /* Ensure it starts hidden */
+}
+
+/* Evidence document heading */
+#Evidence_Actual_Heading {
+  font-family: "jaf-bernino-sans-comp", sans-serif;
+  font-weight: 800; /* Extrabold */
+  font-style: normal;
+  font-size: 32pt; /* CHANGED: From 36pt to 32pt */
+  color: #253541;
+  line-height: 1.1;
+  text-align: left;
+  margin: 0 0 36px 0; /* 0.5 inch spacing after heading (36px ≈ 0.5") */
+  letter-spacing: -0.5px;
+}
+
+/* Evidence document content/copy */
+#Evidence_Actual_Copy {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 12pt; /* CHANGED: From 14pt to 12pt (2 points smaller) */
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 1.4;
+  text-align: left;
+  letter-spacing: -0.25px;
+}
+
+/* Letter-style formatting for content */
+#Evidence_Actual_Copy p {
+  margin: 0 0 14px 0;
+}
+
+/* Email header styling (sender, time, etc.) */
+#Evidence_Actual_Copy .email-header {
+  font-weight: 500; /* Medium weight for headers */
+  margin-bottom: 18px;
+}
+
+/* Email sender name */
+#Evidence_Actual_Copy .sender-name {
+  font-weight: 600; /* Semi-bold for sender name */
+}
+
+/* Email timestamp */
+#Evidence_Actual_Copy .timestamp {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Email greeting */
+#Evidence_Actual_Copy .greeting {
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+
+/* Enhanced styling for special content elements */
+#Evidence_Actual_Copy .company-name {
+  font-weight: 600;
+  color: #4a90e2;
+  background: rgba(74, 144, 226, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+#Evidence_Actual_Copy .important-date {
+  font-weight: 600;
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+#Evidence_Actual_Copy .important-number {
+  font-weight: 600;
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+#Evidence_Actual_Copy .highlight-red {
+  background: rgba(231, 76, 60, 0.15);
+  color: #c0392b;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+/* Important dates and numbers - make them bold (legacy fallback) */
+#Evidence_Actual_Copy .important-date,
+#Evidence_Actual_Copy .important-number {
+  font-weight: 700; /* Bold for emphasis */
+}
+
+/* Company/organization names */
+#Evidence_Actual_Copy .company-name {
+  font-weight: 600; /* Semi-bold for company names */
+}
+
+/* Email signature */
+#Evidence_Actual_Copy .signature {
+  margin-top: 24px;
+  font-weight: 500;
+}
+
+/* Job title in signature */
+#Evidence_Actual_Copy .job-title {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* Bullet points if needed */
+#Evidence_Actual_Copy ul {
+  padding-left: 20px;
+  margin: 14px 0;
+}
+
+#Evidence_Actual_Copy li {
+  margin-bottom: 8px;
+}
+
+/* Underlined text for emphasis */
+#Evidence_Actual_Copy .underline {
+  text-decoration: underline;
+}
+
+/* Colored text for highlighting key information */
+#Evidence_Actual_Copy .highlight-red {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+#Evidence_Actual_Copy .highlight-blue {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+#Evidence_Actual_Copy .signature .job-title {
+  font-weight: 400;
+  font-size: 11pt;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 5px;
+}
+
+/* ULTIMATE OVERRIDE - HIGHEST PRIORITY */
+/* This rule MUST be at the end of the file to ensure maximum specificity */
+html body div#Evidence_Actual_Container[style*="display: block"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 250 !important;
+  position: absolute !important;
+  top: 66px !important;
+  left: 1179px !important;
+  width: 694px !important;
+  height: 904px !important;
+  background-color: transparent !important; /* No background fill */
+  border: none !important; /* No stroke/border */
+  box-shadow: none !important; /* No drop shadow */
+  padding: 40px !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+}
+
+/* Alternative selector for when forced visible via JavaScript */
+html body div#Evidence_Actual_Container.force-visible {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 250 !important;
+  position: absolute !important;
+  background-color: transparent !important; /* No background fill */
+  border: none !important; /* No stroke/border */
+  box-shadow: none !important; /* No drop shadow */
+}

@@ -1,0 +1,163 @@
+/* matters-style.css */
+
+/* Base styles */
+#Matters_Box {
+  position: absolute !important;
+  background-color: transparent !important;
+}
+
+#Matters_Box img {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#matters-pointer-box {
+  position: absolute !important;
+  background-color: transparent !important;
+}
+
+/* State-based management */
+.state-default #Matters_Box,
+.state-evidence-menu #Matters_Box {
+  display: none !important;
+}
+
+.state-matters-view #Matters_Box {
+  display: block !important;
+  z-index: 200 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.state-default #matters-pointer-box,
+.state-evidence-menu #matters-pointer-box {
+  display: none !important;
+}
+
+.state-matters-view #matters-pointer-box {
+  display: block !important;
+  z-index: 201 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#Matters_Pointer_Box {
+  position: absolute;
+  top: 308px;
+  left: 823px;
+  width: 270px;
+  height: 704px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  font-family: "Space Grotesk", sans-serif;
+  overflow-y: auto;
+  transition: z-index 0ms, opacity 200ms ease-in-out;
+}
+
+.state-default #Matters_Pointer_Box,
+.state-evidence-menu #Matters_Pointer_Box {
+  z-index: 0;
+  opacity: 0;
+}
+
+.state-matters-view #Matters_Pointer_Box {
+  z-index: 201;
+  opacity: 1;
+}
+
+/* Typography Styles */
+.matters-heading {
+  font-family: "jaf-bernino-sans-comp", sans-serif;
+  font-size: 28pt !important;
+  font-weight: 800;
+  color: #253541;
+  margin-bottom: 10px;
+}
+
+.matters-subhead {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12pt !important;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.9);
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.matters-lead {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10pt !important;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.matters-bullets {
+  font-size: 10pt !important;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  text-align: left;
+}
+
+.matters-bullet {
+  padding-left: 4px;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.matters-divider {
+  height: 0.5pt;
+  background-color: #b7b5b3;
+  margin: 4px 0 6px 0;
+}
+
+.matters-violations-heading {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 8pt !important;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.matters-violations-codes {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 8pt !important;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  margin-bottom: 8px;
+}
+
+.matters-harm-index {
+  font-family: "jaf-bernino-sans-comp", sans-serif;
+  font-size: 11pt !important;
+  font-weight: 800;
+  color: #253541;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.matters-harm-dot {
+  color: #e74c3c;
+  font-size: 14pt !important;
+}
+
+.matters-connected-heading {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 8pt !important;
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.matters-connected-list {
+  font-size: 8pt !important;
+  margin: 0;
+  padding-left: 16px;
+}
+
+.matters-connected-item {
+  margin-bottom: 4px;
+  line-height: 1.3;
+}

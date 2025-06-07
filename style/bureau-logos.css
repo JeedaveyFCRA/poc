@@ -1,0 +1,54 @@
+/* bureau-logos.css */
+/* Styles for credit bureau and creditor logo containers and images */
+
+/* Logo container boxes (EQ, EX, TU) */
+.bureau-logo-container {
+  width: 156px;
+  height: 110px;
+  border-radius: 24px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+
+/* Bureau logo images (inside container) */
+.bureau-logo-image {
+  max-width: 90%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+/* Hover effect for all bureau boxes */
+.bureau-logo-container:hover {
+  background-color: #eeeeee;
+}
+
+/* Optional: transition for smoother visual effect */
+.bureau-logo-container {
+  transition: background-color 0.3s ease;
+}
+
+
+/* Bureau logo interaction styles */
+.bureau-logo {
+  transition: all 0.2s ease-in-out;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.bureau-logo.active {
+  opacity: 1;
+  border-bottom: 2px solid #007bff; /* Or your preferred highlight color */
+}
+
+.bureau-logo:hover {
+  opacity: 0.9;
+}
+
+/* Ensure cursor is pointer for clickable containers */
+.bureau-logo-container {
+  cursor: pointer;
+}
+

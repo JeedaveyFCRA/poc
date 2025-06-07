@@ -1,0 +1,151 @@
+#Evidence_Menu_Container {
+  pointer-events: auto;
+  z-index: 202 !important; /* Above matters box */
+  position: relative;
+}
+
+#Evidence_Menu_Content {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: calc(100% - 71px); /* 40 left + 31 right padding (reduced by 25px) */
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', sans-serif;
+  color: rgba(0, 0, 0, 0.9);
+  height: calc(100% - 54px); /* Prevent overflow from top padding */
+  z-index: 203 !important; /* Above container */
+}
+
+/* Add styles for back and close buttons */
+.evidence-back-button,
+.evidence-close-button {
+  position: fixed;
+  z-index: 204 !important; /* Above everything */
+  display: block !important;
+  visibility: visible !important;
+}
+
+.evidence-back-button {
+  top: 260px;
+  left: 769px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.evidence-close-button {
+  top: 260px;
+  left: 1150px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+#Evidence_Menu_Content h2 {
+  font-family: "jaf-bernino-sans-comp", sans-serif !important;
+  font-weight: 800 !important; /* 800 is Extrabold */
+  font-style: normal !important;
+  font-size: 32pt;
+  color: #253541;
+  margin: 0 0 8px 0;
+  text-align: left;
+  letter-spacing: -0.5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#Evidence_Menu_Content p {
+  font-size: 11pt;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 1.35; /* or 1.35 if 1.3 feels too tight */
+  text-align: left;
+  margin-bottom: 12px;
+  padding-left: 16px;
+  padding-right: 10px;
+  letter-spacing: -0.25px; /* 👈 Add this */
+}
+
+#Evidence_Menu_Content p strong {
+  font-weight: 600;
+}
+
+#Evidence_Link_List {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+#Evidence_Link_List li {
+  margin-bottom: 4px;
+}
+
+/* Default state - all links black with black underline */
+#Evidence_Link_List li a {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11pt;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9) !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(0, 0, 0, 0.9) !important;
+  display: block;
+  padding-left: 16px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  transition: text-decoration-color 0.2s ease;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Hover state - red text and red underline */
+#Evidence_Link_List li a:hover {
+  color: red !important;
+  text-decoration-color: red !important;
+}
+
+/* Remove special highlight styling - all links should look the same in default state */
+#Evidence_Link_List li a.highlight {
+  color: rgba(0, 0, 0, 0.9) !important;
+  text-decoration-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Highlight hover state - same red text and underline as others */
+#Evidence_Link_List li a.highlight:hover {
+  color: red !important;
+  text-decoration-color: red !important;
+}
+
+/* Evidence Menu Link Highlighting */
+#Evidence_Link_List a {
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  display: block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  text-decoration: underline;
+  color: inherit;
+}
+
+#Evidence_Link_List a:hover {
+  color: red !important;
+  text-decoration-color: red !important;
+}
+
+/* Red state for selected/active link */
+#Evidence_Link_List a.selected {
+  color: red !important;
+  text-decoration-color: red !important;
+  font-weight: 600 !important;
+}
+
+#Evidence_Link_List a.selected:hover {
+  color: red !important;
+  text-decoration-color: red !important;
+}
+
+/* Ensure list items have proper spacing */
+#Evidence_Link_List li {
+  margin-bottom: 2px;
+  list-style: none;
+}

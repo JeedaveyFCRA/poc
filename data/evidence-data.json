@@ -1,0 +1,88 @@
+{
+  "denials": {
+    "heading": "Credit Denials",
+    "letters": [
+      {
+        "id": "rocket-referral",
+        "title": "Rocket Mortgage – Credit Upgrade Referral Confirmation"
+      },
+      {
+        "id": "chase-denial",
+        "title": "Chase Bank Credit Card Application Denial"
+      },
+      {
+        "id": "wells-fargo-denial",
+        "title": "Wells Fargo Auto Loan Denial"
+      }
+    ]
+  },
+  "emotional": {
+    "heading": "Emotional Impact",
+    "letters": [
+      {
+        "id": "therapy-notes",
+        "title": "Therapy Session Notes - Financial Stress"
+      },
+      {
+        "id": "medical-bills",
+        "title": "Medical Bills from Stress-Related Health Issues"
+      }
+    ]
+  },
+  "bankruptcy": {
+    "heading": "Bankruptcy Docs",
+    "letters": [
+      {
+        "id": "ch7-filing",
+        "title": "Chapter 7 Bankruptcy Filing"
+      },
+      {
+        "id": "creditor-list",
+        "title": "List of Creditors and Amounts"
+      }
+    ]
+  },
+  "alerts": {
+    "heading": "Damaging Alerts",
+    "letters": [
+      {
+        "id": "fraud-alert",
+        "title": "Identity Theft Report and Fraud Alert"
+      },
+      {
+        "id": "security-freeze",
+        "title": "Credit Security Freeze Confirmation"
+      }
+    ]
+  },
+  "triggers": {
+    "heading": "Timeline Triggers",
+    "letters": [
+      {
+        "id": "initial-dispute",
+        "title": "Initial Credit Report Dispute"
+      },
+      {
+        "id": "agency-response",
+        "title": "Credit Agency Response Letter"
+      },
+      {
+        "id": "follow-up",
+        "title": "Follow-up Dispute Documentation"
+      }
+    ]
+  },
+  "extras": {
+    "heading": "Additional Evidence",
+    "letters": [
+      {
+        "id": "income-docs",
+        "title": "Income Verification Documents"
+      },
+      {
+        "id": "payment-history",
+        "title": "Payment History Records"
+      }
+    ]
+  }
+} 

@@ -1,0 +1,61 @@
+{
+  "denials": [
+    { "id": "rocket-denial", "title": "Rocket Formal Denial" },
+    { "id": "apple-card", "title": "Apple Card Application Status_2023 04 19" },
+    { "id": "best-egg-1", "title": "Best Egg Denial 1" },
+    { "id": "best-egg-2", "title": "Best Egg Denial 2" },
+    { "id": "capital-one", "title": "Capital One Denial" },
+    { "id": "rocket-loans", "title": "Rocket Loans Denial" },
+    { "id": "rocket-internal", "title": "Rocket Mortgage–Internal Credit Documents" }
+  ],
+
+  "emotional": [
+    { "id": "ei-ally", "title": "Ally Financial Emotional Impact" },
+    { "id": "ei-bestbuy", "title": "Best Buy/CBNA Emotional Impact" },
+    { "id": "ei-barclays", "title": "Barclays Emotional Impact" },
+    { "id": "ei-bofa", "title": "Bank of America Emotional Impact" },
+    { "id": "ei-citizens", "title": "Citizens Bank (8116, 7849)\nEmotional Impact" },
+    { "id": "ei-cornerstone", "title": "Cornerstone Emotional Impact" },
+    { "id": "ei-discover-bank", "title": "Discover Bank Emotional Impact" },
+    { "id": "ei-discover-loans", "title": "Discover Loans Emotional Impact" },
+    { "id": "ei-jpmcb", "title": "JMP/CB (Chase) Emotional Impact" },
+    { "id": "ei-mariner", "title": "Mariner Emotional Impact" },
+    { "id": "ei-sears", "title": "Sears/CBNA Emotional Impact" },
+    { "id": "ei-thd", "title": "THD/CBNA Emotional Impact" }
+  ],
+
+  "bankruptcy": [
+    { "id": "bk-confirmation", "title": "D Marra Confirmation order" },
+    { "id": "bk-discharge", "title": "D Marra, Discharge noticing" },
+    { "id": "bk-petition", "title": "D Marra, Petition" },
+    { "id": "bk-trustee", "title": "D Marra, Trustee Closing Report" },
+    { "id": "bk-order", "title": "Order_of_Discharge" }
+  ],
+
+  "alerts": [
+    { "id": "alert-bestbuy", "title": "Best Buy/CBNA Reports Account As 90 Days Past Due 2024 01 13" },
+    { "id": "alert-bofa", "title": "BofA Reports Account As Charge Off 2023 12 23" },
+    { "id": "alert-score-bestegg", "title": "Best Egg Vantage Score" },
+    { "id": "alert-score-exp", "title": "Credit Score Drop From Experian" },
+    { "id": "alert-mariner", "title": "Mariner Finance Reports Chargeoff 2023 12 31" },
+    { "id": "alert-sears", "title": "Sears/CBNA Reports Account 90 Days Past Due 2024 01 09" },
+    { "id": "alert-thd", "title": "THD/CBNA Reports 90 Days Past Due 2019 06 13" },
+    { "id": "alert-score-tu", "title": "TransUnion 107-Point Score Drop" }
+  ],
+
+  "triggers": [
+    { "id": "rocket-referral", "title": "Rocket Mortgage Referral" },
+    { "id": "lawrence-voicemail", "title": "Lawrence Young Voicemails" },
+    { "id": "best-egg-alert", "title": "Best Egg's Damaging Activity Email" },
+    { "id": "dufurrena-email", "title": "Dufurrena Referral Acknowledgement" },
+    { "id": "jessica-vest-email", "title": "Jessica Vest Email Chain" },
+    { "id": "dimarco-escalation", "title": "Joseph DiMarco Escalation" },
+    { "id": "dimarco-discharge-email", "title": "Joseph Dimarco Email Response_2024 02 28" },
+    { "id": "rocket-formal-denial", "title": "Rocket Formal Denial" }
+  ],
+
+  "extras": [
+    { "id": "demo-screenshot", "title": "Annotated Screenshot for Testing" },
+    { "id": "timeline-viz", "title": "Sample Timeline Visualization Graphic" }
+  ]
+}

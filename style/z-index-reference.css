@@ -1,0 +1,121 @@
+/* Z-INDEX LAYER REFERENCE FOR POC VIEWER */
+/* This file documents the z-index layering system for proper element stacking */
+
+/*
+LAYER HIERARCHY (from bottom to top):
+=== BACKGROUND LAYER ===
+z-index: 0    - Background_Gradient_Tint
+z-index: 1    - Evidence_Canvas_Container (white background container)
+
+=== MAIN INTERFACE LAYER ===
+z-index: 2    - Creditor_Logo_Container, Bureau_Logo_Container
+z-index: 3    - Image_Canvas_Container, Canvas elements
+
+=== OVERLAY LAYER ===
+z-index: 21   - Dim overlays (standardized dimming effect)
+z-index: 4    - FCRA elements
+
+=== COUNTER LAYER ===
+z-index: 8    - Violation counter (below evidence menu)
+z-index: 8    - Systemwide counters (same level as main counter)
+
+=== EVIDENCE BACKGROUND LAYER ===
+z-index: 9    - Evidence_Canvas_Container (background white container)
+z-index: 10   - FCRA_Button
+z-index: 150  - Evidence_Menu_Container (above violation counter)
+z-index: 151  - Evidence_Menu_Content (above evidence menu container)
+
+=== EVIDENCE INTERFACE LAYER ===
+z-index: 9    - Violation overlays
+z-index: 11   - Violation tooltips
+
+=== NAVIGATION LAYER ===
+z-index: 15   - Canvas_Heading_Container, Canvas_Heading_Background
+z-index: 20   - Canvas arrows and group arrows
+
+=== EVIDENCE CONTENT LAYER ===
+z-index: 25   - Evidence_Actual_Container (THE DOCUMENT TEXT BOX)
+
+=== INTERACTION LAYER ===
+z-index: 50   - Evidence arrows (when visible)
+z-index: 60   - Evidence back/close buttons (highest priority for interaction)
+
+=== MATTERS LAYER (HIGHEST) ===
+z-index: 200  - Matters_Box (highest priority when active)
+z-index: 201  - Matters_Content (above matters box)
+*/
+
+/* Apply the z-index values to ensure proper layering */
+
+/* Base Layer */
+.background-gradient { z-index: 0; }
+.evidence-canvas-container { z-index: 1; }
+.report-image { z-index: 2; }
+
+/* UI Components */
+.creditor-logo-container { z-index: 2; }
+.bureau-logo-container { z-index: 2; }
+.canvas-heading { z-index: 15; }
+.evidence-buttons { z-index: 4; }
+
+/* Counter Components */
+#violation-count { z-index: 8; }
+.sys-wide-counter { z-index: 8; }
+.counter-label { z-index: 8; }
+
+/* Overlays and Popups */
+.dim-overlay { z-index: 21; }
+.violation-overlay { z-index: 9; }
+.evidence-menu-container { z-index: 150; }
+.evidence-document { z-index: 25; }
+.matters-box { z-index: 200; }
+
+/* Navigation and Controls */
+.canvas-arrows { z-index: 20; }
+.evidence-arrows { z-index: 50; }
+.close-button { z-index: 60; }
+.back-button { z-index: 60; }
+
+/* FCRA Components */
+.fcra-popup { z-index: 15; }
+.fcra-button { z-index: 16; }
+#SysWide_FCRA_Popup { z-index: 25; }
+.violation-content { z-index: 26; }
+
+/* Apply these classes to elements */
+#Evidence_Menu_Container { z-index: 150; }
+#Evidence_Menu_Content { z-index: 151; }
+#Evidence_Canvas_Container { z-index: 1; }
+#Matters_Box { z-index: 200; }
+#Matters_Content { z-index: 201; }
+#Evidence_Document_Container { z-index: 25; }
+#Canvas_Overlay_Box { z-index: 6; }
+#FCRA_Popup { z-index: 15; }
+#FCRA_Button { z-index: 16; }
+#Close_Button, #Close_Button_Hover { z-index: 60; }
+#Back_Button, #Back_Button_Hover { z-index: 60; }
+
+/* Navigation Elements */
+#Canvas_Arrow_Left,
+#Canvas_Arrow_Right,
+#Canvas_Arrow_Group_Left,
+#Canvas_Arrow_Group_Right {
+  z-index: 20;
+  position: relative;
+}
+
+#Canvas_Heading_Container,
+#Canvas_Heading_Background {
+  z-index: 15;
+  position: relative;
+}
+
+#FCRA_Popup {
+  z-index: 15;
+  position: absolute;
+}
+
+#SysWide_FCRA_Popup {
+  z-index: 25;
+  position: absolute;
+}

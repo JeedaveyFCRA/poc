@@ -1,0 +1,397 @@
+{
+  "rocket-referral": {
+    "subhead": "Credit Denial Caused by Systemic Misreporting",
+    "intro": "This was the moment the misreporting became real — not just numbers on a page, but real harm with financial consequences.",
+    "bullets": [
+      "📉 On April 21, 2024, my TransUnion score dropped 107 points",
+      "❌ Rocket Mortgage confirmed I needed a 640 score to proceed with refinancing",
+      "🧾 I was instead referred to their Credit Upgrade Department — not because of new activity, but because 13 creditors failed to update discharged debts",
+      "💰 A lost chance to refinance $23,000 in high-interest debt",
+      "💳 A forced $10,000 cash payoff to avoid default",
+      "📆 Over $1,000/month in unnecessary payments that continue into 2025",
+      "🔒 Rocket's internal email confirms that I wasn't denied for poor credit behavior — I was denied because my reports were still showing debts that had already been discharged"
+    ]
+  },
+  "dimarco-escalation": {
+    "subhead": "First Legal Attempt to Stop the Harm",
+    "intro": "This was the moment everything changed. I had just paid to reopen my Chapter 13 case to finalize the discharge — but instead of relief, I was hit with alerts showing that multiple creditors were reporting damaging activity, even while I was still under court protection.",
+    "bullets": [
+      "📅 Sent February 8, 2024 — just one day before my discharge became official",
+      "🚨 Alert from Best Egg triggered immediate concern over JPMCB, Sears, Best Buy, and Discover",
+      "📉 My FICO score dropped over 100 points overnight",
+      "📩 I reached out to my bankruptcy attorney asking if I had any legal protection or recourse",
+      "📞 It led directly to my first contact with Discover Loans, who initially said they wouldn't fix my report",
+      "🧾 Over a year later, Discover reversed course and issued a formal correction, confirming my concerns were valid all along"
+    ]
+  },
+  "dufurrena-email": {
+    "subhead": "Banker Confirms Discover Misreporting Blocked Refinance",
+    "intro": "This email from Rocket Mortgage banker Jacob Duferrena confirmed what I already feared: the Discover charge-off was doing real damage.",
+    "bullets": [
+      "📆 Sent in April 2024, just weeks after my discharge",
+      "🏦 Jacob confirmed that the Discover account was being reported as a charge-off",
+      "💥 He explained that this type of negative reporting could seriously affect approval chances for a refinance",
+      "🚫 Discover had already told me they would not be updating the tradeline",
+      "📉 My score had already dropped over 100 points",
+      "🧩 This was the first external confirmation that misreporting wasn't just frustrating — it was actively blocking my future",
+      "🧾 Jacob's message matters because it wasn't speculation. It was a banker telling me in plain terms: This account is hurting your chances — and nothing had been done to correct it"
+    ]
+  },
+  "jessica-vest-email": {
+    "subhead": "Attempt to Confirm Refinance Denial Terms",
+    "intro": "This email chain confirms the most damaging part of my story — and the hardest to prove: That I was denied a refinance unless I raised my credit score above 640 or paid off $10,000 in personal debt.",
+    "bullets": [
+      "📅 The emails span March 4–26, 2025, as I tried to get written confirmation of the denial conditions",
+      "🧾 I requested records tied to my referral to the Credit Upgrade Department, and confirmation of the 640 score / $10,000 payoff",
+      "❌ Despite verbal confirmation from Jacob Duferrena and Lawrence Young, Rocket claimed it could not confirm or locate any internal notes",
+      "🚫 I was denied the chance to refinance based on inaccurate credit data — and Rocket Mortgage cannot or will not document the terms of that denial",
+      "⚖️ This violates FCRA §1681m(a), which requires a clear adverse action notice explaining why credit was denied",
+      "📉 The credit score threshold was triggered by false reports from 13 furnishers — not my financial behavior"
+    ]
+  },
+  "lawrence-voicemail": {
+    "subhead": "Verbal Confirmation of Credit Denial Terms",
+    "intro": "This voicemail — and the call that followed — confirmed what Rocket Mortgage later refused to put in writing.",
+    "bullets": [
+      "📞 On March 4, 2025, Lawrence Young from Rocket Mortgage returned my call",
+      "🧠 In our same-day 15-minute follow-up, he referenced internal notes confirming I had been told:",
+      "➡️ I needed a 640+ credit score, or",
+      "➡️ Pay down $10,000 in personal debt to proceed with my refinance",
+      "🏠 Lawrence confirmed the same denial terms later omitted from Rocket's formal records",
+      "⚠️ Rocket later claimed they could not confirm or locate any such documentation",
+      "📉 The conditions Lawrence described were triggered by false credit reporting from 13 furnishers — not by any new credit activity on my part",
+      "✅ Verbal confirmation of harmful credit denial terms",
+      "❌ Contradiction of Rocket's written responses",
+      "⚖️ Evidence supporting FCRA violations for failing to maintain or disclose adverse action details"
+    ]
+  },
+  "best-egg-alert": {
+    "subhead": "First Sign of Major Post-Bankruptcy Misreporting",
+    "intro": "This was the first time I realized something was seriously wrong. On January 17, 2024, just days after my bankruptcy case was administratively closed and awaiting final discharge, I received this Best Egg alert showing multiple accounts reporting damaging activity — including Discover, JPMCB, Sears, and Best Buy.",
+    "bullets": [
+      "🚨 The alert warned of new derogatory reporting to TransUnion",
+      "📉 It coincided with an estimated 100+ point credit score drop",
+      "⚠️ These tradelines were supposed to be protected by the bankruptcy process — yet they were actively reporting harm",
+      "🧠 I experienced immediate emotional distress, confusion, and fear",
+      "🧾 It was the first real-time proof that creditors had failed to update my accounts properly",
+      "🔁 The reporting was visible to lenders and triggered long-term damage, starting with the Rocket Mortgage referral months later"
+    ]
+  },
+  "rocket-formal-denial": {
+    "subhead": "Formal Refinance Denial from Rocket Mortgage",
+    "intro": "This was the formal confirmation: I couldn't refinance because my credit report was still broken.",
+    "bullets": [
+      "📅 On April 21, 2024, Rocket Mortgage pulled my credit and found a score of 600",
+      "🛑 They denied the loan, citing delinquencies, bankruptcy references, and past due accounts — all caused by inaccurate post-discharge reporting",
+      "⚠️ Just months earlier, my score had been 684 — this drop was due to creditor errors, not financial behavior",
+      "🏠 It shut down my chance to refinance $23,000 in high-interest debt",
+      "💰 I was left paying over $1,000/month on debt that should have been resolved",
+      "📉 It confirmed the real-world consequences of 13 furnishers failing to update their tradelines after discharge",
+      "🔁 Despite having rebuilt my credit through years of Chapter 13 payments, my report looked like I had defaulted all over again"
+    ]
+  },
+  "dimarco-discharge-email": {
+    "subhead": "Official Legal Confirmation of Discharge",
+    "intro": "This email confirms the most critical fact in my entire case: That my Chapter 13 bankruptcy was officially discharged on February 9, 2024.",
+    "bullets": [
+      "📅 Sent by my bankruptcy attorney Joseph DiMarco on February 28, 2024",
+      "✅ Confirms that the case was reopened briefly for administrative reasons, then fully discharged",
+      "❌ Refutes any claim by creditors or bureaus that the case was \"dismissed,\" \"closed,\" or \"not discharged\"",
+      "🧾 This is legal confirmation that the discharge occurred — directly from my counsel",
+      "⚠️ Any account still reporting as active, delinquent, or \"included in bankruptcy\" without the discharge status is inaccurate and unlawful",
+      "🔐 This single email turns every post-February 9 violation into a provable FCRA breach — with a timestamped point of no return"
+    ]
+  },
+  "ei-ally": {
+    "subhead": "The Emotional Fallout of Ally's Reporting Failures",
+    "intro": "Ally's continued misreporting after my discharge didn't just affect my score — it affected my sense of stability, trust, and emotional safety.",
+    "bullets": [
+      "📅 Continued false reporting after February 9, 2024",
+      "💔 Triggered alerts and credit score drops",
+      "😔 Heightened stress during mortgage attempts",
+      "🧠 Lingering anxiety due to ongoing harm"
+    ]
+  },
+  "ei-bestbuy": {
+    "subhead": "Best Buy's Negligence Created Long-Term Stress",
+    "intro": "Despite my bankruptcy discharge, Best Buy continued to report damaging information — and I paid the emotional price.",
+    "bullets": [
+      "📉 False 90-day late report triggered alert in January 2024",
+      "📅 Appeared after discharge confirmation",
+      "⚠️ Contributed to emotional distress and credit denials",
+      "🧾 Proof that I couldn't escape harm even after completing bankruptcy"
+    ]
+  },
+  "ei-barclays": {
+    "subhead": "Barclays' Inaction Amplified My Trauma",
+    "intro": "Even though Barclays stopped reporting updates years ago, their frozen status left damaging information intact — prolonging harm.",
+    "bullets": [
+      "❄️ Tradeline remained frozen post-discharge",
+      "🧩 Lack of updates created confusion for lenders",
+      "🧠 Ongoing fear that the account could reactivate",
+      "🔁 Emotional toll of an unresolved account"
+    ]
+  },
+  "ei-bofa": {
+    "subhead": "Bank of America's Charge-Off Brought Everything Back",
+    "intro": "Their decision to charge off a debt I had repaid during bankruptcy reopened emotional wounds I thought were behind me.",
+    "bullets": [
+      "🔥 Charged off the account after years of Chapter 13 payments",
+      "📅 Reported the charge-off post-discharge",
+      "🧠 Made me feel like all my progress had been erased",
+      "💳 Undermined my chance at rebuilding financial stability"
+    ]
+  },
+  "ei-citizens": {
+    "subhead": "Citizens Bank Dragged Me Down Twice",
+    "intro": "With two accounts failing to reflect accurate discharge updates, Citizens made me relive financial shame — twice.",
+    "bullets": [
+      "📄 Inaccurate statuses on both 8116 and 7849 accounts",
+      "📅 Continued errors into 2024",
+      "💥 Doubled my emotional burden",
+      "🚫 Damaged trust in institutional fairness"
+    ]
+  },
+  "ei-cornerstone": {
+    "subhead": "Cornerstone's Frozen Status Still Hurt Me",
+    "intro": "Even in silence, Cornerstone's failure to correct their tradeline caused confusion and emotional harm.",
+    "bullets": [
+      "🧊 Tradeline frozen with outdated bankruptcy info",
+      "📉 Lenders couldn't get clear information",
+      "🤯 I couldn't tell if they had complied or ignored me",
+      "🔁 Emotional toll of ambiguous damage"
+    ]
+  },
+  "ei-discover-bank": {
+    "subhead": "Discover Bank's Misreporting Felt Personal",
+    "intro": "When Discover refused to update their charge-off, it wasn't just incorrect — it felt like betrayal.",
+    "bullets": [
+      "⚠️ Charge-off reported after years of repayment",
+      "📅 Continued showing post-discharge",
+      "🛑 Verbal refusal to update deepened distress",
+      "😔 Created lasting anxiety about future approvals"
+    ]
+  },
+  "ei-discover-loans": {
+    "subhead": "Discover Loans Ignored My Plea for Fairness",
+    "intro": "Their initial refusal to fix errors — even after I pleaded for help — caused anguish I still carry.",
+    "bullets": [
+      "📩 I reached out after alerts showed harm",
+      "🗣️ Was told nothing would be updated",
+      "📉 Credit score dropped while they did nothing",
+      "🧠 Felt powerless and punished despite compliance"
+    ]
+  },
+  "ei-jpmcb": {
+    "subhead": "JPMCB's Late Reporting Ruined My Recovery",
+    "intro": "They didn't just report inaccurately — they added new lates after I was protected by the court.",
+    "bullets": [
+      "⏰ Reported late payments while under court protection",
+      "🛑 Ignored legal obligations under bankruptcy",
+      "💥 Triggered credit score drops and emotional collapse",
+      "🧾 One of the worst offenders in my case"
+    ]
+  },
+  "ei-mariner": {
+    "subhead": "Mariner's Post-Discharge Damage Shattered My Trust",
+    "intro": "Even after my discharge, Mariner reported delinquencies — proving that harm didn't stop with the court.",
+    "bullets": [
+      "📆 Reported 'Included in Bankruptcy' in March 2024",
+      "⚠️ Included false delinquencies through 2024",
+      "📉 Score damage that lasted for months",
+      "😖 Emotional exhaustion and fear of more fallout"
+    ]
+  },
+  "ei-sears": {
+    "subhead": "Sears Reopened Wounds I Was Trying to Heal",
+    "intro": "Their January 2024 misreporting brought back the fear and shame I thought bankruptcy had resolved.",
+    "bullets": [
+      "📅 90-day late reported after years of payments",
+      "🧾 No updates after discharge",
+      "😡 Felt like all my hard work was erased",
+      "😓 Caused lasting emotional setbacks"
+    ]
+  },
+  "ei-thd": {
+    "subhead": "THD's Neglect Made Me a Victim All Over Again",
+    "intro": "Even though their reporting was old, its presence on my report undermined every attempt to recover.",
+    "bullets": [
+      "📅 90-day late remained on reports years later",
+      "🛑 Never updated to reflect discharge or closure",
+      "📉 Lenders questioned my recovery because of it",
+      "🧠 Made me feel like I was being punished again"
+    ]
+  },
+  "rocket-denial": {
+    "subhead": "Formal Rocket Mortgage Refinance Denial",
+    "intro": "This formal denial document confirms the specific credit-related reasons why my refinance was rejected.",
+    "bullets": [
+      "📅 Formal denial issued May 15, 2024",
+      "📊 Credit score requirements not met due to misreporting",
+      "🏠 Refinance opportunity lost due to creditor errors",
+      "📋 Documented evidence of FCRA violation consequences"
+    ]
+  },
+  "apple-card": {
+    "subhead": "Apple Card Application Status Update",
+    "intro": "Documentation of credit application denial due to post-bankruptcy misreporting.",
+    "bullets": [
+      "📱 Apple Card application affected by credit errors",
+      "⚠️ Status update showing impact of misreporting",
+      "📉 Credit utilization affected by false balances",
+      "🛑 Another example of real-world denial consequences"
+    ]
+  },
+  "best-egg-1": {
+    "subhead": "Best Egg Credit Denial - First Instance",
+    "intro": "First documented denial from Best Egg due to post-discharge credit errors.",
+    "bullets": [
+      "❌ Credit application denied",
+      "📊 Score impacts from multiple furnisher errors",
+      "💳 Lost opportunity for credit rebuilding",
+      "📋 Pattern of denials due to systemic misreporting"
+    ]
+  },
+  "best-egg-2": {
+    "subhead": "Best Egg Credit Denial - Second Instance",
+    "intro": "Follow-up denial showing continued impact of unresolved credit reporting issues.",
+    "bullets": [
+      "🔄 Second denial from same lender",
+      "📉 Continued credit score depression",
+      "⚠️ Ongoing harm from unresolved disputes",
+      "💥 Compounding impact of multiple creditor failures"
+    ]
+  },
+  "capital-one": {
+    "subhead": "Capital One Credit Application Denial",
+    "intro": "Major bank denial demonstrating widespread impact of credit reporting failures.",
+    "bullets": [
+      "🏦 Major institution denial",
+      "📊 Credit profile damaged by furnisher errors",
+      "🚫 Access to mainstream credit blocked",
+      "⚖️ Clear evidence of FCRA violation consequences"
+    ]
+  },
+  "rocket-loans": {
+    "subhead": "Rocket Loans Personal Credit Denial",
+    "intro": "Personal loan denial from Rocket subsidiary showing consistent impact across product lines.",
+    "bullets": [
+      "💰 Personal loan application denied",
+      "🔗 Pattern across Rocket companies",
+      "📈 Interest rate impact from false reporting",
+      "🧾 Additional documentation of creditworthiness harm"
+    ]
+  },
+  "rocket-internal": {
+    "subhead": "Rocket Mortgage Internal Credit Documents",
+    "intro": "Internal documentation showing how credit report errors affected lending decision processes.",
+    "bullets": [
+      "📋 Internal credit analysis documents",
+      "🔍 Lender perspective on credit report issues",
+      "⚙️ Decision-making process documentation",
+      "📊 Score thresholds and qualification criteria"
+    ]
+  },
+  "alert-bestbuy": {
+    "subhead": "Best Buy 90-Day Late Payment Alert",
+    "intro": "Real-time alert showing Best Buy reporting false delinquency after bankruptcy discharge.",
+    "bullets": [
+      "🚨 90-day late payment alert received January 13, 2024",
+      "📅 False reporting occurred after February 9, 2024 discharge",
+      "📉 Immediate credit score impact documented",
+      "⚠️ Evidence of post-discharge FCRA violation"
+    ]
+  },
+  "alert-bofa": {
+    "subhead": "Bank of America Charge-Off Alert",
+    "intro": "Alert documenting Bank of America's charge-off of previously paid account.",
+    "bullets": [
+      "💳 Account charged off December 23, 2023",
+      "💰 Account had been paid through bankruptcy plan",
+      "📊 Major negative impact on credit profile",
+      "🔄 Years of payments ignored by creditor"
+    ]
+  },
+  "alert-score-bestegg": {
+    "subhead": "Best Egg VantageScore Drop Alert",
+    "intro": "Credit monitoring alert showing significant score drop due to multiple furnisher errors.",
+    "bullets": [
+      "📉 VantageScore drop triggered by multiple errors",
+      "🎯 Best Egg monitoring system flagged changes",
+      "📊 Quantified impact of systemic misreporting",
+      "⚠️ Real-time documentation of harm"
+    ]
+  },
+  "alert-score-exp": {
+    "subhead": "Experian Credit Score Drop Alert",
+    "intro": "Experian-generated alert showing credit score decline from furnisher misreporting.",
+    "bullets": [
+      "📉 Experian score drop alert received",
+      "🏦 Multiple bureau impact documented",
+      "📊 Score monitoring captured real-time harm",
+      "🚨 Immediate notification of credit damage"
+    ]
+  },
+  "alert-mariner": {
+    "subhead": "Mariner Finance Charge-Off Alert",
+    "intro": "Alert documenting Mariner Finance charge-off despite bankruptcy inclusion.",
+    "bullets": [
+      "💳 Mariner account charged off December 31, 2023",
+      "⚖️ Account included in Chapter 13 bankruptcy",
+      "📉 False charge-off damaged credit profile",
+      "🔄 Contradiction of bankruptcy protection"
+    ]
+  },
+  "alert-sears": {
+    "subhead": "Sears 90-Day Late Payment Alert",
+    "intro": "Credit alert showing Sears false late payment reporting after discharge.",
+    "bullets": [
+      "🚨 90-day late alert from Sears January 9, 2024",
+      "📅 False reporting after February 9 discharge",
+      "💳 Account had perfect payment history in bankruptcy",
+      "⚠️ Clear violation of discharge protections"
+    ]
+  },
+  "alert-thd": {
+    "subhead": "Home Depot 90-Day Late Payment Alert",
+    "intro": "Historical alert showing THD/CBNA late payment that was never corrected.",
+    "bullets": [
+      "🏠 Home Depot late payment from June 13, 2019",
+      "📅 Pre-bankruptcy issue never properly updated",
+      "🔄 Frozen tradeline with outdated information",
+      "⚠️ Persistent negative information despite resolution"
+    ]
+  },
+  "alert-score-tu": {
+    "subhead": "TransUnion 107-Point Score Drop",
+    "intro": "Catastrophic credit score drop documenting the collective impact of multiple furnisher failures.",
+    "bullets": [
+      "📉 107-point TransUnion score drop documented",
+      "📅 Drop occurred shortly after discharge (February 2024)",
+      "💥 Largest single score impact in case",
+      "🎯 Clear evidence of systemic reporting failure",
+      "⚖️ Quantified harm for FCRA violation claims",
+      "🚨 Multiple alerts triggered by this single event"
+    ]
+  },
+  "demo-screenshot": {
+    "subhead": "Annotated Credit Report Screenshot",
+    "intro": "Visual demonstration of credit reporting errors with detailed annotations.",
+    "bullets": [
+      "📊 Annotated credit report showing multiple errors",
+      "🔍 Visual evidence of FCRA violations",
+      "📋 Side-by-side comparison of expected vs. actual reporting",
+      "🎯 Clear documentation for legal proceedings"
+    ]
+  },
+  "timeline-viz": {
+    "subhead": "Case Timeline Visualization",
+    "intro": "Comprehensive timeline graphic showing sequence of events and violations.",
+    "bullets": [
+      "📅 Complete chronology of events",
+      "🔗 Connections between violations and consequences",
+      "📊 Visual representation of systemic failure",
+      "⚖️ Timeline evidence for legal documentation"
+    ]
+  }
+}

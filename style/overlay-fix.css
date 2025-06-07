@@ -1,0 +1,50 @@
+/* Bulletproof Canvas Overlay Box - Load this last */
+div#Canvas_Overlay_Box {
+  position: absolute !important;
+  top: 140px !important;
+  left: 15px !important;
+  width: 810px !important;
+  height: 920px !important;
+  background: white !important;
+  opacity: 0 !important;
+  z-index: 21 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease-in-out !important;
+  display: block !important;
+  visibility: visible !important;
+  border-radius: 24px !important;
+}
+
+/* Navigation elements that need dimming */
+#Canvas_Arrow_Left,
+#Canvas_Arrow_Right,
+#Canvas_Arrow_Group_Left,
+#Canvas_Arrow_Group_Right,
+#Canvas_Heading_Container,
+#Canvas_Heading_Background,
+#Canvas_Heading_Text {
+  transition: opacity 0.3s ease-in-out !important;
+}
+
+/* When evidence mode is active, dim these elements */
+body.evidence-mode-active #Canvas_Arrow_Left,
+body.evidence-mode-active #Canvas_Arrow_Right,
+body.evidence-mode-active #Canvas_Arrow_Group_Left,
+body.evidence-mode-active #Canvas_Arrow_Group_Right,
+body.evidence-mode-active #Canvas_Heading_Container,
+body.evidence-mode-active #Canvas_Heading_Background,
+body.evidence-mode-active #Canvas_Heading_Text {
+  opacity: 0.3 !important;
+  pointer-events: none !important;
+}
+
+/* When evidence mode is active, show the overlay */
+body.evidence-mode-active #Canvas_Overlay_Box {
+  opacity: 0.3 !important;
+}
+
+div#Canvas_Overlay_Box.dimmed {
+  opacity: 0.3 !important;
+  visibility: visible !important;
+  display: block !important;
+} 

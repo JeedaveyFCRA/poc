@@ -1,0 +1,268 @@
+/* evidence-canvas-content.css */
+/* Styling for all evidence canvas content elements */
+
+.evidence-back-button {
+  position: absolute;
+  left: 1179px;
+  top: 1004px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 60; /* INCREASED: Above everything else for interaction */
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  display: none; /* ADDED: Hidden by default */
+}
+
+.evidence-back-button:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.evidence-back-button:active {
+  transform: scale(0.95);
+}
+
+.evidence-close-button {
+  position: absolute;
+  left: 1827px;
+  top: 1004px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 60; /* INCREASED: Above everything else for interaction */
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  display: none; /* ADDED: Hidden by default */
+}
+
+.evidence-close-button:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.evidence-close-button:active {
+  transform: scale(0.95);
+}
+
+/* Evidence Canvas Container - Updated for content display */
+.evidence-canvas-container {
+  position: absolute;
+  top: 19px;
+  left: 1100px;
+  width: 795px;
+  height: 1042px;
+  background-color: white;
+  border-radius: 24px;
+  z-index: 10; /* Above background gradient but below UI elements */
+  display: none; /* Hidden by default */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Enhanced shadow for better visibility */
+  overflow: hidden; /* Ensure content doesn't overflow the rounded corners */
+}
+
+/* NEW: Canvas content wrapper styling */
+.evidence-canvas-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  font-family: 'Space Grotesk', sans-serif;
+  color: #253541;
+  line-height: 1.6;
+}
+
+/* NEW: Placeholder state styling */
+.evidence-placeholder {
+  padding: 40px;
+  text-align: center;
+  color: #253541;
+}
+
+.evidence-placeholder h2 {
+  font-family: "jaf-bernino-sans-comp", sans-serif;
+  font-size: 32pt;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #253541;
+}
+
+.evidence-placeholder p {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14pt;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Navigation arrow states */
+.evidence-nav-arrow {
+  transition: opacity 0.2s ease;
+}
+
+.evidence-nav-arrow.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Fade transition */
+.evidence-canvas-container {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Selected evidence button state */
+.evidence-button.selected {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+/* Scrollbar styling for canvas content */
+.evidence-canvas-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.evidence-canvas-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.evidence-canvas-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.evidence-canvas-content::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Canvas content typography */
+.evidence-canvas-content h1 {
+  font-family: 'jaf-bernino-sans-comp', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #253541;
+  margin: 0 0 30px 0;
+  text-align: center;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 20px;
+}
+
+.evidence-canvas-content .email-header {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border-left: 4px solid #4a90e2;
+}
+
+.evidence-canvas-content .signature {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #28a745;
+}
+
+/* Enhanced styling for special content elements */
+.evidence-canvas-content .company-name {
+  font-weight: 600;
+  color: #4a90e2;
+}
+
+.evidence-canvas-content .important-date {
+  font-weight: 600;
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.evidence-canvas-content .important-number {
+  font-weight: 600;
+  color: #27ae60;
+  background: rgba(39, 174, 96, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.evidence-canvas-content .highlight-red {
+  background: rgba(231, 76, 60, 0.15);
+  color: #c0392b;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+/* Evidence Heading Container - matches canvas positioning exactly */
+#Evidence_Heading_Container {
+  position: absolute;
+  left: 1227.5px;
+  top: 12px;
+  width: 533px;
+  height: 32px;
+  display: none; /* Hidden by default, JavaScript will show it */
+  align-items: center;
+  justify-content: center;
+  z-index: 20;  /* Above canvas but reasonable level */
+  /* Add position context for absolute positioned children */
+}
+
+#Evidence_Heading_Background {
+  background-image: url('../assets/icons/evidence-heading-background.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;  /* Ensure perfect centering */
+  width: 533px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 20;
+}
+
+#Evidence_Heading_Text {
+  font-family: "jaf-bernino-sans-comp", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 30px;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.5px;
+  margin: 0;
+  position: relative;
+  top: 1.5px;
+  z-index: 21;  /* Text above background */
+}
+
+/* Evidence Navigation Elements - Absolute positioning */
+.evidence-arrow {
+  cursor: pointer;
+  z-index: 50;
+  position: absolute;
+  /* Remove display: none to let JavaScript control visibility */
+}
+
+/* Remove individual arrow positioning since it's now inline */
+#Evidence_Arrow_Group_Left,
+#Evidence_Arrow_Left,
+#Evidence_Arrow_Group_Right,
+#Evidence_Arrow_Right {
+  cursor: pointer;
+  z-index: 50;
+  /* Remove display: none to let JavaScript control visibility */
+}
+
+/* Hover effects for arrows */
+#Evidence_Arrow_Left:hover {
+  content: url("../assets/icons/canvas-arrow-left-hover.png");
+}
+
+#Evidence_Arrow_Right:hover {
+  content: url("../assets/icons/canvas-arrow-right-hover.png");
+}
+
+#Evidence_Arrow_Group_Left:hover {
+  content: url("../assets/icons/canvas-arrow-group-left-hover.png");
+}
+
+#Evidence_Arrow_Group_Right:hover {
+  content: url("../assets/icons/canvas-arrow-group-right-hover.png");
+}

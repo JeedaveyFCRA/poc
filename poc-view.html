@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, initial-scale=1.0" />
+  <!-- Add favicon to prevent 404 errors -->
+  <link rel="icon" href="data:,">
+  <title>POC Viewer</title>
+
+  <!-- Remove or update the preload links -->
+  <link rel="preload" href="assets/icons/canvas-arrow-left-default.png" as="image">
+  <link rel="preload" href="assets/icons/canvas-arrow-right-default.png" as="image">
+  <link rel="preload" href="assets/icons/canvas-arrow-group-left-default.png" as="image">
+  <link rel="preload" href="assets/icons/canvas-arrow-group-right-default.png" as="image">
+
+  <!-- Only preload hover states that are likely to be used -->
+  <link rel="prefetch" href="assets/icons/canvas-arrow-left-hover.png">
+  <link rel="prefetch" href="assets/icons/canvas-arrow-right-hover.png">
+  <link rel="prefetch" href="assets/icons/canvas-arrow-group-left-hover.png">
+  <link rel="prefetch" href="assets/icons/canvas-arrow-group-right-hover.png">
+
+<!-- External CSS Files -->
+<link rel="stylesheet" href="style/evidence-buttons.css" />
+<link rel="stylesheet" href="style/evidence-menu.css" />
+<link rel="stylesheet" href="style/evidence-canvas.css" />
+<link rel="stylesheet" href="style/dim-overlay.css" />
+<link rel="stylesheet" href="style/poc-layout.css" />
+<link rel="stylesheet" href="style/bureau-logos.css" />
+<link rel="stylesheet" href="style/canvas-view.css" />
+<link rel="stylesheet" href="style/creditor-logo.css" />
+<link rel="stylesheet" href="https://use.typekit.net/qes3lop.css">
+<link rel="stylesheet" href="style/matters-style.css" />
+<link rel="stylesheet" href="style/evidence-canvas-content.css" />
+<link rel="stylesheet" href="style/evidence-actual.css" />
+<link rel="stylesheet" href="style/z-index-reference.css" />
+<link rel="stylesheet" href="style/violation-overlay.css" />
+<link rel="stylesheet" href="style/fcra-review-text.css">
+<link rel="stylesheet" href="style/overlay-fix.css">
+<link rel="stylesheet" href="style/sys-wide-counters.css" />
+
+</head>
+
+<body style="margin: 0; padding: 0; width: 1920px; height: 1080px; background: linear-gradient(to bottom, #d8d8d8, #bfc3c8);">
+
+<!-- Container for VioSessions UI elements -->
+<div id="viosessions-container" style="position: relative;">
+  <!-- Violation Counter -->
+  <div id="violation-count">0</div>
+</div>
+
+<!-- Page Counter -->
+<div id="page-count" 
+     style="position: absolute; 
+            top: 297px; 
+            left: 1068px; 
+            width: 45px; 
+            height: 33px; 
+            color: #253541; 
+            font-family: 'jaf-bernino-sans-comp', sans-serif; 
+            font-weight: 800; 
+            font-style: normal; 
+            font-size: 36px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 100; 
+            pointer-events: none; 
+            -webkit-font-smoothing: antialiased; 
+            -moz-osx-font-smoothing: grayscale;">0</div>
+
+  <!-- Background Layer -->
+  <div id="Background_Gradient_Tint"
+       style="position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; z-index: 0;"></div>
+
+<main id="POC_Viewer_Layout">
+  <!-- ────────────────────────────────────────────────────────────── -->
+  <!-- Creditor Logo Container (Dynamic)                              -->
+  <!-- This box will be updated by JS to show the correct logo       -->
+  <!-- based on filename prefix like AL, JP, BK, etc.                -->
+  <!-- ────────────────────────────────────────────────────────────── -->
+  <div id="Creditor_Logo_Container"
+       style="position: absolute; top: 22px; left: 15px; width: 319px; height: 110px;
+              background-color: white; border-radius: 24px; z-index: 1;
+              display: flex; align-items: center; justify-content: center;">
+
+    <!-- Placeholder IMG: Will be replaced dynamically by creditor-logo.js -->
+    <img id="Creditor_Logo_Image"
+     src=""
+     alt=""
+     style="display: none;" />
+
+<!-- Left Arrow (inside Creditor Logo Container) -->
+<img id="Creditor_Arrow_Left"
+     class="creditor-arrow left"
+     src="assets/icons/arrow-left-default.png"
+     alt="Previous Creditor" />
+
+<!-- Right Arrow (inside Creditor Logo Container) -->
+<img id="Creditor_Arrow_Right"
+     class="creditor-arrow right"
+     src="assets/icons/arrow-right-default.png"
+     alt="Next Creditor" />
+
+  </div>
+
+  <!-- ────────────────────────────────────────────────────────────── -->
+  <!-- Bureau Logo Containers (EQ, EX, TU)                            -->
+  <!-- Will be styled/colored dynamically based on selected bureau   -->
+  <!-- ────────────────────────────────────────────────────────────── -->
+
+<!-- Equifax -->
+<div id="Bureau_Logo_Container_EQ"
+     class="bureau-logo-container"
+     style="position: absolute; top: 22px; left: 343px;">
+  <img id="Logo_EQ"
+       src=""
+       alt="Equifax Logo"
+       class="bureau-logo bureau-logo-image" />
+</div>
+
+<!-- Experian -->
+<div id="Bureau_Logo_Container_EX"
+     class="bureau-logo-container"
+     style="position: absolute; top: 22px; left: 506px;">
+  <img id="Logo_EX"
+       src=""
+       alt="Experian Logo"
+       class="bureau-logo bureau-logo-image" />
+</div>
+
+<!-- TransUnion -->
+<div id="Bureau_Logo_Container_TU"
+     class="bureau-logo-container"
+     style="position: absolute; top: 22px; left: 670px;">
+  <img id="Logo_TU"
+       src=""
+       alt="TransUnion Logo"
+       class="bureau-logo bureau-logo-image" />
+</div>
+
+<!-- Canvas Heading Bar -->
+<div id="Canvas_Heading_Container">
+  <div id="Canvas_Heading_Background">    
+    <h2 id="Canvas_Heading_Text">ALLY - EQUIFAX - FEB. 11, 2025</h2>
+  </div>
+</div>
+
+<!-- All arrows positioned absolutely relative to document -->
+<img id="Canvas_Arrow_Left" class="canvas-arrow" src="assets/icons/canvas-arrow-left-default.png" alt="Left" 
+     style="position: absolute; top: 163.5px; left: 44px; width: 32.5px; height: 32px; cursor: pointer; z-index: 3;" />
+
+<img id="Canvas_Arrow_Group_Left" class="canvas-arrow" src="assets/icons/canvas-arrow-group-left-default.png" alt="Group Left"
+     style="position: absolute; top: 163.5px; left: 74px; width: 50px; height: 32px; cursor: pointer; z-index: 3;" />
+
+<img id="Canvas_Arrow_Right" class="canvas-arrow" src="assets/icons/canvas-arrow-right-default.png" alt="Right"
+     style="position: absolute; top: 163.5px; left: 745px; width: 32.5px; height: 32px; cursor: pointer; z-index: 3;" />
+
+<img id="Canvas_Arrow_Group_Right" class="canvas-arrow" src="assets/icons/canvas-arrow-group-right-default.png" alt="Group Right"
+     style="position: absolute; top: 163.5px; left: 695px; width: 50px; height: 32px; cursor: pointer; z-index: 3;" />
+
+<!-- Evidence Heading Bar (initially hidden) -->
+<div id="Evidence_Heading_Container" style="display: none;">
+  <!-- Arrows with absolute positioning -->
+  <img id="Evidence_Arrow_Group_Left" class="evidence-arrow" 
+       src="assets/icons/canvas-arrow-group-left-default.png" 
+       alt="Group Left"
+       style="position: absolute; left: 1150px; top: 42px; width: 50px; height: 32px;" />
+       
+  <img id="Evidence_Arrow_Left" class="evidence-arrow" 
+       src="assets/icons/canvas-arrow-left-default.png" 
+       alt="Left"
+       style="position: absolute; left: 1118px; top: 42px; width: 32px; height: 32px;" />
+
+  <!-- Background Image and Title -->
+  <div id="Evidence_Heading_Background">
+    <h2 id="Evidence_Heading_Text">MISREPORTING</h2>
+  </div>
+
+  <!-- Arrows -->
+  <img id="Evidence_Arrow_Right" class="evidence-arrow" 
+       src="assets/icons/canvas-arrow-right-default.png" 
+       alt="Right"
+       style="position: absolute; left: 1870px; top: 42px; width: 32px; height: 32px;" />
+       
+  <img id="Evidence_Arrow_Group_Right" class="evidence-arrow" 
+       src="assets/icons/canvas-arrow-group-right-default.png" 
+       alt="Group Right"
+       style="position: absolute; left: 1820px; top: 42px; width: 50px; height: 32px;" />
+</div>
+
+
+
+<!-- Image Canvas Container -->
+<div id="Image_Canvas_Container">
+  <img id="Report_Image"
+       src=""
+       alt="Credit Report Page"
+       class="report-image" />
+</div>
+<div id="Canvas_Overlay_Box"></div>
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<!-- Dim Overlays: Activated in Evidence Mode                       -->
+<!-- Covers Report, Creditor, and Bureau Logo Areas                -->
+<!-- CORRECTED POSITIONING AND SIZING                               -->
+<!-- ────────────────────────────────────────────────────────────── -->
+
+<!-- Overlay: Image Canvas - matches canvas-view.css exactly -->
+<div id="Overlay_Image_Canvas" class="dim-overlay"
+     style="top: 140px; left: 15px; width: 810px; height: 920px;"></div>
+
+<!-- Overlay: Creditor Logo - matches creditor container exactly -->
+<div id="Overlay_Creditor_Logo" class="dim-overlay"
+     style="top: 22px; left: 15px; width: 319px; height: 110px;"></div>
+
+<!-- Overlay: Bureau Logos - match the actual bureau container dimensions exactly -->
+<div id="Overlay_Bureau_EQ" class="dim-overlay"
+     style="top: 22px; left: 343px; width: 156px; height: 110px;"></div>
+<div id="Overlay_Bureau_EX" class="dim-overlay"
+     style="top: 22px; left: 506px; width: 156px; height: 110px;"></div>
+<div id="Overlay_Bureau_TU" class="dim-overlay"
+     style="top: 22px; left: 670px; width: 156px; height: 110px;"></div>
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<!-- FCRA Pop-Up + Button -->
+<!-- Appears only in Report View                                   -->
+<!-- ────────────────────────────────────────────────────────────── -->
+<div id="FCRA_Popup"
+     style="position: absolute; top: 260px; left: 769px; width: 380px; height: 790px; z-index: 15;">
+  <img src="assets/icons/fcra-popup.png"
+       alt="FCRA Systemwide Violation Summary"
+       style="width: 100%; height: 100%;" />
+</div>
+
+<!-- FCRA Button -->
+<img id="FCRA_Button"
+     src="assets/icons/fcra-lg-popup-button.png"
+     alt="Open FCRA Summary"
+     style="position: absolute; top: 1008px; left: 801px; width: 348px; height: 42px; z-index: 16; cursor: pointer;" />
+
+<!-- Systemwide FCRA Popup -->
+<div id="SysWide_FCRA_Popup" 
+     style="position: absolute; top: 160px; left: 1096px; width: 798px; height: 717px; display: none; z-index: 25;">
+  <!-- Background Image -->
+  <img src="assets/icons/sys-wide-popup.png" 
+       alt="Systemwide FCRA Violations"
+       style="position: absolute; width: 100%; height: 100%; z-index: 1;" />
+       
+  <!-- Violation Content Container -->
+  <div class="violation-content" 
+       style="position: relative; left: 64px; top: -26px; width: 700px; height: 630px; padding: 25px; box-sizing: border-box; z-index: 26;">
+    <h1 class="report-title">FCRA Violation Summary</h1>
+    
+    <!-- Container for sections below heading -->
+    <div style="position: relative; top: -19px;">
+      <!-- Creditor-Level Totals Section -->
+      <div class="section">
+        <h2 class="section-title">Creditor-Level Totals</h2>
+        <div class="violation-grid">
+          <div class="violation-item severe">
+            <div class="count-badge" id="creditor-severe-count">0</div>
+            <div class="violation-label">Severe Violations</div>
+          </div>
+          <div class="violation-item serious">
+            <div class="count-badge" id="creditor-serious-count">0</div>
+            <div class="violation-label">Serious Violations</div>
+          </div>
+          <div class="violation-item minor">
+            <div class="count-badge" id="creditor-minor-count">0</div>
+            <div class="violation-label">Minor (Escalated) Violations</div>
+          </div>
+          <div class="violation-item">
+            <div class="count-badge" id="bureau-count">0</div>
+            <div class="violation-label">Bureau Violations</div>
+          </div>
+          <div class="violation-item total">
+            <div class="count-badge" id="creditor-total-count">0</div>
+            <div class="violation-label">Total Creditor Violations</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Systemwide Totals (All Bureaus) Section -->
+      <div class="section">
+        <h2 class="section-title">Systemwide Totals (All Bureaus)</h2>
+        <div class="violation-grid">
+          <div class="violation-item severe">
+            <div class="count-badge" id="systemwide-severe-count">0</div>
+            <div class="violation-label">Severe Violations</div>
+          </div>
+          <div class="violation-item serious">
+            <div class="count-badge" id="systemwide-serious-count">0</div>
+            <div class="violation-label">Serious Violations</div>
+          </div>
+          <div class="violation-item minor">
+            <div class="count-badge" id="systemwide-minor-count">0</div>
+            <div class="violation-label">Minor (Escalated) Violations</div>
+          </div>
+          <div class="violation-item total">
+            <div class="count-badge" id="systemwide-total-count">0</div>
+            <div class="violation-label">Total Violations</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Systemwide Totals (by Bureau) Section -->
+      <div class="section">
+        <h2 class="section-title">Systemwide Totals (by Bureau)</h2>
+        <div class="violation-grid">
+          <div class="violation-item severe">
+            <div class="count-badge" id="bureau-severe-count">0</div>
+            <div class="violation-label">Severe Violations</div>
+          </div>
+          <div class="violation-item serious">
+            <div class="count-badge" id="bureau-serious-count">0</div>
+            <div class="violation-label">Serious Violations</div>
+          </div>
+          <div class="violation-item minor">
+            <div class="count-badge" id="bureau-minor-count">0</div>
+            <div class="violation-label">Minor (Escalated) Violations</div>
+          </div>
+          <div class="violation-item total">
+            <div class="count-badge" id="bureau-total-count">0</div>
+            <div class="violation-label">Total Violations by Bureau</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Close Button -->
+<img id="Close_Button"
+     src="assets/icons/close.png"
+     alt="Close"
+     style="position: absolute; top: 195px; left: 1814px; width: 40px; height: 40px; display: none; z-index: 26; cursor: pointer;" />
+
+<img id="Close_Button_Hover"
+     src="assets/icons/close-hover.png"
+     alt="Close"
+     style="position: absolute; top: 195px; left: 1814px; width: 40px; height: 40px; display: none; z-index: 26; cursor: pointer;" />
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<!-- Evidence Icon Bar                                             -->
+<!-- Appears in all views, controls Evidence Menu + Canvas         -->
+<!-- These should NOT be covered by overlays                       -->
+<!-- ────────────────────────────────────────────────────────────── -->
+<!-- Evidence Icon Bar -->
+<div id="Evidence_Icon_Bar">
+
+  <!-- EXTRAS (formerly PRINT DOCUMENTS) -->
+  <div class="evidence-button" id="btn-extras" style="position:absolute; top:34px; left:855px; width:53px; height:53px;">
+    <img src="assets/icons/Print.png" alt="Additional Evidence" class="evidence-icon" data-button="extras" />
+  </div>
+  <div class="evidence-label" style="position:absolute; top:98px; left:842px; width:80px; height:34px; text-align:center;">
+    ADDITIONAL<br>EVIDENCE
+  </div>
+
+  <!-- DENIALS (formerly CREDIT DENIALS) -->
+  <div class="evidence-button" id="btn-denials" style="position:absolute; top:34px; left:941px; width:53px; height:53px;">
+    <img src="assets/icons/denial.png" alt="Credit Denials" class="evidence-icon" data-button="denials" />
+  </div>
+  <div class="evidence-label" style="position:absolute; top:98px; left:927px; width:80px; height:34px; text-align:center;">
+    CREDIT<br>DENIALS
+  </div>
+
+  <!-- EMOTIONAL (formerly SYSTEMIC TRAUMA) -->
+  <div class="evidence-button" id="btn-emotional" style="position:absolute; top:34px; left:1029px; width:53px; height:53px;">
+    <img src="assets/icons/broken-heart.png" alt="Emotional Impact" class="evidence-icon" data-button="emotional" />
+  </div>
+  <div class="evidence-label" style="position:absolute; top:98px; left:1015px; width:80px; height:34px; text-align:center;">
+    EMOTIONAL<br>IMPACT
+  </div>
+
+  <!-- BANKRUPTCY (formerly BANKRUPTCY DOCUMENTS) -->
+  <div class="evidence-button" id="btn-bankruptcy" style="position:absolute; top:146px; left:855px; width:53px; height:53px;">
+    <img src="assets/icons/bk-doc.png" alt="Bankruptcy Docs" class="evidence-icon" data-button="bankruptcy" />
+  </div>
+  <div class="evidence-label" style="position:absolute; top:210px; left:843px; width:80px; height:34px; text-align:center;">
+    BANKRUPTCY<br>DOCS
+  </div>
+
+  <!-- TRIGGERS (formerly ADDITIONAL EVIDENCE) -->
+  <div class="evidence-button" id="btn-triggers" style="position:absolute; top:146px; left:941px; width:53px; height:53px;">
+    <img src="assets/icons/addl-evidence.png" alt="Timeline Triggers" class="evidence-icon" data-button="triggers" />
+  </div>
+  <div class="evidence-label" style="position:absolute; top:210px; left:928px; width:80px; height:34px; text-align:center;">
+    TIMELINE<br>TRIGGERS
+  </div>
+
+  <!-- ALERTS (unchanged) -->
+  <div class="evidence-button" id="btn-alerts" style="position:absolute; top:146px; left:1029px; width:53px; height:53px;">
+    <img src="assets/icons/damaging-alerts.png" alt="Damaging Alerts" class="evidence-icon" data-button="alerts" />
+  </div>
+  <div class="evidence-label" style="position:absolute; top:210px; left:1015px; width:80px; height:34px; text-align:center;">
+    DAMAGING<br>ALERTS
+  </div>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<!-- Evidence Navigation Arrows (Fresh Implementation)             -->
+<!-- Independent arrow system for evidence functionality           -->
+<!-- Positioned absolutely, no parent container dependencies       -->
+<!-- ────────────────────────────────────────────────────────────── -->
+
+<!-- Evidence Navigation Group Left Arrow -->
+<img id="Evidence_Nav_Group_Left" 
+     class="evidence-nav-arrow" 
+     src="assets/icons/evidence-nav-group-left-default.png"
+     alt="Previous Evidence Group"
+     style="position: absolute; left: 1150px; top: 42px; width: 50px; height: 32px; display: none; z-index: 600; cursor: pointer;" />
+
+<!-- Evidence Navigation Left Arrow -->
+<img id="Evidence_Nav_Left" 
+     class="evidence-nav-arrow" 
+     src="assets/icons/evidence-nav-left-default.png"
+     alt="Previous Evidence"
+     style="position: absolute; left: 1118px; top: 42px; width: 32px; height: 32px; display: none; z-index: 600; cursor: pointer;" />
+
+<!-- Evidence Navigation Right Arrow -->
+<img id="Evidence_Nav_Right" 
+     class="evidence-nav-arrow" 
+     src="assets/icons/evidence-nav-right-default.png"
+     alt="Next Evidence"
+     style="position: absolute; left: 1840px; top: 42px; width: 32px; height: 32px; display: none; z-index: 600; cursor: pointer;" />
+
+<!-- Evidence Navigation Group Right Arrow -->
+<img id="Evidence_Nav_Group_Right" 
+     class="evidence-nav-arrow" 
+     src="assets/icons/evidence-nav-group-right-default.png"
+     alt="Next Evidence Group"
+     style="position: absolute; left: 1790px; top: 42px; width: 50px; height: 32px; display: none; z-index: 600; cursor: pointer;" />
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<!-- Evidence Actual Document Display                              -->
+<!-- Shows the full content of selected evidence documents         -->
+<!-- Populated dynamically when evidence menu links are clicked    -->
+<!-- ────────────────────────────────────────────────────────────── -->
+
+<!-- Evidence Canvas Container (shown when Connected Evidence link clicked) -->
+<div id="Evidence_Canvas_Container" class="evidence-canvas-container" style="display: none;">
+  <!-- Content will be populated by JavaScript -->
+</div>
+
+<!-- Evidence Document Display Container (UPDATED: Initially hidden) -->
+<div id="Evidence_Actual_Container" style="display: none;">
+  <h1 id="Evidence_Actual_Heading">Rocket Mortgage – Credit Upgrade Referral Confirmation</h1>
+  
+  <div id="Evidence_Actual_Copy">
+    <div class="email-header">
+      <div class="sender-name">Vest, Jessica</div>
+      <div class="timestamp">12:58 PM (9 hours ago)</div>
+      <div>to me</div>
+    </div>
+    
+    <p class="greeting">Hello David,</p>
+    
+    <p>Thank you for allowing me time to dig into this more. I was able to find more information regarding our <span class="company-name">Credit Upgrade Team</span> referral.</p>
+    
+    <p>I can confirm that on <span class="important-date">04/21/2024</span>, we referred you to <span class="company-name">Credit Upgrade</span>. To be eligible for the loan, we needed your score increase from <span class="important-number">600</span> to <span class="important-number">640</span>.</p>
+    
+    <p>I can confirm that you discussed <span class="important-number">paying off 10,000</span> in debt for the score to increase from <span class="important-number">600</span> to <span class="important-number">640</span>.</p>
+    
+    <p>It appears that you paid 737 to another lender/broker for an appraisal which required repairs. Our team advised that once everything was sorted, we would not charge a deposit due to being a serviced client.</p>
+    
+    <p>This is the only additional information I was able to obtain and can provide.</p>
+    
+    <p>Please let me know if you need anything further or have any questions/concerns.</p>
+    
+    <div class="signature">
+      <div class="sender-name">Jessica Vest</div>
+      <div class="job-title">Triple Crown Resolution Advocate | Rocket Mortgage</div>
+    </div>
+  </div>
+</div>
+
+
+</main>
+
+<!-- JS Scripts: Core logic loaded after DOM -->
+<script src="js/performance-optimizations.js"></script>
+<script src="js/creditor-logo.js"></script>
+<script src="js/bureau-logo.js"></script>
+<script src="js/canvas-heading.js"></script>
+<script src="js/canvas-image-loader.js"></script>
+<script src="js/canvas-navigation.js"></script>
+<script src="js/bureau-logo-click.js"></script>
+<script src="js/poc-init.js"></script>
+<script src="js/dim-overlay.js"></script>
+<script src="js/evidence-buttons.js"></script>
+<script src="js/evidence-actual.js"></script>
+<script src="js/evidence-menu.js"></script>
+<script src="js/evidence-canvas.js"></script>
+<script src="js/matters-render.js"></script>
+<script src="js/evidence-canvas-content.js"></script>
+<!-- <script src="js/evidence-navigation.js"></script> DISABLED - Conflicts with evidence-nav.js -->
+<script src="js/evidence-nav.js"></script>
+<script src="js/evidence-test.js"></script>
+<script src="js/canvas-view.js"></script>
+<script src="js/fcra-review-text.js"></script>
+<script src="js/state-manager.js"></script>
+<script src="js/sys-wide-counters.js"></script>
+
+<style>
+/* Add hover effect for the fixed left arrow */
+#Canvas_Arrow_Left:hover {
+  content: url("assets/icons/canvas-arrow-left-hover.png");
+}
+
+/* Base styles for all arrow images to prevent FOUC */
+img.canvas-arrow {
+  opacity: 0; /* Start invisible */
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Once loaded, make visible */
+img.canvas-arrow.loaded {
+  opacity: 1;
+}
+</style>
+
+</body>
+</html>

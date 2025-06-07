@@ -1,0 +1,114 @@
+/* violation-overlay.css */
+/* Styles for violation overlay system */
+
+.violation-overlay {
+  position: absolute !important;
+  border: 4px dashed !important;
+  background-color: transparent !important;
+  cursor: pointer !important;
+  z-index: 9 !important;
+  box-sizing: border-box !important;
+  border-radius: 24px !important;
+  display: block !important;
+  pointer-events: auto !important;
+}
+
+.violation-overlay:not(.active) {
+  opacity: 1 !important;
+  background-color: transparent !important;
+}
+
+/* Severity-based colors - inactive state */
+.violation-overlay[data-severity="severe"] {
+  border-color: rgba(255, 0, 0, 0.2) !important;
+  border-width: 4px !important;
+  background-color: transparent !important;
+}
+
+.violation-overlay[data-severity="serious"] {
+  border-color: rgba(255, 165, 0, 0.2) !important;
+  border-width: 4px !important;
+  background-color: transparent !important;
+}
+
+.violation-overlay[data-severity="minor"] {
+  border-color: rgba(255, 255, 0, 0.2) !important;
+  border-width: 4px !important;
+  background-color: transparent !important;
+}
+
+/* Severity-based colors - active state */
+.violation-overlay.active {
+  opacity: 1 !important;
+}
+
+.violation-overlay.active[data-severity="severe"] {
+  border-style: solid !important;
+  border-color: rgba(255, 0, 0, 0.6) !important;
+  border-width: 4px !important;
+  background-color: transparent !important;
+}
+
+.violation-overlay.active[data-severity="serious"] {
+  border-style: solid !important;
+  border-color: rgba(255, 165, 0, 0.6) !important;
+  border-width: 4px !important;
+  background-color: transparent !important;
+}
+
+.violation-overlay.active[data-severity="minor"] {
+  border-style: solid !important;
+  border-color: rgba(255, 255, 0, 0.6) !important;
+  border-width: 4px !important;
+  background-color: transparent !important;
+}
+
+/* Container styles */
+#Violation_Overlay_Container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9;
+}
+
+/* Navigation elements should be above overlays */
+#Canvas_Arrow_Left,
+#Canvas_Arrow_Right,
+#Canvas_Arrow_Group_Left,
+#Canvas_Arrow_Group_Right {
+  z-index: 20 !important;
+  position: relative;
+}
+
+#Canvas_Heading_Container,
+#Canvas_Heading_Background {
+  z-index: 15 !important;
+  position: relative;
+}
+
+/* Violation count styles */
+#violation-count {
+  position: absolute !important;
+  top: 302px !important;
+  left: 1553px !important;
+  width: 45px !important;
+  height: 33px !important;
+  color: #253541 !important;
+  font-family: "jaf-bernino-sans-comp", sans-serif !important;
+  font-weight: 800 !important;
+  font-style: normal !important;
+  font-size: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 202 !important;
+  pointer-events: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+} 

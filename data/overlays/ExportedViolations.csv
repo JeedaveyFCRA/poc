@@ -1,0 +1,10 @@
+﻿Image,Severity,Label,Codes,X,Y,Width,Height,Synced At,Mode,SOF
+AL-EQ-2024-04-25-P57.png,severe,Account Status: INCLUDED_IN_CHAPTER_13,§1681c(f); §1681e(b),63,219,340,24,5/30/2025 9:24pm,sample,
+AL-EQ-2024-04-25-P57.png,severe,Reported Balance: $0,§1681e(b); §1681c(f),409,195,340,24,5/30/2025 9:24pm,sample,
+AL-EQ-2024-04-25-P57.png,serious,Available Credit,§1681e(b),409,219,340,24,5/30/2025 9:24pm,sample,
+AL-EQ-2024-04-25-P57.png,serious,High Credit,§1681e(b),63,642,340,24,5/30/2025 9:25pm,sample,
+AL-EQ-2024-04-25-P57.png,serious,Credit Limit,§1681e(b),63,670,340,24,5/30/2025 9:24pm,sample,
+AL-EQ-2024-04-25-P57.png,severe,Balance: $0,§1681e(b); §1681c(f),63,715,340,24,5/30/2025 9:24pm,sample,
+AL-EQ-2024-04-25-P57.png,serious,Date Reported: Oct 25 2018,§1681c(a)(4); §1681e(b),409,760,340,24,5/30/2025 9:24pm,sample,
+AL-EQ-2024-04-25-P58.png,severe,Bankruptcy Chapter 13,§1681c(f); §1681e(b),63,282,140,24,5/30/2025 9:24pm,sample,
+AL-EQ-2024-04-25-P58.png,serious,Bankruptcy Completed,§1681e(b),63,305,140,24,5/30/2025 9:24pm,sample,
