@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "when i open with my phone i can only see a tiny section of the top left of the page and i cant scroll to the right or down or pinch to make smaller",
+          "pastedContents": {}
+        },
+        {
           "display": "You are working inside the folder: /home/avid_arrajeedavey/vioverse-refactor\n\nPlease fix the layout so it works properly on mobile devices.\n\nThe current HTML layout uses absolute positioning and was designed for a fixed desktop width (1920px). On mobile phones, only a small portion is visible and users cannot scroll.\n\n✅ Keep the visual layout as-is for desktop.\n✅ But allow mobile users to scroll to view the full layout.\n✅ Add the correct viewport meta tag if missing.\n✅ Apply global CSS styles to make the body scrollable (both horizontal and vertical).\n✅ Make no other style changes unless absolutely required.\n\nPlease modify the necessary HTML and CSS files to achieve this and explain what was changed.\n",
           "pastedContents": {}
         },
@@ -448,10 +452,6 @@
         },
         {
           "display": "i dont see the icons",
-          "pastedContents": {}
-        },
-        {
-          "display": "its like the containder that is showing the violation boxes i think that needs to be depper by 28 px",
           "pastedContents": {}
         }
       ],

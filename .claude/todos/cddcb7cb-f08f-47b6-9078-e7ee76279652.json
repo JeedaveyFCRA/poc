@@ -1,18 +1,18 @@
 [
   {
-    "content": "Check viewport meta tag in index.html",
+    "content": "Fix viewport meta tag to allow zooming and scrolling",
     "status": "completed",
     "priority": "high",
     "id": "1"
   },
   {
-    "content": "Update CSS to enable scrolling on mobile devices",
+    "content": "Ensure the fixed-width layout is scrollable on mobile",
     "status": "completed",
     "priority": "high",
     "id": "2"
   },
   {
-    "content": "Test mobile scrollability without affecting desktop layout",
+    "content": "Test that pinch-to-zoom works on mobile",
     "status": "completed",
     "priority": "medium",
     "id": "3"
