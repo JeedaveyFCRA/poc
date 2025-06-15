@@ -112,6 +112,12 @@
     stroke: #F26419 !important;
 }
 
+/* Enable scrolling on mobile devices */
+html {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -124,6 +130,9 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+    /* Enable scrolling on mobile devices */
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 img {
@@ -1965,6 +1974,12 @@ body.dragging-scroll {
 }
 
 @media (max-width: 768px) {
+    /* Ensure the app container allows scrolling on mobile */
+    .vioverse-app {
+        overflow: visible;
+        position: relative;
+    }
+    
     .content-wrapper {
         flex-direction: column;
     }

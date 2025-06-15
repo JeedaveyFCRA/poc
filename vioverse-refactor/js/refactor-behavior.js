@@ -696,7 +696,8 @@ class VioVerse {
         if (reportImage) {
             // VioVerse filename format: {CREDITOR}-{BUREAU}-{YYYY}-{MM}-{DD}-P{PAGE}.png
             // Example: AL-EQ-2024-04-25-P57.png
-            const paddedPage = String(this.currentPage).padStart(2, '0');
+            // Note: Only pad single-digit page numbers
+            const paddedPage = this.currentPage < 10 ? String(this.currentPage).padStart(2, '0') : String(this.currentPage);
             const filename = `assets/reports/${this.currentCreditor}-${this.currentBureau}-${this.reportDate}-P${paddedPage}.png`;
             reportImage.src = filename;
             
@@ -775,7 +776,9 @@ class VioVerse {
         container.innerHTML = '';
         
         // Get violations for current page
-        const currentPageKey = `${this.currentCreditor}-${this.currentBureau}-${this.reportDate}-P${String(this.currentPage).padStart(2, '0')}`;
+        // Use same padding logic as updateReportImage for consistency
+        const paddedPage = this.currentPage < 10 ? String(this.currentPage).padStart(2, '0') : String(this.currentPage);
+        const currentPageKey = `${this.currentCreditor}-${this.currentBureau}-${this.reportDate}-P${paddedPage}`;
         
         if (this.violationsData && this.violationsData.byPage && this.violationsData.byPage[currentPageKey]) {
             this.violations = this.violationsData.byPage[currentPageKey];
@@ -1245,6 +1248,14 @@ class VioVerse {
         if (!pages || pages.length === 0) return;
         
         const currentIndex = pages.indexOf(this.currentPage);
+        if (currentIndex === -1) {
+            // Current page not found in list, find closest
+            this.currentPage = pages[0];
+            this.updatePageDisplay();
+            this.updateReportImage();
+            return;
+        }
+        
         let newIndex = currentIndex + direction;
         
         // Wrap around
@@ -1297,7 +1308,7 @@ class VioVerse {
     
     async loadNavigationData() {
         try {
-            const response = await fetch('/data/navigation-map.json');
+            const response = await fetch('data/navigation-map.json');
             this.navigationData = await response.json();
         } catch (error) {
             console.error('Failed to load navigation data:', error);
@@ -1671,53 +1682,6 @@ class VioVerse {
         }
     }
     
-    updateTooltip(button, direction) {
-        if (!this.tipsEnabled || !this.navigationData) return;
-        
-        const tooltip = button.querySelector('.nav-tooltip');
-        if (!tooltip) return;
-        
-        // Get next/previous creditor
-        const bureauReports = this.navigationData.reports[this.currentBureau];
-        if (!bureauReports || !bureauReports[this.reportDate]) return;
-        
-        const availableCreditors = Object.keys(bureauReports[this.reportDate]);
-        const currentIndex = availableCreditors.indexOf(this.currentCreditor);
-        let newIndex = currentIndex + direction;
-        
-        // Handle wrap around
-        if (newIndex < 0) newIndex = availableCreditors.length - 1;
-        if (newIndex >= availableCreditors.length) newIndex = 0;
-        
-        const nextCreditor = availableCreditors[newIndex];
-        const creditorName = this.navigationData.creditors[nextCreditor];
-        
-        tooltip.textContent = creditorName.toLowerCase();
-    }
-    
-    updatePageTooltip(button, direction) {
-        if (!this.tipsEnabled || !this.navigationData) return;
-        
-        const tooltip = button.querySelector('.nav-tooltip');
-        if (!tooltip) return;
-        
-        // Get pages for current bureau/date/creditor
-        const bureauReports = this.navigationData.reports[this.currentBureau];
-        if (!bureauReports || !bureauReports[this.reportDate]) return;
-        
-        const pages = bureauReports[this.reportDate][this.currentCreditor];
-        if (!pages || pages.length === 0) return;
-        
-        const currentIndex = pages.indexOf(this.currentPage);
-        let newIndex = currentIndex + direction;
-        
-        // Handle wrap around
-        if (newIndex < 0) newIndex = pages.length - 1;
-        if (newIndex >= pages.length) newIndex = 0;
-        
-        const nextPage = pages[newIndex];
-        tooltip.textContent = `page ${nextPage}`;
-    }
     
     /**
      * Initialize search functionality
