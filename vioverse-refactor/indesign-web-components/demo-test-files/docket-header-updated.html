@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docket Header - Updated Implementation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            width: 1920px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Docket Header Container */
+        .docket-header {
+            position: fixed;
+            top: 9px;
+            left: 11px;
+            width: 1898px;
+            height: 48px;
+            background-color: #253541;
+            border: 3px solid #9ba1a6;
+            border-radius: 36px;
+            display: flex;
+            align-items: center;
+            padding: 0 60px 0 24px; /* Right padding for arrow button */
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        
+        /* Collapsed state */
+        .docket-header.collapsed {
+            height: 48px; /* Maintain height when collapsed */
+        }
+        
+        .docket-header.collapsed .docket-content {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        /* Content container */
+        .docket-content {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 1;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        /* Field items */
+        .field-item {
+            display: flex;
+            align-items: baseline;
+            white-space: nowrap;
+        }
+        
+        .field-label {
+            color: #9ba1a6;
+            text-transform: lowercase;
+        }
+        
+        .field-value {
+            color: #ffffff;
+            text-transform: lowercase;
+        }
+        
+        /* Dividers */
+        .divider {
+            width: 1px;
+            height: 30px;
+            background-color: #9ba1a6;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        
+        /* Arrow Button - Positioned inside header */
+        .docket-toggle {
+            position: absolute;
+            left: 27px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9ba1a6;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+            z-index: 10;
+        }
+        
+        .docket-toggle:hover {
+            color: #f26419;
+        }
+        
+        .docket-toggle svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        /* Main content area (placeholder) */
+        .main-content {
+            margin-top: 80px;
+            padding: 20px;
+            color: white;
+        }
+        
+        /* Demo controls */
+        .demo-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .demo-controls button {
+            background: #f26419;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+        
+        .demo-controls button:hover {
+            background: #d94a0c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Docket Header -->
+    <header class="docket-header" id="docket-header" aria-label="Case Information">
+        <!-- Toggle button inside header -->
+        <button class="docket-toggle" 
+                id="docket-toggle"
+                aria-label="Toggle case information" 
+                aria-expanded="true"
+                aria-controls="docket-content">
+            <!-- Circle chevron up icon (expanded state) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="toggle-icon">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="8 14 12 10 16 14"></polyline>
+            </svg>
+        </button>
+        
+        <!-- Docket content -->
+        <div class="docket-content" id="docket-content">
+            <div class="field-item">
+                <span class="field-label">case:&nbsp;</span>
+                <span class="field-value">david marra v. 13 furnishers, 3 credit bureaus</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">filed:&nbsp;</span>
+                <span class="field-value">06-09-2025</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">docket:&nbsp;</span>
+                <span class="field-value">2025-fc-0001</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">court:&nbsp;</span>
+                <span class="field-value">eastern district of new york</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">judge:&nbsp;</span>
+                <span class="field-value">hon allyne r ross</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">next deadline:&nbsp;</span>
+                <span class="field-value">motion deadline 06-15-25</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main content area -->
+    <div class="main-content">
+        <h1>Main Application Content</h1>
+        <p>The docket header is positioned above this content.</p>
+    </div>
+    
+    <!-- Demo controls -->
+    <div class="demo-controls">
+        <h3>Demo Controls</h3>
+        <button onclick="toggleDocket()">Toggle Docket</button>
+        <p>Container specs:</p>
+        <ul style="font-size: 12px; margin: 10px 0;">
+            <li>Width: 1898px</li>
+            <li>Height: 48px</li>
+            <li>Position: x=11px, y=9px</li>
+            <li>Border radius: 36px</li>
+            <li>Fill: #253541</li>
+            <li>Stroke: #9ba1a6 (3px)</li>
+            <li>Arrow: x=27px, y=centered</li>
+        </ul>
+    </div>
+    
+    <script>
+        let docketExpanded = true;
+        
+        function toggleDocket() {
+            docketExpanded = !docketExpanded;
+            const header = document.getElementById('docket-header');
+            const toggle = document.getElementById('docket-toggle');
+            const icon = document.getElementById('toggle-icon');
+            
+            if (docketExpanded) {
+                header.classList.remove('collapsed');
+                toggle.setAttribute('aria-expanded', 'true');
+                // Update to circle-chevron-up
+                icon.innerHTML = '<circle cx="12" cy="12" r="10"></circle><polyline points="8 14 12 10 16 14"></polyline>';
+            } else {
+                header.classList.add('collapsed');
+                toggle.setAttribute('aria-expanded', 'false');
+                // Update to circle-chevron-down
+                icon.innerHTML = '<circle cx="12" cy="12" r="10"></circle><polyline points="16 10 12 14 8 10"></polyline>';
+            }
+        }
+        
+        // Add click handler to toggle button
+        document.getElementById('docket-toggle').addEventListener('click', toggleDocket);
+    </script>
+</body>
+</html>

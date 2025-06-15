@@ -1,0 +1,2673 @@
+/* VioVerse Refactor CSS – all new styles go here */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap');
+@import url('https://use.typekit.net/qes3lop.css'); /* Bernino Sans Compressed */
+
+/* ========================================
+   CSS Custom Properties (Design Tokens)
+   ======================================== */
+:root {
+    /* Primary Colors - Vibrant Blue */
+    --color-primary: #0066FF;
+    --color-primary-dark: #0052CC;
+    --color-primary-light: #3385FF;
+    
+    /* Light Theme Background Colors */
+    --bg-main: #E5E7EB;  /* Warm gray background */
+    --bg-card: #FFFFFF;
+    --bg-panel: #FFFFFF;
+    --bg-accent: #F3F4F6;
+    --bg-hover: #E5E7EB;
+    
+    /* Text Colors - Dark on Light */
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --text-light: #94A3B8;
+    --text-white: #FFFFFF;
+    
+    /* Severity Colors (Accessible) */
+    --severity-high-bg: #B91C1C;
+    --severity-medium-bg: #D97706;
+    --severity-low-bg: #059669;
+    
+    /* VIObox Colors */
+    --viobox-active: #0066FF;
+    --viobox-inactive: #CBD5E1;
+    --viobox-hover-glow: rgba(0, 102, 255, 0.2);
+    
+    /* Border and Shadow */
+    --border-subtle: #E2E8F0;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+    --shadow-focus: 0 0 0 3px rgba(0, 102, 255, 0.3);
+    
+    /* Layout */
+    --header-height: 120px;
+    --nav-height: 60px;
+    --sidebar-width: 380px;
+    --content-padding: 24px;
+    
+    /* Typography */
+    --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Space Grotesk', 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    
+    /* Font Weights */
+    --font-light: 300;
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-bold: 700;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    
+    /* Z-index layers */
+    --z-base: 1;
+    --z-viobox: 10;
+    --z-dropdown: 100;
+    --z-modal: 1000;
+}
+
+/* ========================================
+   Reset and Base Styles
+   ======================================== */
+* {
+    box-sizing: border-box;
+}
+
+/* Ensure Lucide icons render as white outlines */
+[data-lucide] {
+    stroke: #ffffff !important;
+    fill: none !important;
+    stroke-width: 2;
+}
+
+/* Override for custom collapse button */
+.custom-collapse-btn [data-lucide] {
+    stroke: inherit !important;
+}
+
+/* Override for filter counter toggle */
+.filter-counter-toggle [data-lucide] {
+    stroke: #A8AEB3 !important; /* 40% tint of #253541 - same as other toggles */
+    fill: none !important;
+    stroke-width: 2;
+}
+
+/* Override for collapsed state specifically */
+.filter-counter.collapsed .filter-counter-toggle [data-lucide] {
+    stroke: #9ba1a6 !important; /* 30% tint when collapsed */
+}
+
+/* Override for view full violation log arrow */
+.full-log-arrow [data-lucide] {
+    stroke: rgba(37, 53, 65, 0.9) !important; /* #253541 at 90% opacity */
+    fill: none !important;
+    stroke-width: 2;
+}
+
+.full-log-arrow:hover [data-lucide],
+.full-log-header:hover .full-log-arrow [data-lucide] {
+    stroke: #F26419 !important;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-weight: var(--font-regular);
+    background-color: #2a2a2a;
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+input {
+    font-family: inherit;
+}
+
+/* ========================================
+   Accessibility Utilities
+   ======================================== */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 20px;
+    z-index: var(--z-modal);
+    padding: 12px 24px;
+    background-color: var(--color-primary);
+    color: var(--text-white);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.skip-link:focus {
+    top: 20px;
+}
+
+/* Focus visible styles for keyboard navigation */
+:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: inherit;
+}
+
+/* ========================================
+   Layout Structure
+   ======================================== */
+.vioverse-app {
+    position: relative;
+    min-width: 1920px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: #4f5a63;
+    overflow: visible;
+    z-index: 0;
+}
+
+/* ========================================
+   Docket Header
+   ======================================== */
+.docket-header {
+    position: fixed;
+    top: 9px;
+    left: 11px;
+    width: 1898px;
+    height: 48px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6;
+    border-radius: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px 0 27px; /* Left padding just 27px for button */
+    transition: all var(--transition-normal);
+    z-index: var(--z-base);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Collapsed state - container collapses */
+.docket-header.collapsed {
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+    margin-top: -48px; /* Move everything up */
+}
+
+/* Independent Collapsible Button - Not linked to docket */
+.custom-collapse-container {
+    position: fixed;
+    left: 1576px;
+    top: 167px;
+    width: 28px;
+    height: 28px;
+    z-index: 999999;
+}
+
+.custom-collapse-btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.custom-collapse-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke: #253541;
+    fill: none;
+    stroke-width: 2;
+}
+
+.custom-collapse-btn:hover svg {
+    stroke: #f26419;
+}
+
+.custom-collapse-btn[aria-expanded="true"] svg {
+    stroke: #253541;
+}
+
+/* Down arrow when collapsed - for docket header */
+.arrow-collapsed {
+    position: fixed;
+    top: 18px; /* 9px + 9px to center in the 48px space */
+    left: 38px; /* 11px + 27px to maintain same x position */
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9ba1a6;
+    padding: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-fast);
+    z-index: calc(var(--z-base) + 1);
+}
+
+.arrow-collapsed.visible {
+    display: flex;
+}
+
+.arrow-collapsed:hover {
+    color: #f26419;
+}
+
+.arrow-collapsed svg {
+    width: 28px;
+    height: 28px;
+}
+
+.docket-content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1;
+    margin-left: 50px; /* Shift content right by 50px from button */
+}
+
+.field-item {
+    display: flex;
+    align-items: baseline;
+    white-space: nowrap;
+}
+
+.field-label {
+    color: #9ba1a6;
+    text-transform: lowercase;
+}
+
+.field-value {
+    color: #ffffff;
+    text-transform: lowercase;
+}
+
+.divider {
+    width: 1px;
+    height: 30px;
+    background-color: #9ba1a6;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+/* Arrow Button - Inside header */
+.docket-toggle {
+    position: absolute;
+    left: 27px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9ba1a6;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition-fast);
+    z-index: 10;
+}
+
+.docket-toggle:hover {
+    color: #f26419;
+}
+
+.docket-toggle svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Adjust main-nav and content when docket collapses */
+.main-nav {
+    margin-top: 70px;
+    transition: margin-top var(--transition-normal);
+}
+
+.docket-header.collapsed ~ .main-nav {
+    margin-top: 20px; /* Move up when docket is collapsed */
+}
+
+/* ========================================
+   Tool Tips Toggle
+   ======================================== */
+.tool-tips-toggle {
+    position: fixed;
+    top: 135px;
+    left: 279px;
+    width: 56px;
+    height: 28px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6; /* 30% tint of #253541 */
+    border-radius: 36px;
+    box-sizing: border-box;
+    overflow: visible; /* Changed from hidden to show larger icon */
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Circle help icon - targets both the i element and the SVG Lucide creates */
+.tool-tips-toggle i[data-lucide],
+.tool-tips-toggle svg[data-lucide="circle-help"] {
+    position: absolute;
+    width: 30px !important;  /* Reduced to 30px (was 34px, originally 28px) */
+    height: 30px !important; /* Reduced to 30px (was 34px, originally 28px) */
+    top: -4px;               /* Moved up 1px (was -3px) */
+    transition: left 200ms ease;
+    z-index: 1000 !important; /* High z-index to ensure visibility */
+}
+
+/* Target the circle inside the SVG - default fill */
+.tool-tips-toggle svg[data-lucide="circle-help"] circle {
+    fill: #253541 !important; /* Default to dark blue fill */
+}
+
+/* Target the path elements (the ? mark) - default/general rule */
+.tool-tips-toggle svg[data-lucide="circle-help"] path {
+    stroke: #9ba1a6 !important; /* 30% tint of #253541 for OFF state */
+}
+
+/* Tips OFF state (default) - icon on left */
+.tool-tips-toggle[aria-checked="false"] i[data-lucide],
+.tool-tips-toggle[aria-checked="false"] svg[data-lucide="circle-help"] {
+    left: -3px; /* Moved 2px to the right (was -5px) */
+}
+
+/* Tips ON state - icon on right */
+.tool-tips-toggle[aria-checked="true"] i[data-lucide],
+.tool-tips-toggle[aria-checked="true"] svg[data-lucide="circle-help"] {
+    left: 25px; /* Moved 4px to the right (was 21px) */
+}
+
+/* Override icon colors for OFF state */
+.tool-tips-toggle[aria-checked="false"] svg[data-lucide="circle-help"] {
+    stroke: #9ba1a6 !important; /* 30% tint of #253541 */
+}
+.tool-tips-toggle[aria-checked="false"] svg[data-lucide="circle-help"] circle {
+    fill: #253541 !important; /* Dark blue fill for OFF state - matches container */
+}
+
+/* Override icon colors for ON state */
+.tool-tips-toggle[aria-checked="true"] svg[data-lucide="circle-help"] {
+    stroke: #f8b98c !important; /* 30% tint of #f26419 */
+}
+.tool-tips-toggle[aria-checked="true"] svg[data-lucide="circle-help"] circle {
+    fill: #f26419 !important; /* Orange fill for ON state */
+}
+.tool-tips-toggle[aria-checked="true"] svg[data-lucide="circle-help"] path {
+    stroke: #ffffff !important; /* White question mark for ON state */
+}
+
+/* ========================================
+   Search Box
+   ======================================== */
+.search-box {
+    position: fixed;
+    top: 135px;
+    left: 70px;
+    width: 194px;           /* Increased by 14px (was 180px) */
+    height: 28px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6; /* 30% tint of #253541 */
+    border-radius: 36px;
+    box-sizing: border-box;
+    overflow: visible;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    transition: all 200ms ease;
+}
+
+/* Search icon container - create circle wrapper */
+.search-box .search-icon {
+    position: absolute;
+    left: -4px;              /* Moved 4px to the left */
+    top: 50%;                /* Center vertically */
+    transform: translateY(-50%); /* Perfect vertical centering */
+    width: 28px;             /* Match search box height */
+    height: 28px;
+    background-color: #253541; /* Back to proper color */
+    border: 3px solid #9ba1a6;
+    border-radius: 50%;
+    box-sizing: border-box;  /* Include border in dimensions */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 1000 !important;
+    transition: all 200ms ease;
+    pointer-events: none;    /* Allow clicks to pass through to input */
+}
+
+/* Binoculars icon styling - OFF state */
+.search-box svg[data-lucide="binoculars"] {
+    width: 14px !important;  /* Icon size to fit in 28px circle */
+    height: 14px !important;
+    stroke: #9ba1a6 !important; /* 30% tint of #253541 */
+    fill: none !important;
+    stroke-width: 2 !important;
+    display: block !important;
+}
+
+/* Search input styling */
+.search-input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 0 10px 0 35px; /* Reduced left padding for smaller icon, added right padding */
+    transition: all 200ms ease;
+}
+
+.search-input::placeholder {
+    color: #9ba1a6;
+    opacity: 0.7;
+}
+
+/* Focus (ON) state */
+.search-box:focus-within {
+    /* Keep same border color - no change */
+}
+
+.search-box:focus-within .search-icon {
+    background-color: #f26419 !important; /* Orange fill when focused */
+    border-color: #f8b98c !important; /* 30% tint of #f26419 */
+}
+
+.search-box:focus-within svg[data-lucide="binoculars"] {
+    stroke: #ffffff !important; /* White icon when focused */
+}
+
+.search-box:focus-within .search-input {
+    color: #ffffff;
+}
+
+.search-box:focus-within .search-input::placeholder {
+    color: #f8b98c;
+    opacity: 0.5;
+}
+
+/* Search results styling */
+.violation-item.search-match {
+    background-color: rgba(242, 100, 25, 0.1);
+    border-left: 3px solid #f26419;
+}
+
+.violation-item.search-highlight {
+    animation: searchPulse 0.5s ease-in-out 3;
+}
+
+@keyframes searchPulse {
+    0% {
+        background-color: rgba(242, 100, 25, 0.1);
+    }
+    50% {
+        background-color: rgba(242, 100, 25, 0.3);
+    }
+    100% {
+        background-color: rgba(242, 100, 25, 0.1);
+    }
+}
+
+.search-box.has-results {
+    box-shadow: 0 0 0 1px #f26419;
+}
+
+/* ========================================
+   New View Toggle
+   ======================================== */
+.view-toggle-new {
+    position: fixed;
+    top: 76px;
+    left: 70px;
+    width: 270px;
+    height: 40px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6;
+    border-radius: 36px;
+    box-sizing: border-box;
+    overflow: visible;
+    z-index: 100; /* High z-index to ensure clickability */
+}
+
+/* View labels container */
+.view-labels {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    z-index: 2;
+}
+
+/* View label buttons */
+.view-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    user-select: none;
+    background: none;
+    border: none;
+    padding: 0;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto; /* Ensure clickability */
+    z-index: 3; /* Above the indicator */
+}
+
+.view-label.viotagger {
+    left: 8px; /* Moved left by 2px */
+    width: 75px;
+    color: #9ba1a6;
+}
+
+.view-label.report {
+    left: 97px;
+    width: 75px;
+    color: #9ba1a6;
+}
+
+.view-label.evidence {
+    left: 188px; /* Moved right by 3px total */
+    width: 75px;
+    color: #9ba1a6;
+}
+
+/* Active state labels */
+.view-label.active {
+    color: #ffffff;
+}
+
+/* Focus states for accessibility */
+.view-label:focus {
+    outline: none; /* Remove focus outline to prevent delay appearance */
+}
+
+/* Orange toggle indicator */
+.toggle-indicator {
+    position: absolute;
+    top: -3px; /* Move up 3px */
+    width: 90px;
+    height: 40px;
+    background-color: #f26419;
+    border: 3px solid #f8b98c;
+    border-radius: 36px;
+    box-sizing: border-box;
+    transition: left 0.15s ease; /* Faster transition */
+    z-index: 1;
+}
+
+/* Toggle indicator positions */
+.toggle-indicator.tagger {
+    left: 0;
+}
+
+.toggle-indicator.report {
+    left: 90px;
+}
+
+.toggle-indicator.evidence {
+    left: 180px;
+}
+
+/* All legacy navigation styles removed — see legacy-removal.html */
+
+/* ========================================
+   Main Content Area
+   ======================================== */
+.main-content {
+    position: relative;
+    background: transparent;
+    width: 100%;
+    min-height: calc(100vh - var(--header-height) - var(--nav-height));
+    padding: 40px 0;
+}
+
+.view-panel {
+    width: 100%;
+    display: none;
+}
+
+.view-panel.active {
+    display: block;
+}
+
+.content-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* ========================================
+   Report Canvas
+   ======================================== */
+.report-canvas-container,
+.tagger-canvas-container,
+.evidence-canvas-container {
+    position: fixed;
+    left: 360px;
+    top: 69px;
+    width: 810px;
+    height: 920px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: visible; /* Allow tooltips to show outside container */
+    z-index: 1;
+}
+
+/* Report Navigation Bar */
+.report-nav-bar,
+.evidence-nav-bar {
+    position: absolute;
+    left: 9px;
+    top: 15px; /* Positioned inside canvas */
+    width: 792px;
+    height: 40px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6;
+    border-radius: 36px;
+    box-shadow: none;
+    overflow: visible;
+    z-index: 2;
+}
+
+/* Bureau segment with specific positioning */
+.bureau-segment {
+    position: absolute;
+    left: 9px; /* Moved 8px to the left (17px - 8px) */
+    display: flex;
+    align-items: center;
+}
+
+.bureau-logo {
+    width: 82px;
+    height: 25px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+/* Date segment */
+.date-segment {
+    position: absolute;
+    left: 168px; /* x=537px in spec, relative to nav bar at x=369px = 168px */
+    width: 134px;
+}
+
+/* Creditor segment */
+.creditor-segment {
+    position: absolute;
+    left: 375px;
+    width: 150px;
+}
+
+.creditor-segment .nav-text-container {
+    max-width: 150px;
+    overflow: hidden;
+}
+
+/* Page segment */
+.page-segment {
+    position: absolute;
+    left: 600px;
+    width: 62px;
+}
+
+/* Evidence Navigation Segments */
+.category-segment {
+    position: absolute;
+    left: 20px;
+    width: 180px;
+}
+
+.document-segment {
+    position: absolute;
+    left: 280px;
+    width: 280px;
+}
+
+.evidence-page-segment {
+    position: absolute;
+    left: 640px;
+    width: 62px;
+}
+
+/* Updated nav-segment base styles */
+.nav-segment {
+    display: flex;
+    align-items: center;
+    height: 17px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background: none; /* Ensure segments don't cover dividers */
+}
+
+/* Labels and values in same container */
+.nav-text-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 17px;
+    line-height: 17px;
+    white-space: nowrap;
+}
+
+.nav-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #9ba1a6;
+    text-transform: lowercase;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    text-transform: lowercase;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Creditor name specific truncation */
+.creditor-segment .nav-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px; /* Adjust based on available space before arrows */
+}
+
+/* Arrows positioned side-by-side */
+.nav-arrows {
+    position: absolute;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+/* Specific arrow positioning for each segment */
+.bureau-segment .nav-arrows {
+    left: 81px; /* No change needed - relative to segment */
+}
+
+.date-segment .nav-arrows {
+    left: 137px;
+}
+
+.creditor-segment .nav-arrows {
+    left: 154px;
+}
+
+.page-segment .nav-arrows {
+    left: 64px;
+}
+
+/* Evidence nav arrows positioning */
+.category-segment .nav-arrows {
+    right: 8px;
+}
+
+.document-segment .nav-arrows {
+    right: 8px;
+}
+
+.evidence-page-segment .nav-arrows {
+    left: 64px;
+}
+
+/* Updated arrow button styles */
+.nav-arrow-small {
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    color: #9ba1a6;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.nav-arrow-small:hover {
+    color: #f26419;
+}
+
+.nav-arrow-small i {
+    width: 17px;
+    height: 17px;
+}
+
+/* Vertical dividers */
+.nav-divider {
+    position: absolute;
+    width: 1px;
+    height: 18px;
+    background-color: #9ba1a6;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10; /* Higher than nav-bar z-index of 2 */
+}
+
+/* Report nav dividers - using specific classes for precise control */
+.report-nav-bar .divider-1 {
+    left: 151px; /* Spacer1: x=520px in spec, relative to nav bar at x=369px = 151px */
+}
+
+.report-nav-bar .divider-2 {
+    left: 359px; /* Spacer2: x=728px in spec, relative to nav bar at x=369px = 359px */
+}
+
+.report-nav-bar .divider-3 {
+    left: 583px; /* Spacer3: x=952px in spec, relative to nav bar at x=369px = 583px */
+}
+
+/* Evidence nav dividers */
+.evidence-nav-bar .nav-divider:nth-of-type(1) {
+    left: 260px;
+}
+
+.evidence-nav-bar .nav-divider:nth-of-type(2) {
+    left: 620px;
+}
+
+/* Navigation transition highlight */
+.nav-segment.nav-transitioning {
+    animation: nav-highlight 0.4s ease;
+}
+
+@keyframes nav-highlight {
+    0% {
+        box-shadow: none;
+    }
+    50% {
+        box-shadow: 0 0 12px rgba(242, 100, 25, 0.3);
+    }
+    100% {
+        box-shadow: none;
+    }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .nav-segment.nav-transitioning {
+        animation: none;
+        box-shadow: 0 0 12px rgba(242, 100, 25, 0.3);
+    }
+}
+
+/* Navigation tooltips */
+.nav-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f26419;
+    color: #ffffff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: lowercase;
+    padding: 6px 12px;
+    border-radius: 18px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition-delay: 0.15s;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.nav-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: #f26419;
+}
+
+/* Show tooltips only when tips are enabled and on hover */
+.tooltip-mode .nav-arrow-small:hover .nav-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.report-canvas,
+.tagger-canvas,
+.evidence-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #ffffff;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 24px; /* Match container border-radius */
+}
+
+/* Canvas placeholder for empty states */
+.canvas-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #9ba1a6;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.canvas-placeholder h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #253541;
+}
+
+.canvas-placeholder p {
+    font-size: 18px;
+    font-weight: 400;
+    color: #9ba1a6;
+}
+
+/* Canvas and sidebar are now fixed position, no flex needed */
+
+.report-image {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* VIObox Container */
+.viobox-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* VIObox Styles */
+.viobox {
+    position: absolute;
+    border: none; /* Remove border, use inset box-shadow instead */
+    border-radius: 13px;
+    background-color: rgba(255, 255, 255, 0.3); /* Reduced opacity from 0.8 to 0.3 for more transparency */
+    display: flex;
+    align-items: center;
+    padding-left: 8px; /* Move content 8px from left */
+    pointer-events: auto;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    z-index: 4;
+    box-sizing: border-box; /* Include border in width/height */
+    /* 2px inward stroke using inset box-shadow */
+    box-shadow: inset 0 0 0 2px rgba(203, 213, 225, 0.9); /* viobox-inactive with 0.9 opacity */
+}
+
+.viobox:hover {
+    /* 2px inward stroke (blue) + outer glow */
+    box-shadow: inset 0 0 0 2px rgba(0, 102, 255, 0.9), /* viobox-active with 0.9 opacity */
+                0 0 8px var(--viobox-hover-glow);
+}
+
+.viobox.active {
+    background-color: rgba(0, 102, 255, 0.1);
+    /* 2.5px inward stroke using inset box-shadow */
+    box-shadow: inset 0 0 0 2.5px #253541;
+}
+
+.viobox:focus-visible {
+    outline: 3px solid var(--text-white);
+    outline-offset: -1px;
+    box-shadow: 0 0 0 5px var(--viobox-active);
+}
+
+/* Severity Icon */
+.severity-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    margin-left: -8px; /* Compensate for parent's 8px padding-left to align with edge */
+    padding: 3px; /* Padding set to 3px */
+    box-sizing: border-box; /* Include padding in width/height */
+    position: relative;
+    z-index: 10; /* Above VIObox borders */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.severity-icon i {
+    width: 100%; /* Fill available space after padding */
+    height: 100%; /* Fill available space after padding */
+    color: #ffffff;
+}
+
+/* Dot styles - circles with no stroke */
+.severity-high {
+    background-color: #ff0000;
+}
+
+.severity-medium {
+    background-color: #f26419;
+}
+
+.severity-low {
+    background-color: #f2b919;
+}
+
+/* ========================================
+   Sidebar Canvas Structure
+   ======================================== */
+.sidebar-canvas {
+    position: fixed;
+    left: 1180px;
+    top: 69px;
+    width: 452px;
+    height: 920px;
+    z-index: 100; /* Higher than base elements */
+    overflow: visible; /* Ensure heading isn't clipped */
+    isolation: isolate; /* Create new stacking context */
+}
+
+/* Bottom box (base layer) */
+.sidebar-bottom-box {
+    position: absolute;
+    width: 452px;
+    height: 920px;
+    background-color: #253541;
+    border: 16px solid #253541;
+    border-radius: 24px;
+    box-sizing: border-box;
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.4);
+}
+
+/* Top box (content layer) */
+.sidebar-top-box {
+    position: absolute;
+    left: 16px; /* 1196px - 1180px (sidebar-canvas position) */
+    top: 57px; /* 126px - 69px (sidebar-canvas top position) */
+    width: 419px;
+    height: 848px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 24px;
+    overflow: hidden; /* Hide content that extends beyond boundaries */
+    padding: 0; /* No padding */
+    box-sizing: border-box;
+}
+
+/* Variable heading - positioned above both boxes */
+.sidebar-variable-heading {
+    position: absolute;
+    left: 40px; /* 1220px - 1180px container position */
+    top: -24px; /* Moved down 4px (from -28px to -24px) */
+    width: 374px;
+    height: 39px;
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 30pt;
+    color: #ffffff;
+    text-transform: lowercase;
+    line-height: 1;
+    z-index: 10000; /* Highest z-index to ensure visibility above all elements */
+}
+
+/* FCRA stays uppercase */
+.sidebar-variable-heading .uppercase {
+    text-transform: uppercase;
+}
+
+/* Old sidebar styles - to be removed after HTML update */
+.violation-sidebar, .tagger-sidebar, .evidence-sidebar {
+    display: none;
+}
+
+.sidebar-heading {
+    font-size: 24px;
+    font-weight: var(--font-bold);
+    margin: 0 0 24px 0;
+}
+
+/* Violation Statistics */
+.violation-stats {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background-color: var(--bg-accent);
+    border-radius: 24px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon i {
+    width: 20px;
+    height: 20px;
+    color: #ffffff;
+}
+
+.stat-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: lowercase;
+    color: var(--text-secondary);
+    letter-spacing: 0;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
+}
+
+/* ========================================
+   Violation Details Component
+   ======================================== */
+.violation-details-component {
+    position: relative;
+    width: 100%;
+    margin-top: 0; /* Spacing handled by parent */
+    background: transparent; /* Ensure no background */
+    transition: margin-top 300ms ease; /* Smooth transition */
+    overflow: visible; /* Ensure collapsed button isn't clipped */
+}
+
+/* Move violation details up when severity is collapsed */
+.severity-summary-component.collapsed + .violation-details-component {
+    margin-top: -16px; /* Adjust spacing when severity is collapsed */
+}
+
+/* Header with title and toggle */
+.violation-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px 0 24px;
+    margin: 0;
+    position: relative;
+    overflow: visible; /* Ensure buttons aren't clipped */
+}
+
+.violation-details-title {
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 30px; /* 30pt */
+    color: rgba(37, 53, 65, 0.9);
+    text-transform: lowercase;
+    line-height: 1;
+    margin: 0;
+}
+
+.violation-details-toggle {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 200ms ease;
+    position: absolute;
+    right: -10px; /* Align with other toggles */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.violation-details-toggle svg {
+    width: 28px;
+    height: 28px;
+    stroke: #A8AEB3 !important; /* 40% tint of #253541 */
+    fill: none !important;
+    transition: stroke 200ms ease;
+}
+
+.violation-details-toggle:hover svg {
+    stroke: #F26419 !important;
+}
+
+/* Override global Lucide styling for violation toggle */
+.violation-details-toggle [data-lucide] {
+    stroke: inherit !important;
+}
+
+/* Two-button toggle implementation for violation details */
+/* Expanded button styling */
+.violation-details-toggle-expanded {
+    right: 22px !important; /* Moved 32px to the left: was -10px, now 22px */
+}
+
+.violation-details-toggle-expanded svg {
+    fill: none !important; /* No fill - stroke only */
+    stroke: #A8AEB3 !important; /* Same gray as other toggles */
+    stroke-width: 2 !important; /* Standard stroke width */
+}
+
+/* Critical: Override the global white stroke for data-lucide */
+.violation-details-toggle-expanded [data-lucide] {
+    stroke: #A8AEB3 !important;
+    fill: none !important;
+}
+
+.violation-details-toggle-expanded:hover svg {
+    stroke: #F26419 !important; /* Orange on hover */
+}
+
+.violation-details-toggle-expanded:hover [data-lucide] {
+    stroke: #F26419 !important;
+}
+
+/* Hide collapsed button by default */
+.violation-details-toggle-collapsed {
+    display: none; /* Hidden by default */
+    position: absolute; /* Ensure proper positioning */
+    width: 15px;
+    height: 15px;
+    padding: 0; /* Remove padding to maximize icon space */
+    z-index: 100; /* Increased z-index to ensure it's above other elements */
+    background: none;
+    border: none;
+    cursor: pointer; /* Ensure pointer cursor */
+    right: 22px !important; /* Moved 24px to the left: was -2px, now 22px */
+    top: calc(50% - 20px); /* Moved up 20px from center */
+    transform: translateY(-50%); /* Maintain vertical centering adjustment */
+}
+
+.violation-details-toggle-collapsed svg {
+    width: 10.5px !important;
+    height: 10.5px !important;
+    stroke-width: 2.5 !important; /* Thicker stroke for small size */
+    color: #A8AEB3 !important; /* Same gray as expanded */
+    stroke: #A8AEB3 !important;
+    fill: none !important; /* No fill - stroke only */
+    display: block !important;
+    pointer-events: none; /* Let the button handle clicks, not the SVG */
+    opacity: 1 !important; /* Force visibility */
+    visibility: visible !important; /* Ensure visible */
+}
+
+/* Critical: Override the global white stroke for data-lucide */
+.violation-details-toggle-collapsed [data-lucide] {
+    stroke: #A8AEB3 !important;
+    fill: none !important;
+    opacity: 1 !important; /* Force visibility */
+    visibility: visible !important; /* Ensure visible */
+}
+
+/* Force icon visibility in collapsed state */
+.violation-details-component.collapsed .violation-details-toggle-collapsed svg,
+.violation-details-component.collapsed .violation-details-toggle-collapsed [data-lucide] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    stroke: #A8AEB3 !important;
+}
+
+.violation-details-toggle-collapsed:hover svg {
+    stroke: #F26419 !important; /* Orange on hover */
+}
+
+.violation-details-toggle-collapsed:hover [data-lucide] {
+    stroke: #F26419 !important;
+}
+
+/* Show/hide buttons based on state */
+.violation-details-component.collapsed .violation-details-toggle-expanded {
+    display: none;
+}
+
+.violation-details-component.collapsed .violation-details-toggle-collapsed {
+    display: flex; /* Show as flex when collapsed */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Collapsed label for violation details */
+.violation-details-collapsed-label {
+    position: absolute;
+    left: 271px; /* Moved 6px to the right: was 265px, now 271px */
+    top: -6px; /* Moved up 2px more: was -4px, now -6px */
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 8pt;
+    color: rgba(37, 53, 65, 0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 300ms ease;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.violation-details-collapsed-label:hover {
+    color: #F26419;
+}
+
+.violation-details-component.collapsed .violation-details-collapsed-label {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.violation-details-component.collapsed .violation-details-title {
+    opacity: 0;
+}
+
+/* Ensure hover works in collapsed state - simplified approach */
+.violation-details-toggle-collapsed:hover svg,
+.violation-details-toggle-collapsed:hover [data-lucide] {
+    stroke: #F26419 !important;
+}
+
+/* Collapsible content */
+.violation-details-content {
+    overflow: visible; /* Changed to visible to allow shadows */
+    transition: all 300ms ease;
+    transform-origin: top;
+    padding: 8px 14px 6px 14px; /* Added 6px bottom padding for shadows */
+}
+
+.violation-details-component.collapsed .violation-details-content {
+    height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+    padding: 0 14px;
+}
+
+/* List container */
+.violation-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Space between violation boxes - reduced by 40% */
+}
+
+/* Individual violation box */
+.violation-box {
+    background-color: #e3e2e1; /* 30% tint of #b7b5b3 */
+    border: 1px solid #ffffff;
+    border-radius: 32px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 4px 14px 4px 28px; /* 4px top/bottom, 14px right, 28px left (14px + 14px increase) */
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 60px; /* Ensure minimum height for badge alignment */
+}
+
+/* Severity badge - positioned absolutely */
+.violation-severity-badge {
+    position: absolute;
+    left: 21px; /* Adjusted for increased left padding (7px + 14px) */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.violation-box.high .violation-severity-badge {
+    background-color: #FF0000;
+}
+
+.violation-box.medium .violation-severity-badge {
+    background-color: #F26419;
+}
+
+.violation-box.low .violation-severity-badge {
+    background-color: #F2B919;
+}
+
+.violation-severity-badge svg {
+    width: 16px;
+    height: 16px;
+    stroke: #ffffff !important;
+    fill: none !important;
+}
+
+/* Override global Lucide styling for severity badges */
+.violation-severity-badge [data-lucide] {
+    stroke: #ffffff !important;
+}
+
+/* Violation content */
+.violation-content {
+    flex: 1;
+    padding-left: 30px; /* Space for badge */
+}
+
+/* FCRA codes */
+.violation-fcra-codes {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 11pt;
+    color: rgba(37, 53, 65, 0.9);
+    line-height: 1.2;
+    margin-bottom: 0;
+    display: block;
+}
+
+/* Violation description */
+.violation-description {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 11pt;
+    color: rgba(0, 0, 0, 0.9);
+    line-height: 1.2;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Legacy filter styles removed - using filter-counter component instead */
+
+/* ========================================
+   Custom Scroll Violation Details
+   ======================================== */
+.custom-scroll-vio-details {
+    position: fixed;
+    display: none; /* Hidden by default, shown when >4 violations */
+    z-index: 50;
+}
+
+/* Hide native scrollbar when custom scroll is active */
+.violation-details-list.custom-scroll-active {
+    overflow-y: auto; /* Changed from hidden to auto to allow shadows */
+    overflow-x: visible; /* Allow horizontal overflow for shadows */
+    max-height: 272px; /* Fixed viewport height */
+    position: relative;
+    padding-bottom: 6px; /* Add padding to accommodate bottom shadows */
+    margin-bottom: -6px; /* Compensate for padding to maintain layout */
+}
+
+/* Scroll arrows */
+.scroll-arrow {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 51;
+}
+
+.scroll-arrow svg {
+    width: 10px !important;
+    height: 10px !important;
+    stroke: #9ba1a6 !important;
+    stroke-width: 1pt !important; /* 1pt = 1.333px */
+    fill: none !important;
+    transition: stroke 200ms ease;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: none; /* Let button handle clicks */
+}
+
+.scroll-arrow:hover svg,
+.scroll-arrow:active svg {
+    stroke: #f26419 !important;
+}
+
+.scroll-arrow [data-lucide] {
+    stroke: #9ba1a6 !important;
+    stroke-width: 1pt !important; /* 1pt = 1.333px */
+    fill: none !important;
+    width: 10px !important;
+    height: 10px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.scroll-arrow:hover [data-lucide],
+.scroll-arrow:active [data-lucide] {
+    stroke: #f26419 !important;
+}
+
+/* Scroll up arrow position - LOCKED VALUES */
+.scroll-arrow.scroll-up {
+    left: 1618px;
+    top: 185px;
+}
+
+/* Scroll down arrow position - LOCKED VALUES */
+.scroll-arrow.scroll-down {
+    left: 1618px;
+    top: 827px;
+}
+
+/* Scroll track (outer pill) - LOCKED VALUES */
+.scroll-track {
+    position: fixed;
+    left: 1618px;
+    top: 185px;
+    width: 10px;
+    height: 652px;
+    background-color: transparent;
+    border: 1pt solid #9ba1a6;
+    border-radius: 5px;
+    z-index: 50;
+    cursor: pointer; /* Indicate clickable area */
+}
+
+/* Scroll thumb (inner pill) */
+.scroll-thumb {
+    position: absolute;
+    left: 1px; /* Moved 1.5px left from 2.5px */
+    top: 13px; /* Minimum 3px clearance from up arrow (195px + 3px - 185px track start) */
+    width: 5px;
+    background-color: #f26419;
+    border: none;
+    border-radius: 2.5px;
+    transition: top 100ms ease;
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    /* Height will be calculated dynamically in JS, max 620px with 3px clearance constraints */
+}
+
+/* Prevent text selection when dragging scroll thumb */
+body.dragging-scroll {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* ========================================
+   View Full Violation Log
+   ======================================== */
+.view-full-violation-log {
+    position: fixed;
+    left: 1391px; /* Moved 6px right from 1385px */
+    top: 845px; /* Moved 2px down from 843px */
+    width: 270px; /* Full width to match other components */
+    z-index: 40;
+}
+
+.full-log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.full-log-title {
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800; /* Extrabold */
+    font-size: 18pt; /* Reduced by 6pt from 24pt */
+    color: rgba(37, 53, 65, 0.9); /* #253541 at 90% opacity */
+    letter-spacing: normal;
+    line-height: 1;
+    text-align: left; /* Left aligned to match other headers */
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    transition: color 200ms ease, text-decoration 200ms ease;
+    cursor: pointer;
+}
+
+.full-log-arrow {
+    position: fixed;
+    left: 1564px; /* Original position */
+    top: 843px; /* Original position */
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 200ms ease;
+}
+
+.full-log-arrow i[data-lucide] {
+    width: 28px !important;
+    height: 28px !important;
+    /* Stroke color is handled by the override near top of file */
+    transition: stroke 200ms ease;
+}
+
+/* Hover states - text gets underline, arrow turns orange */
+.full-log-header:hover .full-log-title,
+.full-log-title:hover {
+    color: rgba(37, 53, 65, 0.9); /* Same color as default */
+    text-decoration: underline;
+    text-decoration-thickness: 0.5pt; /* 0.5pt = 0.667px */
+    text-underline-offset: 2px; /* Slight offset for better appearance */
+}
+
+.full-log-header:hover .full-log-arrow i[data-lucide],
+.full-log-arrow:hover i[data-lucide] {
+    stroke: #F26419 !important;
+}
+
+/* Focus states - no styling */
+.full-log-arrow:focus {
+    outline: none;
+}
+
+.full-log-arrow:focus-visible {
+    outline: none;
+}
+
+/* Active/pressed state */
+.full-log-arrow:active {
+    transform: translateY(1px);
+}
+
+/* Make title clickable */
+.full-log-title {
+    cursor: pointer;
+    user-select: none;
+}
+
+/* ========================================
+   Static Footer Severity Key
+   ======================================== */
+.static-footer-severity-key {
+    position: fixed;
+    left: 1223px;
+    bottom: 0;
+    width: 428px;
+    padding-top: 24px; /* Minimum spacing from above */
+    background: transparent;
+    z-index: 30;
+}
+
+/* Severity Key Row */
+.severity-key-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.severity-key-label {
+    position: fixed;
+    left: 1223px;
+    top: 891px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11pt; /* Reduced from 14pt */
+    font-weight: 700; /* Bold */
+    color: #253541;
+    margin-right: 20px;
+}
+
+/* Severity Items */
+.severity-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none !important; /* Override any inherited background */
+}
+
+/* High Severity */
+.severity-item.severity-high {
+    position: fixed;
+    left: 1329px;
+    top: 891px;
+}
+
+/* Medium Severity */
+.severity-item.severity-medium {
+    position: fixed;
+    left: 1417px;
+    top: 891px;
+}
+
+/* Low Severity */
+.severity-item.severity-low {
+    position: fixed;
+    left: 1522px;
+    top: 891px;
+}
+
+/* Severity Badges */
+.severity-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none; /* Ensure no stroke */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add padding for footer severity badges only */
+.static-footer-severity-key .severity-badge {
+    padding: 2px;
+    box-sizing: border-box; /* Include padding in the 24px size */
+}
+
+.severity-high .severity-badge {
+    background-color: #FF0000;
+}
+
+.severity-medium .severity-badge {
+    background-color: #F26419;
+}
+
+.severity-low .severity-badge {
+    background-color: #F2B919;
+}
+
+/* Severity Icons for the key */
+.static-footer-severity-key .severity-badge i[data-lucide] {
+    width: 14px !important;
+    height: 14px !important;
+    stroke: #FFFFFF !important;
+    fill: none !important;
+    stroke-width: 2;
+}
+
+/* Special adjustments for triangle-alert in the key */
+.static-footer-severity-key .severity-medium .severity-badge {
+    padding: 3px; /* 1px more than the default 2px */
+}
+
+.static-footer-severity-key .severity-medium .severity-badge i[data-lucide="triangle-alert"] {
+    transform: translateY(-1px); /* Move up 1px */
+}
+
+/* Severity Text */
+.severity-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11pt; /* Reduced from 14pt */
+    font-weight: 400;
+    color: #253541;
+}
+
+/* Legal Disclaimer */
+.legal-disclaimer {
+    position: relative;
+}
+
+.disclaimer-divider {
+    position: fixed;
+    left: 1223px;
+    top: 930px;
+    width: 367px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.disclaimer-text {
+    position: fixed;
+    left: 1223px;
+    top: 943px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 7.5pt; /* Reduced by 0.5pt from 8pt */
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.9);
+    margin: 0;
+    padding: 0;
+}
+
+/* ========================================
+   Evidence Sidebar Styles
+   ======================================== */
+.evidence-summary {
+    background-color: var(--bg-accent);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border-subtle);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+.summary-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: lowercase;
+}
+
+.summary-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: lowercase;
+}
+
+.evidence-metadata {
+    padding: 20px;
+    background-color: var(--bg-accent);
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 1024px) {
+    .docket-content {
+        gap: 16px;
+    }
+    
+    .nav-left, .nav-center, .nav-right {
+        gap: 16px;
+    }
+    
+    .violation-sidebar {
+        width: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+    
+    .violation-sidebar, .tagger-sidebar, .evidence-sidebar {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+        margin-top: 16px;
+        height: auto;
+    }
+    
+    .viobox {
+        width: 90%;
+        max-width: 557px;
+    }
+}
+
+/* ========================================
+   Tooltip System
+   ======================================== */
+.tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background-color: #f26419;
+    color: var(--text-white);
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: lowercase;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    z-index: 10000;
+    box-shadow: var(--shadow-lg);
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #f26419;
+}
+
+.tooltip-mode .tips-toggle:hover .tooltip {
+    opacity: 1;
+}
+
+/* VIObox Tooltips */
+.viobox-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 16px;
+    background-color: #f26419;
+    color: var(--text-white);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: var(--font-regular);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    z-index: 10000;
+    box-shadow: var(--shadow-lg);
+}
+
+.viobox-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #f26419;
+}
+
+.tooltip-mode .viobox:hover .viobox-tooltip {
+    opacity: 1;
+}
+
+/* ========================================
+   Enhanced Sidebar Top Stack Components
+   ======================================== */
+
+/* Main wrapper for the stacked components */
+.sidebar-top-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* No gap between components */
+    width: 100%;
+    position: relative;
+    z-index: 1; /* Keep below heading */
+}
+
+/* ========================================
+   Filter Counter Component
+   ======================================== */
+.filter-counter {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Header container - always visible */
+.filter-counter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px 0 24px;
+    margin: 0; /* No negative margin needed */
+    position: relative;
+    z-index: 2; /* Ensure header is above background but below high-priority elements */
+}
+
+.filter-counter-title {
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800;
+    font-size: 24pt;
+    color: #253541;
+    text-transform: lowercase;
+    line-height: 1;
+    margin: 0;
+}
+
+.filter-counter-toggle {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 200ms ease;
+    padding: 0;
+    position: relative;
+    z-index: 10; /* Ensure button is above other elements */
+}
+
+/* Hide collapsed button by default */
+.filter-counter-toggle-collapsed {
+    display: none;
+}
+
+/* Show/hide buttons based on state */
+.filter-counter.collapsed .filter-counter-toggle-expanded {
+    display: none;
+}
+
+.filter-counter.collapsed .filter-counter-toggle-collapsed {
+    display: flex;
+}
+
+.filter-counter-toggle svg {
+    width: 28px;
+    height: 28px;
+    stroke: #A8AEB3 !important; /* 40% tint of #253541 - matching other toggles */
+    fill: none !important;
+    transition: stroke 200ms ease;
+}
+
+/* More specific selector to ensure visibility */
+.filter-counter-toggle > svg,
+.filter-counter-toggle svg[data-lucide] {
+    stroke: #A8AEB3 !important; /* 40% tint for better visibility */
+    fill: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.filter-counter-toggle:hover svg,
+.filter-counter-toggle:hover [data-lucide] {
+    stroke: #F26419 !important;
+    stroke-opacity: 1 !important; /* 100% opacity on hover */
+}
+
+/* Ensure hover works in collapsed state too */
+.filter-counter.collapsed .filter-counter-toggle:hover svg,
+.filter-counter.collapsed .filter-counter-toggle:hover [data-lucide] {
+    stroke: #F26419 !important;
+}
+
+/* Filters label - Only visible when collapsed */
+.filter-id-label {
+    position: fixed;
+    left: 1516px;
+    top: 140px;
+    width: auto; /* Auto width for longer text */
+    height: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400; /* regular */
+    font-size: 8pt;
+    color: #253541;
+    text-align: left;
+    line-height: 1;
+    display: none; /* Hidden by default */
+    z-index: 11; /* Above toggle button */
+    padding: 0; /* No padding */
+    margin: 0; /* No margin */
+    white-space: nowrap; /* Prevent text wrapping */
+    cursor: pointer; /* Make it clickable */
+    transition: color 200ms ease; /* Smooth color transition */
+}
+
+.filter-id-label:hover {
+    color: #F26419; /* Orange on hover */
+}
+
+/* Collapsible content container */
+.filter-counter-content {
+    overflow: hidden;
+    transition: all 300ms ease;
+    transform-origin: top;
+}
+
+.filter-counter.collapsed .filter-counter-content {
+    height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+}
+
+/* When collapsed, hide title and show filters label */
+.filter-counter.collapsed .filter-counter-title {
+    display: none;
+}
+
+.filter-counter.collapsed .filter-id-label {
+    display: block !important;
+}
+
+/* Collapsed state - reposition the toggle button */
+.filter-counter.collapsed .filter-counter-toggle {
+    position: fixed !important;
+    left: 1571px !important; /* 1576px - 5px (move left) = 1571px */
+    top: 132px !important; /* 131px + 1px (move down) = 132px */
+}
+
+/* Collapsed state chevron color and size */
+.filter-counter.collapsed .filter-counter-toggle svg,
+.filter-counter.collapsed .filter-counter-toggle svg[data-lucide="circle-chevron-down"] {
+    stroke: #9ba1a6 !important; /* 30% tint of #253541 */
+    width: 10.5px !important; /* Increased by 50%: 7px * 1.5 = 10.5px */
+    height: 10.5px !important; /* Increased by 50%: 7px * 1.5 = 10.5px */
+}
+
+/* Ensure collapsed chevron icon has correct color and size */
+.filter-counter.collapsed .filter-counter-toggle [data-lucide="circle-chevron-down"] {
+    stroke: #9ba1a6 !important; /* 30% tint of #253541 */
+    width: 10.5px !important; /* Increased by 50% */
+    height: 10.5px !important; /* Increased by 50% */
+}
+
+/* Intro text */
+.filter-counter-intro {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 8.5pt;
+    color: rgba(37, 53, 65, 0.9);
+    line-height: 1.2;
+    padding: 6px 24px 4px 24px; /* Reduced top padding by 25% (8px to 6px) */
+    margin: 0; /* No negative margin needed */
+    max-width: 100%;
+}
+
+/* Filter options container */
+.filter-options-container {
+    width: 390px;
+    background: #e3e2e1; /* Changed to requested color */
+    border: 1pt solid #ffffff; /* 1pt white stroke */
+    border-radius: 32px;
+    padding: 15px 29px; /* Left/right: 42px * 0.7 = 29.4px, Top/bottom: 11px * 1.4 = 15.4px */
+    margin: 0 0 8px 14px; /* Added 8px bottom margin for shadow space */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 30px; /* 2px vertical gap as requested, maintain horizontal gap */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1); /* Black shadow */
+    position: relative;
+    z-index: 1000; /* Highest z-index to ensure it's on top */
+}
+
+.filter-option {
+    display: flex;
+    align-items: flex-start; /* Align to top for multi-line text */
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+    padding: 2px 0; /* Add 2px vertical padding between items */
+}
+
+.filter-option input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 2.5px solid #253541; /* 2.5pt stroke (decreased by 0.5pt) */
+    border-radius: 50%;
+    background-color: #ffffff; /* White default fill */
+    margin: -0.5px 0 0 0; /* Negative margin to shift up by 1.5px (1px - 1.5px = -0.5px) */
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 200ms ease;
+}
+
+.filter-option input[type="radio"]:checked {
+    background-color: #ff0000; /* Red selected fill */
+}
+
+.filter-option span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 8pt;
+    color: rgba(37, 53, 65, 0.9); /* #253541 at 90% opacity */
+    line-height: 1.2;
+    user-select: none;
+}
+
+/* Removed special layout - all items stay in their columns */
+
+/* Disabled state */
+.filter-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.filter-option.disabled input[type="radio"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.filter-option.disabled input[type="radio"]:checked {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+/* Tooltip for disabled options */
+.filter-option.disabled::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #253541;
+    color: white;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+    margin-bottom: 8px;
+    z-index: 10;
+}
+
+.filter-option.disabled:hover::after {
+    opacity: 1;
+}
+
+/* ========================================
+   Severity Summary Component
+   ======================================== */
+.severity-summary-component {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 24px 0 24px; /* Match filter-counter padding */
+    margin-top: -19px; /* Move up by 19px (14px + 5px) */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Header wrapper for positioning */
+.severity-summary-header-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 7px;
+    overflow: visible; /* Ensure buttons aren't clipped */
+}
+
+.severity-summary-header {
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 24pt; /* Reduced from 30pt to match demo */
+    color: rgba(37, 53, 65, 0.9);
+    margin: 0; /* Reset all margins */
+    text-transform: lowercase;
+    letter-spacing: -0.02em;
+    flex: 1; /* Take available space */
+    text-align: left;
+}
+
+/* Toggle button aligned to the right */
+.severity-summary-toggle {
+    position: absolute; /* Back to absolute for better control */
+    right: 0px; /* Moved 8px to the right (was 8px) */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Perfect vertical center */
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 300ms ease;
+}
+
+.severity-summary-toggle svg {
+    color: #A8AEB3 !important;
+    stroke: #A8AEB3 !important;
+    fill: none !important;
+    width: 28px;
+    height: 28px;
+    transition: all 300ms ease;
+    display: block;
+}
+
+.severity-summary-toggle:hover svg {
+    color: #F26419 !important;
+    stroke: #F26419 !important;
+}
+
+/* Collapsed state button specific styles */
+.severity-summary-toggle-collapsed {
+    display: none; /* Hidden by default */
+    width: 15px;
+    height: 15px;
+    padding: 1px; /* Center the 13px icon in 15px button */
+    z-index: 20; /* Higher z-index */
+    background: none;
+    /* Position it differently since absolute positioning */
+    right: -2px !important; /* Moved 6px to the right (was 4px) */
+}
+
+.severity-summary-toggle-collapsed svg {
+    width: 10.5px !important;
+    height: 10.5px !important;
+    stroke-width: 2.5 !important; /* Thicker stroke for better visibility */
+    color: #A8AEB3 !important;
+    stroke: #A8AEB3 !important;
+    fill: none !important;
+    display: block !important;
+}
+
+/* Show/hide buttons based on state */
+.severity-summary-component.collapsed .severity-summary-toggle-expanded {
+    display: none;
+}
+
+.severity-summary-component.collapsed .severity-summary-toggle-collapsed {
+    display: flex;
+}
+
+/* Collapsible content */
+.severity-summary-content {
+    overflow: hidden;
+    transition: all 300ms ease;
+    transform-origin: top;
+    width: 100%;
+    padding: 0; /* No padding - handled by children */
+    margin: 0;
+}
+
+/* Collapsed state */
+.severity-summary-component.collapsed .severity-summary-content {
+    height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+}
+
+/* Removed - now handled by two-button approach */
+
+/* Collapsed label */
+.severity-summary-collapsed-label {
+    position: absolute;
+    left: 308px; /* Moved right by 1px (was 307px) */
+    top: 33px; /* Moved up by 2px (was 35px) */
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 8pt;
+    color: rgba(37, 53, 65, 0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 300ms ease;
+    cursor: pointer;
+    z-index: 11; /* Above other elements */
+}
+
+.severity-summary-collapsed-label:hover {
+    color: #F26419;
+}
+
+.severity-summary-component.collapsed .severity-summary-collapsed-label {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.severity-summary-component.collapsed .severity-summary-header {
+    opacity: 0;
+}
+
+/* ========================================
+   Severity Boxes Component (Old - Kept for compatibility)
+   ======================================== */
+.severity-boxes-component {
+    position: relative;
+    width: 100%;
+    margin-top: 20px; /* Move down 20px */
+}
+
+/* Header with toggle button */
+.severity-boxes-header {
+    position: absolute;
+    right: -10px; /* Align with filter toggle */
+    top: 0;
+    z-index: 10;
+}
+
+.severity-boxes-toggle {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 200ms ease;
+}
+
+.severity-boxes-toggle svg {
+    width: 28px;
+    height: 28px;
+    stroke: #A8AEB3 !important; /* 40% tint of #253541 */
+    fill: none !important;
+    transition: stroke 200ms ease;
+}
+
+.severity-boxes-toggle:hover svg {
+    stroke: #F26419 !important;
+}
+
+/* Override global Lucide styling for severity toggle */
+.severity-boxes-toggle [data-lucide] {
+    stroke: inherit !important;
+}
+
+/* Collapsible content */
+.severity-boxes-content {
+    overflow: hidden;
+    transition: all 300ms ease;
+    transform-origin: top;
+    margin: 0;
+    padding: 0;
+}
+
+.severity-boxes-component.collapsed .severity-boxes-content {
+    height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+}
+
+/* Row container for severity boxes */
+.severity-boxes-row {
+    display: flex;
+    gap: 8px;
+    margin: 0; /* Remove margins - padding is handled by parent */
+    padding: 0 0 10px 0; /* Bottom padding for shadow space */
+    justify-content: flex-start; /* Align boxes to start */
+}
+
+/* Individual severity box */
+.severity-box {
+    width: 123px;
+    height: 98px;
+    background-color: #e3e2e1;
+    border: 1px solid white;
+    border-radius: 32px;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.08);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Severity label */
+.severity-label {
+    position: absolute;
+    top: 6px;
+    width: 110px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 9.6pt;
+    color: rgba(37, 53, 65, 0.9);
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Dot and counter group */
+.dot-counter-group {
+    position: absolute;
+    bottom: 11px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Badge dot */
+.badge-dot {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.severity-high .badge-dot {
+    background-color: #FF0000;
+}
+
+.severity-medium .badge-dot {
+    background-color: #F26419;
+}
+
+.severity-low .badge-dot {
+    background-color: #F2B919;
+}
+
+.badge-dot svg {
+    color: white !important;
+    stroke: white !important;
+    fill: none !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Icon-specific adjustments */
+.severity-high .badge-dot svg {
+    position: relative;
+    top: 0px;
+    width: 33.6px !important;
+    height: 33.6px !important;
+}
+
+.severity-medium .badge-dot svg {
+    position: relative;
+    top: -2.3px;
+    width: 30.8px !important;
+    height: 30.8px !important;
+}
+
+.severity-low .badge-dot svg {
+    width: 33.6px !important;
+    height: 33.6px !important;
+}
+
+/* Override global Lucide styling for severity badges */
+.severity-badge [data-lucide] {
+    stroke: #ffffff !important;
+}
+
+/* Severity counter */
+.severity-counter {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 33.5pt;
+    color: rgba(37, 53, 65, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    min-width: 36px;
+    position: relative;
+    top: 2px;
+}
+
+/* Tighter letter spacing for 3-digit numbers */
+.severity-counter.three-digits {
+    letter-spacing: -0.05em;
+}

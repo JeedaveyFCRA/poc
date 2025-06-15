@@ -1,0 +1,486 @@
+{
+  "numStartups": 21,
+  "autoUpdaterStatus": "migrated",
+  "tipsHistory": {
+    "new-user-warmup": 1,
+    "memory-command": 3,
+    "theme-command": 5,
+    "prompt-queue": 17,
+    "enter-to-steer-in-relatime": 7,
+    "todo-list": 8,
+    "# for memory": 9,
+    "install-github-app": 10,
+    "drag-and-drop-images": 11,
+    "permissions": 12,
+    "double-esc": 13,
+    "continue": 14,
+    "custom-commands": 15,
+    "shift-tab": 16
+  },
+  "promptQueueUseCount": 3,
+  "firstStartTime": "2025-06-09T11:50:25.451Z",
+  "userID": "f3fa5ea33d8daabc69a5fdadc75b26008be4aeff8634f2aad01fdd71eacb2eff",
+  "projects": {
+    "/home/avid_arrajeedavey": {
+      "allowedTools": [],
+      "history": [
+        {
+          "display": "but the nav-bar is not working",
+          "pastedContents": {}
+        },
+        {
+          "display": "there is no page 59, from 04-25-24, Equifax, ally financial. it is trying to load. these are the only pages for that report: \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\assets\\reports\\AL-EQ-2024-04-25-P58.png\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\assets\\reports\\AL-EQ-2024-04-25-P57.png\" where is page 59 info coming from?",
+          "pastedContents": {}
+        },
+        {
+          "display": "when I use the browser scroll, the page is stationary and should be, however, the tool tips actually move up and down and left and right with the scroll mouse and the browser scroll. this is not correct, it show be static on the page",
+          "pastedContents": {}
+        },
+        {
+          "display": "dont worry about it. I updated : \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\data\\violations\\ExportedViolations.csv\" can you update it now",
+          "pastedContents": {}
+        },
+        {
+          "display": "you messed up the counter functionality when making those changes",
+          "pastedContents": {}
+        },
+        {
+          "display": "make them 20 px and make sure they are centered vertically and left aligned to the vioboxes",
+          "pastedContents": {}
+        },
+        {
+          "display": "increase the icons to 19.6px and keep them vertically centered to the vioboxes",
+          "pastedContents": {}
+        },
+        {
+          "display": "left align them to the vioboxes",
+          "pastedContents": {}
+        },
+        {
+          "display": "what size are the icons  that should be left aligned to the vioboxes?",
+          "pastedContents": {}
+        },
+        {
+          "display": "it looks like there is a white opacity fill in the unselected state, it should not be so opaque  make it more transparent",
+          "pastedContents": {}
+        },
+        {
+          "display": "can you also make the unslected and hover state of those vioboxes inwards? keep them the exisitng stroke weights though",
+          "pastedContents": {}
+        },
+        {
+          "display": "mmake it 2.5 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "make it 3 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "for selected state boxes, can you make the stroke 4 pt but inwards from the edges? Do you understand?",
+          "pastedContents": {}
+        },
+        {
+          "display": "Can you make a change in the report viewer to the vioboxes?",
+          "pastedContents": {}
+        },
+        {
+          "display": "excellent!  for the hint text \"Search violations...\" can you lowercase the \"s\" in \"search\"",
+          "pastedContents": {}
+        },
+        {
+          "display": "center binoculars lucide icons inside the circle and color  it for on/off states",
+          "pastedContents": {}
+        },
+        {
+          "display": "that doesnt work remove that and delete the seach licide icon",
+          "pastedContents": {}
+        },
+        {
+          "display": "i have an idea center a 16 px circle inside the circle. make off state Stroke color = 30% tint of #253541 (use hex #9ba1a6); 1.5px stroke weight; do not use rgba transparency and for on state make it white.  this make  work",
+          "pastedContents": {}
+        },
+        {
+          "display": "so move the circle to the left 4 px and make the icon stroke Stroke color = 30% tint of #253541 (use hex #9ba1a6); 3px stroke weight; do not use rgba transparency for off state and white for the on state.",
+          "pastedContents": {}
+        },
+        {
+          "display": "nice so this is whty you had to make the cicle--help large and this circle larger. You should be able to make the circle the same size as the depth of the search box.\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\SEARCH_WRONG_STYLING_3.png\"",
+          "pastedContents": {}
+        },
+        {
+          "display": "its worse \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\SEARCH_WRONG_STYLING_2.png\"",
+          "pastedContents": {}
+        },
+        {
+          "display": "check out what i am seeing: \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\SEARCH_WRONG_STYLING.png\"",
+          "pastedContents": {}
+        },
+        {
+          "display": "is it possible the search icon has been rotate 180 degrees and move down and to the right outside the circle?",
+          "pastedContents": {}
+        },
+        {
+          "display": "now put a temporary pink fill debug inside the circle to locate the search icon",
+          "pastedContents": {}
+        },
+        {
+          "display": "move the circle to the left 2 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "perfect.i think the circle needs to be 2 px larger.  Now make the seach box 14 px wider",
+          "pastedContents": {}
+        },
+        {
+          "display": "getting a little closer.  move the circle to the right 2 px and it looks like it is 6 px too small",
+          "pastedContents": {}
+        },
+        {
+          "display": "it got a little lasger but some padding or container conflict is occurring. the circle moved up a few px",
+          "pastedContents": {}
+        },
+        {
+          "display": "the circle you just made should be the same side of the circle-help",
+          "pastedContents": {}
+        },
+        {
+          "display": "keep the search box border • Stroke color = 30% tint of #253541 (use hex #9ba1a6); 3px stroke weight; do not use rgba transparency in all states. can you wrap the search icon inside a circle: Stroke color = 30% tint of #253541 (use hex #9ba1a6); 3px stroke weight, reduce the icon to fit iside with 4px padding inside to make the icon smaller",
+          "pastedContents": {}
+        },
+        {
+          "display": "can you make a search-box that is x=70; y=135; w = 180 px; h= 28 px; the icon  Fill color = 253541\n• Stroke color = 30% tint of #253541 (use hex #9ba1a6); 3px stroke weight; do not use rgba transparency. if you do not click in the search area (it is the off state) this will use the exact same rules as the tool tips. When you click in the search area, the icon  Fill color = 253541\n• Stroke color = 30% tint of #253541 (use hex #9ba1a6); 3px stroke weight; do not use rgba transparency. use Lucide icon: search (use the same size as circle-help) If  you can add basic search functionality to get it started, that would be great!",
+          "pastedContents": {}
+        },
+        {
+          "display": "perfect!",
+          "pastedContents": {}
+        },
+        {
+          "display": "you have the on state spot on, but the off state is still filling with orange, maybe it is a layer issue?",
+          "pastedContents": {}
+        },
+        {
+          "display": "for the off state you are filling it with the orange, it should be #f26419, also the actual \"?\" should be Stroke icon color = 30% tint of #253541 (use hex #9ba1a6); do not use rgba transparency, like you doo for the circle outline",
+          "pastedContents": {}
+        },
+        {
+          "display": "instead of the pink fill for the off state fill the icon with #f26419",
+          "pastedContents": {}
+        },
+        {
+          "display": "move the icon for the on state 4 px to the right",
+          "pastedContents": {}
+        },
+        {
+          "display": "move the x position for the off state 2 px to the right",
+          "pastedContents": {}
+        },
+        {
+          "display": "move up 1 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "move it down 2 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "ok that is better now move the icon up 4 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "reduce the icon by 4 px and when i refresh i see the pink box only for a split second.",
+          "pastedContents": {}
+        },
+        {
+          "display": "ok the pink box flashes on and off super quick, it looks like its hidden under a z layer",
+          "pastedContents": {}
+        },
+        {
+          "display": "I cannot see any change. PLease add a pink fill to the lucide icon to debug temporarily",
+          "pastedContents": {}
+        },
+        {
+          "display": "i see no changes . is there paddy or container issue?",
+          "pastedContents": {}
+        },
+        {
+          "display": "did you update the index.html?",
+          "pastedContents": {}
+        },
+        {
+          "display": "i just started to rework the toop tips and the last thread did not finish. I was hoping you could pick up where it left off: \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\indesign-web-components\\tool-tips\\README-TOOL-TIP-SPECS.txt\" I want you to increase the size of the Lucide icon: circle-help by 6 px, move it up 3 px and to the left 6 px for all states",
+          "pastedContents": {}
+        },
+        {
+          "display": "🔒 VIOVERSE-REFACTOR SCOPE RULES\nWORK ONLY IN:\n\nswift\nCopy\nEdit\n/home/avid_arrajeedavey/vioverse-refactor/\nRULES:\n✅ READ parent directories for reference only\n\n❌ DO NOT WRITE outside vioverse-refactor\n\n❗ If you modify files outside: REVERT IMMEDIATELY\n\n📁 Treat all other folders as READ-ONLY\n\nCONTEXT:\nThis is a standalone refactor of the POC Viewer.\nThe original version (outside this folder) must remain untouched.\n\n🔁 Command Reminder:\nbash\nCopy\nEdit\ncd /home/avid_arrajeedavey/vioverse-refactor\n✅ Sample Prompt:\n“Work only in /vioverse-refactor/. Read parent files if needed, but don’t edit anything outside.” WE will be updating the index.html",
+          "pastedContents": {}
+        },
+        {
+          "display": "thanks for everything.",
+          "pastedContents": {}
+        },
+        {
+          "display": "We are updating the Toop-tips: [Pasted text #1 +38 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "TOOL TIPS SPECS\n\nComponent Name: tool-tips \nContainer Type: Fixed-width toggle \nPosition: Top of screen (below view-toggle)\n\n\n────────────────────────────\nCONTAINER DIMENSIONS\n────────────────────────────\n\n• Width: 56px\n• Height: 28px\n• X-position: 279px\n• Y-position: 135px\n• 36px rounded corners\n• Fill color = 253541\n• Stroke color = 30% tint of #253541 (use hex #9ba1a6); 3px stroke weight; do not use rgba transparency\n\n\nTo show the toggle button is \"ON\" the \"tips\" button is:\n• Use Lucide icon: circle-help\n• Fill icon color = f26419\n• Stroke icon color = 30% tint of #f26419 (use hex #f8b98c); do not use rgba transparency\n• Width: 28px\n• Height: 28px \n• X-position: 307px\n• Y-position: ~135px\n\n\nTo show the toggle button is \"OFF\" the \"tips\" button is:\n• Use Lucide icon: circle-help\n• Fill icon color = f26419\n• Stroke icon color = 30% tint of #253541 (use hex #9ba1a6); do not use rgba transparenc\n• Width: 28px\n• Height: 28px \n• X-position: 279 px\n• Y-position: ~135px\n"
+            }
+          }
+        },
+        {
+          "display": "reduce the size of the LEGAL DISCLAIMER TEXT by 0.5 pt",
+          "pastedContents": {}
+        },
+        {
+          "display": "lets add 1px more of padding only to `triangle-alert` and move the icon up 1 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "that didnt work, so add a padding inthe color dot by 2 px (inwards from the outside edge of the dot",
+          "pastedContents": {}
+        },
+        {
+          "display": "great! now only for these icons in the key do i ant you dto do the followingreduce all three icons by 20% and keep them centered insside the dot",
+          "pastedContents": {}
+        },
+        {
+          "display": "no revert this, you just removed the violation box icons in the report canvas.",
+          "pastedContents": {}
+        },
+        {
+          "display": "this is what I want it to look like: \\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\KEY_CORRECT_STYLING.png\nHere is what you are displaying: \\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\KEY_WRONG_STYLING.png.  IS there something in my instructions that text you to fill the  text label with a severiy color?",
+          "pastedContents": {}
+        },
+        {
+          "display": "I meant should NOT have a fill color",
+          "pastedContents": {}
+        },
+        {
+          "display": "the text label should now have a fill color",
+          "pastedContents": {}
+        },
+        {
+          "display": "change the size of the LEGAL DISCLAIMER TEXT: to 8 pt. Change the size of the SEVERITY KEY ROW to 11 pt. here are updates to the icons: [Pasted text #1 +27 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🔴 High Severity:\n- Icon: Lucide `shield-x` \n- Icon color: White\n- Create a circle dot background for this icon: w: 24 px; h: 24 px, fill it with `#FF0000`, no stroke; Lucide Icon sits on to of circle dot background.\n- Label text: `high`\n- Position:\n  - x: 1329 px\n  - y: 891 px\n\n\n🟠 Medium Severity:\n- Icon: Lucide `triangle-alert` inside orange circle\n- Icon color: White\n- Create a circle dot background for this icon: w: 24 px; h: 24 px, fill it with ``#F26419`, no stroke; Lucide Icon sits on to of circle dot background.\n- Label text: `medium`\n- Position:\n  - x: 1417 px\n  - y: 891 px\n\n🟡 Low Severity:\n- Icon: Lucide `circle-alert` inside yellow circle\n- Icon color: White\n- Create a circle dot background for this icon: w: 24 px; h: 24 px, fill it with `#FF0000`, no stroke; Lucide Icon sits on to of circle dot background.\n- Label text: `low`\n- Position:\n  - x: 1522 px\n  - y: 891 px\n"
+            }
+          }
+        },
+        {
+          "display": "great, thank you.[Pasted text #1 +81 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "📁 COMPONENT: static-footer-severity-key\n\n📍 LOCATION:\nAnchored at the bottom of the sidebar-top-stack (or bottom of full report canvas)\n\n───────────────────────────────────────────────\n\n🎯 PURPOSE:\nThis static footer provides two critical elements:\n1. A **severity key** legend for interpreting the color-coded violation icons  \n2. A legal **disclaimer** indicating that overlays are for internal use only\n\nIt is always visible at the bottom of the display. It does not collapse or animate.\n\n───────────────────────────────────────────────\n\n🧭 POSITIONING + LAYOUT:\n\n- This component is **permanently anchored to the bottom of the report viewer container**\n- It must always appear, regardless of scroll or toggle states\n- There must be a minimum of **24px vertical padding** between this footer and the element above it (e.g., \"view full violation log\")\n\n───────────────────────────────────────────────\n\n🧱 SEVERITY KEY ROW:\n\n- Label: `severity key:` (lowercase)\n- Font: Space Grotesk\n- Font size: 14 ptt\n- Font weight: bold\n- Color: #253541\n\n- Horizontal spacing between severity items: 25 px\n- Vertical alignment: Icons and text should be vertically centered\n\n🔴 High Severity:\n- Icon: Lucide `shield-x` inside red circle\n- Badge color: `#FF0000`, no stroke 24px\n- Icon color: White\n- Label text: `high`\n- Position:\n  - x: 1329 px\n  - y: 891 px\n\n🟠 Medium Severity:\n- Icon: Lucide `triangle-alert` inside orange circle\n- Badge color: `#F26419`\n- Label text: `medium`\n- Position:\n  - x: 1417 px\n  - y: 891 px\n\n🟡 Low Severity:\n- Icon: Lucide `circle-alert` inside yellow circle\n- Badge color: `#F2B919`\n- Label text: `low`\n- Position:\n  - x: 1522 px\n  - y: 891 px\n\n───────────────────────────────────────────────\n\n📝 LEGAL DISCLAIMER TEXT:\n\n- Content: `Original report shown. Overlays are for legal review only, not for submission.`\n- Font: Space Grotesk\n- Font size: 10 pt\n- Font weight: Regular\n- Text alignment: left-aligned; x 1223 px; y 943 px\n- Text color: Black; 0.9 opacity\n- Thin horizontal divider line above text x 1223 px; y 930 px, Line width 367 px; Black; 0.5 opacity\n\n───────────────────────────────────────────────\n\n📐 SPACING + CONTAINER STYLING:\n\n- Top padding: Minimum 24px from last active component\n\n───────────────────────────────────────────────\n\n✅ GOAL:\nTo provide a persistent, non-intrusive key and legal disclaimer that reinforces system clarity, ensures proper interpretation of severity markings, and complies with internal/legal usage disclaimers."
+            }
+          }
+        },
+        {
+          "display": "there should be no styling to the icon container, , when you click on the icon button a orange rounded box  is enclosing the icon, please fill with non and stroke is none. Also, the scroll wheel functionality seems to stop working at times, can we make sure it is working correctly",
+          "pastedContents": {}
+        },
+        {
+          "display": "move the text label down 2 px and to the right 6 px and make the hyperlink line 0.5 pt",
+          "pastedContents": {}
+        },
+        {
+          "display": "hover state, same color - Color: `#253541` at 90% opacity, but add a hyperlink underline",
+          "pastedContents": {}
+        },
+        {
+          "display": "now i want to change the color and style of the hover state for the text label only, the icon stays orange. Here are the text label changes:",
+          "pastedContents": {}
+        },
+        {
+          "display": "wait, there arrow was fine where it was, revert that and let the label text changes occur",
+          "pastedContents": {}
+        },
+        {
+          "display": "move to the right 27 px and move up 3 px from its current position",
+          "pastedContents": {}
+        },
+        {
+          "display": "reduce the font by 6 points",
+          "pastedContents": {}
+        },
+        {
+          "display": "i see the debug green fill, you need to modify it so it can be visible and fill the stroke with the - Default Color: `#253541` at 90% opacity and not white. Also check how to apply the Bernino Sans Compressed Extrabold, it may have to do with assigned a specific weight, like 700 or something along those lines",
+          "pastedContents": {}
+        },
+        {
+          "display": "the button label text should not be enclosed in a button, it should be on one line and look and have the same style as the filter-this-report, severity-box and violation-details heading, use those as a guide for styling the link. here are details: - Default text: `view full violation log`\n- Font: Bernino Sans Compressed Extrabold\n- Font size: 24pt\n- Color: `#253541` at 90% opacity\n- Letter spacing: normal\n- x = 1370 px\n- y = 846 px\n- w = 184\n- h = 30 px\n- Text is right aligned\n\n🔤 FONT REFERENCE: Bernino Sans Compressed Extrabold\n\nThis component uses **Bernino Sans Compressed Extrabold**, an Adobe Creative Cloud font.  \nIf rendering issues occur (especially in Claude Code), please reference the working implementation in:\n\n📄 `sidebar-canvas/README-SIDEBAR-CANVAS-SPECS.txt`\n\n🧷 Font Source:  \nhttps://use.typekit.net/qes3lop.css Also the Lucide icon is not appearing, place a temporaary debugand file it will a bright green",
+          "pastedContents": {}
+        },
+        {
+          "display": "[Pasted text #1 +81 lines] Can you create this new feature for index.html",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "📁 COMPONENT: view-full-violation-log-button\n\n📍 LOCATION:\nsidebar-top-stack → directly below the last rendered violation-details box\n\n───────────────────────────────────────────────\n\n🎯 PURPOSE:\nDisplays a static button or link at the end of the `violation-details` list. It provides users — especially legal professionals — with access to the **complete violation history or log**, beyond what is currently shown on screen.\n\nThis component is **always visible**, regardless of how many violations are included in the summary. It serves as a persistent gateway to the full system-wide violation dataset.\n\n───────────────────────────────────────────────\n\n🧭 FUNCTIONAL BEHAVIOR:\n\n- Clicking the button will eventually trigger one of the following (to be defined in development):\n  • Opens a modal  \n  • Navigates to a new page (e.g., `/full-log`)  \n  • Expands a drawer or accordion panel  \n  • Triggers a filtered export (optional)\n\n- This element **does not collapse** and does not toggle\n- It must remain accessible even if `violation-details` is collapsed\n- Keyboard/tab-navigable; screen reader accessible\n\n───────────────────────────────────────────────\n\n🔤 BUTTON LABEL TEXT:\n\n- Default text: `view full violation log`\n- Font: Bernino Sans Compressed Extrabold\n- Font size: 24pt\n- Color: `#253541` at 90% opacity\n- Letter spacing: normal\n- x = 1370 px\n- y = 846 px\n- w = 184\n- h = 30 px\n- Text is right aligned\n\n🔤 FONT REFERENCE: Bernino Sans Compressed Extrabold\n\nThis component uses **Bernino Sans Compressed Extrabold**, an Adobe Creative Cloud font.  \nIf rendering issues occur (especially in Claude Code), please reference the working implementation in:\n\n📄 `sidebar-canvas/README-SIDEBAR-CANVAS-SPECS.txt`\n\n🧷 Font Source:  \nhttps://use.typekit.net/qes3lop.css\n\n───────────────────────────────────────────────\n\n🎨 ARROW ICON:\n\n- Icon: Lucide circle-chevron-right\n- Default Color: `#253541` at 90% opacity\n- Hover Color: `#F26419`\n- Size: 28px x 28px\n\n- Position:\n  • Horizontally: Fixed at `x: 1564 px`\n  • Vertically: Fixed at `y: 843 px`\n\n\n───────────────────────────────────────────────\n\n🧩 INTERACTIVITY STYLING:\n\n- On hover:\n  • Text color: `#F26419`\n  • Cursor: pointer\n  • Optional: underline or glow effect\n\n- On focus (keyboard):\n  • Add an outline or visible indicator for accessibility compliance\n\n───────────────────────────────────────────────\n\n✅ GOAL:\nTo provide a persistent, professional, and intuitive entry point to the full legal violation archive — especially helpful for attorneys, investigators, or advanced users who require complete dispute context without visual clutter.\n"
+            }
+          }
+        },
+        {
+          "display": "you dont need to update the read me but i want to revert the changes made for > if i collapse the filter-this-report and / or the severity-box this allows for violation boxes to be displayed,\n  please modify for all possible open/close events with those buttons.e.g.\n  1. filter-this-report is open; and severity-box is closed\n  2. filter-this-report is closed; and severity-box is closed\n  3. filter-this-report is closed; and severity-box is open\n  4. default is filter-this-report is open; and severity-box is open",
+          "pastedContents": {}
+        },
+        {
+          "display": "let write all the documentation for the readme and its specs. can you update the file? \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\indesign-web-components\\custom-scroll-violation-details\\README-CUST-SCROLL-VIO.txt\"",
+          "pastedContents": {}
+        },
+        {
+          "display": "if i collapse the filter-this-report and / or the severity-box this allows for violation boxes to be displayed, please modify for all possible open/close events with those buttons.e.g.    \n1. filter-this-report is open; and severity-box is closed\n2. filter-this-report is closed; and severity-box is closed\n3. filter-this-report is closed; and severity-box is open\n4. default is filter-this-report is open; and severity-box is open",
+          "pastedContents": {}
+        },
+        {
+          "display": " Please decrease the viewport height by 1.5px (from 276px to 272px)",
+          "pastedContents": {}
+        },
+        {
+          "display": "i notice that each violation boxes botton edge is being clipped and i am not able to see the full drop shadow; each violation box that is added has its drop shadow clipped",
+          "pastedContents": {}
+        },
+        {
+          "display": "decrease by 2.5 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "increase that by 4 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "lets decrease that by 8 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "yes and how would you say it is you want the increase to happen at the bottom instead of the top?",
+          "pastedContents": {}
+        },
+        {
+          "display": "regarding the content that you are scrolling, i am not sure what the correct term tou use, but it looks like the content is behind a window and as you scroll up or down more of the content is revealed. I want to increase that window by 12 px. but i dont know how to said it, can you tell me what i am requesting?",
+          "pastedContents": {}
+        },
+        {
+          "display": "You can click on any area within the Outer Pill (Scroll Track) that is not occupied by the Scroll Pill (Scroll Thumb) and this will do a \"jump scroll:(the behavior works the same way standard scroll button functions.",
+          "pastedContents": {}
+        },
+        {
+          "display": "the top of the Scroll Pill (Scroll Thumb) must maintain a minimun clearance of 3 px from the bottom of the Lucide icon: circle-arrow-up. the bottom of the Scroll Pill (Scroll Thumb) must maintain a minimun clearance of 3 px from the top of the Lucide icon: circle-arrow-down   ",
+          "pastedContents": {}
+        },
+        {
+          "display": "move it up 16 px from its current position",
+          "pastedContents": {}
+        },
+        {
+          "display": "move down 8 px from its current position",
+          "pastedContents": {}
+        },
+        {
+          "display": "move the Scroll Pill (Scroll Thumb) to the left 1.5 px and down 18 px from its current position",
+          "pastedContents": {}
+        },
+        {
+          "display": "you were supposed to update the index.html's existing Custom-Scroll-Vio-Details Component with the new specs. You created test-scroll.html and it wasn't needed because all the functionality was build, tested and working, just sizes and positions were modified.",
+          "pastedContents": {}
+        },
+        {
+          "display": "ok lets update the index.html",
+          "pastedContents": {}
+        },
+        {
+          "display": "I  want to update the Custom-Scroll-Vio-Details Component. Here are the new specs:[Pasted text #1 +60 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🎯 CUSTOM SCROLLBAR DESIGN\n\n\n1. Scroll Up Icon\n\nLucide icon: circle-arrow-up\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nNo fill\nClick color: #f26419\n\nPosition:\nx: 1618 px\ny: 185 px\nw: 10 px\nh: 10 px\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n2. Scroll Down Icon\n\nLucide icon: circle-arrow-down\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nColor (default): #9ba1a6\nClick color: #f26419\n\nPosition:\nx: 1618 px\ny: 827 px\nw: 10 px\nh: 10 px\n\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n3. Outer Pill (Scroll Track)\n\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nstroke weight: 1 pt\n\nPosition:\nx: 1618 px\ny: 185 px\nW: 10 px\nh: 652 px\n\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n4. Scroll Pill (Scroll Thumb)\nfill Color: #f26419\nNo stroke\n\nPosition:\nx: 1620.5 px\ny: 186 px\nw: 5px\nH: Max depth can be up to 620 px (height should be variable, based on scroll content)\n"
+            }
+          }
+        },
+        {
+          "display": "🔒 VIOVERSE-REFACTOR SCOPE RULES\nWORK ONLY IN:\n\nswift\nCopy\nEdit\n/home/avid_arrajeedavey/vioverse-refactor/\nRULES:\n✅ READ parent directories for reference only\n\n❌ DO NOT WRITE outside vioverse-refactor\n\n❗ If you modify files outside: REVERT IMMEDIATELY\n\n📁 Treat all other folders as READ-ONLY\n\nCONTEXT:\nThis is a standalone refactor of the POC Viewer.\nThe original version (outside this folder) must remain untouched.\n\n🔁 Command Reminder:\nbash\nCopy\nEdit\ncd /home/avid_arrajeedavey/vioverse-refactor\n✅ Sample Prompt:\n“Work only in /vioverse-refactor/. Read parent files if needed, but don’t edit anything outside.”\n\ni want you to make edits to this file so we can update and add features to our website: \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\index.html\" Do not update any other files unless you ask and receive my approval. You can make helper test html files for testing and debugging. Nice to meet you.",
+          "pastedContents": {}
+        },
+        {
+          "display": "than ks and good night",
+          "pastedContents": {}
+        },
+        {
+          "display": "can you move the inner pill over 1.5 px to the left from its current position",
+          "pastedContents": {}
+        },
+        {
+          "display": "when i drag the inner pill lots of items in thr reort canvas and the fcra review summary seenm to get selected (highlight in blue)",
+          "pastedContents": {}
+        },
+        {
+          "display": "no fill on the outer track just  a 1 pt stroke",
+          "pastedContents": {}
+        },
+        {
+          "display": "IMPORTANT SPEC UPDATES: 🎯 CUSTOM SCROLLBAR DESIGN\n1. Scroll Up Icon\nLucide icon: circle-arrow-up\n\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nstroke weight: 1 pt\nNo fill\n\nClick color: #f26419\n\nPosition:\n\nx: 1620 px\n\ny: 481 px\n\nSize: 6 px × 6 px\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n2. Scroll Down Icon\nLucide icon: circle-arrow-down\n\nColor (default): #9ba1a6\n\nClick color: #f26419\n\nPosition:\n\nx: 1620 px\n\ny: 829 px\n\nSize: 6 px × 6 px\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n3. Outer Pill (Scroll Track)\nColor: #9ba1a6\n\nPosition:\n\nx: 1618 px\n\ny: 478 px\n\nW: 10 px\n\nh: 360 px\n\n🔒 DO NOT CHANGE THESE VALUES\n\n4. Scroll Pill (Scroll Thumb)\nfill Color: #f26419\nNo stroke\n\nPosition:\n\nx: 1618 px\n\ny: 490 px\n\nw: 5px\n\nH: Max depth can be up to 336 px (height should be variable, based on scroll content)\n",
+          "pastedContents": {}
+        },
+        {
+          "display": "i dont see the icons",
+          "pastedContents": {}
+        },
+        {
+          "display": "its like the containder that is showing the violation boxes i think that needs to be depper by 28 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "move that white cover up down 28 px",
+          "pastedContents": {}
+        },
+        {
+          "display": "increase the depth to 360 of the outer track",
+          "pastedContents": {}
+        },
+        {
+          "display": "I am adding a new feature: \\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\indesign-web-components\\custom-scroll-violation-details\\README-CUST-SCROLL-VIO.txt",
+          "pastedContents": {}
+        },
+        {
+          "display": "move 6 px to the right from its current position",
+          "pastedContents": {}
+        }
+      ],
+      "dontCrawlDirectory": true,
+      "mcpContextUris": [],
+      "mcpServers": {},
+      "enabledMcpjsonServers": [],
+      "disabledMcpjsonServers": [],
+      "hasTrustDialogAccepted": false,
+      "projectOnboardingSeenCount": 0,
+      "hasClaudeMdExternalIncludesApproved": false,
+      "hasClaudeMdExternalIncludesWarningShown": false,
+      "hasCompletedProjectOnboarding": true
+    }
+  },
+  "oauthAccount": {
+    "accountUuid": "7a8eceed-fc11-4b0f-9fae-38e9d5108897",
+    "emailAddress": "jeedavey@gmail.com",
+    "organizationUuid": "7a06c00a-048c-4dee-8c8e-3b45ab72b429",
+    "organizationRole": "admin",
+    "workspaceRole": null,
+    "organizationName": "David"
+  },
+  "hasCompletedOnboarding": true,
+  "lastOnboardingVersion": "1.0.17",
+  "subscriptionNoticeCount": 0,
+  "hasAvailableSubscription": false,
+  "cachedChangelog": "# Changelog\n\n## 1.0.18\n\n- Added --add-dir CLI argument for specifying additional working directories\n- Added streaming input support without require -p flag\n- Improved startup performance and session storage performance\n- Added CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR environment variable to freeze working directory for bash commands\n- Added detailed MCP server tools display (/mcp)\n- MCP authentication and permission improvements\n- Added auto-reconnection for MCP SSE connections on disconnect\n- Fixed issue where pasted content was lost when dialogs appeared\n\n## 1.0.17\n\n- We now emit messages from sub-tasks in -p mode (look for the parent_tool_use_id property)\n- Fixed crashes when the VS Code diff tool is invoked multiple times quickly\n- MCP server list UI improvements\n- Update Claude Code process title to display \"claude\" instead of \"node\"\n\n## 1.0.11\n\n- Claude Code can now also be used with a Claude Pro subscription\n- Added /upgrade for smoother switching to Claude Max plans\n- Improved UI for authentication from API keys and Bedrock/Vertex/external auth tokens\n- Improved shell configuration error handling\n- Improved todo list handling during compaction\n\n## 1.0.10\n\n- Added markdown table support\n- Improved streaming performance\n\n## 1.0.8\n\n- Fixed Vertex AI region fallback when using CLOUD_ML_REGION\n- Increased default otel interval from 1s -> 5s\n- Fixed edge cases where MCP_TIMEOUT and MCP_TOOL_TIMEOUT weren't being respected\n- Fixed a regression where search tools unnecessarily asked for permissions\n- Added support for triggering thinking non-English languages\n- Improved compacting UI\n\n## 1.0.7\n\n- Renamed /allowed-tools -> /permissions\n- Migrated allowedTools and ignorePatterns from .claude.json -> settings.json\n- Deprecated claude config commands in favor of editing settings.json\n- Fixed a bug where --dangerously-skip-permissions sometimes didn't work in --print mode\n- Improved error handling for /install-github-app\n- Bugfixes, UI polish, and tool reliability improvements\n\n## 1.0.6\n\n- Improved edit reliability for tab-indented files\n- Respect CLAUDE_CONFIG_DIR everywhere\n- Reduced unnecessary tool permission prompts\n- Added support for symlinks in @file typeahead\n- Bugfixes, UI polish, and tool reliability improvements\n\n## 1.0.4\n\n- Fixed a bug where MCP tool errors weren't being parsed correctly\n\n## 1.0.1\n\n- Added `DISABLE_INTERLEAVED_THINKING` to give users the option to opt out of interleaved thinking.\n- Improved model references to show provider-specific names (Sonnet 3.7 for Bedrock, Sonnet 4 for Console)\n- Updated documentation links and OAuth process descriptions\n\n## 1.0.0\n\n- Claude Code is now generally available\n- Introducing Sonnet 4 and Opus 4 models\n\n## 0.2.125\n\n- Breaking change: Bedrock ARN passed to `ANTHROPIC_MODEL` or `ANTHROPIC_SMALL_FAST_MODEL` should no longer contain an escaped slash (specify `/` instead of `%2F`)\n- Removed `DEBUG=true` in favor of `ANTHROPIC_LOG=debug`, to log all requests\n\n## 0.2.117\n\n- Breaking change: --print JSON output now returns nested message objects, for forwards-compatibility as we introduce new metadata fields\n- Introduced settings.cleanupPeriodDays\n- Introduced CLAUDE_CODE_API_KEY_HELPER_TTL_MS env var\n- Introduced --debug mode\n\n## 0.2.108\n\n- You can now send messages to Claude while it works to steer Claude in real-time\n- Introduced BASH_DEFAULT_TIMEOUT_MS and BASH_MAX_TIMEOUT_MS env vars\n- Fixed a bug where thinking was not working in -p mode\n- Fixed a regression in /cost reporting\n- Deprecated MCP wizard interface in favor of other MCP commands\n- Lots of other bugfixes and improvements\n\n## 0.2.107\n\n- CLAUDE.md files can now import other files. Add @path/to/file.md to ./CLAUDE.md to load additional files on launch\n\n## 0.2.106\n\n- MCP SSE server configs can now specify custom headers\n- Fixed a bug where MCP permission prompt didn't always show correctly\n\n## 0.2.105\n\n- Claude can now search the web\n- Moved system & account status to /status\n- Added word movement keybindings for Vim\n- Improved latency for startup, todo tool, and file edits\n\n## 0.2.102\n\n- Improved thinking triggering reliability\n- Improved @mention reliability for images and folders\n- You can now paste multiple large chunks into one prompt\n\n## 0.2.100\n\n- Fixed a crash caused by a stack overflow error\n- Made db storage optional; missing db support disables --continue and --resume\n\n## 0.2.98\n\n- Fixed an issue where auto-compact was running twice\n\n## 0.2.96\n\n- Claude Code can now also be used with a Claude Max subscription (https://claude.ai/upgrade)\n\n## 0.2.93\n\n- Resume conversations from where you left off from with \"claude --continue\" and \"claude --resume\"\n- Claude now has access to a Todo list that helps it stay on track and be more organized\n\n## 0.2.82\n\n- Added support for --disallowedTools\n- Renamed tools for consistency: LSTool -> LS, View -> Read, etc.\n\n## 0.2.75\n\n- Hit Enter to queue up additional messages while Claude is working\n- Drag in or copy/paste image files directly into the prompt\n- @-mention files to directly add them to context\n- Run one-off MCP servers with `claude --mcp-config <path-to-file>`\n- Improved performance for filename auto-complete\n\n## 0.2.74\n\n- Added support for refreshing dynamically generated API keys (via apiKeyHelper), with a 5 minute TTL\n- Task tool can now perform writes and run bash commands\n\n## 0.2.72\n\n- Updated spinner to indicate tokens loaded and tool usage\n\n## 0.2.70\n\n- Network commands like curl are now available for Claude to use\n- Claude can now run multiple web queries in parallel\n- Pressing ESC once immediately interrupts Claude in Auto-accept mode\n\n## 0.2.69\n\n- Fixed UI glitches with improved Select component behavior\n- Enhanced terminal output display with better text truncation logic\n\n## 0.2.67\n\n- Shared project permission rules can be saved in .claude/settings.json\n\n## 0.2.66\n\n- Print mode (-p) now supports streaming output via --output-format=stream-json\n- Fixed issue where pasting could trigger memory or bash mode unexpectedly\n\n## 0.2.63\n\n- Fixed an issue where MCP tools were loaded twice, which caused tool call errors\n\n## 0.2.61\n\n- Navigate menus with vim-style keys (j/k) or bash/emacs shortcuts (Ctrl+n/p) for faster interaction\n- Enhanced image detection for more reliable clipboard paste functionality\n- Fixed an issue where ESC key could crash the conversation history selector\n\n## 0.2.59\n\n- Copy+paste images directly into your prompt\n- Improved progress indicators for bash and fetch tools\n- Bugfixes for non-interactive mode (-p)\n\n## 0.2.54\n\n- Quickly add to Memory by starting your message with '#'\n- Press ctrl+r to see full output for long tool results\n- Added support for MCP SSE transport\n\n## 0.2.53\n\n- New web fetch tool lets Claude view URLs that you paste in\n- Fixed a bug with JPEG detection\n\n## 0.2.50\n\n- New MCP \"project\" scope now allows you to add MCP servers to .mcp.json files and commit them to your repository\n\n## 0.2.49\n\n- Previous MCP server scopes have been renamed: previous \"project\" scope is now \"local\" and \"global\" scope is now \"user\"\n\n## 0.2.47\n\n- Press Tab to auto-complete file and folder names\n- Press Shift + Tab to toggle auto-accept for file edits\n- Automatic conversation compaction for infinite conversation length (toggle with /config)\n\n## 0.2.44\n\n- Ask Claude to make a plan with thinking mode: just say 'think' or 'think harder' or even 'ultrathink'\n\n## 0.2.41\n\n- MCP server startup timeout can now be configured via MCP_TIMEOUT environment variable\n- MCP server startup no longer blocks the app from starting up\n\n## 0.2.37\n\n- New /release-notes command lets you view release notes at any time\n- `claude config add/remove` commands now accept multiple values separated by commas or spaces\n\n## 0.2.36\n\n- Import MCP servers from Claude Desktop with `claude mcp add-from-claude-desktop`\n- Add MCP servers as JSON strings with `claude mcp add-json <n> <json>`\n\n## 0.2.34\n\n- Vim bindings for text input - enable with /vim or /config\n\n## 0.2.32\n\n- Interactive MCP setup wizard: Run \"claude mcp add\" to add MCP servers with a step-by-step interface\n- Fix for some PersistentShell issues\n\n## 0.2.31\n\n- Custom slash commands: Markdown files in .claude/commands/ directories now appear as custom slash commands to insert prompts into your conversation\n- MCP debug mode: Run with --mcp-debug flag to get more information about MCP server errors\n\n## 0.2.30\n\n- Added ANSI color theme for better terminal compatibility\n- Fixed issue where slash command arguments weren't being sent properly\n- (Mac-only) API keys are now stored in macOS Keychain\n\n## 0.2.26\n\n- New /approved-tools command for managing tool permissions\n- Word-level diff display for improved code readability\n- Fuzzy matching for slash commands\n\n## 0.2.21\n\n- Fuzzy matching for /commands\n",
+  "changelogLastFetched": 1749615401287,
+  "fallbackAvailableWarningThreshold": 0.2,
+  "lastReleaseNotesSeen": "1.0.18"
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Revert changes to /home/avid_arrajeedavey/style/evidence-canvas-content.css",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Revert changes to /home/avid_arrajeedavey/poc-view.html",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

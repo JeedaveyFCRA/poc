@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docket Header Preview - Before and After</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #1a1a1a;
+            color: white;
+            font-family: sans-serif;
+            padding: 20px;
+        }
+        
+        .preview-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .preview-section {
+            margin-bottom: 40px;
+            border: 1px solid #444;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .preview-title {
+            background: #333;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .preview-content {
+            padding: 20px;
+            background: #253541;
+        }
+        
+        /* CURRENT STYLES (Before) */
+        .current-docket {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        
+        .current-docket > div {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .current-docket .case-label,
+        .current-docket .court-label,
+        .current-docket .judge-label,
+        .current-docket .deadline-label {
+            font-size: 16px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+        }
+        
+        .current-docket .case-value,
+        .current-docket .court-value,
+        .current-docket .judge-value,
+        .current-docket .deadline-value {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        /* NEW STYLES (After) */
+        .new-docket {
+            display: flex;
+            align-items: center;
+            gap: 24px; /* Space for dividers */
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            position: relative;
+            padding-right: 60px; /* Space for arrow button */
+        }
+        
+        .new-docket .field-item {
+            display: flex;
+            align-items: baseline;
+            white-space: nowrap;
+        }
+        
+        .new-docket .field-label {
+            color: #9ba1a6; /* 30% tint of #253541 */
+            text-transform: lowercase;
+        }
+        
+        .new-docket .field-value {
+            color: #ffffff;
+            text-transform: lowercase;
+        }
+        
+        .new-docket .divider {
+            width: 1px;
+            height: 30px;
+            background-color: #9ba1a6;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        
+        /* Arrow Button */
+        .arrow-button {
+            position: absolute;
+            right: 27px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9ba1a6;
+            transition: color 0.2s;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .arrow-button:hover {
+            color: #f26419;
+        }
+        
+        .arrow-button svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        /* HTML diff styles */
+        .diff-container {
+            background: #1a1a1a;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        
+        .diff-removed {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .diff-added {
+            color: #51cf66;
+            background: rgba(81, 207, 102, 0.1);
+        }
+        
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <h1>Docket Header Update Preview</h1>
+        
+        <!-- Current Implementation -->
+        <div class="preview-section">
+            <div class="preview-title">BEFORE (Current Implementation)</div>
+            <div class="preview-content">
+                <div class="current-docket">
+                    <div class="case-info">
+                        <span class="case-label">Case:</span>
+                        <span class="case-value">David Marra v. 13 Furnishers, 3 credit bureaus</span>
+                    </div>
+                    <div class="court-info">
+                        <span class="court-label">Court:</span>
+                        <span class="court-value">EDNY (Eastern District of New York)</span>
+                    </div>
+                    <div class="judge-info">
+                        <span class="judge-label">Judge:</span>
+                        <span class="judge-value">Hon. Allyne R. Ross</span>
+                    </div>
+                    <div class="deadline-info">
+                        <span class="deadline-label">Next Deadline:</span>
+                        <span class="deadline-value">Discovery phase - March 15, 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New Implementation -->
+        <div class="preview-section">
+            <div class="preview-title">AFTER (New Specifications)</div>
+            <div class="preview-content">
+                <div class="new-docket">
+                    <div class="field-item">
+                        <span class="field-label">case:&nbsp;</span>
+                        <span class="field-value">david marra v. 13 furnishers, 3 credit bureaus</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="field-item">
+                        <span class="field-label">filed:&nbsp;</span>
+                        <span class="field-value">06-09-2025</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="field-item">
+                        <span class="field-label">docket:&nbsp;</span>
+                        <span class="field-value">2025-fc-0001</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="field-item">
+                        <span class="field-label">court:&nbsp;</span>
+                        <span class="field-value">eastern district of new york</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="field-item">
+                        <span class="field-label">judge:&nbsp;</span>
+                        <span class="field-value">hon allyne r ross</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="field-item">
+                        <span class="field-label">next deadline:&nbsp;</span>
+                        <span class="field-value">motion deadline 06-15-25</span>
+                    </div>
+                    <button class="arrow-button" aria-label="Toggle docket header">
+                        <!-- Lucide circle-chevron-up icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="8 14 12 10 16 14"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- HTML Structure Changes -->
+        <div class="preview-section">
+            <div class="preview-title">HTML Structure Changes</div>
+            <div class="preview-content">
+                <div class="diff-container">
+                    <pre><code><!-- Current HTML (to be replaced) -->
+<span class="diff-removed">- &lt;div class="docket-content"&gt;
+-     &lt;div class="case-info"&gt;
+-         &lt;span class="case-label"&gt;Case:&lt;/span&gt;
+-         &lt;span class="case-value"&gt;David Marra v. 13 Furnishers, 3 credit bureaus&lt;/span&gt;
+-     &lt;/div&gt;
+-     &lt;div class="court-info"&gt;
+-         &lt;span class="court-label"&gt;Court:&lt;/span&gt;
+-         &lt;span class="court-value"&gt;EDNY (Eastern District of New York)&lt;/span&gt;
+-     &lt;/div&gt;
+-     &lt;div class="judge-info"&gt;
+-         &lt;span class="judge-label"&gt;Judge:&lt;/span&gt;
+-         &lt;span class="judge-value"&gt;Hon. Allyne R. Ross&lt;/span&gt;
+-     &lt;/div&gt;
+-     &lt;div class="deadline-info"&gt;
+-         &lt;span class="deadline-label"&gt;Next Deadline:&lt;/span&gt;
+-         &lt;span class="deadline-value"&gt;Discovery phase - March 15, 2024&lt;/span&gt;
+-     &lt;/div&gt;
+- &lt;/div&gt;</span>
+
+<!-- New HTML (to be added) -->
+<span class="diff-added">+ &lt;div class="docket-content"&gt;
++     &lt;div class="field-item"&gt;
++         &lt;span class="field-label"&gt;case:&nbsp;&lt;/span&gt;
++         &lt;span class="field-value"&gt;david marra v. 13 furnishers, 3 credit bureaus&lt;/span&gt;
++     &lt;/div&gt;
++     &lt;div class="divider"&gt;&lt;/div&gt;
++     &lt;div class="field-item"&gt;
++         &lt;span class="field-label"&gt;filed:&nbsp;&lt;/span&gt;
++         &lt;span class="field-value"&gt;06-09-2025&lt;/span&gt;
++     &lt;/div&gt;
++     &lt;div class="divider"&gt;&lt;/div&gt;
++     &lt;div class="field-item"&gt;
++         &lt;span class="field-label"&gt;docket:&nbsp;&lt;/span&gt;
++         &lt;span class="field-value"&gt;2025-fc-0001&lt;/span&gt;
++     &lt;/div&gt;
++     &lt;div class="divider"&gt;&lt;/div&gt;
++     &lt;div class="field-item"&gt;
++         &lt;span class="field-label"&gt;court:&nbsp;&lt;/span&gt;
++         &lt;span class="field-value"&gt;eastern district of new york&lt;/span&gt;
++     &lt;/div&gt;
++     &lt;div class="divider"&gt;&lt;/div&gt;
++     &lt;div class="field-item"&gt;
++         &lt;span class="field-label"&gt;judge:&nbsp;&lt;/span&gt;
++         &lt;span class="field-value"&gt;hon allyne r ross&lt;/span&gt;
++     &lt;/div&gt;
++     &lt;div class="divider"&gt;&lt;/div&gt;
++     &lt;div class="field-item"&gt;
++         &lt;span class="field-label"&gt;next deadline:&nbsp;&lt;/span&gt;
++         &lt;span class="field-value"&gt;motion deadline 06-15-25&lt;/span&gt;
++     &lt;/div&gt;
++ &lt;/div&gt;</span></code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CSS Changes Summary -->
+        <div class="preview-section">
+            <div class="preview-title">Key CSS Changes</div>
+            <div class="preview-content">
+                <ul style="font-family: monospace; font-size: 14px;">
+                    <li>Font: Space Grotesk Bold, 14pt</li>
+                    <li>All text: lowercase</li>
+                    <li>Labels color: #9ba1a6 (30% tint of #253541)</li>
+                    <li>Values color: #ffffff (white)</li>
+                    <li>Dividers: 1px × 30px, color #9ba1a6</li>
+                    <li>Spacing: 48px between items (24px on each side of divider)</li>
+                    <li>Arrow button: Fixed at x=27px, y=18px, 28×28px</li>
+                    <li>Arrow icons: circle-chevron-up (expanded) / circle-chevron-down (collapsed)</li>
+                    <li>Hover state: #f26419 (orange)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- JavaScript Changes -->
+        <div class="preview-section">
+            <div class="preview-title">JavaScript Changes Required</div>
+            <div class="preview-content">
+                <div class="diff-container">
+                    <pre><code>// Update toggle function to use circle-chevron icons
+<span class="diff-removed">- icon.setAttribute('data-lucide', this.docketExpanded ? 'chevron-up' : 'chevron-down');</span>
+<span class="diff-added">+ icon.setAttribute('data-lucide', this.docketExpanded ? 'circle-chevron-up' : 'circle-chevron-down');</span>
+
+// Move toggle button inside docket header (HTML structure change)
+// Update positioning to be absolute within header instead of fixed on page</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

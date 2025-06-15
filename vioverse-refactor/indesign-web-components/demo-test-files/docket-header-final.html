@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docket Header - Final Implementation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            width: 1920px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Docket Header Container */
+        .docket-header {
+            position: fixed;
+            top: 9px;
+            left: 11px;
+            width: 1898px;
+            height: 48px;
+            background-color: #253541;
+            border: 3px solid #9ba1a6;
+            border-radius: 36px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px 0 27px; /* Left padding just 27px for button */
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        
+        /* Collapsed state - container collapses */
+        .docket-header.collapsed {
+            height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-width: 0;
+            margin-top: -48px; /* Move content up */
+        }
+        
+        /* Down arrow when collapsed - no background */
+        .arrow-collapsed {
+            position: fixed;
+            top: 18px; /* 9px + 9px to center in the 48px space */
+            left: 38px; /* 11px + 27px to maintain same x position */
+            width: 28px;
+            height: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9ba1a6;
+            padding: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+            z-index: 1001;
+        }
+        
+        .arrow-collapsed.visible {
+            display: flex;
+        }
+        
+        .arrow-collapsed:hover {
+            color: #f26419;
+        }
+        
+        .arrow-collapsed svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        /* Content container */
+        .docket-content {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 1;
+            margin-left: 50px; /* Shift content right by 50px from button */
+        }
+        
+        /* Field items */
+        .field-item {
+            display: flex;
+            align-items: baseline;
+            white-space: nowrap;
+        }
+        
+        .field-label {
+            color: #9ba1a6;
+            text-transform: lowercase;
+        }
+        
+        .field-value {
+            color: #ffffff;
+            text-transform: lowercase;
+        }
+        
+        /* Dividers */
+        .divider {
+            width: 1px;
+            height: 30px;
+            background-color: #9ba1a6;
+            flex-shrink: 0;
+            align-self: center;
+        }
+        
+        /* Arrow Button - Positioned inside header */
+        .docket-toggle {
+            position: absolute;
+            left: 27px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #9ba1a6;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+            z-index: 10;
+        }
+        
+        .docket-toggle:hover {
+            color: #f26419;
+        }
+        
+        .docket-toggle svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        /* Main content area (placeholder) */
+        .main-content {
+            margin-top: 80px;
+            padding: 20px;
+            color: white;
+            transition: margin-top 0.3s ease;
+        }
+        
+        .main-content.collapsed {
+            margin-top: 20px; /* Move up when docket is collapsed */
+        }
+        
+        /* Demo info */
+        .demo-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .demo-info h3 {
+            margin-top: 0;
+        }
+        
+        /* Width indicator */
+        .width-indicator {
+            position: fixed;
+            top: 65px;
+            left: 11px;
+            width: 1898px;
+            height: 2px;
+            background: rgba(242, 100, 25, 0.3);
+            pointer-events: none;
+        }
+        
+        /* Position indicator for arrow */
+        .position-indicator {
+            position: fixed;
+            top: 0;
+            left: 38px; /* 11px + 27px */
+            width: 1px;
+            height: 100px;
+            background: rgba(242, 100, 25, 0.3);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Docket Header -->
+    <header class="docket-header" id="docket-header" aria-label="Case Information">
+        <!-- Toggle button inside header -->
+        <button class="docket-toggle" 
+                id="docket-toggle"
+                aria-label="Toggle case information" 
+                aria-expanded="true"
+                aria-controls="docket-content">
+            <!-- Circle chevron up icon (expanded state) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="8 14 12 10 16 14"></polyline>
+            </svg>
+        </button>
+        
+        <!-- Docket content -->
+        <div class="docket-content" id="docket-content">
+            <div class="field-item">
+                <span class="field-label">case:&nbsp;</span>
+                <span class="field-value">david marra v. 13 furnishers, 3 credit bureaus</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">filed:&nbsp;</span>
+                <span class="field-value">06-09-2025</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">docket:&nbsp;</span>
+                <span class="field-value">2025-fc-0001</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">court:&nbsp;</span>
+                <span class="field-value">eastern district of new york</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">judge:&nbsp;</span>
+                <span class="field-value">hon allyne r ross</span>
+            </div>
+            <div class="divider"></div>
+            <div class="field-item">
+                <span class="field-label">next deadline:&nbsp;</span>
+                <span class="field-value">motion deadline 06-15-25</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Arrow only (no container) for collapsed state -->
+    <button class="arrow-collapsed" 
+            id="arrow-collapsed"
+            aria-label="Expand case information" 
+            aria-expanded="false">
+        <!-- Circle chevron down icon (collapsed state) -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="16 10 12 14 8 10"></polyline>
+        </svg>
+    </button>
+    
+    <!-- Width indicator for visual reference -->
+    <div class="width-indicator"></div>
+    
+    <!-- Position indicator for arrow x-position -->
+    <div class="position-indicator"></div>
+    
+    <!-- Main content area -->
+    <div class="main-content" id="main-content">
+        <h1>Main Application Content</h1>
+        <p>The docket header is positioned above this content.</p>
+        <p>When collapsed, this content moves up and only the down arrow remains visible.</p>
+    </div>
+    
+    <!-- Demo info -->
+    <div class="demo-info">
+        <h3>Final Implementation</h3>
+        <ul>
+            <li>Container width: exactly 1898px</li>
+            <li>Content shifted right by 50px from button</li>
+            <li>Arrow stays at x=27px (relative to container)</li>
+            <li>No background circle in collapsed state</li>
+            <li>Content moves up when collapsed</li>
+        </ul>
+        <p><strong>Click the arrow to toggle</strong></p>
+    </div>
+    
+    <script>
+        let docketExpanded = true;
+        
+        function toggleDocket() {
+            docketExpanded = !docketExpanded;
+            const header = document.getElementById('docket-header');
+            const arrowCollapsed = document.getElementById('arrow-collapsed');
+            const mainContent = document.getElementById('main-content');
+            const upToggle = document.getElementById('docket-toggle');
+            
+            if (docketExpanded) {
+                // Expand
+                header.classList.remove('collapsed');
+                arrowCollapsed.classList.remove('visible');
+                mainContent.classList.remove('collapsed');
+                upToggle.setAttribute('aria-expanded', 'true');
+            } else {
+                // Collapse
+                header.classList.add('collapsed');
+                arrowCollapsed.classList.add('visible');
+                mainContent.classList.add('collapsed');
+                upToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+        
+        // Add click handlers
+        document.getElementById('docket-toggle').addEventListener('click', toggleDocket);
+        document.getElementById('arrow-collapsed').addEventListener('click', toggleDocket);
+    </script>
+</body>
+</html>

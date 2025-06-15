@@ -1,0 +1,14 @@
+[
+  {
+    "content": "Fix navigation bar functionality after async loadNavigationData change",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Check if navigation data is loaded before navigation events",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "content": "Read and understand the sidebar-top-box-overview specifications",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Examine current sidebar implementation in the refactor",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Read component specifications for filter-counter",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Read component specifications for severity-boxes-with-toggle",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Read component specifications for violation-details",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Create new CSS structure for sidebar-top-stack wrapper",
+    "status": "completed",
+    "priority": "medium",
+    "id": "6"
+  },
+  {
+    "content": "Implement visual upgrades without changing existing logic",
+    "status": "pending",
+    "priority": "medium",
+    "id": "7"
+  },
+  {
+    "content": "Implement filter-this-report component",
+    "status": "completed",
+    "priority": "high",
+    "id": "8"
+  },
+  {
+    "content": "Update filter-this-report with two-container layout structure",
+    "status": "completed",
+    "priority": "high",
+    "id": "9"
+  },
+  {
+    "content": "Create filter-counter-test.html standalone test file",
+    "status": "completed",
+    "priority": "high",
+    "id": "10"
+  },
+  {
+    "content": "Implement filter-counter in main index.html",
+    "status": "completed",
+    "priority": "high",
+    "id": "11"
+  }
+]

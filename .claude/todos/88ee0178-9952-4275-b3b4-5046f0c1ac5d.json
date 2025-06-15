@@ -1,0 +1,20 @@
+[
+  {
+    "content": "Update tool tips toggle component with new design specifications",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update HTML structure to use circle-help icon",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update JavaScript to handle new toggle behavior",
+    "status": "completed",
+    "priority": "medium",
+    "id": "3"
+  }
+]

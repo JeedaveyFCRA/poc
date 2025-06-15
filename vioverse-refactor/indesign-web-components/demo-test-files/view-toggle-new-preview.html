@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New View Toggle Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            width: 1920px;
+            font-family: 'Space Grotesk', sans-serif;
+            color: white;
+        }
+        
+        /* Container to show positioning */
+        .preview-container {
+            position: relative;
+            width: 1920px;
+            height: 300px;
+            background: #0a0a0a;
+        }
+        
+        /* Mock docket header for reference */
+        .mock-docket {
+            position: absolute;
+            top: 9px;
+            left: 11px;
+            width: 1898px;
+            height: 48px;
+            background-color: #253541;
+            border: 3px solid #9ba1a6;
+            border-radius: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #9ba1a6;
+        }
+        
+        /* New View Toggle Container */
+        .view-toggle-new {
+            position: absolute;
+            top: 76px;
+            left: 70px;
+            width: 270px;
+            height: 40px;
+            background-color: #253541;
+            border: 3px solid #9ba1a6;
+            border-radius: 36px;
+            box-sizing: border-box;
+            overflow: visible;
+        }
+        
+        /* View labels */
+        .view-labels {
+            display: flex;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .view-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: lowercase;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            user-select: none;
+        }
+        
+        .view-label.viotagger {
+            position: absolute;
+            left: 8px; /* Moved left by 2px (was 10px) */
+            width: 75px;
+            text-align: center;
+            color: #9ba1a6;
+        }
+        
+        .view-label.report {
+            position: absolute;
+            left: 97px;
+            width: 75px;
+            text-align: center;
+            color: #9ba1a6;
+        }
+        
+        .view-label.evidence {
+            position: absolute;
+            left: 189px; /* Moved right by 4px total (was 185px) */
+            width: 75px;
+            text-align: center;
+            color: #9ba1a6;
+        }
+        
+        /* Active state labels */
+        .view-label.active {
+            color: #ffffff;
+        }
+        
+        /* Individual toggle buttons (orange highlight) */
+        .toggle-indicator {
+            position: absolute;
+            top: -3px; /* Move up 3px */
+            width: 90px;
+            height: 40px;
+            background-color: #f26419;
+            border: 3px solid #f8b98c;
+            border-radius: 36px;
+            box-sizing: border-box;
+            transition: left 0.3s ease;
+            z-index: 1;
+        }
+        
+        /* Toggle indicator positions */
+        .toggle-indicator.viotagger {
+            left: 0;
+        }
+        
+        .toggle-indicator.report {
+            left: 90px;
+        }
+        
+        .toggle-indicator.evidence {
+            left: 180px;
+        }
+        
+        /* Comparison section */
+        .comparison {
+            margin-top: 50px;
+            padding: 20px;
+        }
+        
+        .old-toggle {
+            display: inline-flex;
+            gap: 8px;
+            background-color: #F3F4F6;
+            padding: 4px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .old-btn {
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #64748B;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .old-btn.active {
+            background-color: #0066FF;
+            color: white;
+        }
+        
+        /* Demo controls */
+        .demo-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .demo-controls button {
+            background: #f26419;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+        
+        .demo-controls button:hover {
+            background: #d94a0c;
+        }
+        
+        /* Specs display */
+        .specs {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: #333;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+        
+        .specs h3 {
+            margin-top: 0;
+        }
+        
+        .specs ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .specs li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <!-- Mock docket header for positioning reference -->
+        <div class="mock-docket">Docket Header (for positioning reference)</div>
+        
+        <!-- New View Toggle -->
+        <div class="view-toggle-new" id="view-toggle">
+            <!-- Orange toggle indicator -->
+            <div class="toggle-indicator report" id="toggle-indicator"></div>
+            
+            <!-- View labels -->
+            <div class="view-labels">
+                <span class="view-label viotagger" data-view="viotagger">viotagger</span>
+                <span class="view-label report active" data-view="report">report</span>
+                <span class="view-label evidence" data-view="evidence">evidence</span>
+            </div>
+        </div>
+        
+        <!-- Specifications display -->
+        <div class="specs">
+            <h3>Specifications</h3>
+            <ul>
+                <li><strong>Container:</strong></li>
+                <li>• Width: 270px</li>
+                <li>• Height: 40px</li>
+                <li>• Position: x=70px, y=76px</li>
+                <li>• Fill: #253541</li>
+                <li>• Border: 3px #9ba1a6</li>
+                <li><strong>Toggle Button:</strong></li>
+                <li>• Width: 90px</li>
+                <li>• Height: 40px</li>
+                <li>• Fill: #f26419</li>
+                <li>• Border: 3px #f8b98c</li>
+                <li><strong>Typography:</strong></li>
+                <li>• Space Grotesk Bold 16pt</li>
+                <li>• Off state: #9ba1a6</li>
+                <li>• On state: white</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Comparison with old toggle -->
+    <div class="comparison">
+        <h2>Comparison</h2>
+        <h3>Old Toggle (Current Implementation):</h3>
+        <div class="old-toggle">
+            <button class="old-btn active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                <span>report</span>
+            </button>
+            <button class="old-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+                <span>viotagger</span>
+            </button>
+            <button class="old-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>evidence</span>
+            </button>
+        </div>
+        
+        <h3>New Toggle (As Specified):</h3>
+        <p>See above - positioned at x=70px, y=76px below docket header</p>
+    </div>
+    
+    <!-- Demo controls -->
+    <div class="demo-controls">
+        <h3>Click to Test</h3>
+        <button onclick="switchView('viotagger')">VioTagger</button>
+        <button onclick="switchView('report')">Report</button>
+        <button onclick="switchView('evidence')">Evidence</button>
+    </div>
+    
+    <script>
+        let currentView = 'report';
+        
+        function switchView(viewName) {
+            if (viewName === currentView) return;
+            
+            // Update current view
+            currentView = viewName;
+            
+            // Update toggle indicator position
+            const indicator = document.getElementById('toggle-indicator');
+            indicator.className = 'toggle-indicator ' + viewName;
+            
+            // Update label states
+            document.querySelectorAll('.view-label').forEach(label => {
+                if (label.dataset.view === viewName) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
+                }
+            });
+            
+            console.log('Switched to', viewName, 'view');
+        }
+        
+        // Add click handlers to labels
+        document.querySelectorAll('.view-label').forEach(label => {
+            label.addEventListener('click', () => {
+                switchView(label.dataset.view);
+            });
+        });
+    </script>
+</body>
+</html>

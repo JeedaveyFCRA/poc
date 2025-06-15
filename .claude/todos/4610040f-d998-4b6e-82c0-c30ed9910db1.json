@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Update view button labels (remove 'View' word)",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update creditor and bureau labels to lowercase",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update tips and severity labels",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add CSS for global text style (16pt, lowercase, bold)",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Show diff preview before applying",
+    "status": "completed",
+    "priority": "medium",
+    "id": "5"
+  }
+]

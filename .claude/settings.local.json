@@ -1,7 +1,24 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(rm:*)",
+      "Bash(claude:*)",
+      "Bash(echo:*)",
+      "Bash(npx @anthropic-ai/claude-code migrate-installer:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(chmod:*)",
+      "Bash(npx:*)",
+      "Bash(source ~/.bashrc)",
+      "Bash(cat:*)",
+      "Bash(~/.claude/local/bin/claude --version)",
+      "Bash(python3:*)",
+      "Bash(node:*)",
+      "Bash(rg:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }

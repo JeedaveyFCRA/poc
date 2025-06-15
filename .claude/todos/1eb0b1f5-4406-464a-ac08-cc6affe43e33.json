@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Update severity box dimensions and styling to match specifications",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Update severity box positioning and X-coordinates",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Update icons to use shield-alert, triangle-alert, and circle-alert",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Add Space Grotesk font and update typography",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Add data-driven counters with specified styling",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  }
+]

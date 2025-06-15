@@ -1,0 +1,13 @@
+# Ignore system junk
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+*.log
+*.bak
+*.tmp
+
+# Ignore node/npm if added later
+node_modules/
+dist/
+build/

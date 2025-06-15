@@ -1,0 +1,44 @@
+[
+  {
+    "content": "Fix shadow clipping issue in filter container in index.html",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Plan integration of severity summary into index.html under filter section",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Analyze existing severity implementation in index.html",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Fix positioning issues in current severity implementation",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  },
+  {
+    "content": "Extract and adapt severity CSS from demo",
+    "status": "completed",
+    "priority": "high",
+    "id": "5"
+  },
+  {
+    "content": "Update HTML structure with two-button approach",
+    "status": "completed",
+    "priority": "high",
+    "id": "6"
+  },
+  {
+    "content": "Update JavaScript for new toggle functionality",
+    "status": "completed",
+    "priority": "high",
+    "id": "7"
+  }
+]

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Toggle Test</title>
+    <script>
+        function checkToggle() {
+            console.log('=== Toggle Debug ===');
+            
+            // Check if elements exist
+            const toggle = document.querySelector('.view-toggle-new');
+            console.log('Toggle container exists:', !!toggle);
+            
+            const labels = document.querySelectorAll('.view-label');
+            console.log('View labels found:', labels.length);
+            labels.forEach(label => {
+                console.log('Label:', label.textContent, 'data-view:', label.dataset.view);
+            });
+            
+            const indicator = document.getElementById('toggle-indicator');
+            console.log('Indicator exists:', !!indicator);
+            
+            const panels = document.querySelectorAll('.view-panel');
+            console.log('View panels found:', panels.length);
+            panels.forEach(panel => {
+                console.log('Panel ID:', panel.id, 'Active:', panel.classList.contains('active'));
+            });
+            
+            // Check if VioVerse is initialized
+            console.log('VioVerse exists:', typeof vioverse !== 'undefined');
+            if (typeof vioverse !== 'undefined') {
+                console.log('Current view:', vioverse.currentView);
+            }
+            
+            // Test switchView function
+            if (typeof vioverse !== 'undefined' && typeof vioverse.switchView === 'function') {
+                console.log('Testing switchView to evidence...');
+                vioverse.switchView('evidence');
+                setTimeout(() => {
+                    console.log('After switch - Current view:', vioverse.currentView);
+                    console.log('Indicator class:', indicator?.className);
+                }, 100);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Toggle Debug Test</h1>
+    <p>Open the browser console and click the button below to debug the toggle.</p>
+    <button onclick="checkToggle()">Debug Toggle</button>
+    <p>Or paste this in the console on the main page:</p>
+    <pre>
+// Check toggle elements
+console.log('Toggle:', document.querySelector('.view-toggle-new'));
+console.log('Labels:', document.querySelectorAll('.view-label'));
+console.log('Indicator:', document.getElementById('toggle-indicator'));
+console.log('VioVerse:', typeof vioverse);
+
+// Try switching view
+if (typeof vioverse !== 'undefined') {
+    vioverse.switchView('evidence');
+}
+    </pre>
+</body>
+</html>

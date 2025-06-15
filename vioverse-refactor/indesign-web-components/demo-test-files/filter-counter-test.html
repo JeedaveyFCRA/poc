@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Counter Component Test</title>
+    
+    <!-- Font imports -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://use.typekit.net/qes3lop.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #2a2a2a;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 40px;
+        }
+        
+        /* Test container to simulate sidebar width */
+        .test-container {
+            width: 419px;
+            background-color: #ffffff;
+            border-radius: 24px;
+            padding: 24px;
+            margin: 0 auto;
+        }
+        
+        /* Filter Counter Component Styles */
+        .filter-counter {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        /* Header container - always visible */
+        .filter-counter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px 0 24px;
+            margin: 0 -24px; /* Negative margin to extend to container edges */
+        }
+        
+        .filter-counter-title {
+            font-family: "jaf-bernino-sans-comp", sans-serif;
+            font-weight: 800;
+            font-size: 30pt;
+            color: #253541;
+            text-transform: lowercase;
+            line-height: 1;
+        }
+        
+        .filter-counter-toggle {
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 200ms ease;
+            padding: 0;
+        }
+        
+        .filter-counter-toggle svg {
+            width: 28px;
+            height: 28px;
+            stroke: #9BA1A6; /* 30% tint of #253541 */
+            fill: none;
+            transition: all 200ms ease;
+        }
+        
+        .filter-counter-toggle:hover svg {
+            stroke: #F26419;
+        }
+        
+        /* Collapsible content container */
+        .filter-counter-content {
+            overflow: hidden;
+            transition: all 300ms ease;
+            transform-origin: top;
+        }
+        
+        .filter-counter.collapsed .filter-counter-content {
+            height: 0;
+            opacity: 0;
+            transform: scaleY(0);
+        }
+        
+        /* No rotation needed - we switch icons instead */
+        
+        /* Intro text */
+        .filter-counter-intro {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 11pt;
+            color: rgba(37, 53, 65, 0.9);
+            line-height: 1.4;
+            padding: 8px 24px;
+            margin: 0 -24px; /* Negative margin to align with header */
+            max-width: calc(100% + 48px);
+        }
+        
+        /* Filter options container */
+        .filter-options-container {
+            width: 419px;
+            background: #D9D8D7;
+            border: 1px solid #ffffff;
+            border-radius: 32px;
+            padding: 18px 30px;
+            margin: 8px -24px 0; /* Negative margin to extend to container edges */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .filter-option input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 13px;
+            height: 13px;
+            border: 2px solid #253541;
+            border-radius: 50%;
+            background-color: #ffffff;
+            margin: 2px 0 0 0; /* Small top margin to align with text baseline */
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 200ms ease;
+        }
+        
+        .filter-option input[type="radio"]:checked {
+            background-color: #ff0000;
+        }
+        
+        .filter-option span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            color: rgba(37, 53, 65, 0.9);
+            line-height: 1.2;
+            user-select: none;
+        }
+        
+        /* Special layout for "selected violations" - spans full width */
+        .filter-option:first-child {
+            grid-column: 1 / -1;
+        }
+        
+        /* Disabled state */
+        .filter-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .filter-option.disabled input[type="radio"] {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .filter-option.disabled input[type="radio"]:checked {
+            background-color: rgba(255, 0, 0, 0.5);
+        }
+        
+        /* Tooltip for disabled options */
+        .filter-option.disabled::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #253541;
+            color: white;
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms ease;
+            margin-bottom: 8px;
+            z-index: 10;
+        }
+        
+        .filter-option.disabled:hover::after {
+            opacity: 1;
+        }
+        
+        /* Placeholder content below */
+        .placeholder-content {
+            margin-top: 24px;
+            padding: 20px;
+            background: #F3F4F6;
+            border-radius: 16px;
+            color: #64748B;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <!-- Filter Counter Component -->
+        <div class="filter-counter" id="filterCounter">
+            <!-- Header - Always Visible -->
+            <div class="filter-counter-header">
+                <h3 class="filter-counter-title">filter this report</h3>
+                <button class="filter-counter-toggle" aria-label="Toggle filter section" aria-expanded="true">
+                    <i data-lucide="circle-arrow-up"></i>
+                </button>
+            </div>
+            
+            <!-- Collapsible Content -->
+            <div class="filter-counter-content">
+                <!-- Intro Text -->
+                <p class="filter-counter-intro">
+                    Select one or more filters below to customize the report view. Your selections affect which severity data and violations are shown.
+                </p>
+                
+                <!-- Filter Options Container -->
+                <div class="filter-options-container">
+                    <label class="filter-option">
+                        <input type="radio" name="violation-filter" value="selected">
+                        <span>selected violations</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="violation-filter" value="total" checked>
+                        <span>total violations (all pages)</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="violation-filter" value="page">
+                        <span>current page only</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Placeholder content to show stacking behavior -->
+        <div class="placeholder-content">
+            <p>Severity boxes component would go here</p>
+            <p>Notice how this shifts up when filter collapses</p>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Filter Counter functionality
+        const filterCounter = document.getElementById('filterCounter');
+        const toggleButton = filterCounter.querySelector('.filter-counter-toggle');
+        const filterOptions = filterCounter.querySelectorAll('input[name="violation-filter"]');
+        
+        // Toggle collapse/expand
+        toggleButton.addEventListener('click', () => {
+            filterCounter.classList.toggle('collapsed');
+            const isCollapsed = filterCounter.classList.contains('collapsed');
+            toggleButton.setAttribute('aria-expanded', !isCollapsed);
+            
+            // Update icon - when expanded show up arrow, when collapsed show down arrow
+            const icon = toggleButton.querySelector('i');
+            if (isCollapsed) {
+                icon.setAttribute('data-lucide', 'circle-arrow-down');
+            } else {
+                icon.setAttribute('data-lucide', 'circle-arrow-up');
+            }
+            lucide.createIcons();
+        });
+        
+        // Handle filter changes with mutual exclusivity
+        filterOptions.forEach(option => {
+            option.addEventListener('change', (e) => {
+                const value = e.target.value;
+                
+                // Reset all disabled states
+                filterOptions.forEach(opt => {
+                    const label = opt.parentElement;
+                    label.classList.remove('disabled');
+                    label.removeAttribute('data-tooltip');
+                    opt.disabled = false;
+                });
+                
+                // Apply mutual exclusivity rules
+                if (value === 'total') {
+                    // Disable "current page only"
+                    const pageOption = document.querySelector('input[value="page"]');
+                    if (pageOption) {
+                        const label = pageOption.parentElement;
+                        label.classList.add('disabled');
+                        label.setAttribute('data-tooltip', 'Cannot combine with "total violations"');
+                        pageOption.disabled = true;
+                    }
+                } else if (value === 'page') {
+                    // Disable "total violations"
+                    const totalOption = document.querySelector('input[value="total"]');
+                    if (totalOption) {
+                        const label = totalOption.parentElement;
+                        label.classList.add('disabled');
+                        label.setAttribute('data-tooltip', 'Cannot combine with "current page only"');
+                        totalOption.disabled = true;
+                    }
+                }
+            });
+        });
+        
+        // Trigger initial state
+        const checkedOption = document.querySelector('input[name="violation-filter"]:checked');
+        if (checkedOption) {
+            checkedOption.dispatchEvent(new Event('change'));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "bureaus": {
+    "EQ": "Equifax",
+    "EX": "Experian", 
+    "TU": "TransUnion"
+  },
+  "creditors": {
+    "AL": "Ally Financial",
+    "BB": "Citibank / Best Buy",
+    "BK": "Bank of America",
+    "BY": "Barclays Bank Delaware",
+    "C1": "Citizens Bank 1",
+    "C2": "Citizens Bank 2",
+    "CR": "Cornerstone Community Federal Credit Union",
+    "DB": "Discover Bank",
+    "DL": "Discover Personal Loans",
+    "HD": "THD/CBNA",
+    "JP": "JPMCB",
+    "MF": "Mariner Finance",
+    "SR": "Citibank / Sears"
+  },
+  "reports": {
+    "EQ": {
+      "2024-04-25": {
+        "AL": [57, 58],
+        "BB": [20],
+        "BK": [16, 17],
+        "BY": [34, 35],
+        "C1": [26],
+        "C2": [28],
+        "CR": [18, 19],
+        "DB": [30, 31],
+        "DL": [50, 51],
+        "HD": [32, 33],
+        "JP": [24],
+        "MF": [67],
+        "SR": [22]
+      }
+    },
+    "EX": {
+      "2024-04-25": {
+        "AL": [5],
+        "BB": [8, 9],
+        "BK": [6],
+        "BY": [7],
+        "C1": [11],
+        "C2": [12],
+        "CR": [16, 17],
+        "DB": [22],
+        "DL": [21, 22],
+        "HD": [34, 35],
+        "JP": [23],
+        "MF": [25],
+        "SR": [31]
+      }
+    },
+    "TU": {
+      "2024-04-25": {
+        "AL": [7],
+        "BB": [14],
+        "BK": [10],
+        "BY": [12],
+        "C1": [17],
+        "C2": [20],
+        "CR": [26],
+        "DB": [30],
+        "DL": [27],
+        "JP": [28],
+        "MF": [31],
+        "SR": [34]
+      }
+    }
+  },
+  "navigation": {
+    "currentFile": "AL-EQ-2024-04-25-P57.png",
+    "currentBureau": "EQ",
+    "currentDate": "2024-04-25",
+    "currentCreditor": "AL",
+    "currentPage": 57
+  }
+}

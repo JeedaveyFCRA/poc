@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse - FCRA Violation Analysis Platform</title>
+    
+    <!-- Space Grotesk Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Bernino Sans Compressed Font from Adobe Typekit -->
+    <link rel="stylesheet" href="https://use.typekit.net/qes3lop.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- VioVerse Refactor Styles -->
+    <link rel="stylesheet" href="css/refactor-ui.css">
+    
+    <!-- Inline style overrides for violation details -->
+    <style>
+        /* Override violation box font sizes */
+        .violation-fcra-codes {
+            font-size: 9pt !important;
+        }
+        
+        .violation-description {
+            font-size: 9pt !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Main Application Container -->
+    <div class="vioverse-app" data-view="report">
+        
+        <!-- Collapsible Docket Header -->
+        <header class="docket-header" id="docket-header" aria-label="Case Information">
+            <!-- Toggle button inside header -->
+            <button class="docket-toggle" 
+                    id="docket-toggle"
+                    aria-label="Toggle case information" 
+                    aria-expanded="true"
+                    aria-controls="docket-content">
+                <i data-lucide="circle-chevron-up"></i>
+            </button>
+            
+            <!-- Docket content -->
+            <div class="docket-content" id="docket-content">
+                <div class="field-item">
+                    <span class="field-label">case:&nbsp;</span>
+                    <span class="field-value">david marra v. 13 furnishers, 3 credit bureaus</span>
+                </div>
+                <div class="divider"></div>
+                <div class="field-item">
+                    <span class="field-label">filed:&nbsp;</span>
+                    <span class="field-value">06-09-2025</span>
+                </div>
+                <div class="divider"></div>
+                <div class="field-item">
+                    <span class="field-label">docket:&nbsp;</span>
+                    <span class="field-value">2025-fc-0001</span>
+                </div>
+                <div class="divider"></div>
+                <div class="field-item">
+                    <span class="field-label">court:&nbsp;</span>
+                    <span class="field-value">eastern district of new york</span>
+                </div>
+                <div class="divider"></div>
+                <div class="field-item">
+                    <span class="field-label">judge:&nbsp;</span>
+                    <span class="field-value">hon allyne r ross</span>
+                </div>
+                <div class="divider"></div>
+                <div class="field-item">
+                    <span class="field-label">next deadline:&nbsp;</span>
+                    <span class="field-value">motion deadline 06-15-25</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Arrow only (no container) for collapsed state -->
+        <button class="arrow-collapsed" 
+                id="arrow-collapsed"
+                aria-label="Expand case information" 
+                aria-expanded="false">
+            <i data-lucide="circle-chevron-down"></i>
+        </button>
+        
+        <!-- Tool Tips Toggle -->
+        <div class="tool-tips-toggle" id="tool-tips-toggle" role="switch" aria-label="Toggle tooltips" aria-checked="false">
+            <i data-lucide="circle-help"></i>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="search-box" id="search-box">
+            <div class="search-icon">
+                <i data-lucide="binoculars"></i>
+            </div>
+            <input type="text" 
+                   class="search-input" 
+                   id="search-input" 
+                   placeholder="search violations..." 
+                   aria-label="Search violations">
+        </div>
+        
+        <!-- New View Toggle -->
+        <div class="view-toggle-new" id="view-toggle-new" role="tablist" aria-label="View selection">
+            <!-- Orange toggle indicator -->
+            <div class="toggle-indicator report" id="toggle-indicator"></div>
+            
+            <!-- View labels -->
+            <div class="view-labels">
+                <button class="view-label viotagger" 
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="tagger-view"
+                        data-view="tagger"
+                        tabindex="-1">viotagger</button>
+                <button class="view-label report active" 
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="report-view"
+                        data-view="report"
+                        tabindex="0">report</button>
+                <button class="view-label evidence" 
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="evidence-view"
+                        data-view="evidence"
+                        tabindex="-1">evidence</button>
+            </div>
+        </div>
+        
+        <!-- Main Navigation Bar removed — see legacy-removal.html -->
+        
+        <!-- Main Content Area -->
+        <main id="main-content" class="main-content">
+            
+            <!-- Report View (default visible) -->
+            <div id="report-view" class="view-panel active" role="tabpanel">
+                <div class="content-wrapper">
+                    
+                    <!-- Left Panel: Report Canvas -->
+                    <div class="report-canvas-container">
+                        <!-- Report Navigation Bar -->
+                        <div class="report-nav-bar" aria-label="Report navigation">
+                            <!-- Bureau Logo and Selector -->
+                            <div class="nav-segment bureau-segment">
+                                <img src="assets/bureaus/EQ_White_Logo.png" alt="Equifax" class="bureau-logo" id="bureau-logo">
+                                <div class="nav-arrows">
+                                    <button class="nav-arrow-small up" aria-label="Previous bureau" data-nav="bureau-up">
+                                        <i data-lucide="circle-chevron-left"></i>
+                                    </button>
+                                    <button class="nav-arrow-small down" aria-label="Next bureau" data-nav="bureau-down">
+                                        <i data-lucide="circle-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- First divider (between bureau and report) -->
+                            <div class="nav-divider divider-1"></div>
+                            
+                            <!-- Report Date Selector -->
+                            <div class="nav-segment date-segment">
+                                <div class="nav-text-container">
+                                    <span class="nav-label">report:</span>
+                                    <span class="nav-value" id="report-date">04-25-2024</span>
+                                </div>
+                                <div class="nav-arrows">
+                                    <button class="nav-arrow-small up" aria-label="Previous report date" data-nav="date-up">
+                                        <i data-lucide="circle-chevron-left"></i>
+                                    </button>
+                                    <button class="nav-arrow-small down" aria-label="Next report date" data-nav="date-down">
+                                        <i data-lucide="circle-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Second divider -->
+                            <div class="nav-divider divider-2"></div>
+                            
+                            <!-- Creditor Selector -->
+                            <div class="nav-segment creditor-segment">
+                                <div class="nav-text-container">
+                                    <span class="nav-label">creditor:</span>
+                                    <span class="nav-value" id="creditor-name">ally financial</span>
+                                </div>
+                                <div class="nav-arrows">
+                                    <button class="nav-arrow-small up" aria-label="Previous creditor" data-nav="creditor-up">
+                                        <i data-lucide="circle-chevron-left"></i>
+                                        <span class="nav-tooltip"></span>
+                                    </button>
+                                    <button class="nav-arrow-small down" aria-label="Next creditor" data-nav="creditor-down">
+                                        <i data-lucide="circle-chevron-right"></i>
+                                        <span class="nav-tooltip"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Third divider (between creditor and page) -->
+                            <div class="nav-divider divider-3"></div>
+                            
+                            <!-- Page Selector -->
+                            <div class="nav-segment page-segment">
+                                <div class="nav-text-container">
+                                    <span class="nav-label">page:</span>
+                                    <span class="nav-value" id="page-number">57</span>
+                                </div>
+                                <div class="nav-arrows">
+                                    <button class="nav-arrow-small up" aria-label="Previous page" data-nav="page-up">
+                                        <i data-lucide="circle-chevron-left"></i>
+                                        <span class="nav-tooltip"></span>
+                                    </button>
+                                    <button class="nav-arrow-small down" aria-label="Next page" data-nav="page-down">
+                                        <i data-lucide="circle-chevron-right"></i>
+                                        <span class="nav-tooltip"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-canvas" id="report-canvas">
+                            <!-- Credit report image -->
+                            <img src="assets/reports/AL-EQ-2024-04-25-P57.png" 
+                                 alt="Ally Financial Equifax credit report page 57"
+                                 class="report-image">
+                            
+                            <!-- VIObox Overlay Container -->
+                            <div class="viobox-container" aria-label="Violation overlays">
+                                <!-- VIOboxes will be dynamically inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar Canvas -->
+                    <aside class="sidebar-canvas" aria-label="Violation details">
+                        <div class="sidebar-bottom-box"></div>
+                        <h2 class="sidebar-variable-heading"><span class="uppercase">FCRA</span> review summary</h2>
+                        <div class="sidebar-top-box">
+                            <!-- Sidebar Top Stack Container -->
+                            <div class="sidebar-top-stack">
+                                <!-- Filter Counter Component -->
+                                <div class="filter-counter" id="filterCounter">
+                                    <!-- Header - Always Visible -->
+                                    <div class="filter-counter-header">
+                                        <h3 class="filter-counter-title">filter this report</h3>
+                                        <button class="filter-counter-toggle filter-counter-toggle-expanded" aria-label="Toggle filter section" aria-expanded="true">
+                                            <i data-lucide="circle-chevron-up"></i>
+                                        </button>
+                                        <button class="filter-counter-toggle filter-counter-toggle-collapsed" aria-label="Toggle filter section" aria-expanded="false">
+                                            <i data-lucide="circle-chevron-down"></i>
+                                        </button>
+                                        <!-- Filters label - Only visible when collapsed -->
+                                        <span class="filter-id-label">show filters</span>
+                                    </div>
+                                    
+                                    <!-- Collapsible Content -->
+                                    <div class="filter-counter-content">
+                                        <!-- Intro Text -->
+                                        <p class="filter-counter-intro">
+                                            Select one or more filters below to customize the report view. Your selections affect which severity data and violations are shown.
+                                        </p>
+                                        
+                                        <!-- Filter Options Container -->
+                                        <div class="filter-options-container">
+                                            <label class="filter-option">
+                                                <input type="radio" name="violation-filter" value="selected">
+                                                <span>selected violations</span>
+                                            </label>
+                                            <label class="filter-option">
+                                                <input type="radio" name="violation-filter" value="page">
+                                                <span>current page only</span>
+                                            </label>
+                                            <label class="filter-option">
+                                                <input type="radio" name="violation-filter" value="total" checked>
+                                                <span>total violations (all pages)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Severity Summary Component -->
+                                <div class="severity-summary-component" id="severitySummary">
+                                    <!-- Collapsed label -->
+                                    <span class="severity-summary-collapsed-label">show severity</span>
+                                    
+                                    <!-- Header with toggle button -->
+                                    <div class="severity-summary-header-wrapper">
+                                        <h2 class="severity-summary-header">severity summary</h2>
+                                        <!-- Toggle button for expanded state -->
+                                        <button class="severity-summary-toggle severity-summary-toggle-expanded" aria-expanded="true" aria-controls="severity-summary-content">
+                                            <i data-lucide="circle-chevron-up"></i>
+                                        </button>
+                                        <!-- Toggle button for collapsed state -->
+                                        <button class="severity-summary-toggle severity-summary-toggle-collapsed" aria-expanded="false" aria-controls="severity-summary-content">
+                                            <i data-lucide="circle-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Collapsible Content -->
+                                    <div class="severity-summary-content" id="severity-summary-content">
+                                        <div class="severity-boxes-row">
+                                            <!-- High Severity Box -->
+                                            <div class="severity-box severity-high">
+                                                <div class="severity-label">high<br>severity</div>
+                                                <div class="dot-counter-group">
+                                                    <div class="badge-dot">
+                                                        <i data-lucide="shield-x"></i>
+                                                    </div>
+                                                    <span class="severity-counter" data-severity="high">0</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Medium Severity Box -->
+                                            <div class="severity-box severity-medium">
+                                                <div class="severity-label">medium<br>severity</div>
+                                                <div class="dot-counter-group">
+                                                    <div class="badge-dot">
+                                                        <i data-lucide="triangle-alert"></i>
+                                                    </div>
+                                                    <span class="severity-counter" data-severity="medium">0</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Low Severity Box -->
+                                            <div class="severity-box severity-low">
+                                                <div class="severity-label">low<br>severity</div>
+                                                <div class="dot-counter-group">
+                                                    <div class="badge-dot">
+                                                        <i data-lucide="circle-alert"></i>
+                                                    </div>
+                                                    <span class="severity-counter" data-severity="low">0</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Violation Details Component -->
+                                <div class="violation-details-component" id="violationDetails">
+                                    <!-- Collapsed label -->
+                                    <span class="violation-details-collapsed-label">show FCRA violations</span>
+                                    
+                                    <!-- Header with Toggle -->
+                                    <div class="violation-details-header">
+                                        <h3 class="violation-details-title">violation details</h3>
+                                        <!-- Toggle button for expanded state -->
+                                        <button class="violation-details-toggle violation-details-toggle-expanded" 
+                                                aria-label="Toggle violation details" 
+                                                aria-expanded="true"
+                                                aria-controls="violation-details-content">
+                                            <i data-lucide="circle-chevron-up"></i>
+                                        </button>
+                                        <!-- Toggle button for collapsed state -->
+                                        <button class="violation-details-toggle violation-details-toggle-collapsed" 
+                                                aria-label="Toggle violation details" 
+                                                aria-expanded="false"
+                                                aria-controls="violation-details-content">
+                                            <i data-lucide="circle-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Collapsible Content -->
+                                    <div class="violation-details-content" id="violation-details-content">
+                                        <div class="violation-details-list" role="list">
+                                            <!-- Violations will be dynamically inserted here -->
+                                        </div>
+                                        
+                                        <!-- Custom Scroll System -->
+                                        <div class="custom-scroll-vio-details" id="customScrollVioDetails" style="display: none;">
+                                            <!-- Scroll Up Arrow -->
+                                            <button class="scroll-arrow scroll-up" aria-label="Scroll up">
+                                                <i data-lucide="circle-arrow-up"></i>
+                                            </button>
+                                            
+                                            <!-- Scroll Track (Outer Pill) -->
+                                            <div class="scroll-track">
+                                                <!-- Scroll Thumb (Inner Pill) -->
+                                                <div class="scroll-thumb"></div>
+                                            </div>
+                                            
+                                            <!-- Scroll Down Arrow -->
+                                            <button class="scroll-arrow scroll-down" aria-label="Scroll down">
+                                                <i data-lucide="circle-arrow-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- View Full Violation Log -->
+                                <div class="view-full-violation-log" id="viewFullViolationLog">
+                                    <div class="full-log-header">
+                                        <h3 class="full-log-title">view full violation log</h3>
+                                        <button class="full-log-arrow" aria-label="View full violation log">
+                                            <i data-lucide="circle-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Static Footer Severity Key -->
+                                <div class="static-footer-severity-key" id="staticFooterSeverityKey">
+                                    <!-- Severity Key Row -->
+                                    <div class="severity-key-row">
+                                        <span class="severity-key-label">severity key:</span>
+                                        
+                                        <!-- High Severity -->
+                                        <div class="severity-item severity-high">
+                                            <div class="severity-badge">
+                                                <i data-lucide="shield-x"></i>
+                                            </div>
+                                            <span class="severity-text">high</span>
+                                        </div>
+                                        
+                                        <!-- Medium Severity -->
+                                        <div class="severity-item severity-medium">
+                                            <div class="severity-badge">
+                                                <i data-lucide="triangle-alert"></i>
+                                            </div>
+                                            <span class="severity-text">medium</span>
+                                        </div>
+                                        
+                                        <!-- Low Severity -->
+                                        <div class="severity-item severity-low">
+                                            <div class="severity-badge">
+                                                <i data-lucide="circle-alert"></i>
+                                            </div>
+                                            <span class="severity-text">low</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Legal Disclaimer -->
+                                    <div class="legal-disclaimer">
+                                        <div class="disclaimer-divider"></div>
+                                        <p class="disclaimer-text">Original report shown. Overlays are for legal review only, not for submission.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+            
+            <!-- VioTagger View (hidden by default) -->
+            <div id="tagger-view" class="view-panel" role="tabpanel" hidden>
+                <div class="content-wrapper">
+                    <div class="tagger-canvas-container">
+                        <div class="tagger-canvas" id="tagger-canvas">
+                            <div class="canvas-placeholder">
+                                <h2>VioTagger Canvas</h2>
+                                <p>Tag and annotate violations here</p>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="sidebar-canvas">
+                        <div class="sidebar-bottom-box"></div>
+                        <h2 class="sidebar-variable-heading">viotagger tools</h2>
+                        <div class="sidebar-top-box">
+                            <!-- Tagging tools will go here -->
+                        </div>
+                    </aside>
+                </div>
+            </div>
+            
+            <!-- Evidence View (hidden by default) -->
+            <div id="evidence-view" class="view-panel" role="tabpanel" hidden>
+                <div class="content-wrapper">
+                    <div class="evidence-canvas-container">
+                        <!-- Evidence Navigation Bar -->
+                        <div class="evidence-nav-bar" aria-label="Evidence navigation">
+                            <!-- Evidence Category -->
+                            <div class="nav-segment category-segment">
+                                <div class="nav-text-container">
+                                    <span class="nav-label">category:</span>
+                                    <span class="nav-value" id="evidence-category">additional evidence</span>
+                                </div>
+                                <div class="nav-arrows">
+                                    <button class="nav-arrow-small up" aria-label="Previous category" data-nav="category-up">
+                                        <i data-lucide="circle-chevron-left"></i>
+                                    </button>
+                                    <button class="nav-arrow-small down" aria-label="Next category" data-nav="category-down">
+                                        <i data-lucide="circle-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- First divider -->
+                            <div class="nav-divider"></div>
+                            
+                            <!-- Document Selector -->
+                            <div class="nav-segment document-segment">
+                                <div class="nav-text-container">
+                                    <span class="nav-label">document:</span>
+                                    <span class="nav-value" id="document-name">credit denial</span>
+                                </div>
+                                <div class="nav-arrows">
+                                    <button class="nav-arrow-small up" aria-label="Previous document" data-nav="document-up">
+                                        <i data-lucide="circle-chevron-left"></i>
+                                    </button>
+                                    <button class="nav-arrow-small down" aria-label="Next document" data-nav="document-down">
+                                        <i data-lucide="circle-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Second divider -->
+                            <div class="nav-divider"></div>
+                            
+                            <!-- Page Selector -->
+                            <div class="nav-segment evidence-page-segment">
+                                <div class="nav-text-container">
+                                    <span class="nav-label">page:</span>
+                                    <span class="nav-value" id="evidence-page-number">1</span>
+                                </div>
+                                <div class="nav-arrows">
+                                    <button class="nav-arrow-small up" aria-label="Previous page" data-nav="evidence-page-up">
+                                        <i data-lucide="circle-chevron-left"></i>
+                                    </button>
+                                    <button class="nav-arrow-small down" aria-label="Next page" data-nav="evidence-page-down">
+                                        <i data-lucide="circle-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="evidence-canvas" id="evidence-canvas">
+                            <div class="canvas-placeholder">
+                                <h2>Evidence Canvas</h2>
+                                <p>Supporting documents and evidence appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                    <aside class="sidebar-canvas">
+                        <div class="sidebar-bottom-box"></div>
+                        <h2 class="sidebar-variable-heading">evidence details</h2>
+                        <div class="sidebar-top-box">
+                            <!-- Evidence Summary -->
+                            <div class="evidence-summary">
+                                <div class="summary-item">
+                                    <span class="summary-label">Category:</span>
+                                    <span class="summary-value" id="summary-category">Additional Evidence</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Document:</span>
+                                    <span class="summary-value" id="summary-document">Credit Denial</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="summary-label">Pages:</span>
+                                    <span class="summary-value" id="summary-pages">1 of 3</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Evidence metadata will be populated here -->
+                            <div class="evidence-metadata">
+                                <!-- Dynamic content -->
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    
+    <!-- VioVerse Refactor JavaScript -->
+    <script src="js/csv-parser.js"></script>
+    <script src="js/refactor-behavior.js"></script>
+    <script>
+        // Initialize Lucide icons after DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Independent collapse button functionality
+            const customCollapseBtn = document.getElementById('custom-collapse-btn');
+            if (customCollapseBtn) {
+                customCollapseBtn.addEventListener('click', () => {
+                    const isExpanded = customCollapseBtn.getAttribute('aria-expanded') === 'true';
+                    const icon = customCollapseBtn.querySelector('i');
+                    
+                    if (isExpanded) {
+                        // Switch to up arrow
+                        customCollapseBtn.setAttribute('aria-expanded', 'false');
+                        icon.setAttribute('data-lucide', 'circle-chevron-up');
+                    } else {
+                        // Switch to down arrow
+                        customCollapseBtn.setAttribute('aria-expanded', 'true');
+                        icon.setAttribute('data-lucide', 'circle-chevron-down');
+                    }
+                    
+                    // Re-render the icon
+                    lucide.createIcons();
+                });
+            }
+        });
+    </script>
+    
+    <!-- Independent Collapsible Button -->
+    <div class="custom-collapse-container">
+        <button class="custom-collapse-btn" 
+                id="custom-collapse-btn"
+                aria-label="Toggle view" 
+                aria-expanded="false">
+            <i data-lucide="circle-chevron-up"></i>
+        </button>
+    </div>
+</body>
+</html>

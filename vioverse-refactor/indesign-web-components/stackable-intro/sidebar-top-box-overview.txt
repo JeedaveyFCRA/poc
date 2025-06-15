@@ -1,0 +1,34 @@
+📁 COMPONENT: sidebar-top-box-overview
+
+🧩 CONTAINS THREE STACKED MODULES (in order of appearance):
+
+1. ✅ `filter-counter` – displays filter options, collapses after run
+2. ✅ `severity-boxes-with-toggle` – summary row(s) of violations by severity
+3. ✅ `violation-details` – preloaded FCRA codes and descriptions shown on page load, collapsible
+
+All components should:
+- Use **CSS block or flex column layout**
+- Collapse without breaking stacking order
+- Animate with a 200–300ms vertical slide effect when possible
+- Never use fixed Y-positions; rely on container flow
+- Be authored in **separate READMEs**, but must remain vertically connected
+
+🔗 Linking Strategy:
+Each component should be imported into a shared wrapper (`sidebar-top-stack`) that controls vertical layout and spacing. Use margin/padding between each component—not absolute coordinates.
+
+
+
+───────────────────────────────────────────────
+
+🛠️ IMPLEMENTATION INSTRUCTION:
+
+The current sidebar interface is functioning correctly, and this prompt is not intended to alter any of the existing logic, data flow, or toggle behavior.
+
+Instead, we are now **replacing the visual presentation** of the sidebar-top-box with a new design system — using the updated visual styling, structure, and layout specifications defined in this file and the related component READMEs.
+
+This is a **visual upgrade only**. The design shown in the accompanying screenshot represents the legacy layout. Going forward, this older layout should be replaced by the modular stack described here, without disrupting existing functionality.
+
+✅ Retain all current logic.  
+✅ Replace only the visual structure and layout using the new stack.
+
+

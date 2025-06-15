@@ -1,0 +1,26 @@
+[
+  {
+    "content": "Fix filter toggle functionality not working",
+    "status": "completed",
+    "priority": "high",
+    "id": "1"
+  },
+  {
+    "content": "Fix VIOboxes not loading on page",
+    "status": "completed",
+    "priority": "high",
+    "id": "2"
+  },
+  {
+    "content": "Fix violation detail boxes not displaying in sidebar",
+    "status": "completed",
+    "priority": "high",
+    "id": "3"
+  },
+  {
+    "content": "Check for JavaScript errors breaking functionality",
+    "status": "completed",
+    "priority": "high",
+    "id": "4"
+  }
+]

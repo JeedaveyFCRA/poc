@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse Legacy UI Components - Removed</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .section {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .section-title {
+            color: #f26419;
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        pre {
+            background: #333;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+        .comment {
+            color: #7a7;
+        }
+        .removal-date {
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>VioVerse Legacy UI Components - Removed</h1>
+    <p class="removal-date">Removal Date: December 2024</p>
+    <p>This file contains all legacy UI components that were removed during the VioVerse refactor to implement the new InDesign-based component system.</p>
+
+    <!-- ============================= -->
+    <!-- HTML COMPONENTS REMOVED -->
+    <!-- ============================= -->
+    
+    <div class="section">
+        <div class="section-title">HTML: Old View Toggle Buttons (from index.html)</div>
+        <p>Location: Originally in index.html lines ~111-137</p>
+        <pre><code>&lt;!-- Removed: legacy view toggle buttons with icons (was hidden with display:none) --&gt;
+&lt;div class="view-toggle" role="tablist" aria-label="View selection" style="display: none;"&gt;
+    &lt;button class="view-btn active" 
+            role="tab" 
+            aria-selected="true"
+            aria-controls="report-view"
+            data-view="report"&gt;
+        &lt;i data-lucide="file-text"&gt;&lt;/i&gt;
+        &lt;span&gt;report&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="view-btn" 
+            role="tab" 
+            aria-selected="false"
+            aria-controls="tagger-view"
+            data-view="tagger"&gt;
+        &lt;i data-lucide="edit-3"&gt;&lt;/i&gt;
+        &lt;span&gt;viotagger&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button class="view-btn" 
+            role="tab" 
+            aria-selected="false"
+            aria-controls="evidence-view"
+            data-view="evidence"&gt;
+        &lt;i data-lucide="folder-open"&gt;&lt;/i&gt;
+        &lt;span&gt;evidence&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="section">
+        <div class="section-title">HTML: Legacy Navigation Elements (from index.html)</div>
+        <p>Location: Originally in index.html lines ~113-179</p>
+        <pre><code>&lt;!-- Removed: legacy creditor display --&gt;
+&lt;div class="creditor-display"&gt;
+    &lt;div class="creditor-info"&gt;
+        &lt;span class="creditor-label"&gt;Creditor:&lt;/span&gt;
+        &lt;span class="creditor-name"&gt;Ally Financial&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="report-date"&gt;
+        &lt;span class="date-label"&gt;Report:&lt;/span&gt;
+        &lt;span class="date-value"&gt;2024-04-25&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="creditor-nav"&gt;
+        &lt;button class="creditor-arrow prev" aria-label="Previous creditor"&gt;
+            &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;button class="creditor-arrow next" aria-label="Next creditor"&gt;
+            &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Removed: legacy bureau selection pills --&gt;
+&lt;div class="bureau-pills" role="group" aria-label="Select credit bureau"&gt;
+    &lt;button class="bureau-pill active" aria-pressed="true" data-bureau="EQ"&gt;equifax&lt;/button&gt;
+    &lt;button class="bureau-pill" aria-pressed="false" data-bureau="EX"&gt;experian&lt;/button&gt;
+    &lt;button class="bureau-pill" aria-pressed="false" data-bureau="TU"&gt;transunion&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Removed: legacy page navigation --&gt;
+&lt;div class="page-nav" aria-label="Page navigation"&gt;
+    &lt;button class="nav-arrow prev" aria-label="Previous page"&gt;
+        &lt;i data-lucide="chevron-left"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    &lt;div class="page-input-group"&gt;
+        &lt;input type="number" 
+               class="page-input" 
+               value="57" 
+               min="1" 
+               max="999"
+               aria-label="Current page"&gt;
+        &lt;span class="page-separator"&gt;/&lt;/span&gt;
+        &lt;span class="page-total"&gt;999&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button class="nav-arrow next" aria-label="Next page"&gt;
+        &lt;i data-lucide="chevron-right"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Removed: legacy tips toggle --&gt;
+&lt;button class="tips-toggle" 
+        aria-label="Toggle tooltips"
+        aria-pressed="false"&gt;
+    &lt;i data-lucide="lightbulb"&gt;&lt;/i&gt;
+    &lt;span&gt;tips off&lt;/span&gt;
+    &lt;span class="tooltip"&gt;enable fcra violation tooltips&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Removed: legacy violation counter --&gt;
+&lt;div class="violation-counter" aria-label="Violation count"&gt;
+    &lt;span class="count"&gt;500&lt;/span&gt;
+    &lt;span class="separator"&gt;/&lt;/span&gt;
+    &lt;span class="total"&gt;999&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <!-- ============================= -->
+    <!-- CSS STYLES REMOVED -->
+    <!-- ============================= -->
+    
+    <div class="section">
+        <div class="section-title">CSS: Old View Toggle Styles (from refactor-ui.css)</div>
+        <p>Location: Originally in refactor-ui.css lines ~416-460</p>
+        <pre><code><span class="comment">/* Removed: legacy view toggle button styles */</span>
+/* View Toggle Buttons */
+.view-toggle {
+    display: flex;
+    gap: 8px;
+    background-color: var(--bg-accent);
+    padding: 4px;
+    border-radius: 24px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.view-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-size: 18px;
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    min-height: 44px;
+}
+
+.view-btn span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: lowercase;
+}
+
+.view-btn i {
+    width: 18px;
+    height: 18px;
+}
+
+.view-btn:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.view-btn.active {
+    background-color: var(--color-primary);
+    color: var(--text-white);
+}</code></pre>
+    </div>
+
+    <div class="section">
+        <div class="section-title">CSS: Legacy Navigation Styles (from refactor-ui.css)</div>
+        <p>Location: Originally in refactor-ui.css lines ~398-635</p>
+        <pre><code><span class="comment">/* Removed: legacy main navigation and all child elements */</span>
+.main-nav {
+    display: flex;
+    background-color: var(--bg-card);
+    height: var(--nav-height);
+    padding: 0 24px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+}
+
+.nav-left, .nav-center, .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Creditor Display */
+.creditor-display {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 16px;
+    background-color: var(--bg-accent);
+    border-radius: 24px;
+    border: 1px solid var(--border-subtle);
+}
+
+.creditor-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.creditor-label {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.creditor-name {
+    font-size: 20px;
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    min-width: 200px;
+}
+
+.report-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+}
+
+.date-label {
+    font-size: 16px;
+    color: var(--text-secondary);
+    font-weight: var(--font-medium);
+}
+
+.date-value {
+    font-size: 18px;
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+.creditor-nav {
+    display: flex;
+    gap: 4px;
+}
+
+.creditor-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--border-subtle);
+}
+
+.creditor-arrow:hover {
+    background-color: var(--color-primary);
+    color: var(--text-white);
+    transform: translateY(-2px);
+}
+
+.creditor-arrow i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Bureau Pills */
+.bureau-pills {
+    display: flex;
+    gap: 8px;
+}
+
+.bureau-pill {
+    padding: 8px 20px;
+    border-radius: 24px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: lowercase;
+    background-color: var(--bg-accent);
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    min-height: 44px;
+    border: 1px solid var(--border-subtle);
+}
+
+.bureau-pill:hover {
+    background-color: var(--color-primary-dark);
+    color: var(--text-white);
+}
+
+.bureau-pill.active {
+    background-color: var(--color-primary);
+    color: var(--text-white);
+}
+
+/* Page Navigation */
+.page-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-arrow {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    background-color: var(--bg-accent);
+    border-radius: 24px;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--border-subtle);
+}
+
+.nav-arrow:hover {
+    background-color: var(--color-primary);
+    color: var(--text-white);
+}
+
+.nav-arrow:active {
+    background-color: var(--color-primary-dark);
+}
+
+.page-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+}
+
+.page-input {
+    width: 4ch;
+    padding: 8px;
+    font-size: 20px;
+    font-family: var(--font-mono);
+    font-weight: var(--font-medium);
+    text-align: center;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    transition: border-color var(--transition-fast);
+}
+
+.page-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.page-separator, .page-total {
+    font-size: 20px;
+    font-weight: var(--font-regular);
+    color: var(--text-secondary);
+}
+
+/* Tips Toggle */
+.tips-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: var(--text-secondary);
+    color: var(--text-white);
+    border-radius: 24px;
+    font-size: 18px;
+    font-weight: var(--font-medium);
+    transition: all var(--transition-fast);
+    min-height: 36px;
+    position: relative;
+}
+
+.tips-toggle span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: lowercase;
+}
+
+.tips-toggle[aria-pressed="true"] {
+    background-color: var(--color-primary);
+}
+
+.tips-toggle i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Violation Counter */
+.violation-counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: var(--font-bold);
+}
+
+.violation-counter .count {
+    color: var(--color-primary);
+}</code></pre>
+    </div>
+
+    <!-- ============================= -->
+    <!-- JAVASCRIPT REMOVED -->
+    <!-- ============================= -->
+    
+    <div class="section">
+        <div class="section-title">JavaScript: Old View Button Event Listeners (from refactor-behavior.js)</div>
+        <p>Location: Originally in refactor-behavior.js lines ~59-63</p>
+        <pre><code><span class="comment">// Removed: legacy view button event listeners (replaced by new toggle)</span>
+// View toggle buttons (old toggle)
+const viewButtons = document.querySelectorAll('.view-btn');
+viewButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => this.switchView(e.currentTarget.dataset.view));
+});</code></pre>
+    </div>
+
+    <div class="section">
+        <div class="section-title">JavaScript: Old Button State Updates (from refactor-behavior.js)</div>
+        <p>Location: Originally in refactor-behavior.js switchView method lines ~141-146</p>
+        <pre><code><span class="comment">// Removed: legacy view button state updates</span>
+// Update old toggle button states (if still present)
+document.querySelectorAll('.view-btn').forEach(btn => {
+    const isActive = btn.dataset.view === viewName;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive);
+});</code></pre>
+    </div>
+
+    <!-- ============================= -->
+    <!-- NOTES AND REFERENCES -->
+    <!-- ============================= -->
+    
+    <div class="section">
+        <div class="section-title">Migration Notes</div>
+        <ul>
+            <li>The old view toggle with icons has been replaced by the new InDesign-style toggle at position x=70px, y=76px</li>
+            <li>The new toggle uses a sliding orange indicator instead of individual button states</li>
+            <li>Icon usage (Lucide icons) has been removed in favor of text-only labels</li>
+            <li>The new toggle follows the Space Grotesk Bold 16pt typography specification</li>
+            <li>All functionality has been preserved in the new implementation</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">References in Updated Files</div>
+        <ul>
+            <li><strong>index.html:</strong> Line ~111 - Comment added: "Legacy UI removed — see legacy-removal.html"</li>
+            <li><strong>refactor-ui.css:</strong> Line ~416 - Comment added: "Legacy styles removed — see legacy-removal.html"</li>
+            <li><strong>refactor-behavior.js:</strong> Line ~59 - Comment added: "Legacy event listeners removed — see legacy-removal.html"</li>
+            <li><strong>refactor-behavior.js:</strong> Line ~141 - Comment added: "Legacy button state updates removed — see legacy-removal.html"</li>
+        </ul>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse Severity Boxes</title>
+    
+    <!-- Space Grotesk Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        @import url('https://use.typekit.net/qes3lop.css');
+        
+        /* Fixed viewport container */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        body {
+            background-color: #253541;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Main viewport wrapper - 1920x1080 */
+        .viewport-wrapper {
+            width: 1920px;
+            height: 1080px;
+            background-color: #253541;
+            position: relative;
+            margin: 0 auto;
+            transform-origin: top left;
+        }
+        
+        .sidebar-top-box {
+            position: absolute;
+            left: 1196px;
+            top: 126px;
+            width: 419px;
+            height: 848px;
+            background-color: white;
+            border: none;
+            border-radius: 24px;
+            z-index: 1;
+        }
+        
+        .severity-container {
+            position: absolute;
+            left: 1196px;
+            top: 126px;
+            width: 419px;
+            padding: 24px;
+            box-sizing: border-box;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .severity-header {
+            font-family: "jaf-bernino-sans-comp", sans-serif;
+            font-weight: 800;
+            font-style: normal;
+            font-size: 24pt;
+            color: rgba(37, 53, 65, 0.9);
+            margin-bottom: 7px;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+        
+        /* Common toggle button styles */
+        .severity-toggle {
+            position: absolute;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 300ms ease;
+        }
+        
+        .severity-toggle svg {
+            color: #A8AEB3;
+            transition: all 300ms ease;
+        }
+        
+        .severity-toggle:hover svg {
+            color: #F26419;
+        }
+        
+        /* Expanded state button */
+        .severity-toggle-expanded {
+            left: 1560px;
+            top: 180px;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .severity-toggle-expanded svg {
+            width: 32px;
+            height: 32px;
+        }
+        
+        /* Collapsed state button */
+        .severity-toggle-collapsed {
+            left: 1566px; /* Moved left by 8px (was 1574px) */
+            top: 184px; /* Moved down by 4px (was 180px) */
+            width: 15px;
+            height: 15px;
+            display: none; /* Hidden by default */
+            z-index: 15; /* Higher than other elements */
+            padding: 1px; /* Center the 13px icon in 15px button */
+        }
+        
+        .severity-toggle-collapsed svg {
+            width: 13px;
+            height: 13px;
+            display: block;
+            stroke-width: 2.5; /* Slightly thicker stroke for better visibility */
+        }
+        
+        .severity-stack {
+            display: flex;
+            gap: 8px;
+            position: relative;
+            z-index: 10;
+            padding-bottom: 10px; /* Space for box shadows */
+        }
+        
+        .severity-box {
+            width: 123px;
+            height: 98px;
+            background-color: #e3e2e1;
+            border: 1px solid white;
+            border-radius: 32px;
+            box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.08);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .severity-label {
+            position: absolute;
+            top: 6px;
+            width: 110px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 9.6pt;
+            color: rgba(37, 53, 65, 0.9);
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .dot-counter-group {
+            position: absolute;
+            bottom: 11px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .badge-dot {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .badge-dot svg {
+            color: white !important;
+            stroke: white !important;
+            fill: none !important;
+            width: 28px !important;
+            height: 28px !important;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .severity-counter {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 33.5pt;
+            color: rgba(37, 53, 65, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            min-width: 36px;
+            position: relative;
+            top: 2px;
+        }
+        
+        /* Tighter letter spacing for 3-digit numbers */
+        .severity-counter.three-digits {
+            letter-spacing: -0.05em;
+        }
+        
+        /* High Severity */
+        .severity-high .badge-dot {
+            background-color: #FF0000;
+        }
+        
+        /* Shield-x icon: 20% larger and moved down 3px */
+        .severity-high .badge-dot svg {
+            position: relative;
+            top: 0px;
+            width: 33.6px !important;
+            height: 33.6px !important;
+        }
+        
+        /* Medium Severity */
+        .severity-medium .badge-dot {
+            background-color: #F26419;
+        }
+        
+        /* Triangle-alert icon: 10% larger and moved up 2.3px */
+        .severity-medium .badge-dot svg {
+            position: relative;
+            top: -2.3px;
+            width: 30.8px !important;
+            height: 30.8px !important;
+        }
+        
+        /* Low Severity */
+        .severity-low .badge-dot {
+            background-color: #F2B919;
+        }
+        
+        /* Circle-alert icon: 20% larger */
+        .severity-low .badge-dot svg {
+            width: 33.6px !important;
+            height: 33.6px !important;
+        }
+        
+        /* Collapsible behavior */
+        .severity-content {
+            overflow: hidden;
+            transition: all 300ms ease;
+            transform-origin: top;
+        }
+        
+        .severity-container.collapsed .severity-content {
+            height: 0;
+            opacity: 0;
+            transform: scaleY(0);
+        }
+        
+        /* Show/hide buttons based on state */
+        .severity-container.collapsed ~ .severity-toggle-expanded {
+            display: none;
+        }
+        
+        .severity-container.collapsed ~ .severity-toggle-collapsed {
+            display: flex;
+        }
+        
+        /* Collapsed label */
+        .severity-collapsed-label {
+            position: absolute;
+            left: 292px;  /* Moved right by 8px (was 284px) */
+            top: 58px;    /* Moved down by 6px (was 52px) */
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            font-size: 8pt;
+            color: rgba(37, 53, 65, 0.9);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 300ms ease;
+            cursor: pointer;
+            z-index: 11; /* Ensure it's above other elements */
+        }
+        
+        .severity-collapsed-label:hover {
+            color: #F26419;
+        }
+        
+        .severity-container.collapsed .severity-collapsed-label {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .severity-container.collapsed .severity-header {
+            opacity: 0;
+        }
+        
+        /* Scale viewport for smaller screens */
+        @media (max-width: 1920px) {
+            .viewport-wrapper {
+                transform: scale(0.9);
+            }
+        }
+        
+        @media (max-width: 1728px) {
+            .viewport-wrapper {
+                transform: scale(0.8);
+            }
+        }
+        
+        @media (max-width: 1536px) {
+            .viewport-wrapper {
+                transform: scale(0.7);
+            }
+        }
+        
+        @media (max-width: 1344px) {
+            .viewport-wrapper {
+                transform: scale(0.6);
+            }
+        }
+        
+        @media (max-width: 1152px) {
+            .viewport-wrapper {
+                transform: scale(0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="viewport-wrapper">
+        <!-- White sidebar background box -->
+        <div class="sidebar-top-box"></div>
+        
+        <!-- Severity content -->
+        <div class="severity-container">
+            <span class="severity-collapsed-label">show severity</span>
+            <h2 class="severity-header">severity summary</h2>
+            <div class="severity-content" id="severity-content">
+                <div class="severity-stack">
+            <!-- High Severity Box -->
+            <div class="severity-box severity-high">
+                <div class="severity-label">high<br>severity</div>
+                <div class="dot-counter-group">
+                    <div class="badge-dot">
+                        <i data-lucide="shield-x"></i>
+                    </div>
+                    <span class="severity-counter" data-severity="high">8</span>
+                </div>
+            </div>
+            
+            <!-- Medium Severity Box -->
+            <div class="severity-box severity-medium">
+                <div class="severity-label">medium<br>severity</div>
+                <div class="dot-counter-group">
+                    <div class="badge-dot">
+                        <i data-lucide="triangle-alert"></i>
+                    </div>
+                    <span class="severity-counter" data-severity="medium">12</span>
+                </div>
+            </div>
+            
+            <!-- Low Severity Box -->
+            <div class="severity-box severity-low">
+                <div class="severity-label">low<br>severity</div>
+                <div class="dot-counter-group">
+                    <div class="badge-dot">
+                        <i data-lucide="circle-alert"></i>
+                    </div>
+                    <span class="severity-counter" data-severity="low">4</span>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toggle button for expanded state -->
+        <button class="severity-toggle severity-toggle-expanded" aria-expanded="true" aria-controls="severity-content">
+            <i data-lucide="circle-chevron-up"></i>
+        </button>
+        
+        <!-- Toggle button for collapsed state -->
+        <button class="severity-toggle severity-toggle-collapsed" aria-expanded="false" aria-controls="severity-content">
+            <i data-lucide="circle-chevron-down"></i>
+        </button>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Collapsible toggle functionality
+        const container = document.querySelector('.severity-container');
+        const toggleExpanded = document.querySelector('.severity-toggle-expanded');
+        const toggleCollapsed = document.querySelector('.severity-toggle-collapsed');
+        const content = document.querySelector('.severity-content');
+        const collapsedLabel = document.querySelector('.severity-collapsed-label');
+        
+        function toggleCollapse() {
+            // Toggle collapsed class
+            container.classList.toggle('collapsed');
+            
+            // Update aria-expanded on both buttons
+            const isCollapsed = container.classList.contains('collapsed');
+            toggleExpanded.setAttribute('aria-expanded', !isCollapsed);
+            toggleCollapsed.setAttribute('aria-expanded', !isCollapsed);
+            
+            // Buttons visibility is handled by CSS
+            
+            // Announce state change for accessibility
+            const announcement = isCollapsed ? 'Severity summary collapsed' : 'Severity summary expanded';
+            const liveRegion = document.createElement('div');
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            liveRegion.style.position = 'absolute';
+            liveRegion.style.left = '-9999px';
+            liveRegion.textContent = announcement;
+            document.body.appendChild(liveRegion);
+            setTimeout(() => liveRegion.remove(), 1000);
+        }
+        
+        // Add click events to both toggle buttons
+        toggleExpanded.addEventListener('click', toggleCollapse);
+        toggleCollapsed.addEventListener('click', toggleCollapse);
+        
+        // Add click event to collapsed label
+        collapsedLabel.addEventListener('click', toggleCollapse);
+        
+        // Example of data-driven counter updates
+        function updateSeverityCounts(counts) {
+            ['high', 'medium', 'low'].forEach(severity => {
+                if (counts[severity] !== undefined) {
+                    const counter = document.querySelector(`[data-severity="${severity}"]`);
+                    counter.textContent = counts[severity];
+                    // Apply three-digits class for numbers >= 100
+                    if (counts[severity] >= 100) {
+                        counter.classList.add('three-digits');
+                    } else {
+                        counter.classList.remove('three-digits');
+                    }
+                }
+            });
+        }
+        
+        // Apply three-digits class on initial load
+        document.querySelectorAll('.severity-counter').forEach(counter => {
+            const value = parseInt(counter.textContent);
+            if (value >= 100) {
+                counter.classList.add('three-digits');
+            }
+        });
+        
+        // Example usage:
+        // updateSeverityCounts({ high: 8, medium: 12, low: 4 });
+    </script>
+</body>
+</html>
