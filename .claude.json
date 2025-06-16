@@ -25,6 +25,95 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "how about leveraging the bureaus and getting paid so they but it so it doesnt get released",
+          "pastedContents": {}
+        },
+        {
+          "display": "is this an ai say what i wanna hear answer or is the real world facts",
+          "pastedContents": {}
+        },
+        {
+          "display": "what value potential over the next 5 years? 6 mos 1 yr, 2yr, 3yr 4yr and 5 yr.",
+          "pastedContents": {}
+        },
+        {
+          "display": "now that you have all my personal case info and the info you know about the vioverse what do you think about the business now. honestly",
+          "pastedContents": {}
+        },
+        {
+          "display": "\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\Master-Evidence-Data_v3.csv\" Can you analyze this as well, these are taken from the creditreports from my case and tell me iff you see anything else?",
+          "pastedContents": {}
+        },
+        {
+          "display": "[Pasted text #1 +24 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "You’ve already reviewed the FCRA statutes and violation codes. Now I’ve compiled a tag-based inventory summarizing all known evidence, harms, and patterns across my case.\n\nPlease:\n\nIdentify the strongest legal throughlines — from violation → harm → denial → ongoing impact.\n\nBuild evidence clusters around each major creditor using the tags (#frozen-tradeline, #duplicate-chargeoff, #score-drop, etc.)\n\nSuggest how each tagged pattern (e.g., frozen tradeline) supports willfulness (§1681n) or negligence (§1681o).\n\nFlag gaps or missing documents that weaken key claims.\n\nCreate a visual narrative plan — a timeline of harm centered on February 9, 2024, that groups documents into pre-discharge, post-discharge, and denial-phase segments.\n\nValidate that all damages (financial + emotional) are document-linked and timeline-anchored.\n\nThis output will be used in:\n\nDispute automation tools\n\nAttorney case viewer (VioCore)\n\nViobox overlays\n\nPotential class action review"
+            }
+          }
+        },
+        {
+          "display": "Can you just rewrite the final md file and let me know where it is so i can copy paste it",
+          "pastedContents": {}
+        },
+        {
+          "display": "[Pasted text #1 +123 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "I've rewritten all of my TransUnion, Experian, and Equifax Viobox violation descriptions based on your original audit of my case. These rewrites reflect your guidance on updated FCRA codes, severity, and narrative strength.\n\nPlease:\n\nVerify each FCRA code is correctly applied\n\nImprove or tighten language where needed\n\nFlag any redundancy or fields that could be merged\n\nSuggest any additional violations I missed\n\nConfirm if each entry reflects negligence vs. willfulness\n\nThese rewrites form the backbone of my Viotagger system — a visual FCRA violation mapping tool used in VioVerse. Your legal reasoning will finalize these templates for real-world use by attorneys, regulators, and case builders.\n\n__________________________________________________________\n\n🔵 TransUnion (Updated – Post-Claude Review)\n__________________________________________________________\n\nDate Updated: 02/19/2024\n§1681s-2(a)(1)(A), §1681e(b), §1681n\nCreditor updated account 10 days after bankruptcy discharge but failed to correct false bankruptcy status, indicating actual knowledge and willful noncompliance.\n\nPay Status: >Account Included in Bankruptcy<\n§1681s-2(a)(1)(A), §1681e(b), §1681c(a)(1)\nAccount falsely reports active bankruptcy inclusion after Feb 9, 2024 discharge. Should state 'Discharged' or 'Closed.' Misleads future lenders and violates post-discharge accuracy requirements.\n\nDate Closed: 02/19/2024\n§1681s-2(a)(1)(A), §1681e(b)\nClosure date manipulated to match update date instead of reflecting actual discharge on Feb 9, 2024. Backdating suggests intentional delay in compliance.\n\nRemarks: CHAPTER 13 BANKRUPTCY\n§1681s-2(a)(1)(A), §1681e(b)\nBankruptcy remark remained unchanged after discharge. Must be updated to reflect 'Discharged through Chapter 13' or removed entirely.\n\nOn Record Until: 09/2025\n§1681e(b), §1681c(a)(1), §1681c(a)(4)\nRemoval date calculated from incorrect triggering event. Post-discharge accounts must follow the 7-year rule from date of first delinquency or discharge, whichever is earlier.\n\n\n__________________________________________________________\n\n🟠 Experian (Updated – Post-Claude Review)\n__________________________________________________________\n\nStatus: Discharged through Bankruptcy Chapter 13\n§1681s-2(a)(1)(A), §1681c(a)(4), §1681e(b)\nStatus field shows “Discharged,” but full account accuracy must reflect that status across all related fields — balance, payment history, and update dates. Partial compliance is misleading.\n\nStatus Updated: Oct 2018\n§1681c(a)(4), §1681s-2(a)(1)(A), §1681n\nStatus date frozen over 5 years before discharge. Failure to update post-February 9, 2024 indicates reckless disregard and willful noncompliance.\n\nBalance: -\n§1681s-2(a)(1)(A), §1681e(b)\nBalance field blank or missing after discharge. Should reflect $0 or clearly state “Discharged” to comply with post-bankruptcy accuracy obligations.\n\nBalance Updated: -\n§1681s-2(a)(8), §1681e(b), §1681c(a)(4)\nNo update date shown after discharge. Violates statutory duty to update account information and provide accurate timeline of changes.\n\nRecent Payment: -\n§1681s-2(a)(1)(A), §1681e(b)\nPayment history not shown. Post-discharge accounts should show last valid pre-bankruptcy activity or display “N/A” if obligation was discharged.\n\nMonthly Payment: -\n§1681e(b)\nMonthly payment field blank. For discharged debts, this should either be $0 or omitted entirely to prevent misleading payment expectations.\n\nHighest Balance: -\n§1681e(b)\nHistorical high balance missing. While less critical individually, absence of this data contributes to overall pattern of incomplete or abandoned reporting.\n\nOn Record Until: Oct 2025\n§1681e(b), §1681c(a)(1), §1681c(a)(4)\nAccount removal date miscalculated. Should reflect 7 years from discharge date (Feb 2031) or from the date of first delinquency, not arbitrary default.\n\n__________________________________________________________\n\n🔴 Equifax (Updateod – Pst-Claude Review)\n__________________________________________________________\n\n\nAccount Status: INCLUDED_IN_CHAPTER_13\n§1681s-2(a)(1)(A), §1681e(b), §1681n\nCRITICAL: Account falsely reports active Chapter 13 inclusion after discharge on February 9, 2024. This directly contradicts legal status and demonstrates willful noncompliance.\n\nReported Balance: $0\n§1681e(b), §1681s-2(a)(1)(A)\nZero balance shown while account status still lists active bankruptcy. This internal contradiction reveals unreliable or negligent data handling.\n\nAvailable Credit\n§1681e(b), §1681s-2(a)(1)(A)\nAvailable credit missing or inaccurate. For discharged revolving accounts, this field should show $0 or be removed entirely.\n\nHigh Credit\n§1681e(b)\nHigh credit value missing or not accurately retained. Weakens completeness and consistency of the credit file.\n\nCredit Limit\n§1681e(b), §1681s-2(a)(1)(A)\nCredit limit inaccurate or absent. Post-discharge accounts should show limit as $0 or marked closed.\n\nBalance: $0\n§1681e(b)\nDuplicate of “Reported Balance.” Should be merged or reconciled with that field. Blank or $0 balances must still match updated status fields.\n\nDate Reported: Oct 25, 2018\n§1681c(a)(4), §1681e(b), §1681s-2(a)(8), §1681n\nDate field frozen over 5 years before the discharge. This long-term failure to update demonstrates abandonment of reinvestigation duties and supports willful classification.\n\nBankruptcy Chapter 13\n§1681s-2(a)(1)(A), §1681e(b)\nField references bankruptcy but omits “Discharged” or closing context. Misleads users about current legal status of account.\n\nBankruptcy Completed\n§1681e(b)\nField may be technically correct but incomplete. Must explicitly state “Discharged February 9, 2024” to ensure clarity and full accuracy.\n\n\n\n[I"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +87 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "You now have access to the following Markdown files in:\n/home/avid_arrajeedavey/vioverse-refactor/case-files/\n\nPlease process them using the following case inventory and instructions:\n\n📊 COMPREHENSIVE CASE FILE INVENTORY\n\nUse this summary to:\n• Map documents to system components (VioNarrative, VioProof, Dispute Letters)\n• Tag content with the correct document type, severity markers, and creditor codes\n• Identify missing or incomplete content\n• Prepare summaries or splits as needed\n\n🔴 CRITICAL EVIDENCE\n\n1. order_of_discharge.md\n   - Chapter 13 Discharge (Feb 9, 2024)\n   - Legal trigger for violations\n\n2. case_11.md\n   - Rocket Mortgage Credit Upgrade Referral\n   - Shows 600 TU score, 640 needed, $10K demand\n   - 107-point drop connected to 13 creditors\n\n3. case6.md\n   - Cross-bureau comparison\n   - Frozen tradelines, missing discharge data\n   - Shows Discover Bank’s shifting balance ($0 → $23K)\n\n📈 HARM DOCUMENTATION\n\n- Financial Denials:\n  • Rocket x2, Best Egg x2, Capital One, Rocket Loans\n- Score Drop:\n  • 107-point TransUnion decline (case7.md)\n- Lost Refinance:\n  • $23,000 + $1,000/month ongoing impact\n- Emotional Impact Letters:\n  • Ally (case8.md), Barclays (case8.md), Cornerstone (case7.md)\n  • JPMCB, Mariner (case4.md), THD/CBNA (case2.md)\n\n🚨 WILLFULNESS INDICATORS\n\n- Frozen tradelines after discharge (esp. Ally: 02/19/2024)\n- Duplicate charge-offs (JPMCB, Mariner, Discover)\n- Bureau misreporting (Equifax, Experian, TransUnion in case5.md, case1.md)\n\n📅 TIMELINE STRUCTURE\n\n- Pre-discharge warnings: Jan 2024 (Best Egg, score drop)\n- Post-discharge cascade: Rocket referral → multiple denials → ongoing harm through March 2025\n\n🔧 SYSTEM INTEGRATION TAGS\n\nDocument Types:\n- discharge_order\n- credit_denial\n- emotional_impact\n- bureau_report\n- internal_confirmation\n- investigation_result\n\nSeverity Tags:\n- frozen_tradeline\n- duplicate_charge_off\n- missing_discharge\n- bureau_mismatch\n- score_drop\n\nCreditor Codes (13 total):\nAL, BK, BY, BB, C1, CR, DB, DL, HD, JP, MF, SR, TH\n\n📍 MISSING/INCOMPLETE\n\n1. Domestic_Order_of_Supposer.md → Appears incomplete (template only)\n2. Initial bureau dispute letters → Only results are present\n3. Medical records → Would support emotional harm claims\n\n✅ NEXT STEPS\n\n1. Organize documents by creditor across files\n2. Build a central timeline anchored on Feb 9, 2024\n3. Calculate total financial losses\n4. Isolate strongest willfulness evidence for litigation use\n5. Assist in generating dispute letter templates per creditor using linked violations\n\nPlease confirm each file’s contents and create a tag-based inventory or markdown index.\n[I"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +27 lines] [Pasted text #2 +12 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "You now have access to a folder of Markdown files located at:\n\n/home/avid_arrajeedavey/vioverse-refactor/case-files/\n\nThese files contain critical documents from my FCRA case, and are organized as follows:\n\n- `order_of_discharge.md` → My official Chapter 13 discharge order\n- `Domestic_Order_of_Supposer.md` → The domestic support obligation (DSO) filing that reopened my case briefly\n- `case1.md` through `case11.md` → These contain multiple emotional impact letters, dispute letter excerpts, and violation documentation. They are not grouped by creditor or bureau but spread evenly across files for readability.\n\nEach `caseX.md` file may contain several distinct cases or letters inside it. Some reference new FCRA violations discovered after my April 2025 credit report reviews. Others are earlier drafts or personal narratives.\n\n📌 Please scan and parse all `caseX.md` files. For each one:\n\n1. Identify each distinct letter, document, or narrative inside.\n2. Note if any document refers to:\n   - A specific creditor (e.g., JPMCB, Mariner, etc.)\n   - A specific bureau (e.g., Equifax, TransUnion, Experian)\n   - New FCRA violations (especially any flagged post-Feb 9, 2024)\n3. Create a brief summary for each section or letter with the following:\n   - **Title or Heading** (if available)\n   - **Creditor(s)** involved\n   - **FCRA Code(s)** mentioned (if any)\n   - **Whether it includes post-discharge violations**\n   - **Filename** and location\n\nYour goal is to help me inventory what I’ve already written, so I can reuse or revise it in the correct part of the case system (VioNarrative, VioProof, or dispute letters). Let me know if any files appear incomplete or need restructuring.\n"
+            },
+            "2": {
+              "id": 2,
+              "type": "text",
+              "content": "\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\order_of_discharge.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case_10.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case_11.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case1.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case2.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case3.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case4.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case5.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case6.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case7.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case8.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\case9.md\"\n\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case-files\\Domestic_Order_of_Supposer.md\""
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +56 lines]\"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\case.md\"",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 Instruction to Claude: Case Integration and Connection Mapping\nYou are reviewing a complete collection of dispute letters, denial letters, and supporting documents from a live FCRA violation case. The legal backbone has already been validated — now your role is to analyze, connect, and organize the documents across time, creditors, and statutes.\n\n🎯 Your Goals:\nBuild Relationships Across Evidence\n\nGroup related items (e.g., a dispute letter and the creditor’s response)\n\nLink denial letters to the specific violations or creditors that caused them\n\nIdentify cause → effect patterns (e.g., misreporting → score drop → denial)\n\nConstruct a Chronological Legal Narrative\n\nUse February 9, 2024 as the legal inflection point\n\nPlace each document on a timeline of harm and response\n\nMark which documents are pre-discharge, post-discharge, or trigger-related\n\nMap Violations to Harm\n\nMatch each creditor's violations to emotional, financial, or legal harm\n\nIdentify when a single error causes multiple downstream impacts\n\nHighlight Escalation-Ready Evidence\n\nFlag documents that strongly demonstrate:\n\nWillful noncompliance\n\nOngoing harm (e.g., repeated denials)\n\nClear financial loss or opportunity cost\n\nPrepare for System Integration\n\nStructure your findings so they can be tagged, sorted, and visualized in VioCore and VioNarrative modules\n\nUse consistent metadata: creditor, bureau, date, violation type, severity\n\n✅ Output Style (Optional Suggestions):\nIf you'd like Claude to give you structured output, suggest:\n\n✅ A summary table of document connections\n\n✅ A timeline of violations and harms\n\n✅ A relationship graph of letters → denials → impacts\n\n✅ Suggestions for evidence groupings in the UI or automation\n\n📌 Final Reminder:\nThis is not just a document review — it’s the foundation of a systemic harm narrative, ready to be used in legal action, visual storytelling, or regulatory complaints. Make the invisible connections visible.\n\n"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +100 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "✅ CLAUDE CODE REVIEW PROMPT:\nPurpose: Deep legal audit of pre-written Viotagger violation descriptions against the Fair Credit Reporting Act (FCRA) using my February 9, 2024 discharge date as the central legal trigger.\n\n🔒 SYSTEM CONTEXT\nYou are assisting in a highly structured FCRA enforcement system called VioTagger, which powers a legal-tech platform called VioVerse. This system identifies, classifies, and presents credit reporting violations using exact coordinates on PNG versions of credit reports. Each Viobox represents a known or suspected FCRA violation, with:\n\nX,Y,W,H pixel coordinates on the credit report image\n\nCreditor code (e.g., AL for Ally)\n\nBureau (EQ/EX/TU)\n\nReport date (e.g., 2024-04-25)\n\nWe’ve pre-written standard violation descriptions for 99% of recurring data elements found in reports from Equifax, Experian, and TransUnion, all centered on my bankruptcy discharge and post-discharge reporting violations.\n\nThese pre-written entries include:\n\nThe field name shown on the credit report (e.g., \"Account Status: INCLUDED_IN_CHAPTER_13\")\n\nThe FCRA statute(s) we determined apply (e.g., §1681c(f), §1681e(b))\n\nA description for reviewers and attorneys (e.g., \"Account misreported as active in Chapter 13 after discharge\")\n\n📌 LEGAL TRIGGER: FEBRUARY 9, 2024\nThis date is the confirmed discharge date of my Chapter 13 bankruptcy. It is the legal threshold that separates protected bankruptcy-era reporting from mandatory post-discharge accuracy.\n\nAny creditor or bureau reporting after this date has an affirmative legal duty to:\n\nRemove or update bankruptcy-related notations (e.g., “Included in Chapter 13”)\n\nStop reporting delinquencies or balances that were discharged\n\nReflect account closure, $0 balance, or “Discharged through Chapter 13”\n\nUpdate all fields (Status, Balance, Payment, Remarks, Dates) to align with the discharge\n\nAny failure to do so after this date is either:\n\nNegligent (§1681o) or\n\nWillful (§1681n) noncompliance,\ndepending on the presence of continued monthly reporting or updates.\n\n🧠 YOUR TASK: FCRA REASONING & DESCRIPTION VALIDATION\nGo field by field using the tables below. For each violation entry:\n\nAssess the FCRA code(s) listed. Are they the most precise?\n\nEnhance or revise the written descriptions if needed — for clarity, legal specificity, or force.\n\nConsider severity and whether additional violations may apply.\n\nSuggest any new FCRA codes or notes where patterns suggest willfulness, repeated monthly reporting, or knowledge of discharge.\n\nIf anything is missing from our existing list of standardized descriptions, recommend additions.\n\n📋 VIOLATION TEMPLATES (BY BUREAU)\n🔵 TransUnion\nField    Statute(s)    Description\nDate Updated: 02/19/2024    §1681s-2(a)(1)(A), §1681e(b)    Date updated but data still inaccurate\nPay Status: \"Account Included in Bankruptcy\"    §1681c(f), §1681e(b)    Misleading status post-discharge\nDate Closed: 02/19/2024    §1681s-2(a)(1)(A), §1681e(b)    Wrong or backdated closure\nRemarks: \"CHAPTER 13 BANKRUPTCY\"    §1681c(f), §1681e(b)    Misreported bankruptcy notation\nOn Record Until: 09/2025    §1681e(b), §1681c(a)(1)    Incorrect or outdated removal date\n\n🟠 Experian\nField    Statute(s)    Description\nStatus: \"Discharged through Bankruptcy Chapter 13\"    §1681s-2(a)(1)(A), §1681c(a)(4), §1681e(b)    Status fails to reflect discharge update\nStatus Updated: Oct 2018    §1681c(a)(4), §1681s-2(a)(1)(A)    Stale 'Status Updated' field from years earlier\nBalance: -    §1681e(b), §1681c(f)    Missing balance value post-discharge\nBalance Updated: -    §1681e(b), §1681c(a)(4)    No recent balance update post-discharge\nRecent Payment: -    §1681e(b)    Missing/blank payment activity\nMonthly Payment: -    §1681e(b)    Monthly payment field missing\nHighest Balance: -    §1681e(b)    Missing highest balance field\nOn Record Until: Oct 2025    §1681e(b), §1681c(a)(1)    Incorrect or outdated removal date\n\n🔴 Equifax\nField    Statute(s)    Description\nAccount Status: INCLUDED_IN_CHAPTER_13    §1681c(f), §1681e(b)    Account misreported as active in Chapter 13 after discharge\nReported Balance: $0    §1681e(b), §1681c(f)    Zero balance misreported with discharge context\nAvailable Credit    §1681e(b)    Available credit field inaccurate or blank\nHigh Credit    §1681e(b)    High credit not accurately reflected\nCredit Limit    §1681e(b)    Missing or inaccurate limit field\nBalance: $0    §1681e(b), §1681c(f)    Blank or false balance after discharge\nDate Reported: Oct 25, 2018    §1681c(a)(4), §1681e(b)    Frozen/stale date from pre-discharge era\nBankruptcy Chapter 13    §1681c(f), §1681e(b)    Incorrect bankruptcy reporting\nBankruptcy Completed    §1681e(b)    Status not updated after discharge\n\n📎 ADDITIONAL FILES AVAILABLE\nI can supply the following upon request:\n\n✅ Full credit report PDFs and PNGs across 13 creditors\n\n✅ Master Evidence Data CSV with violation flags and timeline mapping\n\n✅ All original documents supporting harm, denials, and reinvestigation failures\n\n✅ Source code for Viotagger and export structure to Airtable or JSON\n\nLet me know what else you need to complete your audit."
+            }
+          }
+        },
+        {
           "display": "much better, but you cant pinch it down to make it smaller, when you let go, it gets bigger again.",
           "pastedContents": {}
         },
@@ -398,60 +487,6 @@
         },
         {
           "display": "You can click on any area within the Outer Pill (Scroll Track) that is not occupied by the Scroll Pill (Scroll Thumb) and this will do a \"jump scroll:(the behavior works the same way standard scroll button functions.",
-          "pastedContents": {}
-        },
-        {
-          "display": "the top of the Scroll Pill (Scroll Thumb) must maintain a minimun clearance of 3 px from the bottom of the Lucide icon: circle-arrow-up. the bottom of the Scroll Pill (Scroll Thumb) must maintain a minimun clearance of 3 px from the top of the Lucide icon: circle-arrow-down   ",
-          "pastedContents": {}
-        },
-        {
-          "display": "move it up 16 px from its current position",
-          "pastedContents": {}
-        },
-        {
-          "display": "move down 8 px from its current position",
-          "pastedContents": {}
-        },
-        {
-          "display": "move the Scroll Pill (Scroll Thumb) to the left 1.5 px and down 18 px from its current position",
-          "pastedContents": {}
-        },
-        {
-          "display": "you were supposed to update the index.html's existing Custom-Scroll-Vio-Details Component with the new specs. You created test-scroll.html and it wasn't needed because all the functionality was build, tested and working, just sizes and positions were modified.",
-          "pastedContents": {}
-        },
-        {
-          "display": "ok lets update the index.html",
-          "pastedContents": {}
-        },
-        {
-          "display": "I  want to update the Custom-Scroll-Vio-Details Component. Here are the new specs:[Pasted text #1 +60 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "🎯 CUSTOM SCROLLBAR DESIGN\n\n\n1. Scroll Up Icon\n\nLucide icon: circle-arrow-up\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nNo fill\nClick color: #f26419\n\nPosition:\nx: 1618 px\ny: 185 px\nw: 10 px\nh: 10 px\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n2. Scroll Down Icon\n\nLucide icon: circle-arrow-down\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nColor (default): #9ba1a6\nClick color: #f26419\n\nPosition:\nx: 1618 px\ny: 827 px\nw: 10 px\nh: 10 px\n\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n3. Outer Pill (Scroll Track)\n\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nstroke weight: 1 pt\n\nPosition:\nx: 1618 px\ny: 185 px\nW: 10 px\nh: 652 px\n\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n4. Scroll Pill (Scroll Thumb)\nfill Color: #f26419\nNo stroke\n\nPosition:\nx: 1620.5 px\ny: 186 px\nw: 5px\nH: Max depth can be up to 620 px (height should be variable, based on scroll content)\n"
-            }
-          }
-        },
-        {
-          "display": "🔒 VIOVERSE-REFACTOR SCOPE RULES\nWORK ONLY IN:\n\nswift\nCopy\nEdit\n/home/avid_arrajeedavey/vioverse-refactor/\nRULES:\n✅ READ parent directories for reference only\n\n❌ DO NOT WRITE outside vioverse-refactor\n\n❗ If you modify files outside: REVERT IMMEDIATELY\n\n📁 Treat all other folders as READ-ONLY\n\nCONTEXT:\nThis is a standalone refactor of the POC Viewer.\nThe original version (outside this folder) must remain untouched.\n\n🔁 Command Reminder:\nbash\nCopy\nEdit\ncd /home/avid_arrajeedavey/vioverse-refactor\n✅ Sample Prompt:\n“Work only in /vioverse-refactor/. Read parent files if needed, but don’t edit anything outside.”\n\ni want you to make edits to this file so we can update and add features to our website: \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\index.html\" Do not update any other files unless you ask and receive my approval. You can make helper test html files for testing and debugging. Nice to meet you.",
-          "pastedContents": {}
-        },
-        {
-          "display": "than ks and good night",
-          "pastedContents": {}
-        },
-        {
-          "display": "can you move the inner pill over 1.5 px to the left from its current position",
-          "pastedContents": {}
-        },
-        {
-          "display": "when i drag the inner pill lots of items in thr reort canvas and the fcra review summary seenm to get selected (highlight in blue)",
-          "pastedContents": {}
-        },
-        {
-          "display": "no fill on the outer track just  a 1 pt stroke",
           "pastedContents": {}
         }
       ],
