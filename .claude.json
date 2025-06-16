@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "much better, but you cant pinch it down to make it smaller, when you let go, it gets bigger again.",
+          "pastedContents": {}
+        },
+        {
           "display": "\nThe report canvas is locked in place and the rest of the page moves around, but you can't scale the page down with your finger pinches, and it's just very unusable. The FCI review summary box, you can move it right over the report canvas. It's just very strange.",
           "pastedContents": {}
         },
@@ -448,10 +452,6 @@
         },
         {
           "display": "no fill on the outer track just  a 1 pt stroke",
-          "pastedContents": {}
-        },
-        {
-          "display": "IMPORTANT SPEC UPDATES: 🎯 CUSTOM SCROLLBAR DESIGN\n1. Scroll Up Icon\nLucide icon: circle-arrow-up\n\nStroke: Color (default): #9ba1a6 (30% tint of #253541)\nstroke weight: 1 pt\nNo fill\n\nClick color: #f26419\n\nPosition:\n\nx: 1620 px\n\ny: 481 px\n\nSize: 6 px × 6 px\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n2. Scroll Down Icon\nLucide icon: circle-arrow-down\n\nColor (default): #9ba1a6\n\nClick color: #f26419\n\nPosition:\n\nx: 1620 px\n\ny: 829 px\n\nSize: 6 px × 6 px\n\n\n🔒 DO NOT CHANGE THESE VALUES\n\n3. Outer Pill (Scroll Track)\nColor: #9ba1a6\n\nPosition:\n\nx: 1618 px\n\ny: 478 px\n\nW: 10 px\n\nh: 360 px\n\n🔒 DO NOT CHANGE THESE VALUES\n\n4. Scroll Pill (Scroll Thumb)\nfill Color: #f26419\nNo stroke\n\nPosition:\n\nx: 1618 px\n\ny: 490 px\n\nw: 5px\n\nH: Max depth can be up to 336 px (height should be variable, based on scroll content)\n",
           "pastedContents": {}
         }
       ],
