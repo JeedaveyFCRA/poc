@@ -148,3 +148,14 @@ local-settings.json
 !*.json
 
 .npm-global/
+# Ignore system and Claude-specific config files
+.bash_history
+.claude/
+*.json
+*.jsonl
+
+.bash_history
+.claude/
+*.json
+*.jsonl
+
