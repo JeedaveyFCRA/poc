@@ -112,9 +112,8 @@
     stroke: #F26419 !important;
 }
 
-/* Enable scrolling on mobile devices */
+/* Base styles for desktop and mobile */
 html {
-    overflow: visible;
     width: 100%;
     height: 100%;
 }
@@ -131,9 +130,40 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
-    /* Ensure body can scroll */
-    overflow: visible;
-    width: 100%;
+}
+
+/* Desktop screens (larger than 1920px) */
+@media (min-width: 1921px) {
+    body {
+        overflow: hidden;
+    }
+    
+    /* Use fixed positioning on desktop for proper layout */
+    .docket-header,
+    .arrow-collapsed,
+    .tool-tips-toggle,
+    .search-box,
+    .view-toggle-new,
+    .report-canvas-container,
+    .tagger-canvas-container,
+    .evidence-canvas-container,
+    .sidebar-canvas {
+        position: fixed !important;
+    }
+}
+
+/* Mobile and tablet screens */
+@media (max-width: 1920px) {
+    html, body {
+        overflow: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Container to ensure proper scrolling */
+    .vioverse-app {
+        min-height: 1080px; /* Ensure minimum height */
+        overflow: visible !important;
+    }
 }
 
 img {
@@ -187,8 +217,8 @@ input {
    ======================================== */
 .vioverse-app {
     position: relative;
-    width: 1920px; /* Fixed width instead of min-width for consistent scrolling */
-    min-height: 100vh;
+    width: 1920px; /* Fixed width for consistent layout */
+    height: 1080px; /* Fixed height to contain all elements */
     margin: 0;
     background-color: #4f5a63;
     overflow: visible;
@@ -199,7 +229,7 @@ input {
    Docket Header
    ======================================== */
 .docket-header {
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     top: 9px;
     left: 11px;
     width: 1898px;
@@ -269,7 +299,7 @@ input {
 
 /* Down arrow when collapsed - for docket header */
 .arrow-collapsed {
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     top: 18px; /* 9px + 9px to center in the 48px space */
     left: 38px; /* 11px + 27px to maintain same x position */
     width: 28px;
@@ -377,7 +407,7 @@ input {
    Tool Tips Toggle
    ======================================== */
 .tool-tips-toggle {
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     top: 135px;
     left: 279px;
     width: 56px;
@@ -449,7 +479,7 @@ input {
    Search Box
    ======================================== */
 .search-box {
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     top: 135px;
     left: 70px;
     width: 194px;           /* Increased by 14px (was 180px) */
@@ -569,7 +599,7 @@ input {
    New View Toggle
    ======================================== */
 .view-toggle-new {
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     top: 76px;
     left: 70px;
     width: 270px;
@@ -702,7 +732,7 @@ input {
 .report-canvas-container,
 .tagger-canvas-container,
 .evidence-canvas-container {
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     left: 360px;
     top: 69px;
     width: 810px;
@@ -1135,7 +1165,7 @@ input {
    Sidebar Canvas Structure
    ======================================== */
 .sidebar-canvas {
-    position: fixed;
+    position: absolute; /* Changed from fixed to absolute */
     left: 1180px;
     top: 69px;
     width: 452px;
@@ -1974,55 +2004,11 @@ body.dragging-scroll {
     }
 }
 
+/* Mobile optimizations - preserve desktop layout but enable scrolling */
 @media (max-width: 768px) {
-    /* Convert fixed elements to absolute for mobile scrolling */
-    .docket-header,
-    .arrow-collapsed,
-    .tool-tips-toggle,
-    .search-box,
-    .view-toggle-new,
-    .sidebar-canvas {
-        position: absolute !important;
-    }
-    
-    /* Ensure the app container allows scrolling on mobile */
-    .vioverse-app {
-        overflow: visible;
-        position: relative;
-    }
-    
-    .content-wrapper {
-        flex-direction: column;
-    }
-    
-    .violation-sidebar, .tagger-sidebar, .evidence-sidebar {
-        width: 100%;
-        border-left: none;
-        border-top: 1px solid var(--border-subtle);
-        margin-top: 16px;
-        height: auto;
-    }
-    
-    .viobox {
-        width: 90%;
-        max-width: 557px;
-    }
+    /* Keep desktop layout intact for mobile scrolling */
 }
 
-/* ========================================
-   Mobile-specific fixes for scrolling
-   ======================================== */
-@media (max-width: 1920px) {
-    html, body {
-        overflow: auto !important;
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    }
-    
-    .vioverse-app {
-        position: relative !important;
-        overflow: visible !important;
-    }
-}
 
 /* ========================================
    Tooltip System

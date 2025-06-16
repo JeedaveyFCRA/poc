@@ -1,20 +1,20 @@
 [
   {
-    "content": "Fix viewport meta tag to allow zooming and scrolling",
+    "content": "Fix report canvas positioning to move with the page",
     "status": "completed",
     "priority": "high",
     "id": "1"
   },
   {
-    "content": "Ensure the fixed-width layout is scrollable on mobile",
+    "content": "Create a wrapper to contain all elements together",
     "status": "completed",
     "priority": "high",
     "id": "2"
   },
   {
-    "content": "Test that pinch-to-zoom works on mobile",
+    "content": "Enable proper pinch-to-zoom functionality",
     "status": "completed",
-    "priority": "medium",
+    "priority": "high",
     "id": "3"
   }
 ]
