@@ -143,6 +143,11 @@ class VioVerse {
             // Initialize counter and sidebar
             this.updateViolationCounter();
             this.updateViolationSidebar();
+            
+            // Initialize custom scrollbar after a brief delay to ensure DOM is ready
+            setTimeout(() => {
+                this.updateCustomScrollbar();
+            }, 100);
         });
         
         // Keyboard navigation
@@ -872,6 +877,9 @@ class VioVerse {
         // Update counter and sidebar
         this.updateViolationCounter();
         this.updateViolationSidebar();
+        
+        // Scroll the corresponding violation in the sidebar into view
+        this.scrollViolationIntoView(violation);
     }
     
     updateViolationSidebar() {
@@ -954,6 +962,7 @@ class VioVerse {
             violationsToShow.forEach(violation => {
                 const violationBox = document.createElement('div');
                 violationBox.className = `violation-box ${violation.severity}`;
+                violationBox.setAttribute('data-sidebar-violation-id', violation.id);
                 if (this.selectedViolations.has(violation.id)) {
                     violationBox.classList.add('selected');
                 }
@@ -984,6 +993,9 @@ class VioVerse {
                 const box = document.querySelector(`[data-violation-id="${id}"]`);
                 if (box) box.classList.add('active');
             });
+            
+            // Update custom scrollbar if more than 4 violations
+            this.updateCustomScrollbar();
         }
     }
     
@@ -1682,6 +1694,195 @@ class VioVerse {
         }
     }
     
+    /**
+     * Scroll a violation in the sidebar list into view
+     */
+    scrollViolationIntoView(violation) {
+        // Find the violation box in the sidebar
+        const sidebarViolation = document.querySelector(`[data-sidebar-violation-id="${violation.id}"]`);
+        const violationDetailsList = document.querySelector('.violation-details-list');
+        
+        if (sidebarViolation && violationDetailsList) {
+            // Get the offset of the violation within the scrollable container
+            const violationOffset = sidebarViolation.offsetTop;
+            const violationHeight = sidebarViolation.offsetHeight;
+            const containerHeight = violationDetailsList.clientHeight;
+            const scrollTop = violationDetailsList.scrollTop;
+            
+            // Calculate if we need to scroll
+            const violationTop = violationOffset;
+            const violationBottom = violationOffset + violationHeight;
+            const visibleTop = scrollTop;
+            const visibleBottom = scrollTop + containerHeight;
+            
+            let newScrollTop = scrollTop;
+            
+            if (violationTop < visibleTop) {
+                // Violation is above visible area, scroll up
+                newScrollTop = violationTop - 10; // 10px padding
+            } else if (violationBottom > visibleBottom) {
+                // Violation is below visible area, scroll down
+                newScrollTop = violationBottom - containerHeight + 10; // 10px padding
+            }
+            
+            // Only scroll if needed
+            if (newScrollTop !== scrollTop) {
+                violationDetailsList.scrollTop = newScrollTop;
+            }
+            
+            // Add a highlight effect to draw attention
+            sidebarViolation.classList.add('highlight');
+            setTimeout(() => {
+                sidebarViolation.classList.remove('highlight');
+            }, 1000);
+        }
+    }
+    
+    /**
+     * Update custom scrollbar for violation details
+     */
+    updateCustomScrollbar() {
+        const violationDetailsList = document.querySelector('.violation-details-list');
+        const customScroll = document.getElementById('customScrollVioDetails');
+        const violations = violationDetailsList?.querySelectorAll('.violation-box') || [];
+        
+        if (!violationDetailsList || !customScroll) return;
+        
+        // Show/hide custom scrollbar based on number of violations
+        if (violations.length > 4) {
+            customScroll.style.display = 'block';
+            violationDetailsList.classList.add('custom-scroll-active');
+            this.initCustomScrollbar();
+        } else {
+            customScroll.style.display = 'none';
+            violationDetailsList.classList.remove('custom-scroll-active');
+        }
+    }
+    
+    /**
+     * Initialize custom scrollbar functionality
+     */
+    initCustomScrollbar() {
+        const violationDetailsList = document.querySelector('.violation-details-list');
+        const scrollThumb = document.querySelector('.scroll-thumb');
+        const scrollTrack = document.querySelector('.scroll-track');
+        const scrollUp = document.querySelector('.scroll-arrow.scroll-up');
+        const scrollDown = document.querySelector('.scroll-arrow.scroll-down');
+        
+        if (!violationDetailsList || !scrollThumb || !scrollTrack) return;
+        
+        // Calculate thumb height based on content ratio
+        const updateThumbSize = () => {
+            const scrollHeight = violationDetailsList.scrollHeight;
+            const clientHeight = violationDetailsList.clientHeight;
+            const trackHeight = scrollTrack.clientHeight;
+            
+            // Calculate thumb height as ratio of visible to total content
+            const thumbHeightRatio = clientHeight / scrollHeight;
+            const thumbHeight = Math.max(30, trackHeight * thumbHeightRatio); // Min 30px
+            
+            scrollThumb.style.height = `${thumbHeight}px`;
+            
+            // Update thumb position
+            updateThumbPosition();
+        };
+        
+        // Update thumb position based on scroll
+        const updateThumbPosition = () => {
+            const scrollHeight = violationDetailsList.scrollHeight;
+            const clientHeight = violationDetailsList.clientHeight;
+            const scrollTop = violationDetailsList.scrollTop;
+            const trackHeight = scrollTrack.clientHeight;
+            const thumbHeight = parseFloat(scrollThumb.style.height);
+            
+            // Calculate position
+            const scrollableHeight = scrollHeight - clientHeight;
+            const scrollRatio = scrollTop / scrollableHeight;
+            const maxThumbTop = trackHeight - thumbHeight - 26; // 13px padding top and bottom
+            const thumbTop = 13 + (scrollRatio * maxThumbTop);
+            
+            scrollThumb.style.top = `${thumbTop}px`;
+        };
+        
+        // Handle scroll events
+        violationDetailsList.addEventListener('scroll', updateThumbPosition);
+        
+        // Handle thumb dragging
+        let isDragging = false;
+        let dragStartY = 0;
+        let dragStartTop = 0;
+        
+        scrollThumb.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            dragStartY = e.clientY;
+            dragStartTop = parseFloat(scrollThumb.style.top) || 13;
+            document.body.classList.add('dragging-scroll');
+            e.preventDefault();
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            const deltaY = e.clientY - dragStartY;
+            const newTop = Math.max(13, Math.min(dragStartTop + deltaY, 
+                scrollTrack.clientHeight - parseFloat(scrollThumb.style.height) - 13));
+            
+            scrollThumb.style.top = `${newTop}px`;
+            
+            // Update scroll position
+            const thumbRange = scrollTrack.clientHeight - parseFloat(scrollThumb.style.height) - 26;
+            const scrollRatio = (newTop - 13) / thumbRange;
+            const scrollableHeight = violationDetailsList.scrollHeight - violationDetailsList.clientHeight;
+            
+            violationDetailsList.scrollTop = scrollRatio * scrollableHeight;
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                document.body.classList.remove('dragging-scroll');
+            }
+        });
+        
+        // Handle track clicks
+        scrollTrack.addEventListener('click', (e) => {
+            if (e.target === scrollThumb) return;
+            
+            const trackRect = scrollTrack.getBoundingClientRect();
+            const clickY = e.clientY - trackRect.top;
+            const thumbHeight = parseFloat(scrollThumb.style.height);
+            const newTop = Math.max(13, Math.min(clickY - thumbHeight / 2, 
+                scrollTrack.clientHeight - thumbHeight - 13));
+            
+            scrollThumb.style.top = `${newTop}px`;
+            
+            // Update scroll position
+            const thumbRange = scrollTrack.clientHeight - thumbHeight - 26;
+            const scrollRatio = (newTop - 13) / thumbRange;
+            const scrollableHeight = violationDetailsList.scrollHeight - violationDetailsList.clientHeight;
+            
+            violationDetailsList.scrollTop = scrollRatio * scrollableHeight;
+        });
+        
+        // Handle arrow buttons
+        if (scrollUp) {
+            scrollUp.addEventListener('click', () => {
+                violationDetailsList.scrollTop -= 100; // Scroll up by 100px
+            });
+        }
+        
+        if (scrollDown) {
+            scrollDown.addEventListener('click', () => {
+                violationDetailsList.scrollTop += 100; // Scroll down by 100px
+            });
+        }
+        
+        // Initial size update
+        updateThumbSize();
+        
+        // Update on window resize
+        window.addEventListener('resize', updateThumbSize);
+    }
     
     /**
      * Initialize search functionality

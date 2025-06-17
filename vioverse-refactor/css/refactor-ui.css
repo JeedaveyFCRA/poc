@@ -1204,6 +1204,10 @@ input {
     overflow: hidden; /* Hide content that extends beyond boundaries */
     padding: 0; /* No padding */
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 1; /* Establish stacking context */
+    contain: layout; /* Contain layout to prevent overflow */
 }
 
 /* Variable heading - positioned above both boxes */
@@ -1302,6 +1306,10 @@ input {
     background: transparent; /* Ensure no background */
     transition: margin-top 300ms ease; /* Smooth transition */
     overflow: visible; /* Ensure collapsed button isn't clipped */
+    flex: 1; /* Take remaining space in sidebar-top-stack */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Allow flexbox to shrink properly */
 }
 
 /* Move violation details up when severity is collapsed */
@@ -1492,12 +1500,21 @@ input {
 
 /* Collapsible content */
 .violation-details-content {
-    overflow: visible; /* Changed to visible to allow shadows */
+    overflow: hidden; /* Must be hidden to contain children */
     transition: all 300ms ease;
     transform-origin: top;
-    padding: 8px 14px 6px 14px; /* Added 6px bottom padding for shadows */
-    max-height: none; /* Allow content to expand fully */
+    padding: 8px 0 6px 0; /* Removed horizontal padding - will be on list */
     position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Take remaining space */
+    min-height: 0; /* Allow proper flexbox shrinking */
+    max-height: 100%; /* Constrain to parent height */
+}
+
+/* Position container for scrollbar */
+.violation-details-content {
+    position: relative; /* For absolute positioning of scrollbar */
 }
 
 .violation-details-component.collapsed .violation-details-content {
@@ -1512,10 +1529,14 @@ input {
     display: flex;
     flex-direction: column;
     gap: 8px; /* Space between violation boxes - reduced by 40% */
-    max-height: 500px; /* Set a reasonable max height */
-    overflow-y: auto; /* Enable vertical scrolling when needed */
+    flex: 1; /* Take available height */
+    overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scroll */
-    padding-right: 4px; /* Small padding for scrollbar */
+    padding: 0 14px 8px 14px; /* Padding with bottom space */
+    scroll-behavior: smooth; /* Smooth scrolling when programmatically scrolling */
+    position: relative; /* For proper scroll context */
+    min-height: 0; /* Allow shrinking */
+    max-height: 100%; /* Don't exceed parent */
 }
 
 /* Custom scrollbar for violation list */
@@ -1537,6 +1558,21 @@ input {
     background: rgba(0, 0, 0, 0.3);
 }
 
+/* Highlight effect for violations scrolled into view */
+.violation-box.highlight {
+    animation: violation-highlight 1s ease;
+}
+
+@keyframes violation-highlight {
+    0%, 100% {
+        box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.08);
+    }
+    50% {
+        box-shadow: 0 0 0 3px rgba(242, 100, 25, 0.4);
+        transform: scale(1.02);
+    }
+}
+
 /* Individual violation box */
 .violation-box {
     background-color: #e3e2e1; /* 30% tint of #b7b5b3 */
@@ -1550,7 +1586,11 @@ input {
     gap: 14px;
     min-height: 60px; /* Ensure minimum height for badge alignment */
     height: auto; /* Allow box to expand with content */
-    overflow: visible; /* Ensure content is not clipped */
+    overflow: hidden; /* Hide overflow content */
+    width: 100%; /* Ensure box doesn't exceed container */
+    box-sizing: border-box; /* Include padding in width calculation */
+    z-index: 1; /* Keep below container z-index */
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 /* Severity badge - positioned absolutely */
@@ -1597,6 +1637,8 @@ input {
     padding-left: 0; /* No extra padding needed with absolute badge */
     padding-top: 2px; /* Slight top padding for alignment */
     max-width: 100%; /* Prevent content from overflowing */
+    min-width: 0; /* Allow flex item to shrink below content width */
+    overflow: hidden; /* Hide overflow */
 }
 
 /* FCRA codes */
@@ -1622,6 +1664,32 @@ input {
     word-wrap: break-word; /* Ensure long words break */
     overflow-wrap: break-word; /* Modern property for word breaking */
     white-space: normal; /* Ensure text wraps normally */
+    max-width: 100%; /* Prevent overflow */
+    overflow: hidden; /* Hide text that overflows */
+    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+    display: -webkit-box; /* Use line clamping */
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-box-orient: vertical;
+    transition: all 0.3s ease;
+}
+
+/* Tooltip styling for full description */
+.violation-box:hover::after {
+    content: attr(data-full-description);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #253541;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 10pt;
+    line-height: 1.4;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 4px;
+    display: none; /* Will be shown via JS when needed */
 }
 
 /* Legacy filter styles removed - using filter-counter component instead */
@@ -1630,24 +1698,32 @@ input {
    Custom Scroll Violation Details
    ======================================== */
 .custom-scroll-vio-details {
-    position: fixed;
+    position: absolute;
+    right: -20px; /* Position outside the list */
+    top: 0;
+    bottom: 0;
+    width: 10px;
     display: none; /* Hidden by default, shown when >4 violations */
     z-index: 50;
 }
 
 /* Hide native scrollbar when custom scroll is active */
 .violation-details-list.custom-scroll-active {
-    overflow-y: auto; /* Changed from hidden to auto to allow shadows */
+    overflow-y: auto; /* Allow scrolling */
     overflow-x: hidden; /* Prevent horizontal overflow */
-    max-height: 500px; /* Match the regular list max-height */
     position: relative;
-    padding-bottom: 6px; /* Add padding to accommodate bottom shadows */
-    margin-bottom: -6px; /* Compensate for padding to maintain layout */
+    padding-right: 20px; /* Make room for custom scrollbar */
+    margin-right: -20px; /* Compensate for padding */
+}
+
+/* Hide webkit scrollbar when custom scroll is active */
+.violation-details-list.custom-scroll-active::-webkit-scrollbar {
+    display: none;
 }
 
 /* Scroll arrows */
 .scroll-arrow {
-    position: fixed;
+    position: absolute;
     width: 10px;
     height: 10px;
     background: none;
@@ -1658,6 +1734,7 @@ input {
     align-items: center;
     justify-content: center;
     z-index: 51;
+    left: 0;
 }
 
 .scroll-arrow svg {
@@ -1693,25 +1770,23 @@ input {
     stroke: #f26419 !important;
 }
 
-/* Scroll up arrow position - LOCKED VALUES */
+/* Scroll up arrow position */
 .scroll-arrow.scroll-up {
-    left: 1618px;
-    top: 185px;
+    top: 0;
 }
 
-/* Scroll down arrow position - LOCKED VALUES */
+/* Scroll down arrow position */
 .scroll-arrow.scroll-down {
-    left: 1618px;
-    top: 827px;
+    bottom: 0;
 }
 
-/* Scroll track (outer pill) - LOCKED VALUES */
+/* Scroll track (outer pill) */
 .scroll-track {
-    position: fixed;
-    left: 1618px;
-    top: 185px;
+    position: absolute;
+    left: 0;
+    top: 15px; /* Space for up arrow */
+    bottom: 15px; /* Space for down arrow */
     width: 10px;
-    height: 652px;
     background-color: transparent;
     border: 1pt solid #9ba1a6;
     border-radius: 5px;
@@ -1749,11 +1824,11 @@ body.dragging-scroll {
    View Full Violation Log
    ======================================== */
 .view-full-violation-log {
-    position: fixed;
-    left: 1391px; /* Moved 6px right from 1385px */
-    top: 845px; /* Moved 2px down from 843px */
-    width: 270px; /* Full width to match other components */
-    z-index: 40;
+    position: relative;
+    width: 100%;
+    padding: 16px 24px;
+    z-index: 2;
+    flex-shrink: 0; /* Don't shrink */
 }
 
 .full-log-header {
@@ -1779,9 +1854,7 @@ body.dragging-scroll {
 }
 
 .full-log-arrow {
-    position: fixed;
-    left: 1564px; /* Original position */
-    top: 843px; /* Original position */
+    position: relative;
     width: 28px;
     height: 28px;
     background: none;
@@ -1839,13 +1912,13 @@ body.dragging-scroll {
    Static Footer Severity Key
    ======================================== */
 .static-footer-severity-key {
-    position: fixed;
-    left: 1223px;
-    bottom: 0;
-    width: 428px;
-    padding-top: 24px; /* Minimum spacing from above */
-    background: transparent;
-    z-index: 30;
+    position: relative;
+    width: 100%;
+    padding: 24px 24px 16px 24px;
+    background: white;
+    z-index: 2;
+    flex-shrink: 0; /* Don't shrink */
+    margin-top: auto; /* Push to bottom */
 }
 
 /* Severity Key Row */
@@ -1857,9 +1930,6 @@ body.dragging-scroll {
 }
 
 .severity-key-label {
-    position: fixed;
-    left: 1223px;
-    top: 891px;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 11pt; /* Reduced from 14pt */
     font-weight: 700; /* Bold */
@@ -1877,23 +1947,17 @@ body.dragging-scroll {
 
 /* High Severity */
 .severity-item.severity-high {
-    position: fixed;
-    left: 1329px;
-    top: 891px;
+    /* No specific positioning needed */
 }
 
 /* Medium Severity */
 .severity-item.severity-medium {
-    position: fixed;
-    left: 1417px;
-    top: 891px;
+    /* No specific positioning needed */
 }
 
 /* Low Severity */
 .severity-item.severity-low {
-    position: fixed;
-    left: 1522px;
-    top: 891px;
+    /* No specific positioning needed */
 }
 
 /* Severity Badges */
@@ -1957,18 +2021,13 @@ body.dragging-scroll {
 }
 
 .disclaimer-divider {
-    position: fixed;
-    left: 1223px;
-    top: 930px;
-    width: 367px;
+    width: 100%;
     height: 1px;
     background-color: rgba(0, 0, 0, 0.5);
+    margin: 12px 0;
 }
 
 .disclaimer-text {
-    position: fixed;
-    left: 1223px;
-    top: 943px;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 7.5pt; /* Reduced by 0.5pt from 8pt */
     font-weight: 400;
@@ -2127,8 +2186,11 @@ body.dragging-scroll {
     flex-direction: column;
     gap: 0; /* No gap between components */
     width: 100%;
+    height: 100%; /* Take full height of parent */
     position: relative;
     z-index: 1; /* Keep below heading */
+    overflow: hidden; /* Prevent content overflow */
+    min-height: 0; /* Allow flexbox shrinking */
 }
 
 /* ========================================
