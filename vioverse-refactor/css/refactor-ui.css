@@ -135,38 +135,56 @@ body {
 /* Desktop screens (larger than 1920px) */
 @media (min-width: 1921px) {
     body {
-        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px 0;
+        min-height: 100vh;
     }
     
-    /* Use fixed positioning on desktop for proper layout */
-    .docket-header,
-    .arrow-collapsed,
-    .tool-tips-toggle,
-    .search-box,
-    .view-toggle-new,
-    .report-canvas-container,
-    .tagger-canvas-container,
-    .evidence-canvas-container,
-    .sidebar-canvas {
-        position: fixed !important;
+    .vioverse-app {
+        /* No transform needed for desktop */
+        transform: none;
     }
 }
 
-/* Mobile and tablet screens */
+/* Responsive wrapper for proper scaling */
+body {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+/* For screens smaller than 1920px, use scaling */
 @media (max-width: 1920px) {
-    html, body {
-        overflow: auto !important;
+    body {
+        min-width: 100%;
+        overflow: auto;
         -webkit-overflow-scrolling: touch;
-        /* Prevent zoom snap-back */
-        touch-action: pan-x pan-y pinch-zoom;
     }
     
-    /* Container to ensure proper scrolling */
+    /* Scale the entire app based on viewport width */
     .vioverse-app {
-        min-height: 1080px; /* Ensure minimum height */
-        overflow: visible !important;
-        /* Ensure proper scaling */
+        transform: scale(calc(100vw / 1920));
         transform-origin: top left;
+    }
+    
+    /* Adjust body height to match scaled content */
+    body::after {
+        content: '';
+        display: block;
+        height: calc(1080px * (100vw / 1920));
+    }
+}
+
+/* For very small screens, ensure minimum scale */
+@media (max-width: 768px) {
+    .vioverse-app {
+        transform: scale(0.4);
+        transform-origin: top left;
+    }
+    
+    body::after {
+        height: calc(1080px * 0.4);
     }
 }
 
@@ -221,9 +239,9 @@ input {
    ======================================== */
 .vioverse-app {
     position: relative;
-    width: 1920px; /* Fixed width for consistent layout */
-    height: 1080px; /* Fixed height to contain all elements */
-    margin: 0;
+    width: 1920px;
+    height: 1080px;
+    margin: 0 auto;
     background-color: #4f5a63;
     overflow: visible;
     z-index: 0;
@@ -236,7 +254,9 @@ input {
     position: absolute; /* Changed from fixed to absolute */
     top: 9px;
     left: 11px;
-    width: 1898px;
+    right: 11px; /* Use right instead of fixed width */
+    width: calc(100% - 22px); /* Dynamic width with margins */
+    max-width: 1898px; /* Max width for larger screens */
     height: 48px;
     background-color: #253541;
     border: 3px solid #9ba1a6;
