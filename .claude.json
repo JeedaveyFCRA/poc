@@ -1,5 +1,5 @@
 {
-  "numStartups": 24,
+  "numStartups": 25,
   "autoUpdaterStatus": "migrated",
   "tipsHistory": {
     "new-user-warmup": 1,
@@ -24,6 +24,44 @@
     "/home/avid_arrajeedavey": {
       "allowedTools": [],
       "history": [
+        {
+          "display": "[Pasted text #1 +23 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🚨 URGENT FIX – VIOLATION DESCRIPTION TRUNCATION\n\nIssue:\nOn initial page load, violation descriptions are:\n1. Still using outdated or partial entries from the old `violations-processed.json`\n2. Displaying truncated versions ending in ellipses (`...`)\n3. Only updating to *partial newer* descriptions after toggling a filter — NOT full final text\n\nRequirements:\n🔁 On page load, use the **latest, full descriptions** from the updated `violations-processed.json` file\n\n❌ Do NOT truncate descriptions with `.slice()` or `.substring()`\n❌ Do NOT fallback to placeholder or previous versions\n\n✅ Always display the **entire `description` field** as-is from the JSON\n✅ Ensure this applies to:\n- Initial page render\n- All filter changes\n- All violation box click/expand behavior\n\nFile likely affected: `refactor-behavior.js` or wherever `violations-processed.json` is parsed/rendered\n\nWhen fixed, confirm the full text appears immediately on page load — no user interaction required.\n"
+            }
+          }
+        },
+        {
+          "display": "🛑 HALT TIMELINE WORK – DO NOT MODIFY OR REVIEW CASE-TIMELINE FILES\n\nYou are instructed to STOP all work on the following files:\n- case-timeline.html\n- style/case-timeline.css\n- js/case-timeline.js\n- data/case-timeline-data.json\n\n❌ Do NOT review, update, optimize, or generate additional timeline content.\n✅ Preserve them exactly as they are for manual review.\n\n🔧 ONE EXCEPTION:\nPlease open `index.html` inside `/vioverse-refactor/` and **remove** the “View Case Timeline” link you previously inserted in the **FCRA Review Summary** sidebar.\n\nDO NOT:\n- Add any new links or UI elements\n- Modify anything else in index.html or the review summary\n- Touch any unrelated components or layout\n\n✅ When complete, confirm only the link was removed and no other changes were made.\n",
+          "pastedContents": {}
+        },
+        {
+          "display": "ok thanks, proceed",
+          "pastedContents": {}
+        },
+        {
+          "display": "[Pasted text #1 +27 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🔒 RULE UPDATE: WILDCARD DESCRIPTIONS MUST BE USED IN FULL\n\nEffective immediately, you are required to use the **full, unabridged version** of all wildcard violation descriptions across the entire case system.\n\n🚫 Do NOT shorten, truncate, or replace any part of these descriptions with ellipses (`…`) or summary wording.\n✅ Each wildcard description must be **quoted verbatim** as originally written.\n\nExample (correct format):\n\n**§1681s-2(a)(1)(A), §1681e(b), §1681n**  \nCRITICAL VIOLATION: Account shows active Chapter 13 inclusion AFTER February 9, 2024 discharge. This is categorically false—akin to reporting someone as 'currently deceased' when alive. Per se willful violation.\n\n📁 Source files containing the full canonical descriptions include:\n- `violations-processed.json`\n- `frca-sidebar-violation-descriptions.md`\n- `Master-Evidence-Data_v4.csv` (indirect mapping)\n\nThese descriptions are legal-grade and intentionally written with precision. They must appear in their **entirety** in:\n- Violation overlays\n- Sidebar summaries\n- Attorney-facing exports\n- VioTagger preview modes\n- FCRA Viewer violation stacks\n\nIf you cannot locate the full version of a description, halt and request clarification rather than generating a shortened substitute.\n\nAll wildcard violations and all hardcoded §1681 references must now follow this rule without exception.\n"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +47 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 INITIALIZE: FULL FCRA CASE SYSTEM — VioVerse Refactor Edition\n\nYou now have full read/write access to the following working directory:\n📂 `\\\\wsl.localhost\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\`\n\nRULES:\n✅ You may read and analyze **all files within** the `/vioverse-refactor/` directory\n✅ You may reference parent folders for orientation **but NOT modify them**\n❌ Do not write to any files outside the `/vioverse-refactor/` tree\n🔐 All sibling and parent folders are **read-only**\n\nWEBSITE TARGET:\nUpdate the **main site**, `index.html`, and all supporting files in this folder only. Respect modular design and avoid breaking changes unless explicitly instructed.\n\n---\n\n### 🔍 CASE INTEL SYNTHESIS: Activate Option C\n\nYou are now granted full case context to generate a **Context-Aware Chronological Case Timeline**. This is Option C from our VioNarrative system.\n\nYou have access to the following updated files for synthesis:\n\n- ✅ `violations-processed.json` – Final output from Viotagger with violation metadata\n- ✅ `Master-Evidence-Data_v4.csv` – MED3 dataset with 5 fully-validated pattern columns\n- ✅ `matters-content.json` – All 30 “Why This Document Matters” entries, cross-linked with evidence pages\n- ✅ Rocket Mortgage Evidence – Credit Upgrade Referral + denial sequence timeline\n- ✅ Confirmed Chapter 13 **Discharge Date: February 9, 2024**\n\n---\n\n### 📅 CASE TIMELINE OBJECTIVE\n\n**Your task: generate a complete chronological timeline** of the David Marra FCRA case. Organize the story into structured **PHASES**, explicitly showing the evolution of harm, violations, and evidence strength across time.\n\n#### Use This Format:\n\n1. **PHASE HEADINGS**: Pre-Filing → Bankruptcy Period → Discharge → Post-Discharge Violations → Harm and Denials → Strategic Response\n2. **Key Events**: Dates, creditor actions, bureau responses, correction/refusal history\n3. **Legal Implications**: Mention applicable FCRA codes (e.g., §1681e(b), §1681s-2(b)) and known CFPB bulletins (e.g., 2022-03)\n4. **Evidence References**: Tie key moments to entries from `matters-content.json` and `Master-Evidence-Data_v4.csv`\n5. **Patterns and Findings**: Highlight systemic behavior (e.g., “INCLUDED IN CHAPTER 13” used across 12 of 13 Equifax tradelines)\n6. **Emotional & Financial Harm**: Embed harm narrative (e.g., Rocket Mortgage denial, score drop, refinance impact, stress factors)\n\n---\n\nBegin the analysis now. Structure all responses for integration into the updated `index.html` or modular subcomponents within `vioverse-refactor`.\n\n"
+            }
+          }
+        },
         {
           "display": "trhis is ridiculous",
           "pastedContents": {}
@@ -497,32 +535,6 @@
         },
         {
           "display": "thanks for everything.",
-          "pastedContents": {}
-        },
-        {
-          "display": "We are updating the Toop-tips: [Pasted text #1 +38 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "TOOL TIPS SPECS\n\nComponent Name: tool-tips \nContainer Type: Fixed-width toggle \nPosition: Top of screen (below view-toggle)\n\n\n────────────────────────────\nCONTAINER DIMENSIONS\n────────────────────────────\n\n• Width: 56px\n• Height: 28px\n• X-position: 279px\n• Y-position: 135px\n• 36px rounded corners\n• Fill color = 253541\n• Stroke color = 30% tint of #253541 (use hex #9ba1a6); 3px stroke weight; do not use rgba transparency\n\n\nTo show the toggle button is \"ON\" the \"tips\" button is:\n• Use Lucide icon: circle-help\n• Fill icon color = f26419\n• Stroke icon color = 30% tint of #f26419 (use hex #f8b98c); do not use rgba transparency\n• Width: 28px\n• Height: 28px \n• X-position: 307px\n• Y-position: ~135px\n\n\nTo show the toggle button is \"OFF\" the \"tips\" button is:\n• Use Lucide icon: circle-help\n• Fill icon color = f26419\n• Stroke icon color = 30% tint of #253541 (use hex #9ba1a6); do not use rgba transparenc\n• Width: 28px\n• Height: 28px \n• X-position: 279 px\n• Y-position: ~135px\n"
-            }
-          }
-        },
-        {
-          "display": "reduce the size of the LEGAL DISCLAIMER TEXT by 0.5 pt",
-          "pastedContents": {}
-        },
-        {
-          "display": "lets add 1px more of padding only to `triangle-alert` and move the icon up 1 px",
-          "pastedContents": {}
-        },
-        {
-          "display": "that didnt work, so add a padding inthe color dot by 2 px (inwards from the outside edge of the dot",
-          "pastedContents": {}
-        },
-        {
-          "display": "great! now only for these icons in the key do i ant you dto do the followingreduce all three icons by 20% and keep them centered insside the dot",
           "pastedContents": {}
         }
       ],

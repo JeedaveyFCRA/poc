@@ -813,7 +813,7 @@ class VioVerse {
         const box = document.createElement('button');
         box.className = `viobox ${violation.severity}`;
         box.setAttribute('role', 'button');
-        box.setAttribute('aria-label', `${violation.severity} severity violation: ${violation.description || violation.text || ''}`);
+        box.setAttribute('aria-label', `${violation.severity} severity violation: ${violation.description || ''}`);
         box.setAttribute('tabindex', '0');
         box.setAttribute('data-violation-id', violation.id);
         box.style.left = `${violation.x}px`;
@@ -979,7 +979,7 @@ class VioVerse {
                     </div>
                     <div class="violation-content">
                         <div class="violation-fcra-codes">${fcraCodesText}</div>
-                        <div class="violation-description">${violation.description || violation.text || ''}</div>
+                        <div class="violation-description">${violation.description || ''}</div>
                     </div>
                 `;
                 violationDetailsList.appendChild(violationBox);
@@ -1073,20 +1073,22 @@ class VioVerse {
     
     async loadViolations() {
         try {
-            // First try to load from localStorage (processed violations)
-            const stored = localStorage.getItem('vioverse-violations');
-            if (stored) {
-                this.violationsData = JSON.parse(stored);
-                console.log('Loaded violations from localStorage');
-                return;
-            }
-            
-            // If no stored data, try to load from JSON file
+            // Always load from JSON file first to ensure latest full descriptions
             try {
                 const response = await fetch('data/violations/violations-processed.json');
                 this.violationsData = await response.json();
                 console.log('Loaded violations from JSON file');
+                
+                // Clear any old localStorage data to prevent conflicts
+                localStorage.removeItem('vioverse-violations');
             } catch (jsonError) {
+                // Fall back to localStorage only if JSON file not found
+                const stored = localStorage.getItem('vioverse-violations');
+                if (stored) {
+                    this.violationsData = JSON.parse(stored);
+                    console.log('Loaded violations from localStorage (fallback)');
+                    return;
+                }
                 console.log('No processed violations found. Place ExportedViolations.csv in data/violations/ folder');
                 // Use demo data if no violations found
                 this.violationsData = {

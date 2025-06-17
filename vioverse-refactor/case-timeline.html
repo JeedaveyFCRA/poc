@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCRA Case Timeline - David Marra v. Credit Bureaus</title>
+    <link rel="stylesheet" href="style/case-timeline.css">
+    <script src="js/violation-descriptions.js"></script>
+</head>
+<body>
+    <div class="timeline-container">
+        <header class="timeline-header">
+            <h1>David Marra FCRA Case Timeline</h1>
+            <div class="case-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Violations Duration:</span>
+                    <span class="stat-value">405+ Days</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">False Balances:</span>
+                    <span class="stat-value">$52,604</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Credit Denials:</span>
+                    <span class="stat-value">5</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Annual Harm:</span>
+                    <span class="stat-value">$12,000+</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="timeline-phases">
+            <!-- Phase 1: Pre-Discharge Manipulation -->
+            <section class="timeline-phase" data-phase="1">
+                <div class="phase-header">
+                    <h2>Phase 1: Pre-Discharge Manipulation</h2>
+                    <span class="phase-dates">December 2023 - February 2024</span>
+                </div>
+                <div class="phase-content">
+                    <div class="timeline-events">
+                        <div class="event critical" data-date="2023-12-20">
+                            <div class="event-date">Dec 20, 2023</div>
+                            <div class="event-content">
+                                <h3>JPMCB First Strike</h3>
+                                <p>Reports $742 charge-off, initiating pre-discharge damage campaign</p>
+                                <span class="violation-code">§1681s-2(a)(1)(A)</span>
+                                <div class="violation-detail">
+                                    <strong>§1681s-2(a)(1)(A)</strong>: Duty to provide accurate information to credit reporting agencies
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event critical" data-date="2023-12-24">
+                            <div class="event-date">Dec 24, 2023</div>
+                            <div class="event-content">
+                                <h3>Bank of America Maximum Damage</h3>
+                                <p>Reports highest pre-discharge balance: $7,270 charge-off</p>
+                                <span class="violation-code">§1681n - Willful</span>
+                            </div>
+                        </div>
+                        <div class="event warning" data-date="2024-01-17">
+                            <div class="event-date">Jan 17, 2024</div>
+                            <div class="event-content">
+                                <h3>Best Egg Alert</h3>
+                                <p>"Damaging activity" notification from JPMCB actions</p>
+                                <span class="harm-indicator">Consumer Harm Begins</span>
+                            </div>
+                        </div>
+                        <div class="event critical" data-date="2024-01-19">
+                            <div class="event-date">Jan 19, 2024</div>
+                            <div class="event-content">
+                                <h3>JPMCB Duplicate Charge-off</h3>
+                                <p>Reports SAME $742 charge-off again - 30 days after first</p>
+                                <span class="violation-code">§1681e(b) - No Reasonable Procedures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phase 2: Discharge & Immediate Violations -->
+            <section class="timeline-phase discharge-phase" data-phase="2">
+                <div class="phase-header">
+                    <h2>Phase 2: Discharge & Immediate Violations</h2>
+                    <span class="phase-dates">February - April 2024</span>
+                </div>
+                <div class="phase-content">
+                    <div class="discharge-marker">
+                        <div class="discharge-date">February 9, 2024</div>
+                        <div class="discharge-content">
+                            <h3>⚖️ Chapter 13 Discharge Granted</h3>
+                            <p>Case 1-18-12245-PRW officially discharged</p>
+                            <p class="discharge-notice">All creditors formally notified</p>
+                        </div>
+                    </div>
+                    <div class="timeline-events">
+                        <div class="event violation" data-date="2024-04-01">
+                            <div class="event-date">April 2024</div>
+                            <div class="event-content">
+                                <h3>Mass Violation Snapshot</h3>
+                                <ul class="violation-list">
+                                    <li>12 of 13 creditors report "INCLUDED_IN_CHAPTER_13" on Equifax</li>
+                                    <li>6 creditors report $52,604 in false high balances on TransUnion</li>
+                                    <li>Cross-bureau conflicts documented across all tradelines</li>
+                                </ul>
+                                <div class="violation-full-description">
+                                    <span class="violation-code">§1681s-2(a)(1)(A), §1681e(b), §1681n</span>
+                                    <p class="violation-text">CRITICAL VIOLATION: Account shows active Chapter 13 inclusion AFTER February 9, 2024 discharge. This is categorically false—akin to reporting someone as 'currently deceased' when alive. Per se willful violation.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event denial" data-date="2024-04-21">
+                            <div class="event-date">Apr 21, 2024</div>
+                            <div class="event-content">
+                                <h3>🚫 Rocket Mortgage Denial</h3>
+                                <p>Score: 600 (needs 640) - Refinance blocked</p>
+                                <p class="harm-amount">$1,000+/month excess payments begin</p>
+                                <span class="evidence-ref">Credit Upgrade Referral Email</span>
+                            </div>
+                        </div>
+                        <div class="event denial" data-date="2024-04-23">
+                            <div class="event-date">Apr 23, 2024</div>
+                            <div class="event-content">
+                                <h3>🚫 Best Egg Denial</h3>
+                                <p>Score: 632 - Cited "serious delinquency"</p>
+                                <p class="score-drop">107-point TransUnion drop documented</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phase 3: Entrenched Violations -->
+            <section class="timeline-phase" data-phase="3">
+                <div class="phase-header">
+                    <h2>Phase 3: Entrenched Violations</h2>
+                    <span class="phase-dates">May - December 2024</span>
+                </div>
+                <div class="phase-content">
+                    <div class="timeline-events">
+                        <div class="event pattern" data-date="2024-06-01">
+                            <div class="event-date">June 2024</div>
+                            <div class="event-content">
+                                <h3>Systematic Pattern Emerges</h3>
+                                <div class="bureau-conflicts">
+                                    <div class="bureau-report equifax">
+                                        <h4>Equifax</h4>
+                                        <p>"INCLUDED_IN_CHAPTER_13"</p>
+                                    </div>
+                                    <div class="bureau-report experian">
+                                        <h4>Experian</h4>
+                                        <p>"Discharged through Bankruptcy Chapter 13"</p>
+                                    </div>
+                                    <div class="bureau-report transunion">
+                                        <h4>TransUnion</h4>
+                                        <p>"Account Included in Bankruptcy" + High Balance</p>
+                                    </div>
+                                </div>
+                                <span class="violation-code">§1681e(b) - No Inter-Bureau Reconciliation</span>
+                            </div>
+                        </div>
+                        <div class="event denial" data-date="2024-07-30">
+                            <div class="event-date">Jul 30, 2024</div>
+                            <div class="event-content">
+                                <h3>🚫 Rocket Loans Denial</h3>
+                                <p>171 days post-discharge - violations continue</p>
+                            </div>
+                        </div>
+                        <div class="event critical" data-date="2024-10-01">
+                            <div class="event-date">October 2024</div>
+                            <div class="event-content">
+                                <h3>Ally Financial: 5+ Years No Update</h3>
+                                <p>Last updated: October 2018</p>
+                                <p>Balance degrades: $0 → "-" → [Blank]</p>
+                                <div class="violation-full-description">
+                                    <span class="violation-code">§1681c(a)(4), §1681e(b), §1681s-2(a)(8), §1681n</span>
+                                    <p class="violation-text">Last update coincides with bankruptcy FILING date over 5 years ago. Zero updates through confirmation, payments, and discharge proves complete abandonment of FCRA duties. Willfulness presumed from extreme duration.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event denial" data-date="2024-11-22">
+                            <div class="event-date">Nov 22, 2024</div>
+                            <div class="event-content">
+                                <h3>🚫 Best Egg Second Denial</h3>
+                                <p>286 days post-discharge</p>
+                                <p class="harm-amount">Forced to accept 13.98% vs 12.99% APR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Phase 4: The Great Exit -->
+            <section class="timeline-phase exit-phase" data-phase="4">
+                <div class="phase-header">
+                    <h2>Phase 4: The Great Exit & Consciousness of Guilt</h2>
+                    <span class="phase-dates">January - March 2025</span>
+                </div>
+                <div class="phase-content">
+                    <div class="exit-pattern">
+                        <h3>Mass Creditor Exit Pattern</h3>
+                        <div class="exit-stats">
+                            <div class="stat">69%</div>
+                            <p>of creditors cease reporting</p>
+                        </div>
+                        <div class="exit-timeline">
+                            <div class="exit-event">
+                                <span class="creditor">Mariner Finance</span>
+                                <span class="action">Stops Experian, maintains $4,039 on TransUnion</span>
+                            </div>
+                            <div class="exit-event">
+                                <span class="creditor">JPMCB</span>
+                                <span class="action">Exits after 15 months of violations</span>
+                            </div>
+                            <div class="exit-event">
+                                <span class="creditor">THD/CBNA</span>
+                                <span class="action">Exits after only 5 months</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-events">
+                        <div class="event denial" data-date="2025-01-15">
+                            <div class="event-date">Jan 2025</div>
+                            <div class="event-content">
+                                <h3>🚫 Capital One Denial</h3>
+                                <p>"Too many seriously delinquent obligations"</p>
+                                <p>340+ days post-discharge</p>
+                            </div>
+                        </div>
+                        <div class="event resolution" data-date="2025-03-15">
+                            <div class="event-date">Mar 2025</div>
+                            <div class="event-content">
+                                <h3>Discover Admits Error</h3>
+                                <p>Correction letter after 13+ months</p>
+                                <span class="evidence-ref">Smoking Gun Document</span>
+                            </div>
+                        </div>
+                        <div class="event ongoing" data-date="2025-03-20">
+                            <div class="event-date">Present</div>
+                            <div class="event-content">
+                                <h3>405+ Days of Violations</h3>
+                                <p>Rocket Mortgage refinance still blocked</p>
+                                <p class="harm-total">Total Harm: $12,000+ annually</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Legal Analysis -->
+            <section class="timeline-phase legal-phase" data-phase="5">
+                <div class="phase-header">
+                    <h2>Legal Violations & Evidence</h2>
+                    <span class="phase-dates">Comprehensive Analysis</span>
+                </div>
+                <div class="phase-content">
+                    <div class="legal-grid">
+                        <div class="violation-category">
+                            <h3>Primary FCRA Violations</h3>
+                            <div class="legal-violation-item">
+                                <strong>§1681s-2(a)(1)(A), §1681e(b), §1681n</strong>
+                                <p>CRITICAL VIOLATION: Account shows active Chapter 13 inclusion AFTER February 9, 2024 discharge. This is categorically false—akin to reporting someone as 'currently deceased' when alive. Per se willful violation.</p>
+                                <span class="violation-count">13 creditors affected</span>
+                            </div>
+                            <div class="legal-violation-item">
+                                <strong>§1681e(b), §1681s-2(a)(1)(A)</strong>
+                                <p>Zero balance contradicts 'INCLUDED_IN_CHAPTER_13' status. Account cannot simultaneously be in active bankruptcy AND have no balance. Internal inconsistency proves absence of reasonable procedures.</p>
+                                <span class="violation-count">Bureau-wide failure</span>
+                            </div>
+                            <div class="legal-violation-item">
+                                <strong>§1681n</strong>
+                                <p>Willful noncompliance demonstrated by 405+ days of continuing violations despite formal notice of discharge</p>
+                            </div>
+                        </div>
+                        <div class="violation-category">
+                            <h3>Secondary Violations</h3>
+                            <div class="legal-violation-item">
+                                <strong>§1681c(a)(4), §1681e(b), §1681s-2(a)(8), §1681n</strong>
+                                <p>Last update coincides with bankruptcy FILING date over 5 years ago. Zero updates through confirmation, payments, and discharge proves complete abandonment of FCRA duties. Willfulness presumed from extreme duration.</p>
+                            </div>
+                            <div class="legal-violation-item">
+                                <strong>§1681i(a)</strong>
+                                <p>Failure to conduct reinvestigation of disputed items as required by FCRA</p>
+                            </div>
+                            <div class="legal-violation-item">
+                                <strong>§1681c(f)</strong>
+                                <p>Medical debt reporting violations documented</p>
+                            </div>
+                        </div>
+                        <div class="evidence-category">
+                            <h3>Key Evidence</h3>
+                            <ul>
+                                <li>Rocket Mortgage Credit Upgrade Referral</li>
+                                <li>Discover Correction Letter</li>
+                                <li>Bureau Public Records vs Tradelines</li>
+                                <li>MED4 Comprehensive Data</li>
+                                <li>Exit Pattern Analysis</li>
+                            </ul>
+                        </div>
+                        <div class="harm-category">
+                            <h3>Quantifiable Harm</h3>
+                            <ul>
+                                <li>$1,000+/month excess mortgage</li>
+                                <li>~1% higher interest rates</li>
+                                <li>5 documented credit denials</li>
+                                <li>107-point score drop</li>
+                                <li>$12,000+ annual impact</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="timeline-navigation">
+            <button class="nav-btn" data-action="collapse-all">Collapse All</button>
+            <button class="nav-btn" data-action="expand-all">Expand All</button>
+            <button class="nav-btn" data-action="show-violations">Violations Only</button>
+            <button class="nav-btn" data-action="show-denials">Denials Only</button>
+            <button class="nav-btn primary" data-action="export-timeline">Export Timeline</button>
+        </div>
+    </div>
+
+    <script src="js/case-timeline.js"></script>
+</body>
+</html>

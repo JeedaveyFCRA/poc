@@ -1867,6 +1867,65 @@ body.dragging-scroll {
     transition: all 200ms ease;
 }
 
+/* ========================================
+   Case Timeline Link
+   ======================================== */
+.case-timeline-link {
+    position: relative;
+    width: 100%;
+    padding: 16px 24px;
+    z-index: 2;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.timeline-link-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+}
+
+.timeline-link-title {
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800;
+    font-size: 18pt;
+    color: rgba(37, 53, 65, 0.9);
+    letter-spacing: normal;
+    line-height: 1;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    transition: color 200ms ease, text-decoration 200ms ease;
+    cursor: pointer;
+}
+
+.timeline-link-arrow {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 200ms ease;
+    color: #0066FF;
+}
+
+.timeline-link-arrow:hover {
+    transform: scale(1.1);
+    color: #0052CC;
+}
+
+.case-timeline-link:hover .timeline-link-title {
+    color: #0066FF;
+    text-decoration: underline;
+}
+
 .full-log-arrow i[data-lucide] {
     width: 28px !important;
     height: 28px !important;
