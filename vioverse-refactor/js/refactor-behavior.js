@@ -959,9 +959,9 @@ class VioVerse {
                 }
                 
                 // Generate FCRA codes string
-                const fcraCodesText = violation.fcra_codes ? 
-                    violation.fcra_codes.join('; ') : 
-                    violation.code || '§1681';
+                const fcraCodesText = violation.codes || 
+                    (violation.fcra_codes ? violation.fcra_codes.join('; ') : 
+                    violation.code || '§1681');
                 
                 violationBox.innerHTML = `
                     <div class="violation-severity-badge">

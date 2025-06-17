@@ -26,11 +26,27 @@
     <style>
         /* Override violation box font sizes */
         .violation-fcra-codes {
-            font-size: 9pt !important;
+            font-size: 10pt !important;
+            font-weight: 600 !important;
         }
         
         .violation-description {
-            font-size: 9pt !important;
+            font-size: 10pt !important;
+            line-height: 1.5 !important;
+            margin-bottom: 0 !important;
+        }
+        
+        /* Ensure violation boxes can expand vertically */
+        .violation-box {
+            min-height: 60px !important;
+            height: auto !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        
+        /* Ensure proper text wrapping */
+        .violation-content {
+            width: 100% !important;
         }
     </style>
 </head>

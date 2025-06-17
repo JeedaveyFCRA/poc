@@ -1496,6 +1496,8 @@ input {
     transition: all 300ms ease;
     transform-origin: top;
     padding: 8px 14px 6px 14px; /* Added 6px bottom padding for shadows */
+    max-height: none; /* Allow content to expand fully */
+    position: relative;
 }
 
 .violation-details-component.collapsed .violation-details-content {
@@ -1510,6 +1512,29 @@ input {
     display: flex;
     flex-direction: column;
     gap: 8px; /* Space between violation boxes - reduced by 40% */
+    max-height: 500px; /* Set a reasonable max height */
+    overflow-y: auto; /* Enable vertical scrolling when needed */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    padding-right: 4px; /* Small padding for scrollbar */
+}
+
+/* Custom scrollbar for violation list */
+.violation-details-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.violation-details-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.violation-details-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.violation-details-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* Individual violation box */
@@ -1518,20 +1543,21 @@ input {
     border: 1px solid #ffffff;
     border-radius: 32px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 4px 14px 4px 28px; /* 4px top/bottom, 14px right, 28px left (14px + 14px increase) */
+    padding: 16px 20px 16px 50px; /* Increased padding for better content spacing */
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Changed from center to flex-start for top alignment */
     gap: 14px;
     min-height: 60px; /* Ensure minimum height for badge alignment */
+    height: auto; /* Allow box to expand with content */
+    overflow: visible; /* Ensure content is not clipped */
 }
 
 /* Severity badge - positioned absolutely */
 .violation-severity-badge {
     position: absolute;
-    left: 21px; /* Adjusted for increased left padding (7px + 14px) */
-    top: 50%;
-    transform: translateY(-50%);
+    left: 16px; /* Positioned for new padding */
+    top: 18px; /* Fixed top position aligned with content */
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -1568,7 +1594,9 @@ input {
 /* Violation content */
 .violation-content {
     flex: 1;
-    padding-left: 30px; /* Space for badge */
+    padding-left: 0; /* No extra padding needed with absolute badge */
+    padding-top: 2px; /* Slight top padding for alignment */
+    max-width: 100%; /* Prevent content from overflowing */
 }
 
 /* FCRA codes */
@@ -1588,9 +1616,12 @@ input {
     font-weight: 400;
     font-size: 11pt;
     color: rgba(0, 0, 0, 0.9);
-    line-height: 1.2;
+    line-height: 1.4; /* Increased line height for better readability */
     margin-top: 4px;
     display: block;
+    word-wrap: break-word; /* Ensure long words break */
+    overflow-wrap: break-word; /* Modern property for word breaking */
+    white-space: normal; /* Ensure text wraps normally */
 }
 
 /* Legacy filter styles removed - using filter-counter component instead */
@@ -1607,8 +1638,8 @@ input {
 /* Hide native scrollbar when custom scroll is active */
 .violation-details-list.custom-scroll-active {
     overflow-y: auto; /* Changed from hidden to auto to allow shadows */
-    overflow-x: visible; /* Allow horizontal overflow for shadows */
-    max-height: 272px; /* Fixed viewport height */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    max-height: 500px; /* Match the regular list max-height */
     position: relative;
     padding-bottom: 6px; /* Add padding to accommodate bottom shadows */
     margin-bottom: -6px; /* Compensate for padding to maintain layout */
