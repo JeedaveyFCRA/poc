@@ -18,6 +18,7 @@
     
     <!-- VioVerse Refactor Styles -->
     <link rel="stylesheet" href="css/refactor-ui.css">
+    <link rel="stylesheet" href="css/mobile-responsive-fix.css">
     
     <!-- Inline style overrides for violation details -->
 
@@ -272,9 +273,16 @@
                         <div class="sidebar-top-box">
                             <!-- Sidebar Top Stack Container -->
                             <div class="sidebar-top-stack">
+                                <!-- Section Labels Bar - Only visible when sections are collapsed -->
+                                <div class="section-labels-bar" id="sectionLabelsBar" style="display: none;">
+                                    <span class="section-label" data-section="filter" style="display: none;">show filters</span>
+                                    <span class="section-label" data-section="severity" style="display: none;">show severity</span>
+                                    <span class="section-label" data-section="violations" style="display: none;">show FCRA violations</span>
+                                </div>
+                                
                                 <!-- Filter Counter Component -->
                                 <div class="filter-counter" id="filterCounter">
-                                    <!-- Header - Always Visible -->
+                                    <!-- Header -->
                                     <div class="filter-counter-header">
                                         <h3 class="filter-counter-title">filter this report</h3>
                                         <button class="filter-counter-toggle filter-counter-toggle-expanded" aria-label="Toggle filter section" aria-expanded="true">
@@ -283,8 +291,6 @@
                                         <button class="filter-counter-toggle filter-counter-toggle-collapsed" aria-label="Toggle filter section" aria-expanded="false">
                                             <i data-lucide="circle-chevron-down"></i>
                                         </button>
-                                        <!-- Filters label - Only visible when collapsed -->
-                                        <span class="filter-id-label">show filters</span>
                                     </div>
                                     
                                     <!-- Collapsible Content -->
@@ -314,17 +320,12 @@
                                 
                                 <!-- Severity Summary Component -->
                                 <div class="severity-summary-component" id="severitySummary">
-                                    <!-- Collapsed label -->
-                                    <span class="severity-summary-collapsed-label">show severity</span>
-                                    
-                                    <!-- Header with toggle button -->
+                                    <!-- Header -->
                                     <div class="severity-summary-header-wrapper">
                                         <h2 class="severity-summary-header">severity summary</h2>
-                                        <!-- Toggle button for expanded state -->
                                         <button class="severity-summary-toggle severity-summary-toggle-expanded" aria-expanded="true" aria-controls="severity-summary-content">
                                             <i data-lucide="circle-chevron-up"></i>
                                         </button>
-                                        <!-- Toggle button for collapsed state -->
                                         <button class="severity-summary-toggle severity-summary-toggle-collapsed" aria-expanded="false" aria-controls="severity-summary-content">
                                             <i data-lucide="circle-chevron-down"></i>
                                         </button>
@@ -370,20 +371,15 @@
                                 </div>
                                 <!-- Violation Details Component -->
                                 <div class="violation-details-component" id="violationDetails">
-                                    <!-- Collapsed label -->
-                                    <span class="violation-details-collapsed-label">show FCRA violations</span>
-                                    
-                                    <!-- Header with Toggle -->
+                                    <!-- Header -->
                                     <div class="violation-details-header">
                                         <h3 class="violation-details-title">violation details</h3>
-                                        <!-- Toggle button for expanded state -->
                                         <button class="violation-details-toggle violation-details-toggle-expanded" 
                                                 aria-label="Toggle violation details" 
                                                 aria-expanded="true"
                                                 aria-controls="violation-details-content">
                                             <i data-lucide="circle-chevron-up"></i>
                                         </button>
-                                        <!-- Toggle button for collapsed state -->
                                         <button class="violation-details-toggle violation-details-toggle-collapsed" 
                                                 aria-label="Toggle violation details" 
                                                 aria-expanded="false"

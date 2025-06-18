@@ -63,6 +63,9 @@ class VioVerse {
         // Initialize search functionality
         this.initSearchBox();
         
+        // Initialize mobile sidebar functionality
+        this.initMobileSidebar();
+        
         // New view toggle functionality
         const viewLabels = document.querySelectorAll('.view-label');
         viewLabels.forEach(label => {
@@ -85,7 +88,7 @@ class VioVerse {
             toolTipsToggle.addEventListener('click', () => this.toggleToolTips());
         }
         
-        // Filter Counter toggle - both buttons
+        // Filter Counter toggle
         const filterToggleExpanded = document.querySelector('.filter-counter-toggle-expanded');
         const filterToggleCollapsed = document.querySelector('.filter-counter-toggle-collapsed');
         if (filterToggleExpanded) {
@@ -95,11 +98,16 @@ class VioVerse {
             filterToggleCollapsed.addEventListener('click', () => this.toggleFilterCounter());
         }
         
-        // Filter label click functionality
-        const filterLabel = document.querySelector('.filter-id-label');
-        if (filterLabel) {
-            filterLabel.addEventListener('click', () => this.toggleFilterCounter());
-        }
+        // Section label click functionality
+        const sectionLabels = document.querySelectorAll('.section-label');
+        sectionLabels.forEach(label => {
+            label.addEventListener('click', () => {
+                const section = label.dataset.section;
+                if (section === 'filter') this.toggleFilterCounter();
+                else if (section === 'severity') this.toggleSeveritySummary();
+                else if (section === 'violations') this.toggleViolationDetails();
+            });
+        });
         
         // Page navigation
         const prevBtn = document.querySelector('.nav-arrow.prev');
@@ -174,86 +182,24 @@ class VioVerse {
             severityToggle.addEventListener('click', () => this.toggleSeverityBoxes());
         }
         
-        // Severity Summary toggle functionality (new) - Two button approach
+        // Severity Summary toggle functionality
         const severitySummaryToggleExpanded = document.querySelector('.severity-summary-toggle-expanded');
         const severitySummaryToggleCollapsed = document.querySelector('.severity-summary-toggle-collapsed');
-        const severitySummaryContainer = document.querySelector('.severity-summary-component');
-        const severitySummaryLabel = document.querySelector('.severity-summary-collapsed-label');
-        
-        if (severitySummaryContainer) {
-            const toggleSeveritySummary = () => {
-                // Toggle collapsed class
-                severitySummaryContainer.classList.toggle('collapsed');
-                
-                // Update aria-expanded on both buttons
-                const isCollapsed = severitySummaryContainer.classList.contains('collapsed');
-                if (severitySummaryToggleExpanded) {
-                    severitySummaryToggleExpanded.setAttribute('aria-expanded', !isCollapsed);
-                }
-                if (severitySummaryToggleCollapsed) {
-                    severitySummaryToggleCollapsed.setAttribute('aria-expanded', !isCollapsed);
-                }
-                
-                // CSS handles button visibility - no icon switching needed
-                
-                // Announce state change for accessibility
-                const announcement = isCollapsed ? 'Severity summary collapsed' : 'Severity summary expanded';
-                this.announce(announcement);
-            };
-            
-            // Add click events to both toggle buttons
-            if (severitySummaryToggleExpanded) {
-                severitySummaryToggleExpanded.addEventListener('click', toggleSeveritySummary);
-            }
-            if (severitySummaryToggleCollapsed) {
-                severitySummaryToggleCollapsed.addEventListener('click', toggleSeveritySummary);
-            }
-            
-            // Add click event to collapsed label
-            if (severitySummaryLabel) {
-                severitySummaryLabel.addEventListener('click', toggleSeveritySummary);
-            }
+        if (severitySummaryToggleExpanded) {
+            severitySummaryToggleExpanded.addEventListener('click', () => this.toggleSeveritySummary());
+        }
+        if (severitySummaryToggleCollapsed) {
+            severitySummaryToggleCollapsed.addEventListener('click', () => this.toggleSeveritySummary());
         }
         
-        // Violation Details toggle functionality - Two button approach
+        // Violation Details toggle functionality
         const violationDetailsToggleExpanded = document.querySelector('.violation-details-toggle-expanded');
         const violationDetailsToggleCollapsed = document.querySelector('.violation-details-toggle-collapsed');
-        const violationDetailsContainer = document.querySelector('.violation-details-component');
-        const violationDetailsLabel = document.querySelector('.violation-details-collapsed-label');
-        
-        if (violationDetailsContainer) {
-            const toggleViolationDetails = () => {
-                // Toggle collapsed class
-                violationDetailsContainer.classList.toggle('collapsed');
-                
-                // Update aria-expanded on both buttons
-                const isCollapsed = violationDetailsContainer.classList.contains('collapsed');
-                if (violationDetailsToggleExpanded) {
-                    violationDetailsToggleExpanded.setAttribute('aria-expanded', !isCollapsed);
-                }
-                if (violationDetailsToggleCollapsed) {
-                    violationDetailsToggleCollapsed.setAttribute('aria-expanded', !isCollapsed);
-                }
-                
-                // CSS handles button visibility - no icon switching needed
-                
-                // Announce state change for accessibility
-                const announcement = isCollapsed ? 'Violation details collapsed' : 'Violation details expanded';
-                this.announce(announcement);
-            };
-            
-            // Add click events to both toggle buttons
-            if (violationDetailsToggleExpanded) {
-                violationDetailsToggleExpanded.addEventListener('click', toggleViolationDetails);
-            }
-            if (violationDetailsToggleCollapsed) {
-                violationDetailsToggleCollapsed.addEventListener('click', toggleViolationDetails);
-            }
-            
-            // Add click event to collapsed label
-            if (violationDetailsLabel) {
-                violationDetailsLabel.addEventListener('click', toggleViolationDetails);
-            }
+        if (violationDetailsToggleExpanded) {
+            violationDetailsToggleExpanded.addEventListener('click', () => this.toggleViolationDetails());
+        }
+        if (violationDetailsToggleCollapsed) {
+            violationDetailsToggleCollapsed.addEventListener('click', () => this.toggleViolationDetails());
         }
         
         // Initialize Lucide icons
@@ -1077,6 +1023,95 @@ class VioVerse {
         }
         
         liveRegion.textContent = message;
+    }
+    
+    toggleFilterCounter() {
+        const container = document.querySelector('.filter-counter');
+        const expandedBtn = document.querySelector('.filter-counter-toggle-expanded');
+        const collapsedBtn = document.querySelector('.filter-counter-toggle-collapsed');
+        
+        if (!container) return;
+        
+        const isCollapsed = container.classList.contains('collapsed');
+        
+        if (isCollapsed) {
+            container.classList.remove('collapsed');
+            if (expandedBtn) expandedBtn.setAttribute('aria-expanded', 'true');
+            if (collapsedBtn) collapsedBtn.setAttribute('aria-expanded', 'false');
+        } else {
+            container.classList.add('collapsed');
+            if (expandedBtn) expandedBtn.setAttribute('aria-expanded', 'false');
+            if (collapsedBtn) collapsedBtn.setAttribute('aria-expanded', 'true');
+        }
+        
+        this.updateSectionLabelsBar();
+        this.announce(`Filter section ${isCollapsed ? 'expanded' : 'collapsed'}`);
+    }
+    
+    toggleSeveritySummary() {
+        const container = document.querySelector('.severity-summary-component');
+        const expandedBtn = document.querySelector('.severity-summary-toggle-expanded');
+        const collapsedBtn = document.querySelector('.severity-summary-toggle-collapsed');
+        
+        if (!container) return;
+        
+        const isCollapsed = container.classList.contains('collapsed');
+        
+        if (isCollapsed) {
+            container.classList.remove('collapsed');
+            if (expandedBtn) expandedBtn.setAttribute('aria-expanded', 'true');
+            if (collapsedBtn) collapsedBtn.setAttribute('aria-expanded', 'false');
+        } else {
+            container.classList.add('collapsed');
+            if (expandedBtn) expandedBtn.setAttribute('aria-expanded', 'false');
+            if (collapsedBtn) collapsedBtn.setAttribute('aria-expanded', 'true');
+        }
+        
+        this.updateSectionLabelsBar();
+        this.announce(`Severity summary ${isCollapsed ? 'expanded' : 'collapsed'}`);
+    }
+    
+    toggleViolationDetails() {
+        const container = document.querySelector('.violation-details-component');
+        const expandedBtn = document.querySelector('.violation-details-toggle-expanded');
+        const collapsedBtn = document.querySelector('.violation-details-toggle-collapsed');
+        
+        if (!container) return;
+        
+        const isCollapsed = container.classList.contains('collapsed');
+        
+        if (isCollapsed) {
+            container.classList.remove('collapsed');
+            if (expandedBtn) expandedBtn.setAttribute('aria-expanded', 'true');
+            if (collapsedBtn) collapsedBtn.setAttribute('aria-expanded', 'false');
+        } else {
+            container.classList.add('collapsed');
+            if (expandedBtn) expandedBtn.setAttribute('aria-expanded', 'false');
+            if (collapsedBtn) collapsedBtn.setAttribute('aria-expanded', 'true');
+        }
+        
+        this.updateSectionLabelsBar();
+        this.announce(`Violation details ${isCollapsed ? 'expanded' : 'collapsed'}`);
+    }
+    
+    updateSectionLabelsBar() {
+        const labelsBar = document.getElementById('sectionLabelsBar');
+        const filterLabel = document.querySelector('[data-section="filter"]');
+        const severityLabel = document.querySelector('[data-section="severity"]');
+        const violationsLabel = document.querySelector('[data-section="violations"]');
+        
+        const filterCollapsed = document.querySelector('.filter-counter')?.classList.contains('collapsed');
+        const severityCollapsed = document.querySelector('.severity-summary-component')?.classList.contains('collapsed');
+        const violationsCollapsed = document.querySelector('.violation-details-component')?.classList.contains('collapsed');
+        
+        // Show/hide individual labels
+        if (filterLabel) filterLabel.style.display = filterCollapsed ? 'block' : 'none';
+        if (severityLabel) severityLabel.style.display = severityCollapsed ? 'block' : 'none';
+        if (violationsLabel) violationsLabel.style.display = violationsCollapsed ? 'block' : 'none';
+        
+        // Show/hide the bar itself
+        const anyCollapsed = filterCollapsed || severityCollapsed || violationsCollapsed;
+        if (labelsBar) labelsBar.style.display = anyCollapsed ? 'flex' : 'none';
     }
     
     
@@ -2004,6 +2039,51 @@ class VioVerse {
             item.classList.remove('search-match', 'search-highlight');
         });
         document.getElementById('search-box')?.classList.remove('has-results');
+    }
+    
+    // Mobile sidebar toggle functionality
+    initMobileSidebar() {
+        // Create mobile toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.className = 'mobile-sidebar-toggle';
+        toggleButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
+        toggleButton.setAttribute('aria-label', 'Toggle sidebar');
+        document.body.appendChild(toggleButton);
+        
+        // Get sidebar element
+        const sidebar = document.querySelector('.sidebar-wrapper');
+        
+        // Toggle sidebar on button click
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('mobile-open');
+            const isOpen = sidebar.classList.contains('mobile-open');
+            toggleButton.setAttribute('aria-expanded', isOpen);
+            
+            // Update button icon
+            if (isOpen) {
+                toggleButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+            } else {
+                toggleButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
+            }
+        });
+        
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !toggleButton.contains(e.target) && sidebar.classList.contains('mobile-open')) {
+                sidebar.classList.remove('mobile-open');
+                toggleButton.setAttribute('aria-expanded', 'false');
+                toggleButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
+            }
+        });
+        
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar.classList.contains('mobile-open')) {
+                sidebar.classList.remove('mobile-open');
+                toggleButton.setAttribute('aria-expanded', 'false');
+                toggleButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
+            }
+        });
     }
 }
 

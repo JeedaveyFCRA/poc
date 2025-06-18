@@ -1,5 +1,5 @@
 {
-  "numStartups": 28,
+  "numStartups": 29,
   "autoUpdaterStatus": "migrated",
   "tipsHistory": {
     "new-user-warmup": 1,
@@ -24,6 +24,30 @@
     "/home/avid_arrajeedavey": {
       "allowedTools": [],
       "history": [
+        {
+          "display": "You are continuing David Marra’s FCRA system in Phase 2.\n\nWe just completed a major round of UI, logic, and responsiveness fixes in Viotagger and Report Viewer. The most important rule going forward:\n\n→ The Viotagger canvas and Report Viewer canvas must remain **perfectly aligned** — 1920x1080 fixed layout, identical coordinates, and rendering scale, so violation overlays appear identically in both views.\n\nYour files are here:\n\\\\wsl.localhost\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\n\n✅ Start by confirming canvas syncing logic  \n✅ Then resume responsiveness and UI fixes from Phase 1  \n✅ All logic must be modular, no regressions\n\nLet’s begin.\n",
+          "pastedContents": {}
+        },
+        {
+          "display": "[Pasted text #1 +64 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 UI Fix Prompt: Collapsed Section Label Logic + Spacing Cleanup + Responsiveness\n\nClaude, please perform the following multi-part update to the FCRA Review Summary panel in index.html. The goal is to refine label logic, restore toggle headers, reduce gaps, and improve mobile responsiveness.\n\n🔁 PART 1: Collapsed Section Label Behavior\nImplement this logic:\n\nThe top row of section labels (show filters, show severity, show fcra violations) should only appear when one or more sections are collapsed\n\nWhen all three sections are expanded, this top row should be hidden\n\nWhen any one section is collapsed, this label row appears with just the visible label(s) for collapsed sections\n\nClicking the label should re-expand the corresponding section (same functionality as before)\n\nWhen the section is re-expanded, the label should disappear again (if no other sections are collapsed)\n\n🧱 PART 2: Restore Missing Non-Collapsed Buttons\nThe following stacks are missing their non-collapsed toggle buttons:\n\nfilter this report\n\nseverity summary\n\nviolation details\n\nPlease restore the original open/close toggle buttons on the right of each stack header so they can collapse properly.\n\n✂️ PART 3: Spacing & Padding Fixes\nReduce the following spacing amounts:\n\nSpace between each stack section (stack-to-stack): reduce vertical margin/padding to ~12–14px\n\nSpace between the section label row and the top of the first visible stack: reduce by ~4–6px\n\nPadding inside violation description boxes: ensure ~12–16px left/right internal padding\n\nReduce space between severity icon and description text (in violation boxes)\n\nAlign severity icon top with the first line of the text\n\n📏 PART 4: Font Size Adjustments\nFont size for section labels (show filters, show severity, show fcra violations): reduce by 1 point\n\nFont size for the footer legal note (\"Original report shown...\"): reduce by 1 point so it fits on a single line\n\n📱 PART 5: Responsive Behavior\nEnsure all changes remain responsive, especially:\n\nThe label row should stack vertically on screens narrower than 768px\n\nAll spacing adjustments should scale appropriately on smaller displays\n\n✅ Summary of Goals\n✅ Label row only appears when needed\n\n✅ Restore all missing section toggle buttons\n\n✅ Eliminate excessive spacing\n\n✅ Align and pad icons and descriptions properly\n\n✅ Reduce font size subtly for balance\n\n✅ Preserve full responsiveness"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +52 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 UI Update Prompt: Remove Collapse Icons & Move Labels to Top (Responsive)\n\nClaude, please implement the following layout update for the FCRA Review Summary panel in index.html:\n\n🎯 OBJECTIVE\nEliminate the tiny Lucide collapse icons (\"▼\") next to all three section headers:\n\nshow filters\n\nshow severity\n\nshow FCRA violations\n\nRemove the collapsed/minimized versions entirely. These sections should remain fully expanded at all times.\n\nRelocate the three labels (show filters, show severity, show FCRA violations) into a horizontal bar across the top of the Review Summary panel (stacked only on narrow screens).\n\n🛠️ SPECIFICATIONS\n🔹 Layout Placement:\nPlace the three labels in a horizontal row at the top of the FCRA Review Summary card\n\nEach label acts as a section heading, not a button\n\nUse equal spacing or flexbox justify-content: space-between for visual balance\n\n🔹 Visuals:\nRemove all collapse icons (Lucide \"chevron-down\" or similar)\n\nStyle headings to look consistent (same font, size, weight)\n\nReduce vertical space between label row and underlying section content to ~12px\n\n🔹 Responsiveness:\nOn screens narrower than 768px:\n\nStack the labels vertically\n\nUse gap: 6px between stacked labels\n\nOn screens wider than 768px:\n\nArrange labels horizontally across top\n\nMaintain spacing with gap: 16–20px\n\n🔄 Final Result:\nThe FCRA Review Summary panel loads with all three content areas visible\n\nNo toggling or collapsing behavior remains\n\nThe label bar provides a clean, responsive section guide across screen sizes\n\nPlease confirm when complete and include affected CSS/JS/HTML files. Let me review visually before any further logic updates."
+            }
+          }
+        },
         {
           "display": "[Pasted text #1 +75 lines]",
           "pastedContents": {
@@ -613,18 +637,6 @@
         },
         {
           "display": "now put a temporary pink fill debug inside the circle to locate the search icon",
-          "pastedContents": {}
-        },
-        {
-          "display": "move the circle to the left 2 px",
-          "pastedContents": {}
-        },
-        {
-          "display": "perfect.i think the circle needs to be 2 px larger.  Now make the seach box 14 px wider",
-          "pastedContents": {}
-        },
-        {
-          "display": "getting a little closer.  move the circle to the right 2 px and it looks like it is 6 px too small",
           "pastedContents": {}
         }
       ],

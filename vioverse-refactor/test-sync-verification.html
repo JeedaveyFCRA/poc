@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Sync Verification</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .iframe-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .iframe-wrapper {
+            flex: 1;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .iframe-wrapper h3 {
+            margin: 0 0 10px 0;
+            color: #555;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .test-results {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background: #0056b3;
+        }
+        
+        .coordinate-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .coord-item {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .coord-item strong {
+            display: block;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Canvas Synchronization Verification</h1>
+    
+    <div class="test-section">
+        <h2>Test Overview</h2>
+        <p>This test verifies that violations appear at the same relative positions in both Viotagger and Report Viewer.</p>
+        <p>Both views should now use a 1920×1080 base canvas with identical coordinate systems.</p>
+        
+        <button onclick="runTests()">Run Alignment Tests</button>
+        <button onclick="addTestViolation()">Add Test Violation</button>
+        <button onclick="clearTestResults()">Clear Results</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Visual Comparison</h2>
+        <div class="iframe-container">
+            <div class="iframe-wrapper">
+                <h3>Viotagger (1920×1080)</h3>
+                <iframe id="viotaggerFrame" src="./index.html?file=AL-EQ-2024-04-25-P57.png"></iframe>
+            </div>
+            <div class="iframe-wrapper">
+                <h3>Report Viewer (1920×1080)</h3>
+                <iframe id="reportViewerFrame" src="../poc-view.html?file=AL-EQ-2024-04-25-P57.png"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="testResults" class="test-results">
+            <p>Click "Run Alignment Tests" to start verification.</p>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Coordinate Information</h2>
+        <div id="coordinateInfo" class="coordinate-display">
+            <div class="coord-item">
+                <strong>Canvas Dimensions:</strong>
+                <span>1920 × 1080 (both views)</span>
+            </div>
+            <div class="coord-item">
+                <strong>Test Violation:</strong>
+                <span id="testViolationCoords">Not set</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./js/canvas-sync.js"></script>
+    <script>
+        const canvasSync = new CanvasSync();
+        let testViolation = null;
+        
+        function runTests() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<h3>Running Tests...</h3>';
+            
+            let testsPassed = 0;
+            let totalTests = 0;
+            
+            // Test 1: Canvas dimensions
+            totalTests++;
+            const test1 = canvasSync.BASE_WIDTH === 1920 && canvasSync.BASE_HEIGHT === 1080;
+            results.innerHTML += `<p>${test1 ? '<span class="success">✓</span>' : '<span class="error">✗</span>'} Canvas dimensions: 1920×1080</p>`;
+            if (test1) testsPassed++;
+            
+            // Test 2: Coordinate bounds checking
+            totalTests++;
+            const testCoords = { x: 500, y: 300, width: 200, height: 100 };
+            const inBounds = canvasSync.isWithinBounds(testCoords, 'viotagger');
+            results.innerHTML += `<p>${inBounds ? '<span class="success">✓</span>' : '<span class="error">✗</span>'} Test coordinates within bounds</p>`;
+            if (inBounds) testsPassed++;
+            
+            // Test 3: Scale factor verification
+            totalTests++;
+            const expectedScaleX = 810 / 1920; // 0.421875
+            const expectedScaleY = 920 / 1080; // 0.851852
+            const scaleMatch = Math.abs(canvasSync.scaleX - expectedScaleX) < 0.001 && 
+                               Math.abs(canvasSync.scaleY - expectedScaleY) < 0.001;
+            results.innerHTML += `<p>${scaleMatch ? '<span class="success">✓</span>' : '<span class="error">✗</span>'} Scale factors correct (X: ${canvasSync.scaleX.toFixed(4)}, Y: ${canvasSync.scaleY.toFixed(4)})</p>`;
+            if (scaleMatch) testsPassed++;
+            
+            // Test 4: Coordinate conversion
+            totalTests++;
+            const converted = canvasSync.viotaggerToReportViewer(testCoords);
+            const expectedX = Math.round(500 * expectedScaleX);
+            const expectedY = Math.round(300 * expectedScaleY);
+            const conversionMatch = converted.x === expectedX && converted.y === expectedY;
+            results.innerHTML += `<p>${conversionMatch ? '<span class="success">✓</span>' : '<span class="error">✗</span>'} Coordinate conversion: (${testCoords.x}, ${testCoords.y}) → (${converted.x}, ${converted.y})</p>`;
+            if (conversionMatch) testsPassed++;
+            
+            // Test 5: Viewport scaling
+            totalTests++;
+            const viewportScale = canvasSync.getViewportScale(1440); // Test with 1440px viewport
+            const expectedViewportScale = 1440 / 1920; // 0.75
+            const viewportScaleMatch = Math.abs(viewportScale - expectedViewportScale) < 0.001;
+            results.innerHTML += `<p>${viewportScaleMatch ? '<span class="success">✓</span>' : '<span class="error">✗</span>'} Viewport scaling (1440px): ${viewportScale.toFixed(4)}</p>`;
+            if (viewportScaleMatch) testsPassed++;
+            
+            // Summary
+            results.innerHTML += `<hr><h3>Test Summary: ${testsPassed}/${totalTests} passed</h3>`;
+            
+            if (testsPassed === totalTests) {
+                results.innerHTML += '<p class="success">All tests passed! Canvas synchronization is working correctly.</p>';
+            } else {
+                results.innerHTML += '<p class="error">Some tests failed. Please check the implementation.</p>';
+            }
+            
+            // Debug info
+            const debugInfo = canvasSync.getDebugInfo(testCoords);
+            results.innerHTML += '<h4>Debug Information:</h4>';
+            results.innerHTML += '<pre>' + JSON.stringify(debugInfo, null, 2) + '</pre>';
+        }
+        
+        function addTestViolation() {
+            // Generate random position for test violation
+            const x = Math.floor(Math.random() * 1500) + 100;
+            const y = Math.floor(Math.random() * 800) + 100;
+            const width = Math.floor(Math.random() * 200) + 100;
+            const height = Math.floor(Math.random() * 100) + 50;
+            
+            testViolation = { x, y, width, height };
+            
+            // Update coordinate display
+            document.getElementById('testViolationCoords').textContent = 
+                `(${x}, ${y}) ${width}×${height}`;
+            
+            // Send to both iframes
+            const viotaggerFrame = document.getElementById('viotaggerFrame').contentWindow;
+            const reportViewerFrame = document.getElementById('reportViewerFrame').contentWindow;
+            
+            // Create message for test violation
+            const message = {
+                type: 'addTestViolation',
+                violation: {
+                    id: 'test-' + Date.now(),
+                    x: x,
+                    y: y,
+                    width: width,
+                    height: height,
+                    severity: 'high',
+                    description: 'Test violation for alignment verification'
+                }
+            };
+            
+            // Post to both frames
+            viotaggerFrame.postMessage(message, '*');
+            reportViewerFrame.postMessage(message, '*');
+            
+            const results = document.getElementById('testResults');
+            results.innerHTML += `<p class="warning">Test violation added at (${x}, ${y}) with size ${width}×${height}</p>`;
+        }
+        
+        function clearTestResults() {
+            document.getElementById('testResults').innerHTML = '<p>Test results cleared. Click "Run Alignment Tests" to start.</p>';
+        }
+        
+        // Listen for messages from iframes
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'canvasInfo') {
+                console.log('Canvas info from', event.origin, ':', event.data);
+            }
+        });
+        
+        // Initial setup
+        window.addEventListener('load', function() {
+            console.log('Canvas Sync Verification loaded');
+            console.log('Canvas Sync instance:', canvasSync);
+        });
+    </script>
+</body>
+</html>

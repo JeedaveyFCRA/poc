@@ -1,0 +1,187 @@
+/* Mobile Responsive Fixes for Viotagger */
+/* Improves usability on smaller devices */
+
+/* Tablet screens (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .vioverse-app {
+        transform: scale(calc(100vw / 1920)) !important;
+        transform-origin: top left;
+    }
+    
+    body::after {
+        height: calc(1080px * (100vw / 1920)) !important;
+    }
+}
+
+/* Mobile landscape (568px - 768px) */
+@media (max-width: 768px) and (min-width: 569px) {
+    .vioverse-app {
+        transform: scale(0.5) !important; /* Better than 0.4 for readability */
+        transform-origin: top left;
+    }
+    
+    body::after {
+        height: calc(1080px * 0.5) !important;
+    }
+    
+    /* Enhance touch targets */
+    .viobox {
+        min-width: 60px !important;
+        min-height: 60px !important;
+    }
+    
+    /* Make sidebar scrollable if needed */
+    .sidebar-wrapper {
+        max-height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Mobile portrait (320px - 568px) */
+@media (max-width: 568px) {
+    /* Use viewport-based scaling for better fit */
+    .vioverse-app {
+        transform: scale(calc(100vw / 1920)) !important;
+        transform-origin: top left;
+    }
+    
+    body {
+        overflow-x: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    body::after {
+        height: calc(1080px * (100vw / 1920)) !important;
+    }
+    
+    /* Mobile UI adjustments */
+    .violation-box {
+        min-height: auto !important;
+        padding: 12px 16px !important;
+    }
+    
+    /* Improve touch targets */
+    .viobox {
+        min-width: 44px !important; /* iOS touch target minimum */
+        min-height: 44px !important;
+        border-width: 3px !important;
+    }
+    
+    /* Sidebar mobile optimization */
+    .sidebar-wrapper {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        width: 90vw;
+        max-width: 400px;
+        height: 100vh;
+        z-index: 9999;
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    }
+    
+    .sidebar-wrapper.mobile-open {
+        right: 0;
+    }
+    
+    /* Add mobile sidebar toggle button */
+    .mobile-sidebar-toggle {
+        display: block !important;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        background: #4a505a;
+        border-radius: 50%;
+        border: none;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        z-index: 9998;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .mobile-sidebar-toggle:active {
+        transform: scale(0.95);
+    }
+    
+    /* Hide on desktop */
+    @media (min-width: 769px) {
+        .mobile-sidebar-toggle {
+            display: none !important;
+        }
+    }
+}
+
+/* Ultra-small devices (below 320px) */
+@media (max-width: 320px) {
+    .vioverse-app {
+        transform: scale(calc(100vw / 1920)) !important;
+        min-width: 320px;
+    }
+    
+    /* Ensure minimum readability */
+    .violation-description {
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+    }
+    
+    .violation-fcra-codes {
+        font-size: 11px !important;
+    }
+}
+
+/* Touch-friendly adjustments for all mobile devices */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase clickable areas */
+    button, .button, .viobox, .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Remove hover effects on touch devices */
+    .viobox:hover {
+        transform: none !important;
+    }
+    
+    /* Improve scrolling performance */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Prevent zoom on input focus */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
+
+/* Landscape orientation fixes */
+@media (orientation: landscape) and (max-height: 500px) {
+    .sidebar-wrapper {
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    
+    .violation-sidebar-header {
+        position: sticky;
+        top: 0;
+        background: #323844;
+        z-index: 10;
+    }
+}
+
+/* Print styles for mobile */
+@media print {
+    .vioverse-app {
+        transform: none !important;
+    }
+    
+    .mobile-sidebar-toggle,
+    .sidebar-wrapper {
+        display: none !important;
+    }
+}
