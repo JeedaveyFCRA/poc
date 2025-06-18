@@ -25,6 +25,30 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "add 4 to each",
+          "pastedContents": {}
+        },
+        {
+          "display": "try 0 for both",
+          "pastedContents": {}
+        },
+        {
+          "display": "now tell me the amount with the severity boxes and the violation details heading",
+          "pastedContents": {}
+        },
+        {
+          "display": "reduce the to 0",
+          "pastedContents": {}
+        },
+        {
+          "display": "reduced both by  half",
+          "pastedContents": {}
+        },
+        {
+          "display": "what is the padding either above the severity heading and or below the filter this report box?",
+          "pastedContents": {}
+        },
+        {
           "display": "great!",
           "pastedContents": {}
         },
@@ -625,30 +649,6 @@
         },
         {
           "display": "increase the icons to 19.6px and keep them vertically centered to the vioboxes",
-          "pastedContents": {}
-        },
-        {
-          "display": "left align them to the vioboxes",
-          "pastedContents": {}
-        },
-        {
-          "display": "what size are the icons  that should be left aligned to the vioboxes?",
-          "pastedContents": {}
-        },
-        {
-          "display": "it looks like there is a white opacity fill in the unselected state, it should not be so opaque  make it more transparent",
-          "pastedContents": {}
-        },
-        {
-          "display": "can you also make the unslected and hover state of those vioboxes inwards? keep them the exisitng stroke weights though",
-          "pastedContents": {}
-        },
-        {
-          "display": "mmake it 2.5 px",
-          "pastedContents": {}
-        },
-        {
-          "display": "make it 3 px",
           "pastedContents": {}
         }
       ],

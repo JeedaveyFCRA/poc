@@ -1357,7 +1357,7 @@ input {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px 0 24px;
+    padding: 4px 24px 0 24px; /* Small top padding */
     margin: 0;
     position: relative;
     overflow: visible; /* Ensure buttons aren't clipped */
@@ -2469,7 +2469,7 @@ body.dragging-scroll {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 12px; /* Reduced space to next section */
+    margin-bottom: 0; /* No space between sections */
 }
 
 /* Header container - always visible */
@@ -2720,9 +2720,9 @@ body.dragging-scroll {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 16px 24px 0 24px; /* Match filter-counter padding */
-    margin-top: 0; /* Reduced spacing between sections */
-    margin-bottom: 12px; /* Reduced space to next section */
+    padding: 0 24px 0 24px; /* No top padding */
+    margin-top: 0; /* No spacing between sections */
+    margin-bottom: 4px; /* Small space to next section */
     box-sizing: border-box; /* Include padding in width calculation */
 }
 
