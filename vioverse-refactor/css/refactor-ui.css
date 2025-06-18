@@ -1600,12 +1600,12 @@ input {
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 24px; /* Slightly reduced for modern feel */
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
-    padding: 20px 24px 20px 52px; /* Balanced padding */
-    margin: 12px auto; /* Auto margins for centering */
+    padding: 20px 10px 20px 52px; /* Balanced padding with inner content padding */
+    margin: 6px auto; /* Optimal spacing between violation descriptions */
     position: relative;
     display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    align-items: center; /* Center vertically */
+    gap: 8px; /* Reduced gap between icon and text */
     min-height: 60px;
     height: auto;
     overflow: visible;
@@ -1621,7 +1621,8 @@ input {
 .violation-severity-badge {
     position: absolute;
     left: 16px; /* Positioned for new padding */
-    top: 18px; /* Fixed top position aligned with content */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Perfect vertical centering */
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -1658,8 +1659,7 @@ input {
 /* Violation content */
 .violation-content {
     flex: 1;
-    padding-left: 0; /* No extra padding needed with absolute badge */
-    padding-top: 2px; /* Slight top padding for alignment */
+    padding: 0 10px; /* Consistent 10px left/right padding */
     max-width: 100%; /* Prevent content from overflowing */
     min-width: 0; /* Allow flex item to shrink below content width */
     overflow: visible; /* Show all content */
@@ -1682,7 +1682,7 @@ input {
     font-weight: 400;
     font-size: 0.97rem; /* Slightly smaller than code for hierarchy */
     color: rgba(0, 0, 0, 0.85); /* Slightly lighter for contrast */
-    line-height: 1.5; /* Optimal readability */
+    line-height: 1.35; /* Tighter line spacing for compact display */
     margin-top: 0; /* Reset since codes now have margin-bottom */
     display: block;
     word-wrap: break-word;
@@ -1699,9 +1699,10 @@ input {
 /* Responsive breakpoints for violation boxes */
 @media (max-width: 768px) {
     .violation-box {
-        padding: 18px 16px 18px 48px; /* Slightly reduced padding */
-        margin: 10px auto; /* Tighter vertical spacing */
+        padding: 18px 10px 18px 48px; /* Consistent padding for mobile */
+        margin: 6px auto; /* Consistent spacing for mobile */
         border-radius: 20px; /* Slightly smaller radius */
+        align-items: flex-start; /* Allow wrapping on mobile */
     }
     
     .violation-fcra-codes {
@@ -1715,7 +1716,8 @@ input {
     
     .violation-severity-badge {
         left: 14px; /* Adjust for reduced padding */
-        top: 16px;
+        top: 50%; /* Maintain center alignment */
+        transform: translateY(-50%);
         width: 22px;
         height: 22px;
     }
@@ -1728,9 +1730,10 @@ input {
 
 @media (max-width: 480px) {
     .violation-box {
-        padding: 16px 14px 16px 44px; /* Further reduced for small screens */
-        margin: 8px auto;
+        padding: 16px 10px 16px 44px; /* Consistent padding for small screens */
+        margin: 6px auto;
         max-width: 100%; /* Full width on small screens */
+        align-items: flex-start; /* Allow text wrapping */
     }
     
     .violation-fcra-codes {
@@ -1745,7 +1748,8 @@ input {
     
     .violation-severity-badge {
         left: 12px;
-        top: 14px;
+        top: 50%; /* Maintain center alignment */
+        transform: translateY(-50%);
         width: 20px;
         height: 20px;
     }
@@ -1759,7 +1763,7 @@ input {
 /* Large screens for optimal readability */
 @media (min-width: 1200px) {
     .violation-box {
-        padding: 22px 28px 22px 56px; /* More generous padding */
+        padding: 22px 10px 22px 56px; /* Consistent padding for large screens */
     }
     
     .violation-fcra-codes {
@@ -2541,11 +2545,6 @@ body.dragging-scroll {
 
 /* Filters label - Only visible when collapsed */
 .filter-id-label {
-    position: fixed;
-    left: 1516px;
-    top: 140px;
-    width: auto; /* Auto width for longer text */
-    height: 16px;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 400; /* regular */
     font-size: 8pt;
@@ -2553,9 +2552,8 @@ body.dragging-scroll {
     text-align: left;
     line-height: 1;
     display: none; /* Hidden by default */
-    z-index: 11; /* Above toggle button */
-    padding: 0; /* No padding */
-    margin: 0; /* No margin */
+    margin-left: auto; /* Push to the right of the toggle */
+    margin-right: 16px; /* Some right margin */
     white-space: nowrap; /* Prevent text wrapping */
     cursor: pointer; /* Make it clickable */
     transition: color 200ms ease; /* Smooth color transition */
@@ -2587,11 +2585,9 @@ body.dragging-scroll {
     display: block !important;
 }
 
-/* Collapsed state - reposition the toggle button */
-.filter-counter.collapsed .filter-counter-toggle {
-    position: fixed !important;
-    left: 1571px !important; /* 1576px - 5px (move left) = 1571px */
-    top: 132px !important; /* 131px + 1px (move down) = 132px */
+/* Collapsed state - keep toggle button visible and clickable */
+.filter-counter.collapsed .filter-counter-header {
+    padding-bottom: 16px; /* Add bottom padding to prevent overlap */
 }
 
 /* Collapsed state chevron color and size */
@@ -3051,4 +3047,46 @@ body.dragging-scroll {
 /* Tighter letter spacing for 3-digit numbers */
 .severity-counter.three-digits {
     letter-spacing: -0.05em;
+}
+
+/* Additional Responsive Styles for Filter Counter and Violation Boxes */
+@media (max-width: 768px) {
+    .filter-counter-header {
+        padding: 12px 16px 0 16px;
+    }
+    
+    .filter-counter-title {
+        font-size: 20pt;
+    }
+    
+    .filter-id-label {
+        margin-right: 8px;
+        font-size: 7pt;
+    }
+    
+    .filter-options-container {
+        width: 100%;
+        max-width: 390px;
+        margin: 0 auto;
+    }
+    
+    /* Ensure violation content wraps properly on mobile */
+    .violation-content {
+        padding: 0 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-counter-header {
+        padding: 10px 12px 0 12px;
+    }
+    
+    .filter-counter-title {
+        font-size: 18pt;
+    }
+    
+    /* Reduce gap on very small screens */
+    .violation-box {
+        gap: 6px;
+    }
 }

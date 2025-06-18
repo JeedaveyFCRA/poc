@@ -137,6 +137,9 @@ class VioVerse {
         
         // Load violations data
         this.loadViolations().then(() => {
+            // Pre-select all violations on initial load
+            this.preselectAllViolations();
+            
             // Initialize VIOboxes
             this.renderViolations();
             
@@ -821,6 +824,11 @@ class VioVerse {
             box.style.height = `${violation.height}px`;
         }
         
+        // Add active class if violation is pre-selected
+        if (this.selectedViolations.has(violation.id)) {
+            box.classList.add('active');
+        }
+        
         // Add severity icon
         const icon = document.createElement('div');
         icon.className = `severity-icon severity-${violation.severity}`;
@@ -861,6 +869,13 @@ class VioVerse {
             this.selectedViolations.delete(violation.id);
             viobox.classList.remove('active');
             this.announce(`Deselected ${violation.severity} severity violation`);
+            
+            // Auto-switch to "Selected Violations" filter when deselecting
+            const selectedRadio = document.querySelector('input[name="violation-filter"][value="selected"]');
+            if (selectedRadio) {
+                selectedRadio.checked = true;
+                this.handleFilterChange('selected');
+            }
         } else {
             // Select
             this.selectedViolations.add(violation.id);
@@ -895,8 +910,8 @@ class VioVerse {
                 break;
                 
             case 'page':
-                // Get only violations on current page
-                violationsToCount = this.violations;
+                // Get only selected violations on current page
+                violationsToCount = this.violations.filter(v => this.selectedViolations.has(v.id));
                 break;
         }
         
@@ -949,7 +964,7 @@ class VioVerse {
             violationDetailsList.innerHTML = '';
             
             // Update violation list based on filter
-            const violationsToShow = selectedFilter === 'page' ? this.violations : 
+            const violationsToShow = selectedFilter === 'page' ? this.violations.filter(v => this.selectedViolations.has(v.id)) : 
                                     selectedFilter === 'selected' ? this.getSelectedViolationsForCurrentReport() :
                                     this.getAllViolationsForCurrentReport(); // 'total' filter shows all violations
             
@@ -1605,6 +1620,15 @@ class VioVerse {
             v.date === this.reportDate &&
             this.selectedViolations.has(v.id)
         );
+    }
+    
+    // Pre-select all violations for the current report
+    preselectAllViolations() {
+        const allViolations = this.getAllViolationsForCurrentReport();
+        allViolations.forEach(violation => {
+            this.selectedViolations.add(violation.id);
+        });
+        console.log(`Pre-selected ${allViolations.length} violations for current report`);
     }
     
     // Navigation helper methods
