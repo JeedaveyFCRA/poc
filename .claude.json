@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "the collapsed button for \"filter this report\" got shifted to the left side, it should appear to the right of the show filters label. also there is a large gap below the show filters label and the collapsed show severely label. also make the \"Original report shown. Overlays are for legal review only, not for submission.\" text 1 point smaller.",
+          "pastedContents": {}
+        },
+        {
           "display": "[Pasted text #1 +54 lines]",
           "pastedContents": {
             "1": {
@@ -615,10 +619,6 @@
         },
         {
           "display": "it got a little lasger but some padding or container conflict is occurring. the circle moved up a few px",
-          "pastedContents": {}
-        },
-        {
-          "display": "the circle you just made should be the same side of the circle-help",
           "pastedContents": {}
         }
       ],

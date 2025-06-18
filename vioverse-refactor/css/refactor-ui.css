@@ -2216,7 +2216,7 @@ body.dragging-scroll {
 
 .disclaimer-text {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.75rem; /* Convert to rem for consistency */
+    font-size: 0.6875rem; /* Reduced by 1pt (was 12px/0.75rem, now 11px/0.6875rem) */
     font-weight: 400;
     color: rgba(0, 0, 0, 0.6); /* Lighter text for "quiet UI" */
     margin: 0;
@@ -2285,7 +2285,7 @@ body.dragging-scroll {
     }
     
     .disclaimer-text {
-        font-size: 0.7rem;
+        font-size: 0.625rem; /* Reduced by 1pt for mobile (was 11.2px, now 10px) */
         padding: 0 10px; /* Add padding for better mobile readability */
     }
 }
@@ -2552,8 +2552,7 @@ body.dragging-scroll {
     text-align: left;
     line-height: 1;
     display: none; /* Hidden by default */
-    margin-left: auto; /* Push to the right of the toggle */
-    margin-right: 16px; /* Some right margin */
+    order: -1; /* Place before the toggle button */
     white-space: nowrap; /* Prevent text wrapping */
     cursor: pointer; /* Make it clickable */
     transition: color 200ms ease; /* Smooth color transition */
@@ -2587,7 +2586,9 @@ body.dragging-scroll {
 
 /* Collapsed state - keep toggle button visible and clickable */
 .filter-counter.collapsed .filter-counter-header {
-    padding-bottom: 16px; /* Add bottom padding to prevent overlap */
+    padding-bottom: 8px; /* Reduced padding to minimize gap */
+    justify-content: flex-start; /* Align items to the left */
+    gap: 8px; /* Space between label and button */
 }
 
 /* Collapsed state chevron color and size */
@@ -2857,6 +2858,11 @@ body.dragging-scroll {
 
 .severity-summary-component.collapsed .severity-summary-header {
     opacity: 0;
+}
+
+/* Reduce gap when filter counter is collapsed */
+.filter-counter.collapsed + .severity-summary-component {
+    margin-top: -12px; /* Reduce gap between collapsed elements */
 }
 
 /* ========================================
