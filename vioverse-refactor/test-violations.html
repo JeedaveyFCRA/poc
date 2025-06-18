@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Violations Loading</title>
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .violation {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .high { background-color: #ffe4e4; }
+        .medium { background-color: #fff4e4; }
+        .low { background-color: #e4f4ff; }
+        .codes { font-weight: bold; color: #333; }
+        .description { margin-top: 8px; line-height: 1.5; }
+        .label { 
+            font-size: 0.8em; 
+            color: #666; 
+            margin-top: 5px;
+            font-style: italic;
+        }
+        h1 { color: #253541; }
+        .status { 
+            background: #28a745; 
+            color: white; 
+            padding: 10px; 
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Violation Descriptions Test</h1>
+    <div id="status" class="status">Loading violations...</div>
+    <div id="violations"></div>
+
+    <script>
+        async function loadAndDisplayViolations() {
+            const statusEl = document.getElementById('status');
+            const violationsEl = document.getElementById('violations');
+            
+            try {
+                // Clear localStorage to ensure fresh load
+                localStorage.removeItem('vioverse-violations');
+                
+                // Load the violations data
+                const response = await fetch('data/violations/violations-processed.json');
+                const data = await response.json();
+                
+                statusEl.textContent = `✅ Loaded ${data.violations.length} violations successfully!`;
+                
+                // Display each violation
+                data.violations.forEach(violation => {
+                    const violationDiv = document.createElement('div');
+                    violationDiv.className = `violation ${violation.severity}`;
+                    violationDiv.innerHTML = `
+                        <div class="codes">${violation.codes}</div>
+                        <div class="description">${violation.description}</div>
+                        <div class="label">Original label: "${violation.originalLabel}"</div>
+                    `;
+                    violationsEl.appendChild(violationDiv);
+                });
+                
+            } catch (error) {
+                statusEl.textContent = `❌ Error loading violations: ${error.message}`;
+                statusEl.style.background = '#dc3545';
+            }
+        }
+        
+        // Load on page load
+        loadAndDisplayViolations();
+    </script>
+</body>
+</html>

@@ -780,15 +780,9 @@ class VioVerse {
         // Clear existing boxes
         container.innerHTML = '';
         
-        // Get violations for current page
-        // Use same padding logic as updateReportImage for consistency
-        const paddedPage = this.currentPage < 10 ? String(this.currentPage).padStart(2, '0') : String(this.currentPage);
-        const currentPageKey = `${this.currentCreditor}-${this.currentBureau}-${this.reportDate}-P${paddedPage}`;
-        
-        if (this.violationsData && this.violationsData.byPage && this.violationsData.byPage[currentPageKey]) {
-            this.violations = this.violationsData.byPage[currentPageKey];
-        } else if (this.violationsData && this.violationsData.violations) {
-            // Filter violations for current page from flat list
+        // Always use the full violations data with complete descriptions
+        if (this.violationsData && this.violationsData.violations) {
+            // Filter violations for current page from flat list with full descriptions
             this.violations = this.violationsData.violations.filter(v => 
                 v.creditor === this.currentCreditor &&
                 v.bureau === this.currentBureau &&
@@ -956,8 +950,8 @@ class VioVerse {
             
             // Update violation list based on filter
             const violationsToShow = selectedFilter === 'page' ? this.violations : 
-                                    selectedFilter === 'selected' ? this.getSelectedViolationsForCurrentReport().filter(v => v.page === this.currentPage) :
-                                    this.violations;
+                                    selectedFilter === 'selected' ? this.getSelectedViolationsForCurrentReport() :
+                                    this.getAllViolationsForCurrentReport(); // 'total' filter shows all violations
             
             violationsToShow.forEach(violation => {
                 const violationBox = document.createElement('div');

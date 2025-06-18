@@ -13,7 +13,8 @@
       "y": 219,
       "width": 330,
       "height": 21,
-      "type": "status"
+      "type": "status",
+      "originalLabel": "Account Status: INCLUDED_IN_CHAPTER_13"
     },
     {
       "id": "vio-2",
@@ -28,7 +29,8 @@
       "y": 196,
       "width": 330,
       "height": 21,
-      "type": "balance"
+      "type": "balance",
+      "originalLabel": "Reported Balance: $0"
     },
     {
       "id": "vio-3",
@@ -43,7 +45,8 @@
       "y": 219,
       "width": 330,
       "height": 21,
-      "type": "credit"
+      "type": "credit",
+      "originalLabel": "Available Credit"
     },
     {
       "id": "vio-4",
@@ -58,7 +61,8 @@
       "y": 645,
       "width": 330,
       "height": 21,
-      "type": "credit"
+      "type": "credit",
+      "originalLabel": "High Credit"
     },
     {
       "id": "vio-5",
@@ -73,7 +77,8 @@
       "y": 666,
       "width": 330,
       "height": 21,
-      "type": "credit"
+      "type": "credit",
+      "originalLabel": "Credit Limit"
     },
     {
       "id": "vio-6",
@@ -88,7 +93,8 @@
       "y": 712,
       "width": 330,
       "height": 21,
-      "type": "balance"
+      "type": "balance",
+      "originalLabel": "Balance: $0"
     },
     {
       "id": "vio-7",
@@ -97,13 +103,14 @@
       "date": "2024-04-25",
       "page": 57,
       "severity": "medium",
-      "description": "Last update coincides with bankruptcy FILING date over 5 years ago. Zero updates through confirmation, payments, and discharge proves complete abandonment of FCRA duties. Willfulness presumed from extreme duration.",
-      "codes": "§1681c(a)(4), §1681e(b), §1681s-2(a)(8), §1681n",
+      "description": "Status frozen at October 2018—over 5 YEARS before February 9, 2024 discharge. This extreme staleness transcends negligence; abandonment of update duties for half a decade constitutes willful disregard.",
+      "codes": "§1681c(a)(4), §1681s-2(a)(1)(A), §1681n",
       "x": 402,
       "y": 736,
       "width": 330,
       "height": 21,
-      "type": "status"
+      "type": "status",
+      "originalLabel": "Date Reported: Oct 25 2018"
     },
     {
       "id": "vio-8",
@@ -112,13 +119,14 @@
       "date": "2024-04-25",
       "page": 58,
       "severity": "high",
-      "description": "Field references bankruptcy but omits 'Discharged' or closing context. Misleads users about current legal status of account.",
+      "description": "Bankruptcy remark remained unchanged after discharge. Must be updated to reflect 'Discharged through Chapter 13' or removed entirely.",
       "codes": "§1681s-2(a)(1)(A), §1681e(b)",
       "x": 65,
       "y": 297,
       "width": 140,
       "height": 21,
-      "type": "bankruptcy"
+      "type": "bankruptcy",
+      "originalLabel": "Bankruptcy Chapter 13"
     },
     {
       "id": "vio-9",
@@ -133,7 +141,8 @@
       "y": 319,
       "width": 140,
       "height": 21,
-      "type": "bankruptcy"
+      "type": "bankruptcy",
+      "originalLabel": "Bankruptcy Completed"
     }
   ],
   "byPage": {
@@ -151,7 +160,8 @@
         "y": 219,
         "width": 330,
         "height": 21,
-        "type": "status"
+        "type": "status",
+        "originalLabel": "Account Status: INCLUDED_IN_CHAPTER_13"
       },
       {
         "id": "vio-2",
@@ -160,13 +170,14 @@
         "date": "2024-04-25",
         "page": 57,
         "severity": "high",
-        "description": "Reported Balance: $0",
-        "codes": "§1681e(b); §1681c(f)",
+        "description": "Zero balance contradicts 'INCLUDED_IN_CHAPTER_13' status. Account cannot simultaneously be in active bankruptcy AND have no balance. Internal inconsistency proves absence of reasonable procedures.",
+        "codes": "§1681e(b), §1681s-2(a)(1)(A)",
         "x": 402,
         "y": 196,
         "width": 330,
         "height": 21,
-        "type": "balance"
+        "type": "balance",
+        "originalLabel": "Reported Balance: $0"
       },
       {
         "id": "vio-3",
@@ -175,13 +186,14 @@
         "date": "2024-04-25",
         "page": 57,
         "severity": "medium",
-        "description": "Available Credit",
-        "codes": "§1681e(b)",
+        "description": "Available credit missing or inaccurate. For discharged revolving accounts, this field should show $0 or be removed entirely.",
+        "codes": "§1681e(b), §1681s-2(a)(1)(A)",
         "x": 402,
         "y": 219,
         "width": 330,
         "height": 21,
-        "type": "credit"
+        "type": "credit",
+        "originalLabel": "Available Credit"
       },
       {
         "id": "vio-4",
@@ -190,13 +202,14 @@
         "date": "2024-04-25",
         "page": 57,
         "severity": "medium",
-        "description": "High Credit",
+        "description": "High credit value missing or not accurately retained. Weakens completeness and consistency of the credit file.",
         "codes": "§1681e(b)",
         "x": 65,
         "y": 645,
         "width": 330,
         "height": 21,
-        "type": "credit"
+        "type": "credit",
+        "originalLabel": "High Credit"
       },
       {
         "id": "vio-5",
@@ -205,13 +218,14 @@
         "date": "2024-04-25",
         "page": 57,
         "severity": "medium",
-        "description": "Credit Limit",
-        "codes": "§1681e(b)",
+        "description": "Credit limit inaccurate or absent. Post-discharge accounts should show limit as $0 or marked closed.",
+        "codes": "§1681e(b), §1681s-2(a)(1)(A)",
         "x": 65,
         "y": 666,
         "width": 330,
         "height": 21,
-        "type": "credit"
+        "type": "credit",
+        "originalLabel": "Credit Limit"
       },
       {
         "id": "vio-6",
@@ -220,13 +234,14 @@
         "date": "2024-04-25",
         "page": 57,
         "severity": "high",
-        "description": "Balance: $0",
-        "codes": "§1681e(b); §1681c(f)",
+        "description": "Zero balance contradicts 'INCLUDED_IN_CHAPTER_13' status. Account cannot simultaneously be in active bankruptcy AND have no balance. Internal inconsistency proves absence of reasonable procedures.",
+        "codes": "§1681e(b), §1681s-2(a)(1)(A)",
         "x": 65,
         "y": 712,
         "width": 330,
         "height": 21,
-        "type": "balance"
+        "type": "balance",
+        "originalLabel": "Balance: $0"
       },
       {
         "id": "vio-7",
@@ -235,13 +250,14 @@
         "date": "2024-04-25",
         "page": 57,
         "severity": "medium",
-        "description": "Date Reported: Oct 25 2018",
-        "codes": "§1681c(a)(4); §1681e(b)",
+        "description": "Status frozen at October 2018—over 5 YEARS before February 9, 2024 discharge. This extreme staleness transcends negligence; abandonment of update duties for half a decade constitutes willful disregard.",
+        "codes": "§1681c(a)(4), §1681s-2(a)(1)(A), §1681n",
         "x": 402,
         "y": 736,
         "width": 330,
         "height": 21,
-        "type": "status"
+        "type": "status",
+        "originalLabel": "Date Reported: Oct 25 2018"
       }
     ],
     "AL-EQ-2024-04-25-P58": [
@@ -252,13 +268,14 @@
         "date": "2024-04-25",
         "page": 58,
         "severity": "high",
-        "description": "Bankruptcy Chapter 13",
-        "codes": "§1681c(f); §1681e(b)",
+        "description": "Bankruptcy remark remained unchanged after discharge. Must be updated to reflect 'Discharged through Chapter 13' or removed entirely.",
+        "codes": "§1681s-2(a)(1)(A), §1681e(b)",
         "x": 65,
         "y": 297,
         "width": 140,
         "height": 21,
-        "type": "bankruptcy"
+        "type": "bankruptcy",
+        "originalLabel": "Bankruptcy Chapter 13"
       },
       {
         "id": "vio-9",
@@ -267,13 +284,14 @@
         "date": "2024-04-25",
         "page": 58,
         "severity": "medium",
-        "description": "Bankruptcy Completed",
+        "description": "Must specify 'Discharged February 9, 2024' not merely 'Completed.' Vague terminology regarding bankruptcy status violates clarity requirements.",
         "codes": "§1681e(b)",
         "x": 65,
         "y": 319,
         "width": 140,
         "height": 21,
-        "type": "bankruptcy"
+        "type": "bankruptcy",
+        "originalLabel": "Bankruptcy Completed"
       }
     ]
   },

@@ -34,6 +34,13 @@
             font-size: 10pt !important;
             line-height: 1.5 !important;
             margin-bottom: 0 !important;
+            /* Remove truncation styles */
+            overflow: visible !important;
+            text-overflow: unset !important;
+            white-space: normal !important;
+            display: block !important;
+            -webkit-line-clamp: unset !important;
+            -webkit-box-orient: unset !important;
         }
         
         /* Ensure violation boxes can expand vertically */
@@ -42,11 +49,13 @@
             height: auto !important;
             width: 100% !important;
             box-sizing: border-box !important;
+            overflow: visible !important;
         }
         
         /* Ensure proper text wrapping */
         .violation-content {
             width: 100% !important;
+            overflow: visible !important;
         }
     </style>
 </head>

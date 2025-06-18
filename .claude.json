@@ -1,5 +1,5 @@
 {
-  "numStartups": 25,
+  "numStartups": 28,
   "autoUpdaterStatus": "migrated",
   "tipsHistory": {
     "new-user-warmup": 1,
@@ -24,6 +24,108 @@
     "/home/avid_arrajeedavey": {
       "allowedTools": [],
       "history": [
+        {
+          "display": "[Pasted text #1 +22 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 You are being granted full access to the FCRA violation system for David Marra.\n\n📁 Start by reviewing the following key files inside:\n\n\\\\wsl.localhost\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\n\n✅ Priority Fix Tasks:\n1. **Violation Descriptions Bug**  \n   - On page load, violation boxes are showing outdated/short descriptions.  \n   - Only the first code is visible and truncated with ellipses (`…`).  \n   - However, when filter toggles are clicked, correct full descriptions briefly appear.\n   - This suggests a stale default render or delayed script binding.\n\n👉 **Fix it so that full rewritten violation descriptions always appear on initial page load.** No truncation. No stale data.\n\n2. **Remove Unwanted Timeline Link**  \n   - Claude previously added a \"View Case Timeline\" link in the FCRA Review Summary.  \n   - Please **remove that link and stop auto-generating timelines** unless explicitly requested.\n\n---\n\n🧱 Confirm which files are involved in these display bugs and correct any stale references, data binding issues, or load-order conflicts.\n[I"
+            }
+          }
+        },
+        {
+          "display": "i noticed that nothing happen. undo the changes and revert to the begging of this session",
+          "pastedContents": {}
+        },
+        {
+          "display": "for those changes did you use opus or sonnet 4",
+          "pastedContents": {}
+        },
+        {
+          "display": "[Pasted text #1 +68 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🛠️ UI ALIGNMENT FIX — Top-Level Layout for FCRA Review Summary & Report Canvas\n\n🎯 Objective: Restore proper vertical alignment across the main layout row — specifically:\n\nFCRA Review Summary (sidebar panel)\n\nReport Canvas (main content viewer)\n\nAll must align visually and structurally with the top edge of the View Toggle bar (viotagger | report | evidence)\n\n🔍 CURRENT ISSUE\nBoth the .frca-summary-panel (right sidebar) and .report-canvas-container (main content column) are visually shifted down\n\nThis misalignment breaks the intended grid lock-in across the top bar\n\nThe view toggle bar sits higher than the elements to its right and left — this was not the case in the prior design\n\n✅ ALIGNMENT FIX INSTRUCTIONS\n1. Establish Unified Vertical Alignment\nWrap the View Toggle, Canvas, and FCRA Sidebar in a shared horizontal flex container or grid row\n\nUse align-items: flex-start to force top alignment of all three children\n\n2. Eliminate Unnecessary Margins/Padding\nInspect and remove any rogue margin-top or padding-top values on:\n\n.frca-summary-panel\n\n.report-canvas-container\n\nAny nested wrappers inside those components\n\n📐 RESPONSIVE REQUIREMENTS\nThe fix must work seamlessly across all breakpoints:\n\ncss\nCopy\nEdit\n@media (min-width: 1024px) {\n  .main-layout-row {\n    display: flex;\n    align-items: flex-start;\n    justify-content: space-between;\n    gap: 24px;\n  }\n\n  .frca-summary-panel,\n  .report-canvas-container {\n    margin-top: 0;\n    padding-top: 0;\n  }\n}\n\n@media (max-width: 768px) {\n  .main-layout-row {\n    flex-direction: column;\n    gap: 16px;\n  }\n}\n✅ SUCCESS CRITERIA\n FCRA Review Summary, Report Canvas, and View Toggle are visually and structurally top-aligned\n\n No margin/padding pushes any layout element down\n\n Layout remains responsive, clean, and does not require hardcoded vertical offsets\n\n Works from mobile to wide-screen without stacking prematurely or misaligning\n\nLet me know if you want to add a red baseline alignment guide (just for testing), or move on to the next visual polish area.[I"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +57 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 INITIALIZE: A+ WEBSITE UPGRADE — VioVerse Refactor Edition (Responsive-First Build)\n\nYou are now granted full read/write access to the working directory for the VioVerse legal-tech platform.\n\n📂 Working Directory Path (Linux):\n\\\\wsl.localhost\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\\n\n🔐 ACCESS RULES\n✅ You may read and modify any file inside the /vioverse-refactor/ directory\n\n✅ You must focus all edits on index.html and its associated files (CSS, JS, SVGs, modular assets)\n\n❌ Do not create new HTML files unless explicitly instructed\n\n❌ Do not access sibling or parent folders outside /vioverse-refactor/\n\n📐 DESIGN STANDARDS & GOALS\nWe are in the process of upgrading the site from B- to A+/E+ design quality.\n\nFrom now on, every layout change must follow responsive best practices, including:\n\n✅ No fixed pixel values unless scoped inside a media query\n\n✅ Use flexbox, grid, vw, rem, em, and max-width to scale layouts across screen sizes\n\n✅ Ensure the design performs well at:\n\nMobile width (320px–480px)\n\nTablet (768px–1024px)\n\nDesktop and ultra-wide screens\n\n📄 PRIMARY FILES TO EDIT\nYour edits will center on:\n\n/vioverse-refactor/index.html\n\nAssociated files:\n\nrefactor-ui.css (global styles)\n\nviewer.css or similar layout files\n\nAny supporting JS tied to rendering the canvas, sidebars, or interactive overlays\n\n🎯 PRIMARY MISSION (CURRENT STATE)\nYou are joining a live refactor where all interface elements are being upgraded toward an accessible, highly-responsive, professional-grade web experience. Your job is to:\n\nImplement layout, spacing, and design improvements without breaking mobile or canvas logic\n\nSupport consistent spacing and typography across all breakpoints\n\nMaintain and preserve existing interactivity, animations, and click behaviors unless told otherwise\n\n✅ Please acknowledge readiness and wait for the first layout or code task to begin.\n\nLet me know if you want me to generate that first layout prompt next (e.g. the FCRA Review Summary alignment fix or footer spacing compression)."
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +129 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 UI REFINEMENT TASK — Footer Section (Full Violation Log + Severity Key Block)\n🎯 Goal: Transition this component from its current layout to a polished, A+ tier module using smart spacing, better scaling, and visual hierarchy alignment.\n\n🛠️ LAYOUT FIXES REQUIRED\n✅ 1. \"View Full Violation Log\" Button Positioning\nMove the entire block (text + icon) rightward by ~20px, but maintain responsiveness\n\nIt should remain aligned with the overall content column and not crowd the edge\n\nSuggested implementation:\n\ncss\nCopy\nEdit\n.violation-log-link {\n  margin-right: 20px;\n  justify-content: flex-end;\n  gap: 14px;\n}\n✅ 2. Severity Key Block – Visual Cleanup\nCurrent problems:\n\nIcons and labels (high, medium, low) are unevenly spaced\n\nText (severity key: high medium low) is too large\n\nIcons are too large, making the row feel cluttered\n\nRefinements:\n\ncss\nCopy\nEdit\n.severity-key {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 20px; /* equal spacing between sets */\n  font-size: 0.85rem;\n  margin-top: 16px;\n}\n\n.severity-key-icon {\n  width: 18px;\n  height: 18px;\n  margin-right: 6px;\n}\nScale everything down proportionally to feel subtle, not bold. Think “quiet UI.”\n\n✅ 3. Hierarchy + Proximity Fixes (Spacing Cleanup)\nCurrent issues:\n\nToo much vertical space between blocks\n\nElements feel disconnected from each other and the surrounding UI\n\nUpdated spacing plan (top to bottom):\n\n“View Full Violation Log” button\n\n(8–10px spacing)\n\nSeverity Key row\n\n(4px spacing)\n\nThin rule line\n\n(6px spacing)\n\nLegal disclaimer text:\n“Original report shown. Overlays are for legal review only, not for submission.”\n\nSuggested layout styles:\n\ncss\nCopy\nEdit\n.footer-section {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-bottom: 24px;\n}\n\n.violation-log-link {\n  margin-bottom: 12px;\n}\n\n.severity-key {\n  margin-bottom: 6px;\n}\n\n.footer-rule {\n  width: 100%;\n  height: 1px;\n  background-color: #ccc;\n  margin-bottom: 6px;\n}\n\n.legal-disclaimer {\n  font-size: 0.75rem;\n  color: #666;\n  text-align: center;\n}\nUse viewport-based spacing (e.g., 2vw) if needed for responsiveness on mobile.\n\n📱 RESPONSIVE ALIGNMENT NOTES\nEnsure the footer section:\n\nScales proportionally from 320px to 1440px+ viewports\n\nUses flexbox or CSS grid for alignment, not fixed padding\n\nNever causes overflow or icon wrap at any breakpoint\n\n✅ SUCCESS CRITERIA CHECKLIST\n “View Full Violation Log” is moved ~20px right\n\n Severity key icons are smaller, evenly spaced\n\n Text is scaled down for visual subtlety\n\n Rule and disclaimer text are closer together\n\n All elements stack cleanly, without wasted vertical space\n\n Responsive and clean across all breakpoints\n\n[I"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +80 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 NEXT UPGRADE STEP — Responsive Violation Boxes (A+ Design Standards w/ Animation Preservation)\n\nWe’re continuing the UI upgrade toward a top-tier, A+ website. This step focuses on refining the .violation-box layout for responsiveness, spacing, and visual polish without altering the existing interactive behavior.\n\n✅ OBJECTIVE\nImprove the visual structure and responsiveness of the violation boxes while preserving the existing interactive feedback when a violation box is clicked — specifically:\n\nThe slight bounce/pop-out effect\n\nThe orange glow around the box\n\nThese behaviors are excellent and should remain unchanged.\n\n🛠️ IMPLEMENTATION INSTRUCTIONS\n🔒 1. Preserve Existing Click Animation\nDo not remove or overwrite the current :active, :focus, or clicked animation logic\n\nKeep the slight scale-up / bounce and the orange glow\n\nEnsure your CSS upgrades do not reset or break these transitions\n\ncss\nCopy\nEdit\n/* EXAMPLE (preserve this type of logic) */\n.violation-box.clicked {\n  animation: bounceHighlight 0.3s ease;\n  box-shadow: 0 0 0 3px #f26419;\n}\n✅ 2. Responsive Layout Enhancements (Safe to Adjust)\nYou may improve the layout and spacing with these guidelines:\n\ncss\nCopy\nEdit\n.violation-box {\n  width: 100%;\n  max-width: 860px;\n  margin: 12px auto;\n  padding: 20px 24px;\n  border-radius: 24px;\n  box-sizing: border-box;\n  background-color: #f1f1f1;\n  box-shadow: 0px 2px 8px rgba(0,0,0,0.05); /* keep subtle shadow */\n  transition: all 0.2s ease-in-out;\n}\nResponsive tweaks:\n\ncss\nCopy\nEdit\n@media (max-width: 768px) {\n  .violation-box {\n    padding: 18px 16px;\n    font-size: 0.96rem;\n  }\n}\n✅ 3. Typography Consistency\nKeep font behavior stable across devices, using scalable units:\n\ncss\nCopy\nEdit\n.violation-code {\n  font-weight: 600;\n  font-size: 1rem;\n  margin-bottom: 6px;\n}\n\n.violation-description {\n  font-size: 0.97rem;\n  line-height: 1.5;\n}\n✅ SUMMARY OF PROTECTED INTERACTION\n🔥 Do not change the click/activation glow or animation\n\n✅ You can change padding, max-width, font-size, spacing, border-radius\n\n🔁 All other interaction/hover/focus states should remain untouched\n\n"
+            }
+          }
+        },
+        {
+          "display": "now position them both to the right and preserve padding to made sure button does now butt up to the right edge of its container. ",
+          "pastedContents": {}
+        },
+        {
+          "display": "[Pasted text #1 +97 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🎯 UI UPGRADE TASK — Elevate “View Full Violation Log” Component (A+ Tier Standards)\n\nWe’re transitioning this site from a C++/B- level build to a high-grade A/A+ level product. That means every component should reflect professional-grade polish, responsiveness, and consistent spacing logic.\n\nThis task focuses on the “View Full Violation Log” text and arrow icon component. Treat this as a modular upgrade step in the full transition process.\n\n🔧 TASK 1: Responsive Alignment and Spacing Fix\nCurrent Problem:\nThe label “view full violation log” is left-aligned and sits too far from the arrow icon. This breaks visual hierarchy and polish.\n\nUpgrade Instructions:\n\nWrap the text and icon inside a responsive flex container.\n\nAlign the entire group to the right side of the parent container.\n\nMaintain a fixed internal gap of 14px between the label and icon.\n\nEnsure padding and layout adapt across breakpoints (mobile, tablet, desktop).\n\nRecommended Responsive CSS:\n\ncss\nCopy\nEdit\n.violation-log-link {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n  gap: 14px;\n  padding: 0 4vw; /* responsive horizontal padding */\n  max-width: 100%;\n  flex-wrap: nowrap;\n}\n✨ TASK 2: Professional Hover Interaction\nCurrent Problem:\nOn hover, the label simply underlines — this feels unrefined and lacks personality.\n\nUpgrade Instructions:\n\nImplement a subtle and accessible hover effect:\n\nSlight font-weight increase\n\nElegant color shift (no harsh contrast, no orange)\n\nSmooth transition for visual feedback\n\nMaintain readability and visual calmness\n\nRecommended Interaction CSS:\n\ncss\nCopy\nEdit\n.violation-log-link span {\n  transition: all 0.2s ease;\n}\n\n.violation-log-link:hover span {\n  font-weight: 600;\n  color: #2e3a45; /* slightly darker tone */\n  text-decoration: underline; /* optional – can adjust thickness or remove */\n}\n📱 RESPONSIVE BEHAVIOR REQUIREMENT\nAcross all breakpoints (min-width 320px to full-width desktop), this component must:\n\nRemain right-aligned\n\nMaintain consistent 14px gap between text and icon\n\nNever overlap or crowd adjacent content\n\nIf needed, adjust padding via media queries:\n\ncss\nCopy\nEdit\n@media (max-width: 768px) {\n  .violation-log-link {\n    padding: 0 16px;\n    gap: 10px;\n  }\n}\n✅ A+ CRITERIA CHECKLIST (This Component Only)\n ✅ Visually grouped label and icon\n\n ✅ Precise spacing: 14px between text & icon\n\n ✅ Right-aligned within container\n\n ✅ Smooth hover feedback\n\n ✅ Fully responsive across breakpoints\n\n ✅ No layout collision or overflow at any size\n\n"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +40 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🛠️ FIX REQUIRED: Violation Detail Descriptions + Box Width on Page Load\n\n✅ ISSUE 1 – DESCRIPTION SOURCE BUG\nProblem:\nOn page load, only the first violation detail (e.g., Chapter 13 inclusion) shows the correct, updated full description.\nAll other preloaded violations are using outdated or hard-coded descriptions.\n\nClarification:\nWhen I switch filters under Filter This Report (e.g., to “Selected Violations”), the violation boxes correctly display the new, long-form descriptions. That proves the correct logic and file mapping are working after filter changes, but not on initial load.\n\nInstruction:\n🔁 On initial page load, make sure all violation descriptions are pulled dynamically from the same updated source file you use during filter switching (likely violations-processed.json or frca-sidebar-violation-descriptions.md).\nDo not use fallback, default, or legacy hard-coded descriptions for the preloaded violations.\n\nExpected Behavior:\nAll violations rendered on initial page load should show the same expanded description format as those that appear after filter changes.\n\n✅ ISSUE 2 – VIOLATION BOX WIDTH / PADDING\nProblem:\nThe content inside each .violation-box or .violation-details-entry currently extends too far right. It runs into the edge of the top white container, violating visual padding rules.\n\nInstruction:\nApply right-side padding to match the existing left-side padding, and reduce the total box width slightly so it aligns consistently within the container.\n\nImplementation Suggestion:\n\ncss\nCopy\nEdit\n.violation-box {\n  padding-right: 24px;   /* Match left padding or adjust as needed */\n  padding-left: 24px;\n  max-width: calc(100% - 48px); /* Adjust width to account for padding */\n  box-sizing: border-box;\n}\nOr set a consistent inner margin if it’s inside a flex or grid container.\n\n🎯 Final Goal\n✅ On page load, all violations must show updated, full-length descriptions pulled from the correct live data source\n\n✅ All violation boxes should be visually balanced, with equal padding on left and right, and not touching the container edge[I"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +49 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🔧 IMPLEMENTATION PROMPT: Fix Violation Details Description on Page Load\n\nPlease update the violation details component in the FCRA Review Summary to meet the following behavior on initial page load:\n\n✅ REQUIRED BEHAVIOR:\nAuto-expand all preloaded violations to show full description text.\n\nIf a violation is preloaded from violations-processed.json, it must display the full description (not truncated with ellipses).\n\nThis includes all preloaded violations shown under Filter This Report → Total Violations (All Pages) on page load.\n\nMake violation boxes flexible in height.\n\nEnsure each .violation-box or .violation-details-entry container uses:\n\ncss\nCopy\nEdit\nheight: auto;\noverflow: visible;\nwhite-space: normal;\ntext-overflow: unset;\ndisplay: block;\nRemove or override any styles that force a fixed height or cause content truncation (line-clamp, overflow: hidden, etc.).\n\nEnsure updated descriptions are loaded from the correct source.\n\nDescriptions must be pulled from the new description mapping file (e.g., frca-sidebar-violation-descriptions.md or updated violations-processed.json) rather than hardcoded or legacy data.\n\nConfirm that each preloaded violation ID or §code correctly maps to the updated long-form version.\n\nNo toggle required for preloaded violations.\n\nOn first page load, all preloaded violations should immediately render in their expanded form—no click-to-expand or hover needed.\n\n📌 SAMPLE CASE (VISUAL REFERENCE)\nIn the image shown:\n\nThe first violation (§1681s-2(a)(1)(A)) begins with the correct full sentence (\"Account shows active Chapter 13 inclusion...\") but is cut off.\n\nThe remaining description should be visible immediately and not truncated with “…”.\n\n🎯 GOAL\nEnsure that on first load:\n\nAll nine default/preloaded violations show full, updated descriptions\n\nBoxes auto-size to fit long descriptions\n\nThere is no visual clipping or truncation"
+            }
+          }
+        },
+        {
+          "display": "[Pasted text #1 +50 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🧠 INITIALIZE: FULL FCRA CASE SYSTEM — VioVerse Refactor Edition (Controlled Start)\n\nYou now have full read/write access to the following working directory:\n📂 \\\\wsl.localhost\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\\n\n🔒 FILE ACCESS RULES (STRICT)\n✅ You may view and edit files inside the /vioverse-refactor/ directory\n\n✅ You may reference parent folders for orientation but may not modify them\n\n❌ You must not read or analyze any files until explicitly instructed\n\n❌ Do not explore or preload content from any file on your own\n\n❌ You may NOT create new HTML files under any circumstances\n\n✅ Your work must be limited to index.html and its supporting files only\n\n🔐 All sibling and parent folders are read-only\n\n🛠️ WEBSITE OBJECTIVE\nYou are assisting in the modular improvement of the existing website.\nYour task is to enhance the functionality, layout, accessibility, and modular structure of the following:\n\nindex.html\n\nAssociated JavaScript and CSS files in the same folder\n\nSupporting assets within the vioverse-refactor tree\n\nDo not build new HTMLs or restructure the site unless specifically asked.\n\n⏳ TIMELINE AND DATA SYNTHESIS — HOLD UNTIL ACTIVATED\nYou have been granted full case context (Option C — VioNarrative™ system), including:\n\nviolations-processed.json\n\nMaster-Evidence-Data_v4.csv\n\nmatters-content.json\n\nRocket Mortgage timeline evidence\n\nChapter 13 Discharge Date: February 9, 2024\n\nDo not access or use these files until you are given a specific instruction to begin timeline synthesis or data analysis.\n\n🛑 WAIT for my first command.\nDo not read, process, or modify anything until I explicitly direct you.\n\nLet me know if you'd like a separate “activation” prompt prepared to trigger the ti"
+            }
+          }
+        },
         {
           "display": "[Pasted text #1 +19 lines]",
           "pastedContents": {
@@ -494,54 +596,6 @@
         {
           "display": "instead of the pink fill for the off state fill the icon with #f26419",
           "pastedContents": {}
-        },
-        {
-          "display": "move the icon for the on state 4 px to the right",
-          "pastedContents": {}
-        },
-        {
-          "display": "move the x position for the off state 2 px to the right",
-          "pastedContents": {}
-        },
-        {
-          "display": "move up 1 px",
-          "pastedContents": {}
-        },
-        {
-          "display": "move it down 2 px",
-          "pastedContents": {}
-        },
-        {
-          "display": "ok that is better now move the icon up 4 px",
-          "pastedContents": {}
-        },
-        {
-          "display": "reduce the icon by 4 px and when i refresh i see the pink box only for a split second.",
-          "pastedContents": {}
-        },
-        {
-          "display": "ok the pink box flashes on and off super quick, it looks like its hidden under a z layer",
-          "pastedContents": {}
-        },
-        {
-          "display": "I cannot see any change. PLease add a pink fill to the lucide icon to debug temporarily",
-          "pastedContents": {}
-        },
-        {
-          "display": "i see no changes . is there paddy or container issue?",
-          "pastedContents": {}
-        },
-        {
-          "display": "did you update the index.html?",
-          "pastedContents": {}
-        },
-        {
-          "display": "i just started to rework the toop tips and the last thread did not finish. I was hoping you could pick up where it left off: \"\\\\wsl$\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\indesign-web-components\\tool-tips\\README-TOOL-TIP-SPECS.txt\" I want you to increase the size of the Lucide icon: circle-help by 6 px, move it up 3 px and to the left 6 px for all states",
-          "pastedContents": {}
-        },
-        {
-          "display": "🔒 VIOVERSE-REFACTOR SCOPE RULES\nWORK ONLY IN:\n\nswift\nCopy\nEdit\n/home/avid_arrajeedavey/vioverse-refactor/\nRULES:\n✅ READ parent directories for reference only\n\n❌ DO NOT WRITE outside vioverse-refactor\n\n❗ If you modify files outside: REVERT IMMEDIATELY\n\n📁 Treat all other folders as READ-ONLY\n\nCONTEXT:\nThis is a standalone refactor of the POC Viewer.\nThe original version (outside this folder) must remain untouched.\n\n🔁 Command Reminder:\nbash\nCopy\nEdit\ncd /home/avid_arrajeedavey/vioverse-refactor\n✅ Sample Prompt:\n“Work only in /vioverse-refactor/. Read parent files if needed, but don’t edit anything outside.” WE will be updating the index.html",
-          "pastedContents": {}
         }
       ],
       "dontCrawlDirectory": true,
@@ -578,6 +632,6 @@
   "hasAvailableSubscription": false,
   "cachedChangelog": "# Changelog\n\n## 1.0.18\n\n- Added --add-dir CLI argument for specifying additional working directories\n- Added streaming input support without require -p flag\n- Improved startup performance and session storage performance\n- Added CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR environment variable to freeze working directory for bash commands\n- Added detailed MCP server tools display (/mcp)\n- MCP authentication and permission improvements\n- Added auto-reconnection for MCP SSE connections on disconnect\n- Fixed issue where pasted content was lost when dialogs appeared\n\n## 1.0.17\n\n- We now emit messages from sub-tasks in -p mode (look for the parent_tool_use_id property)\n- Fixed crashes when the VS Code diff tool is invoked multiple times quickly\n- MCP server list UI improvements\n- Update Claude Code process title to display \"claude\" instead of \"node\"\n\n## 1.0.11\n\n- Claude Code can now also be used with a Claude Pro subscription\n- Added /upgrade for smoother switching to Claude Max plans\n- Improved UI for authentication from API keys and Bedrock/Vertex/external auth tokens\n- Improved shell configuration error handling\n- Improved todo list handling during compaction\n\n## 1.0.10\n\n- Added markdown table support\n- Improved streaming performance\n\n## 1.0.8\n\n- Fixed Vertex AI region fallback when using CLOUD_ML_REGION\n- Increased default otel interval from 1s -> 5s\n- Fixed edge cases where MCP_TIMEOUT and MCP_TOOL_TIMEOUT weren't being respected\n- Fixed a regression where search tools unnecessarily asked for permissions\n- Added support for triggering thinking non-English languages\n- Improved compacting UI\n\n## 1.0.7\n\n- Renamed /allowed-tools -> /permissions\n- Migrated allowedTools and ignorePatterns from .claude.json -> settings.json\n- Deprecated claude config commands in favor of editing settings.json\n- Fixed a bug where --dangerously-skip-permissions sometimes didn't work in --print mode\n- Improved error handling for /install-github-app\n- Bugfixes, UI polish, and tool reliability improvements\n\n## 1.0.6\n\n- Improved edit reliability for tab-indented files\n- Respect CLAUDE_CONFIG_DIR everywhere\n- Reduced unnecessary tool permission prompts\n- Added support for symlinks in @file typeahead\n- Bugfixes, UI polish, and tool reliability improvements\n\n## 1.0.4\n\n- Fixed a bug where MCP tool errors weren't being parsed correctly\n\n## 1.0.1\n\n- Added `DISABLE_INTERLEAVED_THINKING` to give users the option to opt out of interleaved thinking.\n- Improved model references to show provider-specific names (Sonnet 3.7 for Bedrock, Sonnet 4 for Console)\n- Updated documentation links and OAuth process descriptions\n\n## 1.0.0\n\n- Claude Code is now generally available\n- Introducing Sonnet 4 and Opus 4 models\n\n## 0.2.125\n\n- Breaking change: Bedrock ARN passed to `ANTHROPIC_MODEL` or `ANTHROPIC_SMALL_FAST_MODEL` should no longer contain an escaped slash (specify `/` instead of `%2F`)\n- Removed `DEBUG=true` in favor of `ANTHROPIC_LOG=debug`, to log all requests\n\n## 0.2.117\n\n- Breaking change: --print JSON output now returns nested message objects, for forwards-compatibility as we introduce new metadata fields\n- Introduced settings.cleanupPeriodDays\n- Introduced CLAUDE_CODE_API_KEY_HELPER_TTL_MS env var\n- Introduced --debug mode\n\n## 0.2.108\n\n- You can now send messages to Claude while it works to steer Claude in real-time\n- Introduced BASH_DEFAULT_TIMEOUT_MS and BASH_MAX_TIMEOUT_MS env vars\n- Fixed a bug where thinking was not working in -p mode\n- Fixed a regression in /cost reporting\n- Deprecated MCP wizard interface in favor of other MCP commands\n- Lots of other bugfixes and improvements\n\n## 0.2.107\n\n- CLAUDE.md files can now import other files. Add @path/to/file.md to ./CLAUDE.md to load additional files on launch\n\n## 0.2.106\n\n- MCP SSE server configs can now specify custom headers\n- Fixed a bug where MCP permission prompt didn't always show correctly\n\n## 0.2.105\n\n- Claude can now search the web\n- Moved system & account status to /status\n- Added word movement keybindings for Vim\n- Improved latency for startup, todo tool, and file edits\n\n## 0.2.102\n\n- Improved thinking triggering reliability\n- Improved @mention reliability for images and folders\n- You can now paste multiple large chunks into one prompt\n\n## 0.2.100\n\n- Fixed a crash caused by a stack overflow error\n- Made db storage optional; missing db support disables --continue and --resume\n\n## 0.2.98\n\n- Fixed an issue where auto-compact was running twice\n\n## 0.2.96\n\n- Claude Code can now also be used with a Claude Max subscription (https://claude.ai/upgrade)\n\n## 0.2.93\n\n- Resume conversations from where you left off from with \"claude --continue\" and \"claude --resume\"\n- Claude now has access to a Todo list that helps it stay on track and be more organized\n\n## 0.2.82\n\n- Added support for --disallowedTools\n- Renamed tools for consistency: LSTool -> LS, View -> Read, etc.\n\n## 0.2.75\n\n- Hit Enter to queue up additional messages while Claude is working\n- Drag in or copy/paste image files directly into the prompt\n- @-mention files to directly add them to context\n- Run one-off MCP servers with `claude --mcp-config <path-to-file>`\n- Improved performance for filename auto-complete\n\n## 0.2.74\n\n- Added support for refreshing dynamically generated API keys (via apiKeyHelper), with a 5 minute TTL\n- Task tool can now perform writes and run bash commands\n\n## 0.2.72\n\n- Updated spinner to indicate tokens loaded and tool usage\n\n## 0.2.70\n\n- Network commands like curl are now available for Claude to use\n- Claude can now run multiple web queries in parallel\n- Pressing ESC once immediately interrupts Claude in Auto-accept mode\n\n## 0.2.69\n\n- Fixed UI glitches with improved Select component behavior\n- Enhanced terminal output display with better text truncation logic\n\n## 0.2.67\n\n- Shared project permission rules can be saved in .claude/settings.json\n\n## 0.2.66\n\n- Print mode (-p) now supports streaming output via --output-format=stream-json\n- Fixed issue where pasting could trigger memory or bash mode unexpectedly\n\n## 0.2.63\n\n- Fixed an issue where MCP tools were loaded twice, which caused tool call errors\n\n## 0.2.61\n\n- Navigate menus with vim-style keys (j/k) or bash/emacs shortcuts (Ctrl+n/p) for faster interaction\n- Enhanced image detection for more reliable clipboard paste functionality\n- Fixed an issue where ESC key could crash the conversation history selector\n\n## 0.2.59\n\n- Copy+paste images directly into your prompt\n- Improved progress indicators for bash and fetch tools\n- Bugfixes for non-interactive mode (-p)\n\n## 0.2.54\n\n- Quickly add to Memory by starting your message with '#'\n- Press ctrl+r to see full output for long tool results\n- Added support for MCP SSE transport\n\n## 0.2.53\n\n- New web fetch tool lets Claude view URLs that you paste in\n- Fixed a bug with JPEG detection\n\n## 0.2.50\n\n- New MCP \"project\" scope now allows you to add MCP servers to .mcp.json files and commit them to your repository\n\n## 0.2.49\n\n- Previous MCP server scopes have been renamed: previous \"project\" scope is now \"local\" and \"global\" scope is now \"user\"\n\n## 0.2.47\n\n- Press Tab to auto-complete file and folder names\n- Press Shift + Tab to toggle auto-accept for file edits\n- Automatic conversation compaction for infinite conversation length (toggle with /config)\n\n## 0.2.44\n\n- Ask Claude to make a plan with thinking mode: just say 'think' or 'think harder' or even 'ultrathink'\n\n## 0.2.41\n\n- MCP server startup timeout can now be configured via MCP_TIMEOUT environment variable\n- MCP server startup no longer blocks the app from starting up\n\n## 0.2.37\n\n- New /release-notes command lets you view release notes at any time\n- `claude config add/remove` commands now accept multiple values separated by commas or spaces\n\n## 0.2.36\n\n- Import MCP servers from Claude Desktop with `claude mcp add-from-claude-desktop`\n- Add MCP servers as JSON strings with `claude mcp add-json <n> <json>`\n\n## 0.2.34\n\n- Vim bindings for text input - enable with /vim or /config\n\n## 0.2.32\n\n- Interactive MCP setup wizard: Run \"claude mcp add\" to add MCP servers with a step-by-step interface\n- Fix for some PersistentShell issues\n\n## 0.2.31\n\n- Custom slash commands: Markdown files in .claude/commands/ directories now appear as custom slash commands to insert prompts into your conversation\n- MCP debug mode: Run with --mcp-debug flag to get more information about MCP server errors\n\n## 0.2.30\n\n- Added ANSI color theme for better terminal compatibility\n- Fixed issue where slash command arguments weren't being sent properly\n- (Mac-only) API keys are now stored in macOS Keychain\n\n## 0.2.26\n\n- New /approved-tools command for managing tool permissions\n- Word-level diff display for improved code readability\n- Fuzzy matching for slash commands\n\n## 0.2.21\n\n- Fuzzy matching for /commands\n",
   "changelogLastFetched": 1749615401287,
-  "fallbackAvailableWarningThreshold": 0.2,
+  "fallbackAvailableWarningThreshold": 0.5,
   "lastReleaseNotesSeen": "1.0.18"
 }

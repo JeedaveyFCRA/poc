@@ -1548,15 +1548,16 @@ input {
 .violation-details-list {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Space between violation boxes - reduced by 40% */
+    gap: 0; /* No gap needed since boxes have margins */
     flex: 1; /* Take available height */
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scroll */
-    padding: 0 14px 8px 14px; /* Padding with bottom space */
+    padding: 8px 0 16px 0; /* Vertical padding only, boxes handle horizontal */
     scroll-behavior: smooth; /* Smooth scrolling when programmatically scrolling */
     position: relative; /* For proper scroll context */
     min-height: 0; /* Allow shrinking */
     max-height: 100%; /* Don't exceed parent */
+    align-items: center; /* Center the violation boxes */
 }
 
 /* Custom scrollbar for violation list */
@@ -1593,24 +1594,27 @@ input {
     }
 }
 
-/* Individual violation box */
+/* Individual violation box - A+ Professional Grade */
 .violation-box {
-    background-color: #e3e2e1; /* 30% tint of #b7b5b3 */
-    border: 1px solid #ffffff;
-    border-radius: 32px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.1);
-    padding: 16px 20px 16px 50px; /* Increased padding for better content spacing */
+    background-color: #f1f1f1; /* Refined light gray for professional look */
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px; /* Slightly reduced for modern feel */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    padding: 20px 24px 20px 52px; /* Balanced padding */
+    margin: 12px auto; /* Auto margins for centering */
     position: relative;
     display: flex;
-    align-items: flex-start; /* Changed from center to flex-start for top alignment */
+    align-items: flex-start;
     gap: 14px;
-    min-height: 60px; /* Ensure minimum height for badge alignment */
-    height: auto; /* Allow box to expand with content */
-    overflow: hidden; /* Hide overflow content */
-    width: 100%; /* Ensure box doesn't exceed container */
-    box-sizing: border-box; /* Include padding in width calculation */
-    z-index: 1; /* Keep below container z-index */
-    flex-shrink: 0; /* Prevent shrinking */
+    min-height: 60px;
+    height: auto;
+    overflow: visible;
+    width: 100%;
+    max-width: 860px; /* Max width for readability */
+    box-sizing: border-box;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.2s ease-in-out; /* Smooth transitions for all properties */
 }
 
 /* Severity badge - positioned absolutely */
@@ -1658,58 +1662,114 @@ input {
     padding-top: 2px; /* Slight top padding for alignment */
     max-width: 100%; /* Prevent content from overflowing */
     min-width: 0; /* Allow flex item to shrink below content width */
-    overflow: hidden; /* Hide overflow */
+    overflow: visible; /* Show all content */
 }
 
-/* FCRA codes */
+/* FCRA codes - Typography with scalable units */
 .violation-fcra-codes {
     font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 11pt;
+    font-weight: 600;
+    font-size: 1rem; /* 16px base, scalable */
     color: rgba(37, 53, 65, 0.9);
     line-height: 1.2;
-    margin-bottom: 0;
+    margin-bottom: 6px; /* Small gap before description */
     display: block;
 }
 
-/* Violation description */
+/* Violation description - Typography with scalable units */
 .violation-description {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 400;
-    font-size: 11pt;
-    color: rgba(0, 0, 0, 0.9);
-    line-height: 1.4; /* Increased line height for better readability */
-    margin-top: 4px;
+    font-size: 0.97rem; /* Slightly smaller than code for hierarchy */
+    color: rgba(0, 0, 0, 0.85); /* Slightly lighter for contrast */
+    line-height: 1.5; /* Optimal readability */
+    margin-top: 0; /* Reset since codes now have margin-bottom */
     display: block;
-    word-wrap: break-word; /* Ensure long words break */
-    overflow-wrap: break-word; /* Modern property for word breaking */
-    white-space: normal; /* Ensure text wraps normally */
-    max-width: 100%; /* Prevent overflow */
-    overflow: hidden; /* Hide text that overflows */
-    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-    display: -webkit-box; /* Use line clamping */
-    -webkit-line-clamp: 3; /* Limit to 3 lines */
-    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+    overflow: visible;
+    text-overflow: unset;
     transition: all 0.3s ease;
 }
 
-/* Tooltip styling for full description */
-.violation-box:hover::after {
-    content: attr(data-full-description);
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #253541;
-    color: white;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 10pt;
-    line-height: 1.4;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    margin-top: 4px;
-    display: none; /* Will be shown via JS when needed */
+/* Tooltip removed - full descriptions now shown inline */
+
+/* Responsive breakpoints for violation boxes */
+@media (max-width: 768px) {
+    .violation-box {
+        padding: 18px 16px 18px 48px; /* Slightly reduced padding */
+        margin: 10px auto; /* Tighter vertical spacing */
+        border-radius: 20px; /* Slightly smaller radius */
+    }
+    
+    .violation-fcra-codes {
+        font-size: 0.96rem; /* Slightly smaller on mobile */
+    }
+    
+    .violation-description {
+        font-size: 0.92rem; /* Scale down proportionally */
+        line-height: 1.45;
+    }
+    
+    .violation-severity-badge {
+        left: 14px; /* Adjust for reduced padding */
+        top: 16px;
+        width: 22px;
+        height: 22px;
+    }
+    
+    .violation-severity-badge svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .violation-box {
+        padding: 16px 14px 16px 44px; /* Further reduced for small screens */
+        margin: 8px auto;
+        max-width: 100%; /* Full width on small screens */
+    }
+    
+    .violation-fcra-codes {
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+    }
+    
+    .violation-description {
+        font-size: 0.87rem;
+        line-height: 1.4;
+    }
+    
+    .violation-severity-badge {
+        left: 12px;
+        top: 14px;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .violation-severity-badge svg {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+/* Large screens for optimal readability */
+@media (min-width: 1200px) {
+    .violation-box {
+        padding: 22px 28px 22px 56px; /* More generous padding */
+    }
+    
+    .violation-fcra-codes {
+        font-size: 1.05rem;
+    }
+    
+    .violation-description {
+        font-size: 1rem;
+        line-height: 1.55;
+    }
 }
 
 /* Legacy filter styles removed - using filter-counter component instead */
@@ -1841,21 +1901,25 @@ body.dragging-scroll {
 }
 
 /* ========================================
-   View Full Violation Log
+   View Full Violation Log - A+ Professional Grade
    ======================================== */
 .view-full-violation-log {
     position: relative;
     width: 100%;
-    padding: 16px 24px;
+    padding: 8px 24px; /* Reduced vertical padding for tighter spacing */
     z-index: 2;
     flex-shrink: 0; /* Don't shrink */
 }
 
 .full-log-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Right-align the entire group */
     align-items: center;
-    padding: 0;
+    gap: 14px; /* Fixed 14px gap between text and icon */
+    padding: 0 20px 0 0; /* Moved right by 20px (8px + 12px) */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    max-width: 100%;
+    transition: all 0.2s ease; /* Smooth container transitions */
 }
 
 .full-log-title {
@@ -1865,12 +1929,12 @@ body.dragging-scroll {
     color: rgba(37, 53, 65, 0.9); /* #253541 at 90% opacity */
     letter-spacing: normal;
     line-height: 1;
-    text-align: left; /* Left aligned to match other headers */
     margin: 0;
     padding: 0;
     text-decoration: none;
-    transition: color 200ms ease, text-decoration 200ms ease;
+    transition: all 0.2s ease; /* Smooth transitions for hover */
     cursor: pointer;
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
 .full-log-arrow {
@@ -1884,7 +1948,8 @@ body.dragging-scroll {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 200ms ease;
+    transition: all 0.2s ease;
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 /* ========================================
@@ -1949,22 +2014,28 @@ body.dragging-scroll {
 .full-log-arrow i[data-lucide] {
     width: 28px !important;
     height: 28px !important;
-    /* Stroke color is handled by the override near top of file */
-    transition: stroke 200ms ease;
+    stroke: #A8AEB3 !important; /* Default sophisticated gray */
+    fill: none !important;
+    transition: all 0.2s ease; /* Smooth transitions */
 }
 
-/* Hover states - text gets underline, arrow turns orange */
-.full-log-header:hover .full-log-title,
-.full-log-title:hover {
-    color: rgba(37, 53, 65, 0.9); /* Same color as default */
+/* Professional A+ Hover States */
+.full-log-header:hover .full-log-title {
+    font-weight: 900; /* Subtle weight increase from 800 to 900 */
+    color: #2e3a45; /* Slightly darker, more sophisticated tone */
     text-decoration: underline;
-    text-decoration-thickness: 0.5pt; /* 0.5pt = 0.667px */
-    text-underline-offset: 2px; /* Slight offset for better appearance */
+    text-decoration-thickness: 1px; /* Refined underline */
+    text-underline-offset: 3px; /* Elegant spacing */
+}
+
+/* Arrow hover with subtle scale and color */
+.full-log-header:hover .full-log-arrow {
+    transform: scale(1.05); /* Subtle scale effect */
 }
 
 .full-log-header:hover .full-log-arrow i[data-lucide],
 .full-log-arrow:hover i[data-lucide] {
-    stroke: #F26419 !important;
+    stroke: #4a5661 !important; /* Sophisticated gray instead of orange */
 }
 
 /* Focus states - no styling */
@@ -1987,40 +2058,72 @@ body.dragging-scroll {
     user-select: none;
 }
 
+/* Responsive Breakpoints for View Full Violation Log */
+@media (max-width: 768px) {
+    .full-log-header {
+        gap: 10px; /* Slightly reduced gap on mobile */
+    }
+    
+    .full-log-title {
+        font-size: 16pt; /* Slightly smaller on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .full-log-arrow {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .full-log-arrow i[data-lucide] {
+        width: 24px !important;
+        height: 24px !important;
+    }
+}
+
+/* Large desktop breakpoint for maximum polish */
+@media (min-width: 1440px) {
+    .view-full-violation-log {
+        padding: 8px 32px; /* Consistent edge spacing on large screens */
+    }
+}
+
 /* ========================================
-   Static Footer Severity Key
+   Static Footer Severity Key - A+ Refined Design
    ======================================== */
 .static-footer-severity-key {
     position: relative;
     width: 100%;
-    padding: 24px 24px 16px 24px;
+    padding: 10px 24px 16px 24px; /* Reduced top padding for tighter spacing */
     background: white;
     z-index: 2;
     flex-shrink: 0; /* Don't shrink */
-    margin-top: auto; /* Push to bottom */
+    margin-top: 0; /* Remove auto margin for manual spacing control */
 }
 
 /* Severity Key Row */
 .severity-key-row {
     position: relative;
     display: flex;
+    justify-content: center; /* Center the entire row */
     align-items: center;
-    margin-bottom: 20px;
+    gap: 20px; /* Equal spacing between all items */
+    margin-bottom: 4px; /* Tight spacing before divider */
 }
 
 .severity-key-label {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 11pt; /* Reduced from 14pt */
-    font-weight: 700; /* Bold */
-    color: #253541;
-    margin-right: 20px;
+    font-size: 0.85rem; /* Smaller, more subtle text */
+    font-weight: 600; /* Semi-bold instead of bold */
+    color: rgba(37, 53, 65, 0.8); /* Slightly lighter */
+    margin-right: 0; /* Remove margin, use gap instead */
 }
 
 /* Severity Items */
 .severity-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px; /* Tighter gap between icon and text */
     background: none !important; /* Override any inherited background */
 }
 
@@ -2041,8 +2144,8 @@ body.dragging-scroll {
 
 /* Severity Badges */
 .severity-badge {
-    width: 24px;
-    height: 24px;
+    width: 18px; /* Smaller, more subtle size */
+    height: 18px;
     border-radius: 50%;
     border: none; /* Ensure no stroke */
     display: flex;
@@ -2052,8 +2155,8 @@ body.dragging-scroll {
 
 /* Add padding for footer severity badges only */
 .static-footer-severity-key .severity-badge {
-    padding: 2px;
-    box-sizing: border-box; /* Include padding in the 24px size */
+    padding: 1px;
+    box-sizing: border-box; /* Include padding in the 18px size */
 }
 
 .severity-high .severity-badge {
@@ -2070,49 +2173,124 @@ body.dragging-scroll {
 
 /* Severity Icons for the key */
 .static-footer-severity-key .severity-badge i[data-lucide] {
-    width: 14px !important;
-    height: 14px !important;
+    width: 12px !important; /* Smaller icons */
+    height: 12px !important;
     stroke: #FFFFFF !important;
     fill: none !important;
-    stroke-width: 2;
+    stroke-width: 1.5; /* Slightly thinner stroke */
 }
 
 /* Special adjustments for triangle-alert in the key */
 .static-footer-severity-key .severity-medium .severity-badge {
-    padding: 3px; /* 1px more than the default 2px */
+    padding: 2px; /* Adjusted for smaller size */
 }
 
 .static-footer-severity-key .severity-medium .severity-badge i[data-lucide="triangle-alert"] {
-    transform: translateY(-1px); /* Move up 1px */
+    transform: translateY(-0.5px); /* Subtle adjustment */
 }
 
 /* Severity Text */
 .severity-text {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 11pt; /* Reduced from 14pt */
+    font-size: 0.85rem; /* Matching the label size for consistency */
     font-weight: 400;
-    color: #253541;
+    color: rgba(37, 53, 65, 0.8); /* Slightly lighter to match */
 }
 
 /* Legal Disclaimer */
 .legal-disclaimer {
     position: relative;
+    text-align: center; /* Center the disclaimer text */
 }
 
 .disclaimer-divider {
     width: 100%;
     height: 1px;
-    background-color: rgba(0, 0, 0, 0.5);
-    margin: 12px 0;
+    background-color: rgba(0, 0, 0, 0.2); /* Lighter divider for subtlety */
+    margin: 4px 0 6px 0; /* Tighter spacing: 4px top, 6px bottom */
 }
 
 .disclaimer-text {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 7.5pt; /* Reduced by 0.5pt from 8pt */
+    font-size: 0.75rem; /* Convert to rem for consistency */
     font-weight: 400;
-    color: rgba(0, 0, 0, 0.9);
+    color: rgba(0, 0, 0, 0.6); /* Lighter text for "quiet UI" */
     margin: 0;
     padding: 0;
+}
+
+/* Responsive Footer Adjustments */
+@media (max-width: 768px) {
+    .view-full-violation-log {
+        padding: 8px 20px; /* Consistent side padding */
+    }
+    
+    .full-log-header {
+        padding: 0 16px 0 0; /* Slightly less right offset on tablet */
+    }
+    
+    .static-footer-severity-key {
+        padding: 8px 20px 14px 20px; /* Tighter padding on tablet */
+    }
+    
+    .severity-key-row {
+        gap: 16px; /* Slightly tighter spacing */
+    }
+    
+    .severity-key-label,
+    .severity-text {
+        font-size: 0.8rem; /* Slightly smaller text */
+    }
+}
+
+@media (max-width: 480px) {
+    .view-full-violation-log {
+        padding: 6px 16px;
+    }
+    
+    .full-log-header {
+        padding: 0 12px 0 0; /* Less right offset on mobile */
+    }
+    
+    .full-log-title {
+        font-size: 14pt; /* Smaller title on mobile */
+    }
+    
+    .static-footer-severity-key {
+        padding: 6px 16px 12px 16px;
+    }
+    
+    .severity-key-row {
+        gap: 12px; /* Tighter spacing on mobile */
+        flex-wrap: wrap; /* Allow wrapping if needed */
+    }
+    
+    .severity-badge {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .static-footer-severity-key .severity-badge i[data-lucide] {
+        width: 10px !important;
+        height: 10px !important;
+    }
+    
+    .severity-key-label,
+    .severity-text {
+        font-size: 0.75rem;
+    }
+    
+    .disclaimer-text {
+        font-size: 0.7rem;
+        padding: 0 10px; /* Add padding for better mobile readability */
+    }
+}
+
+/* Large desktop refinements */
+@media (min-width: 1440px) {
+    .full-log-header {
+        padding: 0 24px 0 0; /* More generous offset on large screens */
+    }
 }
 
 /* ========================================
