@@ -1485,9 +1485,6 @@ input {
 
 /* Collapsed label for violation details */
 .violation-details-collapsed-label {
-    position: absolute;
-    left: 271px; /* Moved 6px to the right: was 265px, now 271px */
-    top: -6px; /* Moved up 2px more: was -4px, now -6px */
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 400;
     font-size: 8pt;
@@ -1496,7 +1493,8 @@ input {
     pointer-events: none;
     transition: all 300ms ease;
     cursor: pointer;
-    z-index: 11;
+    order: -1; /* Place before toggle button */
+    white-space: nowrap;
 }
 
 .violation-details-collapsed-label:hover {
@@ -1510,6 +1508,18 @@ input {
 
 .violation-details-component.collapsed .violation-details-title {
     opacity: 0;
+}
+
+/* Right-align violation details when collapsed */
+.violation-details-component.collapsed .violation-details-header {
+    justify-content: flex-end;
+    gap: 6px;
+    padding-bottom: 6px;
+}
+
+/* Reduce gap between severity and violation details when collapsed */
+.severity-summary-component.collapsed + .violation-details-component {
+    margin-top: -16px;
 }
 
 /* Ensure hover works in collapsed state - simplified approach */
@@ -1600,12 +1610,12 @@ input {
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 24px; /* Slightly reduced for modern feel */
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
-    padding: 20px 10px 20px 52px; /* Balanced padding with inner content padding */
+    padding: 12px 16px; /* Consistent padding all around */
     margin: 6px auto; /* Optimal spacing between violation descriptions */
     position: relative;
     display: flex;
-    align-items: center; /* Center vertically */
-    gap: 8px; /* Reduced gap between icon and text */
+    align-items: flex-start; /* Top align for better text flow */
+    gap: 10px; /* Optimal gap between badge and text */
     min-height: 60px;
     height: auto;
     overflow: visible;
@@ -1617,12 +1627,9 @@ input {
     transition: all 0.2s ease-in-out; /* Smooth transitions for all properties */
 }
 
-/* Severity badge - positioned absolutely */
+/* Severity badge - flex item */
 .violation-severity-badge {
-    position: absolute;
-    left: 16px; /* Positioned for new padding */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Perfect vertical centering */
+    position: relative; /* Changed from absolute for better layout */
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -1630,6 +1637,7 @@ input {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-top: 2px; /* Slight top margin to align with first line of text */
 }
 
 .violation-box.high .violation-severity-badge {
@@ -1659,7 +1667,7 @@ input {
 /* Violation content */
 .violation-content {
     flex: 1;
-    padding: 0 10px; /* Consistent 10px left/right padding */
+    padding: 0; /* Remove extra padding since container has proper padding */
     max-width: 100%; /* Prevent content from overflowing */
     min-width: 0; /* Allow flex item to shrink below content width */
     overflow: visible; /* Show all content */
@@ -1699,10 +1707,11 @@ input {
 /* Responsive breakpoints for violation boxes */
 @media (max-width: 768px) {
     .violation-box {
-        padding: 18px 10px 18px 48px; /* Consistent padding for mobile */
+        padding: 12px 14px; /* Slightly reduced padding for mobile */
         margin: 6px auto; /* Consistent spacing for mobile */
         border-radius: 20px; /* Slightly smaller radius */
         align-items: flex-start; /* Allow wrapping on mobile */
+        gap: 8px; /* Smaller gap on mobile */
     }
     
     .violation-fcra-codes {
@@ -1715,11 +1724,9 @@ input {
     }
     
     .violation-severity-badge {
-        left: 14px; /* Adjust for reduced padding */
-        top: 50%; /* Maintain center alignment */
-        transform: translateY(-50%);
         width: 22px;
         height: 22px;
+        margin-top: 1px; /* Slight adjustment for smaller size */
     }
     
     .violation-severity-badge svg {
@@ -1730,10 +1737,11 @@ input {
 
 @media (max-width: 480px) {
     .violation-box {
-        padding: 16px 10px 16px 44px; /* Consistent padding for small screens */
+        padding: 10px 12px; /* Compact padding for small screens */
         margin: 6px auto;
         max-width: 100%; /* Full width on small screens */
         align-items: flex-start; /* Allow text wrapping */
+        gap: 6px; /* Minimal gap on very small screens */
     }
     
     .violation-fcra-codes {
@@ -1747,11 +1755,9 @@ input {
     }
     
     .violation-severity-badge {
-        left: 12px;
-        top: 50%; /* Maintain center alignment */
-        transform: translateY(-50%);
         width: 20px;
         height: 20px;
+        margin-top: 1px; /* Slight adjustment for smaller size */
     }
     
     .violation-severity-badge svg {
@@ -1763,7 +1769,7 @@ input {
 /* Large screens for optimal readability */
 @media (min-width: 1200px) {
     .violation-box {
-        padding: 22px 10px 22px 56px; /* Consistent padding for large screens */
+        padding: 14px 18px; /* Generous padding for large screens */
     }
     
     .violation-fcra-codes {
@@ -2586,9 +2592,9 @@ body.dragging-scroll {
 
 /* Collapsed state - keep toggle button visible and clickable */
 .filter-counter.collapsed .filter-counter-header {
-    padding-bottom: 8px; /* Reduced padding to minimize gap */
-    justify-content: flex-start; /* Align items to the left */
-    gap: 8px; /* Space between label and button */
+    padding-bottom: 6px; /* Minimal padding for 6-8px spacing */
+    justify-content: flex-end; /* Align items to the right */
+    gap: 6px; /* Space between label and button */
 }
 
 /* Collapsed state chevron color and size */
@@ -2833,9 +2839,6 @@ body.dragging-scroll {
 
 /* Collapsed label */
 .severity-summary-collapsed-label {
-    position: absolute;
-    left: 308px; /* Moved right by 1px (was 307px) */
-    top: 33px; /* Moved up by 2px (was 35px) */
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 400;
     font-size: 8pt;
@@ -2844,7 +2847,8 @@ body.dragging-scroll {
     pointer-events: none;
     transition: all 300ms ease;
     cursor: pointer;
-    z-index: 11; /* Above other elements */
+    order: -1; /* Place before toggle button */
+    white-space: nowrap;
 }
 
 .severity-summary-collapsed-label:hover {
@@ -2862,7 +2866,14 @@ body.dragging-scroll {
 
 /* Reduce gap when filter counter is collapsed */
 .filter-counter.collapsed + .severity-summary-component {
-    margin-top: -12px; /* Reduce gap between collapsed elements */
+    margin-top: -16px; /* Tighter gap between collapsed elements */
+}
+
+/* Right-align severity summary when collapsed */
+.severity-summary-component.collapsed .severity-summary-header-wrapper {
+    justify-content: flex-end;
+    gap: 6px;
+    padding-bottom: 6px;
 }
 
 /* ========================================
@@ -3078,7 +3089,7 @@ body.dragging-scroll {
     
     /* Ensure violation content wraps properly on mobile */
     .violation-content {
-        padding: 0 8px;
+        padding: 0; /* No extra padding needed */
     }
 }
 
@@ -3091,8 +3102,5 @@ body.dragging-scroll {
         font-size: 18pt;
     }
     
-    /* Reduce gap on very small screens */
-    .violation-box {
-        gap: 6px;
-    }
+    /* Gap already set in main 480px rule above */
 }

@@ -25,6 +25,16 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "[Pasted text #1 +75 lines]",
+          "pastedContents": {
+            "1": {
+              "id": 1,
+              "type": "text",
+              "content": "🛠️ PROMPT FOR CLAUDE CODE – FCRA UI FIXES: SUMMARY TOGGLES + VIOLATION DETAILS\nClaude, please apply the following two fixes to the FCRA review UI inside the vioverse-refactor project. This must be responsive, pixel-consistent, and use clean logic.\n\n1️⃣ FIX FILTER ALIGNMENT IN FCRA REVIEW SUMMARY\nContext: The top filter row show filters is misaligned compared to the other two below it, and the vertical spacing between all three toggles is too large.\n\nFix:\n\nRight-align all three rows:\n\nshow filters\n\nshow severity\n\nshow FCRA violations\n\nMake the vertical spacing between the rows 6–8px maximum\n\nKeep the toggle label and icon together as a unit, aligned right (not split)\n\nThis must be fully responsive — the toggles must stack neatly on narrow screens but remain right-aligned in the card\n\nSuggested layout structure:\n\ncss\nCopy\nEdit\ndisplay: flex;\njustify-content: flex-end;\nalign-items: center;\ngap: 6px;\nmargin-bottom: 6px; /* or use margin-inline-end */\n2️⃣ FIX VIOLATION DETAIL BOX ALIGNMENT + PADDING\n📸 See screenshot: The red severity badge is not aligned with the text, and the left/right padding of the entire box appears broken.\n\nProblems to address:\n\nBadge icon is not vertically aligned with the text block\n\nText is too far from the badge, needs to move left (closer to badge)\n\nEntire text and badge section touches edge of the card, missing left/right padding\n\nTasks:\n\nBadge Alignment\n\nEnsure badge icon is top-aligned with the text block\n\nUse align-self: flex-start or equivalent flex alignment\n\nText Positioning\n\nText should shift left slightly to reduce whitespace between badge and text\n\nSuggested adjustment: margin-left: 6px between icon and text\n\nPadding Fix\n➤ Analyze the left and right padding inside each .violation-box or equivalent class\n➤ Then do the following:\n\n🔍 Come up with 3 alternate layout strategies to fix the padding issue. Choose the cleanest and most cross-browser-friendly one.\nImplement that as the final fix.\n\nExample padding solution:\n\ncss\nCopy\nEdit\n.violation-box {\n  padding: 12px 16px; /* top/bottom: 12px, left/right: 16px */\n  display: flex;\n  align-items: flex-start;\n  gap: 10px;\n}\n"
+            }
+          }
+        },
+        {
           "display": "the collapsed button for \"filter this report\" got shifted to the left side, it should appear to the right of the show filters label. also there is a large gap below the show filters label and the collapsed show severely label. also make the \"Original report shown. Overlays are for legal review only, not for submission.\" text 1 point smaller.",
           "pastedContents": {}
         },
@@ -615,10 +625,6 @@
         },
         {
           "display": "getting a little closer.  move the circle to the right 2 px and it looks like it is 6 px too small",
-          "pastedContents": {}
-        },
-        {
-          "display": "it got a little lasger but some padding or container conflict is occurring. the circle moved up a few px",
           "pastedContents": {}
         }
       ],
