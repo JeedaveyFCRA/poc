@@ -1534,7 +1534,7 @@ input {
     overflow: hidden; /* Must be hidden to contain children */
     transition: all 300ms ease;
     transform-origin: top;
-    padding: 8px 0 6px 0; /* Removed horizontal padding - will be on list */
+    padding: 4px 0 6px 0; /* Reduced top padding for tighter spacing */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -1563,7 +1563,7 @@ input {
     flex: 1; /* Take available height */
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Prevent horizontal scroll */
-    padding: 8px 0 16px 0; /* Vertical padding only, boxes handle horizontal */
+    padding: 0 0 16px 0; /* No top padding to avoid double spacing */
     scroll-behavior: smooth; /* Smooth scrolling when programmatically scrolling */
     position: relative; /* For proper scroll context */
     min-height: 0; /* Allow shrinking */

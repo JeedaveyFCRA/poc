@@ -25,6 +25,18 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "great!",
+          "pastedContents": {}
+        },
+        {
+          "display": "i see the issue with the violation description boxes not looking correct.  you know how there is a certain space abocve and below a desciption box?  well the first loaded desption always looks like has extra white space. can any first loaded description start the amount of top padding higher up?>",
+          "pastedContents": {}
+        },
+        {
+          "display": "when you cllose the  filter this report, the collapsed label does not appear",
+          "pastedContents": {}
+        },
+        {
           "display": "undo those changes, you make it worse and its confusing",
           "pastedContents": {}
         },
@@ -637,18 +649,6 @@
         },
         {
           "display": "make it 3 px",
-          "pastedContents": {}
-        },
-        {
-          "display": "for selected state boxes, can you make the stroke 4 pt but inwards from the edges? Do you understand?",
-          "pastedContents": {}
-        },
-        {
-          "display": "Can you make a change in the report viewer to the vioboxes?",
-          "pastedContents": {}
-        },
-        {
-          "display": "excellent!  for the hint text \"Search violations...\" can you lowercase the \"s\" in \"search\"",
           "pastedContents": {}
         }
       ],

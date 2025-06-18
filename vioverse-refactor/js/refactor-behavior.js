@@ -149,6 +149,9 @@ class VioVerse {
         // Initialize based on current image
         this.initializeFromImage();
         
+        // Update section labels bar to show correct initial state
+        this.updateSectionLabelsBar();
+        
         // Load violations data
         this.loadViolations().then(() => {
             // Pre-select all violations on initial load
@@ -493,6 +496,7 @@ class VioVerse {
         this.announce(`Tooltips ${this.tipsEnabled ? 'enabled' : 'disabled'}`);
     }
     
+    /* DUPLICATE REMOVED - see line 1040 for the correct implementation
     toggleFilterCounter() {
         const filterCounter = document.querySelector('.filter-counter');
         const toggleBtnExpanded = document.querySelector('.filter-counter-toggle-expanded');
@@ -518,7 +522,7 @@ class VioVerse {
         // CSS handles the button visibility, no need to switch icons
         
         this.announce(`Filter panel ${isCollapsed ? 'expanded' : 'collapsed'}`);
-    }
+    } */
     
     toggleSeverityBoxes() {
         const severityBoxes = document.querySelector('.severity-boxes-component');
@@ -1507,6 +1511,7 @@ class VioVerse {
         }
     }
     
+    /* DUPLICATE REMOVED - see line 1040 for the correct implementation
     toggleFilterCounter() {
         const filterContainer = document.querySelector('.filter-counter');
         if (filterContainer) {
@@ -1530,7 +1535,7 @@ class VioVerse {
                 lucide.createIcons();
             }
         }
-    }
+    } */
     
     toggleSeverityBoxes() {
         const severityContainer = document.querySelector('.severity-boxes-component');
