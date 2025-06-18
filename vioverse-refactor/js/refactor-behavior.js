@@ -17,6 +17,12 @@ class VioVerse {
         this.currentBureau = 'EQ';  // Default bureau
         this.reportDate = '2024-04-25';  // Default date
         
+        // Initialize canvas sync for coordinate conversion
+        this.canvasSync = new CanvasSync();
+        
+        // Initialize VioTagger
+        this.viotagger = new VioTagger(this);
+        
         // Navigation data will be loaded from JSON
         this.navigationData = null;
         
@@ -440,6 +446,12 @@ class VioVerse {
             panel.classList.toggle('active', isActive);
             panel.hidden = !isActive;
         });
+        
+        // Initialize VioTagger when switching to tagger view
+        if (viewName === 'tagger') {
+            this.viotagger.init();
+            this.viotagger.updateTaggerPage();
+        }
         
         // Announce view change to screen readers
         this.announce(`Switched to ${viewName} view`);

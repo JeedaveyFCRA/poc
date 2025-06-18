@@ -754,7 +754,6 @@ input {
    Report Canvas
    ======================================== */
 .report-canvas-container,
-.tagger-canvas-container,
 .evidence-canvas-container {
     position: absolute; /* Changed from fixed to absolute */
     left: 360px;
@@ -766,6 +765,21 @@ input {
     padding: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: visible; /* Allow tooltips to show outside container */
+    z-index: 1;
+}
+
+/* VioTagger has different dimensions for 1920x1080 canvas */
+.tagger-canvas-container {
+    position: absolute;
+    left: 360px;
+    top: 69px;
+    width: 810px;
+    height: 920px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Clip the scaled content */
     z-index: 1;
 }
 
@@ -1420,18 +1434,9 @@ input {
     stroke: #F26419 !important;
 }
 
-/* Hide collapsed button by default */
+/* Remove collapsed button entirely - never show it */
 .violation-details-toggle-collapsed {
-    display: none; /* Hidden by default */
-    position: absolute; /* Ensure proper positioning */
-    width: 15px;
-    height: 15px;
-    padding: 0; /* Remove padding to maximize icon space */
-    z-index: 100; /* Increased z-index to ensure it's above other elements */
-    background: none;
-    border: none;
-    cursor: pointer; /* Ensure pointer cursor */
-    right: 22px !important; /* Moved 24px to the left: was -2px, now 22px */
+    display: none !important; /* Never show */
     top: calc(50% - 20px); /* Moved up 20px from center */
     transform: translateY(-50%); /* Maintain vertical centering adjustment */
 }
@@ -1478,11 +1483,7 @@ input {
     display: none;
 }
 
-.violation-details-component.collapsed .violation-details-toggle-collapsed {
-    display: flex; /* Show as flex when collapsed */
-    align-items: center;
-    justify-content: center;
-}
+/* Removed - collapsed button should never show */
 
 /* Collapsed label for violation details */
 .violation-details-collapsed-label {
@@ -2222,11 +2223,12 @@ body.dragging-scroll {
 
 .disclaimer-text {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 10pt; /* Reduced by 1pt from 11pt */
+    font-size: 7pt; /* Reduced by 3pt from 10pt */
     font-weight: 400;
     color: rgba(0, 0, 0, 0.6); /* Lighter text for "quiet UI" */
     margin: 0;
     padding: 0;
+    white-space: nowrap; /* Keep on one line */
 }
 
 /* Responsive Footer Adjustments */
@@ -2291,7 +2293,7 @@ body.dragging-scroll {
     }
     
     .disclaimer-text {
-        font-size: 0.625rem; /* Reduced by 1pt for mobile (was 11.2px, now 10px) */
+        font-size: 0.5rem; /* Reduced proportionally for mobile (7pt equivalent) */
         padding: 0 10px; /* Add padding for better mobile readability */
     }
 }
@@ -2507,18 +2509,14 @@ body.dragging-scroll {
     z-index: 10; /* Ensure button is above other elements */
 }
 
-/* Hide collapsed button by default */
+/* Remove collapsed button entirely - never show it */
 .filter-counter-toggle-collapsed {
-    display: none;
+    display: none !important;
 }
 
-/* Show/hide buttons based on state */
+/* Keep expanded button hidden when collapsed */
 .filter-counter.collapsed .filter-counter-toggle-expanded {
     display: none;
-}
-
-.filter-counter.collapsed .filter-counter-toggle-collapsed {
-    display: flex;
 }
 
 .filter-counter-toggle svg {
@@ -2577,9 +2575,13 @@ body.dragging-scroll {
 }
 
 .filter-counter.collapsed .filter-counter-content {
-    height: 0;
-    opacity: 0;
-    transform: scaleY(0);
+    display: none;
+}
+
+/* Hide header content when collapsed */
+.filter-counter.collapsed .filter-counter-header h3,
+.filter-counter.collapsed .report-filters {
+    display: none;
 }
 
 /* Collapsed state - REMOVED (no longer collapsible)
@@ -2780,16 +2782,9 @@ body.dragging-scroll {
     stroke: #F26419 !important;
 }
 
-/* Collapsed state button specific styles */
+/* Remove collapsed button entirely - never show it */
 .severity-summary-toggle-collapsed {
-    display: none; /* Hidden by default */
-    width: 15px;
-    height: 15px;
-    padding: 1px; /* Center the 13px icon in 15px button */
-    z-index: 20; /* Higher z-index */
-    background: none;
-    /* Position it differently since absolute positioning */
-    right: -2px !important; /* Moved 6px to the right (was 4px) */
+    display: none !important; /* Never show */
 }
 
 .severity-summary-toggle-collapsed svg {
@@ -2807,9 +2802,7 @@ body.dragging-scroll {
     display: none;
 }
 
-.severity-summary-component.collapsed .severity-summary-toggle-collapsed {
-    display: flex;
-}
+/* Removed - collapsed button should never show */
 
 /* Collapsible content */
 .severity-summary-content {
@@ -2819,12 +2812,21 @@ body.dragging-scroll {
     margin: 0;
 }
 
-/* Collapsed state - REMOVED (no longer collapsible)
+/* Hide all severity content when collapsed */
 .severity-summary-component.collapsed .severity-summary-content {
-    height: 0;
-    opacity: 0;
-    transform: scaleY(0);
-} */
+    display: none;
+}
+
+/* Hide severity boxes when collapsed */
+.severity-summary-component.collapsed .severity-grid {
+    display: none;
+}
+
+/* Hide violation details content when collapsed */
+.violation-details-component.collapsed .violation-details-content,
+.violation-details-component.collapsed .custom-scroll-vio-details {
+    display: none;
+}
 
 /* Removed - now handled by two-button approach */
 
@@ -3136,4 +3138,244 @@ body.dragging-scroll {
     }
     
     /* Gap already set in main 480px rule above */
+}
+
+/* ========================================
+   Ensure collapsed states work across all breakpoints
+   ======================================== */
+@media (max-width: 1439px) {
+    /* Hide content in collapsed state */
+    .filter-counter.collapsed .filter-counter-content,
+    .filter-counter.collapsed .filter-counter-header h3,
+    .filter-counter.collapsed .report-filters,
+    .severity-summary-component.collapsed .severity-summary-content,
+    .severity-summary-component.collapsed .severity-grid,
+    .violation-details-component.collapsed .violation-details-content {
+        display: none !important;
+    }
+    
+    /* Never show collapsed toggle buttons */
+    .filter-counter-toggle-collapsed,
+    .severity-summary-toggle-collapsed,
+    .violation-details-toggle-collapsed {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   VioTagger Specific Styles
+   ======================================== */
+
+/* Tagger navigation bar */
+.tagger-nav-bar {
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    width: 792px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 0 16px;
+    z-index: 10;
+}
+
+/* Canvas wrapper for scaling */
+.tagger-canvas-wrapper {
+    position: relative;
+    width: 810px;
+    height: 920px;
+    transform-origin: top left;
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+/* Scale the 1920x1080 content to fit 810x920 */
+.tagger-report-image,
+.tagger-drawing-canvas,
+.tagger-viobox-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    transform: scale(0.421875, 0.851852); /* 810/1920, 920/1080 */
+    transform-origin: top left;
+}
+
+.tagger-report-image {
+    object-fit: contain;
+    width: 1920px;
+    height: 1080px;
+}
+
+.tagger-drawing-canvas {
+    cursor: crosshair;
+    z-index: 2;
+}
+
+.tagger-viobox-container {
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Tagger tools styling */
+.tagger-tools {
+    padding: 20px;
+}
+
+.tool-section {
+    margin-bottom: 24px;
+}
+
+.tool-section h3 {
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: rgba(37, 53, 65, 0.9);
+    text-transform: lowercase;
+    margin-bottom: 12px;
+}
+
+.tool-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.tool-btn {
+    width: 44px;
+    height: 44px;
+    border: 2px solid #cbd5e1;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 200ms ease;
+}
+
+.tool-btn:hover {
+    border-color: #F26419;
+    background: #fff7ed;
+}
+
+.tool-btn.active {
+    border-color: #F26419;
+    background: #F26419;
+    color: white;
+}
+
+.tool-btn.active svg {
+    stroke: white;
+}
+
+/* Severity buttons */
+.severity-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.severity-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 2px solid #cbd5e1;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 200ms ease;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.severity-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.severity-btn.high:hover,
+.severity-btn.high.active {
+    border-color: #ED1C24;
+    background: #ED1C24;
+    color: white;
+}
+
+.severity-btn.medium:hover,
+.severity-btn.medium.active {
+    border-color: #F26419;
+    background: #F26419;
+    color: white;
+}
+
+.severity-btn.low:hover,
+.severity-btn.low.active {
+    border-color: #F7931E;
+    background: #F7931E;
+    color: white;
+}
+
+.severity-btn.active svg {
+    stroke: white;
+}
+
+/* Violation input fields */
+.violation-label-input,
+.violation-codes-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    margin-bottom: 8px;
+    transition: border-color 200ms ease;
+}
+
+.violation-label-input:focus,
+.violation-codes-input:focus {
+    outline: none;
+    border-color: #F26419;
+}
+
+.save-violation-btn {
+    width: 100%;
+    padding: 12px;
+    background: #F26419;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 200ms ease;
+}
+
+.save-violation-btn:hover {
+    background: #e05410;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(242, 100, 25, 0.3);
+}
+
+.save-violation-btn:active {
+    transform: translateY(0);
+}
+
+/* Drawing state for canvas */
+.tagger-drawing-canvas.drawing {
+    cursor: crosshair;
+}
+
+.tagger-drawing-canvas.selecting {
+    cursor: pointer;
+}
+
+.tagger-drawing-canvas.deleting {
+    cursor: not-allowed;
 }
