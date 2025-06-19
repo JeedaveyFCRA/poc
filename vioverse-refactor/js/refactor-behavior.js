@@ -1386,6 +1386,14 @@ class VioVerse {
         if (creditorEl && this.navigationData) {
             const creditorName = this.navigationData.creditors[this.currentCreditor];
             creditorEl.textContent = creditorName.toLowerCase();
+            
+            // Emit navigation change for shared navigation sync
+            if (window.sharedNavigation) {
+                window.sharedNavigation.emitNavigationChange({
+                    creditorName: creditorName.toLowerCase(),
+                    creditor: this.currentCreditor
+                });
+            }
         }
     }
     

@@ -18,6 +18,7 @@
     
     <!-- VioVerse Refactor Styles -->
     <link rel="stylesheet" href="css/refactor-ui.css">
+    <link rel="stylesheet" href="css/shared-components.css">
     <link rel="stylesheet" href="css/mobile-responsive-fix.css">
     <link rel="stylesheet" href="css/tagger-nav-sidebar.css">
     <!-- Debug styles disabled -->
@@ -197,7 +198,7 @@
                         <!-- Canvas wrapper for centered content -->
                         <div class="canvas-content-wrapper">
                             <!-- Report Navigation Bar -->
-                            <div class="report-nav-bar" aria-label="Report navigation">
+                            <div class="report-nav-bar shared-nav-bar" aria-label="Report navigation">
                             <!-- Bureau Logo and Selector -->
                             <div class="nav-segment bureau-segment">
                                 <img src="assets/bureaus/EQ_White_Logo.png" alt="Equifax" class="bureau-logo" id="bureau-logo">
@@ -288,10 +289,10 @@
                     </div>
                     
                     <!-- Sidebar Canvas -->
-                    <aside class="sidebar-canvas" aria-label="Violation details">
-                        <div class="sidebar-bottom-box"></div>
-                        <h2 class="sidebar-variable-heading"><span class="uppercase">FCRA</span> review summary</h2>
-                        <div class="sidebar-top-box">
+                    <aside class="sidebar-canvas shared-sidebar" aria-label="Violation details">
+                        <div class="sidebar-bottom-box shared-sidebar-bottom-box"></div>
+                        <h2 class="sidebar-variable-heading shared-sidebar-heading"><span class="uppercase">FCRA</span> review summary</h2>
+                        <div class="sidebar-top-box shared-sidebar-content">
                             <!-- Sidebar Top Stack Container -->
                             <div class="sidebar-top-stack">
                                 <!-- Section Labels Bar - Only visible when sections are collapsed -->
@@ -495,6 +496,83 @@
                     <div class="report-canvas-container">
                         <!-- Canvas wrapper for consistent layout -->
                         <div class="canvas-content-wrapper">
+                            <!-- Report Navigation Bar (same as report view) -->
+                            <div class="report-nav-bar shared-nav-bar" aria-label="Report navigation">
+                                <!-- Bureau Logo and Selector -->
+                                <div class="nav-segment bureau-segment">
+                                    <img src="assets/bureaus/EQ_White_Logo.png" alt="Equifax" class="bureau-logo" id="tagger-bureau-logo">
+                                    <div class="nav-arrows">
+                                        <button class="nav-arrow-small up" aria-label="Previous bureau" data-nav="bureau-up">
+                                            <i data-lucide="circle-chevron-left"></i>
+                                        </button>
+                                        <button class="nav-arrow-small down" aria-label="Next bureau" data-nav="bureau-down">
+                                            <i data-lucide="circle-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- First divider (between bureau and report) -->
+                                <div class="nav-divider divider-1"></div>
+                                
+                                <!-- Report Date Selector -->
+                                <div class="nav-segment date-segment">
+                                    <div class="nav-text-container">
+                                        <span class="nav-label">report:</span>
+                                        <span class="nav-value" id="tagger-report-date">04-25-2024</span>
+                                    </div>
+                                    <div class="nav-arrows">
+                                        <button class="nav-arrow-small up" aria-label="Previous report date" data-nav="date-up">
+                                            <i data-lucide="circle-chevron-left"></i>
+                                        </button>
+                                        <button class="nav-arrow-small down" aria-label="Next report date" data-nav="date-down">
+                                            <i data-lucide="circle-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Second divider -->
+                                <div class="nav-divider divider-2"></div>
+                                
+                                <!-- Creditor Selector -->
+                                <div class="nav-segment creditor-segment">
+                                    <div class="nav-text-container">
+                                        <span class="nav-label">creditor:</span>
+                                        <span class="nav-value" id="tagger-creditor-name">ally financial</span>
+                                    </div>
+                                    <div class="nav-arrows">
+                                        <button class="nav-arrow-small up" aria-label="Previous creditor" data-nav="creditor-up">
+                                            <i data-lucide="circle-chevron-left"></i>
+                                            <span class="nav-tooltip"></span>
+                                        </button>
+                                        <button class="nav-arrow-small down" aria-label="Next creditor" data-nav="creditor-down">
+                                            <i data-lucide="circle-chevron-right"></i>
+                                            <span class="nav-tooltip"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Third divider (between creditor and page) -->
+                                <div class="nav-divider divider-3"></div>
+                                
+                                <!-- Page Selector -->
+                                <div class="nav-segment page-segment">
+                                    <div class="nav-text-container">
+                                        <span class="nav-label">page:</span>
+                                        <span class="nav-value" id="tagger-page-number">57</span>
+                                    </div>
+                                    <div class="nav-arrows">
+                                        <button class="nav-arrow-small up" aria-label="Previous page" data-nav="page-up">
+                                            <i data-lucide="circle-chevron-left"></i>
+                                            <span class="nav-tooltip"></span>
+                                        </button>
+                                        <button class="nav-arrow-small down" aria-label="Next page" data-nav="page-down">
+                                            <i data-lucide="circle-chevron-right"></i>
+                                            <span class="nav-tooltip"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="report-canvas" id="tagger-canvas-div">
                                 <!-- Background image -->
                                 <img class="report-image" src="assets/reports/AL-EQ-2024-04-25-P57.png" alt="Credit report page">
@@ -505,10 +583,10 @@
                             <div class="viobox-container tagger-viobox-container"></div>
                         </div>
                     </div>
-                    <aside class="sidebar-canvas">
-                        <div class="sidebar-bottom-box"></div>
-                        <h2 class="sidebar-variable-heading">viotagger tools</h2>
-                        <div class="sidebar-top-box">
+                    <aside class="sidebar-canvas shared-sidebar">
+                        <div class="sidebar-bottom-box shared-sidebar-bottom-box"></div>
+                        <h2 class="sidebar-variable-heading shared-sidebar-heading">viotagger tools</h2>
+                        <div class="sidebar-top-box shared-sidebar-content">
                             <!-- Drawing tools -->
                             <div class="tagger-tools">
                                 <div class="tool-section">
@@ -655,6 +733,7 @@
     <script src="js/canvas-sync.js"></script>
     <script src="js/csv-parser.js"></script>
     <script src="js/viotagger.js"></script>
+    <script src="js/shared-navigation.js"></script>
     <script src="js/refactor-behavior.js"></script>
     <script>
         // Initialize Lucide icons after DOM loads

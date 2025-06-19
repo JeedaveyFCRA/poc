@@ -1,0 +1,89 @@
+/* ============================================
+   SHARED COMPONENTS - PRACTICAL EXAMPLES
+   Demonstrating the power of shared components
+   ============================================ */
+
+/* Example 1: Shared sidebar heading that changes based on view */
+.shared-sidebar-heading {
+    /* Base styles apply to all views */
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 24pt;
+    color: #253541;
+    position: absolute;
+    top: 7px;
+    left: 30px;
+    z-index: 2;
+}
+
+/* View-specific text via CSS (alternative to JavaScript) */
+[data-view="report"] .shared-sidebar-heading::before {
+    content: "FCRA review summary";
+}
+
+[data-view="tagger"] .shared-sidebar-heading::before {
+    content: "viotagger tools";
+}
+
+[data-view="evidence"] .shared-sidebar-heading::before {
+    content: "evidence details";
+}
+
+/* Example 2: Shared canvas that maintains pixel-perfect alignment */
+.shared-canvas-container {
+    /* Single source of truth for positioning */
+    --canvas-x: 360px;
+    --canvas-y: 76px;
+    --canvas-width: 810px;
+    --canvas-height: 920px;
+    
+    position: absolute;
+    left: var(--canvas-x);
+    top: var(--canvas-y);
+    width: var(--canvas-width);
+    height: var(--canvas-height);
+}
+
+/* Example 3: Shared navigation bar with consistent behavior */
+.shared-nav-bar .nav-arrow-small {
+    /* All navigation arrows behave the same */
+    transition: all 200ms ease;
+}
+
+.shared-nav-bar .nav-arrow-small:hover {
+    /* Orange hover state for all views */
+    background-color: #f26419;
+    border-color: #f26419;
+}
+
+.shared-nav-bar .nav-arrow-small:hover [data-lucide] {
+    stroke: #ffffff;
+}
+
+/* Example 4: Shared VIObox container ensures alignment */
+.shared-viobox-container .viobox {
+    /* VIOboxes positioned identically across views */
+    position: absolute;
+    pointer-events: auto;
+}
+
+/* Disable interaction in tagger view */
+[data-view="tagger"] .shared-viobox-container .viobox {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Example 5: Responsive scaling applies to all shared components */
+@media (max-width: 1920px) {
+    .vioverse-app {
+        transform: scale(calc(100vw / 1920));
+        transform-origin: top left;
+    }
+    
+    /* All shared components scale together */
+    .shared-canvas-container,
+    .shared-sidebar,
+    .shared-nav-bar {
+        /* No individual scaling needed - handled by parent */
+    }
+}

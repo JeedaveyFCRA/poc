@@ -1,0 +1,163 @@
+/* ============================================
+   SHARED COMPONENTS CSS
+   Components that maintain pixel-perfect alignment
+   across all views (Report, VioTagger, Evidence)
+   ============================================ */
+
+/* ============================================
+   SHARED CANVAS CONTAINER
+   Ensures exact positioning across views
+   ============================================ */
+.shared-canvas-container {
+    position: absolute;
+    left: 360px;
+    top: 76px;
+    width: 810px;
+    height: 920px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 0;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+    z-index: 1;
+}
+
+.shared-canvas-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+/* ============================================
+   SHARED NAVIGATION BAR
+   Same navigation structure for all views
+   ============================================ */
+.shared-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    margin-bottom: 11px;
+    background: #253541;
+    border: 3px solid #9ba1a6;
+    border-radius: 36px;
+    padding: 0 7px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 20;
+}
+
+/* ============================================
+   SHARED SIDEBAR STRUCTURE
+   Base sidebar layout for all views
+   ============================================ */
+.shared-sidebar {
+    position: absolute;
+    left: 1184px;
+    top: 76px;
+    width: 676px;
+    height: 920px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 0;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: visible;
+    z-index: 1;
+}
+
+.shared-sidebar-bottom-box {
+    width: 676px;
+    height: 864px;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    background-color: #eff1f3;
+    border-radius: 0 0 24px 24px;
+}
+
+.shared-sidebar-heading {
+    position: absolute;
+    top: 7px;
+    left: 30px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 24pt;
+    color: #253541;
+    z-index: 2;
+}
+
+.shared-sidebar-content {
+    position: absolute;
+    top: 56px;
+    left: 30px;
+    width: 616px;
+    height: 834px;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    padding: 25px;
+    box-sizing: border-box;
+    z-index: 3;
+    overflow: visible;
+}
+
+/* ============================================
+   SHARED VIOBOX CONTAINER
+   Ensures violation overlays align perfectly
+   ============================================ */
+.shared-viobox-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* VioTagger specific: disable pointer events */
+[data-view="tagger"] .shared-viobox-container {
+    z-index: 3;
+}
+
+/* ============================================
+   VIEW-SPECIFIC VARIATIONS
+   Use data attributes for view-specific styling
+   ============================================ */
+
+/* Report View Specific */
+[data-view="report"] .shared-sidebar-heading {
+    /* Default heading styles */
+}
+
+/* VioTagger View Specific */
+[data-view="tagger"] .shared-sidebar-heading {
+    /* Tagger-specific heading if needed */
+}
+
+/* Evidence View Specific */
+[data-view="evidence"] .shared-sidebar-heading {
+    /* Evidence-specific heading if needed */
+}
+
+/* ============================================
+   SHARED UTILITY CLASSES
+   Common patterns across views
+   ============================================ */
+.shared-hidden {
+    display: none !important;
+}
+
+.shared-visible {
+    display: block !important;
+}
+
+.shared-text-uppercase {
+    text-transform: uppercase;
+}
+
+.shared-text-lowercase {
+    text-transform: lowercase;
+}
