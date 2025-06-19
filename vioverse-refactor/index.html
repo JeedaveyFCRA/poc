@@ -492,13 +492,18 @@
             <!-- VioTagger View (hidden by default) -->
             <div id="tagger-view" class="view-panel" role="tabpanel" hidden>
                 <div class="content-wrapper">
-                    <div class="tagger-canvas-container">
-                        <!-- Background image -->
-                        <img class="tagger-report-image" src="assets/reports/AL-EQ-2024-04-25-P57.png" alt="Credit report page">
-                        <!-- Drawing canvas overlay -->
-                        <canvas id="tagger-canvas" class="tagger-drawing-canvas" width="810" height="920"></canvas>
-                        <!-- Existing violations overlay -->
-                        <div class="tagger-viobox-container"></div>
+                    <div class="report-canvas-container">
+                        <!-- Canvas wrapper for consistent layout -->
+                        <div class="canvas-content-wrapper">
+                            <div class="report-canvas" id="tagger-canvas-div">
+                                <!-- Background image -->
+                                <img class="report-image" src="assets/reports/AL-EQ-2024-04-25-P57.png" alt="Credit report page">
+                            </div>
+                            <!-- Drawing canvas overlay -->
+                            <canvas id="tagger-canvas" class="tagger-drawing-canvas" width="810" height="920"></canvas>
+                            <!-- Existing violations overlay -->
+                            <div class="viobox-container tagger-viobox-container"></div>
+                        </div>
                     </div>
                     <aside class="sidebar-canvas">
                         <div class="sidebar-bottom-box"></div>
