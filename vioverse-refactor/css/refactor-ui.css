@@ -794,6 +794,9 @@ input {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Clip the scaled content */
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Canvas content wrapper for proper centering */
@@ -1156,11 +1159,9 @@ input {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2550px;
-    height: 3300px;
-    transform: scale(0.317647, 0.278788); /* 810/2550, 920/3300 */
-    transform-origin: top left;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Changed from contain to fill to match container */
 }
 
 /* VIObox container in report view - inside canvas-content-wrapper */
@@ -1168,10 +1169,8 @@ input {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2550px;
-    height: 3300px;
-    transform: scale(0.317647, 0.278788); /* 810/2550, 920/3300 */
-    transform-origin: top left;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 10; /* Higher than report-canvas to ensure it's on top */
 }
@@ -3244,15 +3243,14 @@ body.dragging-scroll {
     z-index: 10;
 }
 
-/* Scale the 2550x3300 content to fit 810x920 - direct children of tagger-canvas-container */
+/* Scale the content to fit container - direct children of tagger-canvas-container */
 .tagger-canvas-container .tagger-report-image {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2550px;
-    height: 3300px;
-    transform: scale(0.317647, 0.278788); /* 810/2550, 920/3300 */
-    transform-origin: top left;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
 .tagger-canvas-container .tagger-drawing-canvas,
@@ -3260,15 +3258,11 @@ body.dragging-scroll {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2550px;
-    height: 3300px;
-    transform: scale(0.317647, 0.278788); /* 810/2550, 920/3300 */
-    transform-origin: top left;
+    width: 100%;
+    height: 100%;
 }
 
-.tagger-canvas-container .tagger-report-image {
-    object-fit: contain;
-}
+/* Removed duplicate rule */
 
 .tagger-drawing-canvas {
     cursor: crosshair;

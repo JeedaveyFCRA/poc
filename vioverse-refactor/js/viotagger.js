@@ -231,8 +231,8 @@ class VioTagger {
             syncedAt: new Date().toISOString()
         };
         
-        // Violations are stored in native PNG coordinates (2550x3300)
-        // No conversion needed as VioTagger canvas now uses native dimensions
+        // Coordinates are already in container space (810x920)
+        // Store them as-is since we're using container coordinates throughout
         
         // Add to violations data
         if (!this.vioverse.violationsData) {
@@ -281,13 +281,13 @@ class VioTagger {
         
         // Draw each violation
         violations.forEach(violation => {
-            // Violations are already in native PNG coordinates (2550x3300)
+            // Coordinates are already in container space
             const taggerCoords = {
                 x: violation.x,
                 y: violation.y,
                 width: violation.width,
                 height: violation.height
-            });
+            };
             
             // Create viobox element
             const viobox = document.createElement('div');

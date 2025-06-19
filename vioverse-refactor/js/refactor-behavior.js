@@ -782,8 +782,8 @@ class VioVerse {
         box.setAttribute('tabindex', '0');
         box.setAttribute('data-violation-id', violation.id);
         
-        // Violations are stored in native PNG coordinates (2550x3300)
-        // Display them directly since the container uses the same coordinate system
+        // Violations coordinates are already in the display coordinate system
+        // Use them directly without scaling
         const displayCoords = {
             x: violation.x,
             y: violation.y,
