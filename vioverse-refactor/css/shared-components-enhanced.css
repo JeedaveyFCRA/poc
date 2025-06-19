@@ -1,0 +1,399 @@
+/* ============================================
+   ENHANCED SHARED COMPONENTS SYSTEM
+   Single source of truth for all shared UI elements
+   ============================================ */
+
+/* ============================================
+   1. SHARED NAVIGATION BAR
+   Used by: Report, VioTagger, Evidence views
+   ============================================ */
+.shared-nav-bar {
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    width: 792px;
+    height: 40px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6;
+    border-radius: 36px;
+    box-shadow: none;
+    overflow: visible;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 7px;
+    box-sizing: border-box;
+}
+
+/* Navigation segments - universal pattern */
+.shared-nav-segment {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    position: relative;
+}
+
+/* Bureau segment specific styling */
+.shared-nav-segment.bureau {
+    padding-left: 3px;
+    gap: 4px;
+}
+
+.shared-nav-segment.bureau .bureau-logo {
+    width: auto;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Text container for all segments */
+.shared-nav-text-container {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.shared-nav-label {
+    font-family: 'bernino-sans-compressed', 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #9ba1a6;
+    letter-spacing: 0.02em;
+}
+
+.shared-nav-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #ffffff;
+    text-transform: lowercase;
+}
+
+/* Navigation arrows container */
+.shared-nav-arrows {
+    display: flex;
+    gap: 0;
+    align-items: center;
+}
+
+/* Arrow buttons */
+.shared-nav-arrow {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #5c646d;
+    border: 2px solid #5c646d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 200ms ease;
+    position: relative;
+    padding: 0;
+}
+
+.shared-nav-arrow:hover {
+    background-color: #f26419;
+    border-color: #f26419;
+}
+
+.shared-nav-arrow:hover [data-lucide] {
+    stroke: #ffffff !important;
+}
+
+.shared-nav-arrow:active {
+    transform: scale(0.95);
+}
+
+.shared-nav-arrow [data-lucide] {
+    width: 16px;
+    height: 16px;
+    stroke: #9ba1a6;
+    stroke-width: 2.5;
+}
+
+/* Navigation dividers */
+.shared-nav-divider {
+    width: 2px;
+    height: 24px;
+    background-color: #9ba1a6;
+    margin: 0 8px;
+    flex-shrink: 0;
+}
+
+/* Transition effect for auto-navigation */
+.shared-nav-segment.nav-transitioning {
+    animation: nav-highlight 400ms ease-out;
+}
+
+@keyframes nav-highlight {
+    0% { background-color: transparent; }
+    50% { background-color: rgba(242, 100, 25, 0.2); }
+    100% { background-color: transparent; }
+}
+
+/* ============================================
+   2. SHARED CANVAS CONTAINER
+   Used by: Report, VioTagger, Evidence views
+   ============================================ */
+.shared-canvas-container {
+    position: absolute;
+    left: 360px;
+    top: 36px;
+    width: 810px;
+    height: 920px;
+    z-index: 100;
+    overflow: visible;
+    isolation: isolate;
+}
+
+/* Canvas content wrapper - for centered content */
+.shared-canvas-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+/* Canvas background (white rounded container) */
+.shared-canvas-background {
+    position: absolute;
+    width: 810px;
+    height: 920px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 0;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Canvas content area */
+.shared-canvas-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+/* Report/Evidence images */
+.shared-canvas-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* ============================================
+   3. SHARED SIDEBAR STRUCTURE
+   Used by: Report, VioTagger, Evidence views
+   ============================================ */
+.shared-sidebar {
+    position: absolute;
+    left: 1180px;
+    top: 36px;
+    width: 452px;
+    height: 920px;
+    z-index: 100;
+    overflow: visible;
+    isolation: isolate;
+}
+
+/* Sidebar bottom box (dark background) */
+.shared-sidebar-bottom {
+    position: absolute;
+    width: 452px;
+    height: 920px;
+    background-color: #253541;
+    border: 16px solid #253541;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 0;
+    box-sizing: border-box;
+}
+
+/* Sidebar heading */
+.shared-sidebar-heading {
+    position: absolute;
+    top: 7px;
+    left: 30px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 24pt;
+    color: #253541;
+    z-index: 2;
+    text-transform: none;
+}
+
+/* Dynamic heading based on view */
+[data-view="report"] .shared-sidebar-heading::after {
+    content: "FCRA review summary";
+}
+
+[data-view="tagger"] .shared-sidebar-heading::after {
+    content: "viotagger tools";
+}
+
+[data-view="evidence"] .shared-sidebar-heading::after {
+    content: "evidence details";
+}
+
+/* Sidebar content box (white area) */
+.shared-sidebar-content {
+    position: absolute;
+    top: 56px;
+    left: 30px;
+    width: 392px;
+    height: 834px;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    padding: 25px;
+    box-sizing: border-box;
+    z-index: 3;
+    overflow: visible;
+}
+
+/* ============================================
+   4. SHARED VIOBOX CONTAINER
+   Used by: Report, VioTagger views
+   ============================================ */
+.shared-viobox-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 810px;
+    height: 920px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Allow pointer events on VIOboxes themselves */
+.shared-viobox-container .viobox {
+    pointer-events: auto;
+}
+
+/* Disable interaction in tagger view */
+[data-view="tagger"] .shared-viobox-container {
+    z-index: 3;
+}
+
+[data-view="tagger"] .shared-viobox-container .viobox {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* ============================================
+   5. SHARED UTILITY CLASSES
+   ============================================ */
+
+/* Text utilities */
+.shared-uppercase {
+    text-transform: uppercase;
+}
+
+.shared-lowercase {
+    text-transform: lowercase;
+}
+
+.shared-capitalize {
+    text-transform: capitalize;
+}
+
+/* Visibility utilities */
+.shared-hidden {
+    display: none !important;
+}
+
+.shared-visible {
+    display: block !important;
+}
+
+/* Flex utilities */
+.shared-flex {
+    display: flex !important;
+}
+
+.shared-flex-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.shared-flex-between {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Spacing utilities */
+.shared-gap-8 {
+    gap: 8px !important;
+}
+
+.shared-gap-16 {
+    gap: 16px !important;
+}
+
+.shared-gap-24 {
+    gap: 24px !important;
+}
+
+/* ============================================
+   6. SHARED RESPONSIVE BEHAVIOR
+   ============================================ */
+@media (max-width: 1920px) {
+    /* All shared components scale together */
+    .shared-nav-bar,
+    .shared-canvas-container,
+    .shared-sidebar,
+    .shared-viobox-container {
+        /* Scaling handled by parent .vioverse-app transform */
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    /* Navigation bar remains functional on mobile */
+    .shared-nav-bar {
+        /* Consider making segments stackable on very small screens */
+    }
+    
+    /* Sidebar becomes drawer on mobile */
+    .shared-sidebar {
+        /* Handled by mobile-responsive-fix.css */
+    }
+}
+
+/* ============================================
+   7. SHARED ANIMATIONS
+   ============================================ */
+@keyframes shared-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes shared-slide-in {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes shared-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* ============================================
+   8. SHARED Z-INDEX MANAGEMENT
+   ============================================ */
+:root {
+    --z-canvas: 1;
+    --z-viobox: 10;
+    --z-nav: 20;
+    --z-sidebar: 100;
+    --z-modal: 1000;
+}
