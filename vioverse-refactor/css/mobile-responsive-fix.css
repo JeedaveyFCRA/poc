@@ -1,6 +1,18 @@
 /* Mobile Responsive Fixes for Viotagger */
 /* Improves usability on smaller devices */
 
+/* Override inline styles with attribute selector */
+@media (max-width: 768px) {
+    /* Target VIOboxes with any inline height style */
+    .viobox-container .viobox[style*="height"],
+    .tagger-viobox-container .viobox[style*="height"],
+    button.viobox[style*="height"] {
+        height: 26px !important;
+        min-height: 26px !important;
+        max-height: 26px !important;
+    }
+}
+
 /* Tablet screens (768px - 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
     .vioverse-app {
@@ -25,7 +37,9 @@
     }
     
     /* Enhanced VIObox design for mobile landscape */
-    .viobox {
+    .viobox-container .viobox,
+    .tagger-viobox-container .viobox,
+    button.viobox {
         /* Compact height matching icon size */
         height: 26px !important;
         min-height: 26px !important;
@@ -42,7 +56,9 @@
     }
     
     /* Maintain original icon size */
-    .viobox .severity-icon {
+    .viobox-container .viobox .severity-icon,
+    .tagger-viobox-container .viobox .severity-icon,
+    button.viobox .severity-icon {
         width: 20px !important;
         height: 20px !important;
         margin-left: 0 !important;
@@ -51,7 +67,9 @@
     }
     
     /* Invisible touch target for accessibility */
-    .viobox::before {
+    .viobox-container .viobox::before,
+    .tagger-viobox-container .viobox::before,
+    button.viobox::before {
         content: '';
         position: absolute;
         top: -17px; /* (60px - 26px) / 2 */
@@ -94,7 +112,9 @@
     }
     
     /* Enhanced VIObox design for mobile portrait */
-    .viobox {
+    .viobox-container .viobox,
+    .tagger-viobox-container .viobox,
+    button.viobox {
         /* Compact height matching icon size */
         height: 26px !important;
         min-height: 26px !important;
@@ -112,7 +132,9 @@
     }
     
     /* Maintain original icon size */
-    .viobox .severity-icon {
+    .viobox-container .viobox .severity-icon,
+    .tagger-viobox-container .viobox .severity-icon,
+    button.viobox .severity-icon {
         width: 20px !important;
         height: 20px !important;
         margin-left: 0 !important;
@@ -121,7 +143,9 @@
     }
     
     /* Invisible touch target for accessibility */
-    .viobox::before {
+    .viobox-container .viobox::before,
+    .tagger-viobox-container .viobox::before,
+    button.viobox::before {
         content: '';
         position: absolute;
         top: -9px; /* (44px - 26px) / 2 */
@@ -187,21 +211,27 @@
     }
     
     /* Compact VIOboxes for very small screens */
-    .viobox {
+    .viobox-container .viobox,
+    .tagger-viobox-container .viobox,
+    button.viobox {
         height: 24px !important;
         min-height: 24px !important;
         max-height: 24px !important;
         border-radius: 12px !important;
     }
     
-    .viobox .severity-icon {
+    .viobox-container .viobox .severity-icon,
+    .tagger-viobox-container .viobox .severity-icon,
+    button.viobox .severity-icon {
         width: 18px !important;
         height: 18px !important;
         padding: 2px !important;
     }
     
     /* Adjust touch target */
-    .viobox::before {
+    .viobox-container .viobox::before,
+    .tagger-viobox-container .viobox::before,
+    button.viobox::before {
         top: -10px; /* (44px - 24px) / 2 */
         height: 44px;
     }

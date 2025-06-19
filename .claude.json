@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "there hs been no change on the mobile site",
+          "pastedContents": {}
+        },
+        {
           "display": "on the mobile site only, the page is scaled perfected except the viobox appears to be twice as deep as it should be. I think the correct height of the viobox should the same height of the circle badge sevierity lucide icon. so that is the only issue, so find out the reason why and look at solving this problem three way and pick the best solution.",
           "pastedContents": {}
         },
@@ -543,16 +547,6 @@
               "id": 1,
               "type": "text",
               "content": "🛠️ FIX 1: SEVERITY COUNTER LOGIC\n\nPlease update the logic that controls the severity counters (High / Medium / Low) on the report canvas sidebar.\n\nRequirements:\n- When the \"Current Page Only\" toggle is enabled, the severity counters should reflect ONLY the visible and actively selected violation boxes.\n- If all boxes are in the unselected (default) state, all three counters should show zero.\n- The counters should update dynamically:\n   - When a box is selected or unselected\n   - When a filter is applied\n   - When navigating between report pages\n\nConfirm that the counters are correctly zeroed out when no boxes are selected and increment only based on what is actively checked.\n\n🛠️ FIX 2: FCRA REVIEW SUMMARY SPACING\n\nPlease tighten the vertical spacing between violation descriptions in the FCRA Review Summary panel.\n\n- Set vertical gap between items (e.g., `.fcra-review-item` or `.review-entry`) to 6–8px\n- Ensure there is no excess padding or line-height that adds visual noise\n- Maintain good mobile responsiveness:\n   - On screens narrower than 768px, allow slightly larger line-height but still limit margin-bottom to 10px max\n\nSuggested CSS:\n.fcra-review-item {\n  margin-bottom: 8px;\n  line-height: 1.35;\n}\n@media (max-width: 768px) {\n  .fcra-review-item {\n    margin-bottom: 10px;\n    line-height: 1.45;\n  }\n}\n\n💡 Optional: Add a utility class or scoped override if the gap is being inherited globally from another CSS rule.\n\nPlease confirm when both issues are resolved and tested.\n"
-            }
-          }
-        },
-        {
-          "display": "[Pasted text #1 +22 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "🧠 You are being granted full access to the FCRA violation system for David Marra.\n\n📁 Start by reviewing the following key files inside:\n\n\\\\wsl.localhost\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\n\n✅ Priority Fix Tasks:\n1. **Violation Descriptions Bug**  \n   - On page load, violation boxes are showing outdated/short descriptions.  \n   - Only the first code is visible and truncated with ellipses (`…`).  \n   - However, when filter toggles are clicked, correct full descriptions briefly appear.\n   - This suggests a stale default render or delayed script binding.\n\n👉 **Fix it so that full rewritten violation descriptions always appear on initial page load.** No truncation. No stale data.\n\n2. **Remove Unwanted Timeline Link**  \n   - Claude previously added a \"View Case Timeline\" link in the FCRA Review Summary.  \n   - Please **remove that link and stop auto-generating timelines** unless explicitly requested.\n\n---\n\n🧱 Confirm which files are involved in these display bugs and correct any stale references, data binding issues, or load-order conflicts.\n[I"
             }
           }
         }
