@@ -4,6 +4,7 @@
 .report-canvas {
     background: rgba(255, 255, 0, 0.2) !important; /* Light yellow background */
     border: 3px solid #FFD700 !important; /* Gold border */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important; /* Add glow to show bounds */
 }
 
 .report-canvas .report-image {
@@ -12,12 +13,12 @@
     opacity: 0.8 !important;
 }
 
-.report-canvas-container > .viobox-container {
+.canvas-content-wrapper > .viobox-container {
     background: rgba(255, 0, 0, 0.2) !important; /* Light red */
     border: 4px dashed #FF0000 !important; /* Red dashed border */
 }
 
-.report-canvas-container > .viobox-container .viobox {
+.canvas-content-wrapper > .viobox-container .viobox {
     background: rgba(255, 0, 255, 0.6) !important; /* Magenta */
     border: 2px solid #FF00FF !important;
 }
@@ -50,14 +51,21 @@
 }
 
 /* Add labels to identify elements */
+.canvas-content-wrapper {
+    border: 2px dotted rgba(255, 165, 0, 0.5) !important; /* Orange dotted border */
+}
+
 .report-canvas::before {
-    content: "REPORT CANVAS" !important;
+    content: "REPORT CANVAS (810x456px)" !important;
     position: absolute !important;
     top: -25px !important;
     left: 10px !important;
     font-weight: bold !important;
     color: #FFD700 !important;
     z-index: 1000 !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    padding: 2px 8px !important;
+    border-radius: 4px !important;
 }
 
 .tagger-canvas-container::before {

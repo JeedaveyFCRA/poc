@@ -193,8 +193,10 @@
                     
                     <!-- Left Panel: Report Canvas -->
                     <div class="report-canvas-container">
-                        <!-- Report Navigation Bar -->
-                        <div class="report-nav-bar" aria-label="Report navigation">
+                        <!-- Canvas wrapper for centered content -->
+                        <div class="canvas-content-wrapper">
+                            <!-- Report Navigation Bar -->
+                            <div class="report-nav-bar" aria-label="Report navigation">
                             <!-- Bureau Logo and Selector -->
                             <div class="nav-segment bureau-segment">
                                 <img src="assets/bureaus/EQ_White_Logo.png" alt="Equifax" class="bureau-logo" id="bureau-logo">
@@ -277,10 +279,11 @@
                                  class="report-image">
                         </div>
                         
-                        <!-- VIObox Overlay Container - moved outside report-canvas -->
-                        <div class="viobox-container" aria-label="Violation overlays">
-                            <!-- VIOboxes will be dynamically inserted here -->
-                        </div>
+                            <!-- VIObox Overlay Container - moved outside report-canvas -->
+                            <div class="viobox-container" aria-label="Violation overlays">
+                                <!-- VIOboxes will be dynamically inserted here -->
+                            </div>
+                        </div> <!-- End canvas-content-wrapper -->
                     </div>
                     
                     <!-- Sidebar Canvas -->

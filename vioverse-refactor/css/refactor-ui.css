@@ -753,7 +753,23 @@ input {
 /* ========================================
    Report Canvas
    ======================================== */
-.report-canvas-container,
+.report-canvas-container {
+    position: absolute; /* Changed from fixed to absolute */
+    left: 360px;
+    top: 76px; /* Aligned with View Toggle and FCRA Summary */
+    width: 810px;
+    height: 920px;
+    background-color: #253541; /* Dark background for letterboxing */
+    border-radius: 24px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: visible; /* Allow tooltips to show outside container */
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .evidence-canvas-container {
     position: absolute; /* Changed from fixed to absolute */
     left: 360px;
@@ -775,16 +791,39 @@ input {
     top: 76px; /* Aligned with View Toggle and FCRA Summary */
     width: 810px;
     height: 920px;
-    background-color: #ffffff;
+    background-color: #253541; /* Dark background for letterboxing */
     border-radius: 24px;
     padding: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Clip the scaled content */
+    overflow: visible; /* Changed from hidden to visible */
     z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Canvas content wrapper for proper centering */
+.canvas-content-wrapper {
+    position: relative;
+    width: 810px;
+    height: 920px;
 }
 
 /* Report Navigation Bar */
-.report-nav-bar,
+.report-nav-bar {
+    position: absolute;
+    left: 9px;
+    top: 15px; /* Positioned inside canvas */
+    width: 792px;
+    height: 40px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6;
+    border-radius: 36px;
+    box-shadow: none;
+    overflow: visible;
+    z-index: 20; /* Higher z-index to stay above canvas */
+}
+
 .evidence-nav-bar {
     position: absolute;
     left: 9px;
@@ -1071,7 +1110,18 @@ input {
     visibility: visible;
 }
 
-.report-canvas,
+.report-canvas {
+    width: 810px;
+    height: 455.625px; /* 1080 * 0.421875 = 455.625px for proper aspect ratio */
+    position: absolute;
+    top: 232px; /* Center vertically: (920-456)/2 */
+    left: 0;
+    background-color: #ffffff;
+    overflow: visible; /* Changed from hidden to visible */
+    z-index: 1;
+    border-radius: 12px; /* Smaller radius for inner content */
+}
+
 .tagger-canvas,
 .evidence-canvas {
     width: 100%;
@@ -1116,19 +1166,19 @@ input {
     left: 0;
     width: 1920px;
     height: 1080px;
-    transform: scale(0.421875, 0.851852); /* 810/1920, 920/1080 */
+    transform: scale(0.421875); /* Uniform scale: 810/1920 = 0.421875 */
     transform-origin: top left;
     object-fit: contain;
 }
 
-/* VIObox container in report view - sibling to report-canvas */
-.report-canvas-container > .viobox-container {
+/* VIObox container in report view - inside canvas-content-wrapper */
+.canvas-content-wrapper > .viobox-container {
     position: absolute;
-    top: 0;
+    top: 232px; /* Same as report-canvas */
     left: 0;
     width: 1920px;
     height: 1080px;
-    transform: scale(0.421875, 0.851852); /* 810/1920, 920/1080 */
+    transform: scale(0.421875); /* Uniform scale */
     transform-origin: top left;
     pointer-events: none;
     z-index: 10; /* Higher than report-canvas to ensure it's on top */
@@ -3202,17 +3252,17 @@ body.dragging-scroll {
     z-index: 10;
 }
 
-/* Scale the 1920x1080 content to fit 810x920 - direct children of tagger-canvas-container */
+/* Scale the 1920x1080 content uniformly - direct children of tagger-canvas-container */
 .tagger-canvas-container .tagger-report-image,
 .tagger-canvas-container .tagger-drawing-canvas,
 .tagger-canvas-container .tagger-viobox-container {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
     width: 1920px;
     height: 1080px;
-    transform: scale(0.421875, 0.851852); /* 810/1920, 920/1080 */
-    transform-origin: top left;
+    transform: translate(-50%, -50%) scale(0.421875); /* Center then uniform scale */
+    transform-origin: center;
 }
 
 .tagger-canvas-container .tagger-report-image {
