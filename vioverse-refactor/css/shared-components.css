@@ -35,18 +35,23 @@
    Same navigation structure for all views
    ============================================ */
 .shared-nav-bar {
+    /* Inherit existing report-nav-bar styles */
+    position: absolute;
+    left: 9px;
+    top: 15px;
+    width: 792px;
+    height: 40px;
+    background-color: #253541;
+    border: 3px solid #9ba1a6;
+    border-radius: 36px;
+    box-shadow: none;
+    overflow: visible;
+    z-index: 20;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 40px;
-    margin-bottom: 11px;
-    background: #253541;
-    border: 3px solid #9ba1a6;
-    border-radius: 36px;
     padding: 0 7px;
     box-sizing: border-box;
-    position: relative;
-    z-index: 20;
 }
 
 /* ============================================
@@ -55,9 +60,9 @@
    ============================================ */
 .shared-sidebar {
     position: absolute;
-    left: 1184px;
+    left: 1180px;
     top: 76px;
-    width: 676px;
+    width: 452px;  /* Corrected width - was 676px */
     height: 920px;
     background-color: #ffffff;
     border-radius: 24px;
@@ -69,7 +74,7 @@
 }
 
 .shared-sidebar-bottom-box {
-    width: 676px;
+    width: 452px;  /* Corrected width - was 676px */
     height: 864px;
     position: absolute;
     top: 56px;
@@ -93,7 +98,7 @@
     position: absolute;
     top: 56px;
     left: 30px;
-    width: 616px;
+    width: 392px;  /* Corrected width: 452px - 60px padding - was 616px */
     height: 834px;
     background-color: #f8f9fa;
     border-radius: 16px;
