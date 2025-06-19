@@ -1121,8 +1121,8 @@ input {
     object-fit: contain;
 }
 
-/* VIObox container in report canvas - sibling to image */
-.report-canvas .viobox-container {
+/* VIObox container in report view - sibling to report-canvas */
+.report-canvas-container > .viobox-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -1131,7 +1131,7 @@ input {
     transform: scale(0.421875, 0.851852); /* 810/1920, 920/1080 */
     transform-origin: top left;
     pointer-events: none;
-    z-index: 3;
+    z-index: 10; /* Higher than report-canvas to ensure it's on top */
 }
 
 /* VIObox Container - default styles for other views */

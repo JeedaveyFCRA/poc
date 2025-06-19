@@ -12,12 +12,12 @@
     opacity: 0.8 !important;
 }
 
-.report-canvas .viobox-container {
+.report-canvas-container > .viobox-container {
     background: rgba(255, 0, 0, 0.2) !important; /* Light red */
     border: 4px dashed #FF0000 !important; /* Red dashed border */
 }
 
-.report-canvas .viobox {
+.report-canvas-container > .viobox-container .viobox {
     background: rgba(255, 0, 255, 0.6) !important; /* Magenta */
     border: 2px solid #FF00FF !important;
 }
