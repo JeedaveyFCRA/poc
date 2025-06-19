@@ -25,6 +25,18 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "is there a difference between the original source and what you are using? Explain in laymans terms",
+          "pastedContents": {}
+        },
+        {
+          "display": "very good. Tell me where the viobox dimensions and coordinates come from, what file are you using?",
+          "pastedContents": {}
+        },
+        {
+          "display": "omg this is great! you are so close. these seems to be one small detail and we will have perfect alignment. the only thing left is the png is stretched to fit. \"The credit report PNG shouldn't stretch to fill the width - it should keep its original shape/proportions and center itself with empty space on the sides, like viewing a PDF document.\"",
+          "pastedContents": {}
+        },
+        {
           "display": "now you need to apply the same principles to the vioboxes. because currently the do align between views, but they are both scaled down  to a fraction of their size and it looks like there is some container contstraining their proper  assigned coordinates and w, h",
           "pastedContents": {}
         },
@@ -609,36 +621,6 @@
         {
           "display": "continue and remember this is only 4-6 minutes. dont make anything up, base everything on what you know about the case but dont cite the specific dates. when a human has a conversation, theydone add those details in but they tell the story. Be a great story teller that keeps people engaged, feeling empathathy, and wanting to know more about what happens, done worry about the fine details, we have that evidence on paper. what we want to do is connect with the listener. they should be able to identify with the storyteller. keep it simple, strong, interesting, even humorous. the narrative is an extra feature. be human. start over and this time make it shorter. ",
           "pastedContents": {}
-        },
-        {
-          "display": "[Pasted text #1 +25 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "🧠 TASK: Rewrite Phase 1 of my case narrative into **first-person** format\n\n📄 Source File:\nUse the current third-person version of “Phase 1 – The Responsible Path” that begins with:\n> \"In 2018, David Marra wasn't looking for a handout...\"\n\n🎯 Goals:\n1. Rewrite the entire Phase 1 narrative in first-person — as if **I** (David Marra) am telling my story directly to the audience.\n2. Preserve **clarity, accuracy, and factual structure**, but add emotional connection and subtle personal tone.\n3. Avoid over-dramatization — keep it **honest, human, and respectful**.\n4. Target a script length of **3–4 minutes** when read aloud (approximately 500–700 words).\n5. Make it **engaging and listenable** — not technical or robotic. This script will eventually be narrated aloud and possibly animated.\n6. Keep all relevant names, dates, and facts (Chapter 13 filing, discharge, creditor list, score recovery, etc.).\n7. End with the same powerful turning point line:\n> “But what came next wasn’t relief. It was betrayal.”\n\n📝 Tone Notes:\n- Emotionally grounded, not legalistic.\n- Write as if telling a friend or trusted advisor.\n- Clear, clean, and professional — no slang, no embellishment.\n\n🧩 Context:\nThis story will be part of a multi-phase timeline (\"VioNarrative\") explaining the full FCRA case. The first-person script will help judges, regulators, and the public understand the **human toll behind the data**.\n\n✅ When done, output only the rewritten first-person script — no summaries or analysis.\n[I"
-            }
-          }
-        },
-        {
-          "display": "[Pasted text #1 +42 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "🎙️ NARRATIVE SCRIPT REQUEST: Phase 1 – “Before the Storm”\n\nYou are writing the first audio narrative script in a six-part series that explains the full scope of David V. Marra’s FCRA case in a compelling, human, and digestible story format.\n\nYour audience includes:\n- Legal professionals\n- Credit harm victims\n- Regulators\n- David himself\n\n📏 Format & Style Requirements:\n- Duration: 3–4 minutes max (~500–600 words)\n- Tone: Clear, human, serious, but not dramatic or wordy\n- Avoid legalese or citations (no §1681s-2(b)); use plain language\n- Make it emotionally resonant but grounded in fact\n- Use short paragraphs, occasional sentence fragments for rhythm\n- End with a transition that hints at the next phase\n\n🧠 Content Focus:\nThis first phase introduces:\n1. David’s life before the bankruptcy\n2. The events that led to the Chapter 13 filing\n3. How bankruptcy was meant to be a reset\n4. A few human details — plans, hope, emotion\n5. Ends on: “What came next wasn’t relief. It was betrayal.”\n\n📍 Known Facts to Include:\n- David filed Chapter 13 to consolidate debt and protect his future\n- The plan lasted 5 years and was completed honorably\n- Bankruptcy was not a failure — it was a recovery strategy\n- He expected that discharge would mean a clean slate\n- Emotional state: Responsible, hopeful, ready to rebuild\n\n📦 Folder Context:\nAll evidence and timeline files are housed in:\n`/vioverse-refactor/MUD/`\nYou can refer to `comprehensive-case-timeline.md` for known milestones.\n\n🪄 Output:\nReturn a well-written **Phase 1 narrative script** suitable for future voiceover. Label it with the heading:\n\n**VioNarrative – Phase 1: “Before the Storm”**\n[I"
-            }
-          }
-        },
-        {
-          "display": "[Pasted text #1 +23 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "🧠 CONTEXT-AWARE TIMELINE PROMPT: CASE SYNTHESIS (Option C)\n\nClaude, you’ve now internalized the full structure of the David Marra FCRA case, including:\n✅ Final `violations-processed.json`\n✅ `Master-Evidence-Data_v4.csv` from MED3 with 5 pattern columns\n✅ Updated `matters-content.json` with all 30 entries\n✅ Rocket Mortgage harm, Exit Pattern, timeline of denial events\n✅ Discharge date: February 9, 2024\n\nNow generate a complete **chronological case timeline** that ties these components together.\n\nYour structure should:\n\n1. Divide into PHASES (Pre-Filing → Protected Period → Discharge → Post-Discharge Violations → Harm/Denial → Strategy Response)\n2. Include specific creditors and bureaus where applicable\n3. Call out all known violations, corrections, refusals, or exit events\n4. Embed legal implications where appropriate (e.g., §1681e(b), §1681s-2(b), CFPB Bulletin 2022-03)\n5. Highlight financial and emotional harm where triggered\n6. Tie back to evidence file entries where relevant\n\nEmphasize systemic patterns, turning points, and how the evidence builds across time.\n\nBegin now.\n"
-            }
-          }
         }
       ],
       "dontCrawlDirectory": true,
