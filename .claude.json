@@ -25,6 +25,14 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "what file contains all the violation detail descriptions",
+          "pastedContents": {}
+        },
+        {
+          "display": "in the index.html, in vs code, it says \"1  problem with this file\"",
+          "pastedContents": {}
+        },
+        {
           "display": "✅ Approved. Please proceed with the fix exactly as described.\n\n- Move `.viobox-container` outside of `.report-canvas` and make it a sibling inside `.report-canvas-container`\n- Ensure it uses the same scale, positioning, and coordinate system as the PNG\n- Make sure it overlays correctly and is no longer clipped by overflow or border-radius\n\nNo changes to VioTagger or SNAP POS logic.\n",
           "pastedContents": {}
         },
@@ -654,20 +662,6 @@
         },
         {
           "display": "Yes, please proceed.",
-          "pastedContents": {}
-        },
-        {
-          "display": "[Pasted text #1 +30 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "🧠 You are being granted full access to the FCRA case system of David Marra.\n\nPlease begin by reviewing the official case intro and all supporting instruction files located here:\n\n📁 Path: \n\\\\wsl.localhost\\Ubuntu\\home\\avid_arrajeedavey\\vioverse-refactor\\MUD\\INSTRUCTIONS\\\n\n✅ Required Files:\n- claude-case-init.md ← START HERE\n- full-context-access.md\n- claude-evaluation-guidelines.md\n- claude-april2024-png-access-guidelines.md\n- med4-generation-instructions.md\n- json-injection\\frca-sidebar-violation-descriptions.md\n\n🎯 Your job is to:\n1. Understand the complete case structure, including:\n   - All PNGs for April 25, 2024 (all 13 creditors, all 3 bureaus)\n   - VioTagger overlays\n   - Master-Evidence-Data_v3.csv and its upgrade to v4\n2. Follow every instruction in the `INSTRUCTIONS` folder before making changes\n3. Use only confirmed evidence in the MUD folder to populate new fields or generate case insights\n4. Evaluate the severity of violations and credit harm based on that evidence\n5. Replace outdated JSON violation descriptions with the updated entries in:  \n   `json-injection\\frca-sidebar-violation-descriptions.md`\n\n🛑 Do NOT ignore the website canvas, VioTagger overlay logic, or credit report image analysis.\n🛑 Do NOT hallucinate or assume. Use only provided evidence and logic.\n\n👉 Begin by reviewing `claude-case-init.md`. Then confirm you’re ready and I’ll give you your first directive.\n"
-            }
-          }
-        },
-        {
-          "display": "how about leveraging the bureaus and getting paid so they but it so it doesnt get released",
           "pastedContents": {}
         }
       ],
