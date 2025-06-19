@@ -1294,7 +1294,7 @@ input {
 .sidebar-variable-heading {
     position: absolute;
     left: 40px; /* 1220px - 1180px container position */
-    top: 0px; /* Adjusted for container now at 76px */
+    top: -24px; /* Moved up 24px as requested */
     width: 374px;
     height: 39px;
     font-family: "jaf-bernino-sans-comp", sans-serif;
