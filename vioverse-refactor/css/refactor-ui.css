@@ -624,7 +624,7 @@ input {
    ======================================== */
 .view-toggle-new {
     position: absolute; /* Changed from fixed to absolute */
-    top: 76px;
+    top: 36px; /* Restored original position - was shifted down 40px */
     left: 70px;
     width: 270px;
     height: 40px;
@@ -756,7 +756,7 @@ input {
 .report-canvas-container {
     position: absolute; /* Changed from fixed to absolute */
     left: 360px;
-    top: 76px; /* Aligned with View Toggle and FCRA Summary */
+    top: 36px; /* Restored original position - was shifted down 40px */
     width: 810px;
     height: 920px;
     background-color: #ffffff;
@@ -770,7 +770,7 @@ input {
 .evidence-canvas-container {
     position: absolute; /* Changed from fixed to absolute */
     left: 360px;
-    top: 76px; /* Aligned with View Toggle and FCRA Summary */
+    top: 36px; /* Restored original position - was shifted down 40px */
     width: 810px;
     height: 920px;
     background-color: #ffffff;
@@ -1251,7 +1251,7 @@ input {
 .sidebar-canvas {
     position: absolute; /* Changed from fixed to absolute */
     left: 1180px;
-    top: 76px; /* Aligned with View Toggle */
+    top: 36px; /* Restored original position - was shifted down 40px */
     width: 452px;
     height: 920px;
     z-index: 100; /* Higher than base elements */
@@ -1294,7 +1294,7 @@ input {
 .sidebar-variable-heading {
     position: absolute;
     left: 40px; /* 1220px - 1180px container position */
-    top: -24px; /* Moved up 24px as requested */
+    top: 16px; /* Adjusted for new container position (was -24px + 40px shift = 16px) */
     width: 374px;
     height: 39px;
     font-family: "jaf-bernino-sans-comp", sans-serif;

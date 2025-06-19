@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "the canvas containers (all three toggle views and the sidebar (all three view) shifted down a while back, it looks to be about 40 px, you can review what it was",
+          "pastedContents": {}
+        },
+        {
           "display": "very good. the fcra review summary heading and their viotagger and evidence view counterpart headings were shited down and is should be up about 24 px, you should be able to see where it is supossed to be.",
           "pastedContents": {}
         },
@@ -569,10 +573,6 @@
               "content": "🧠 NEXT UPGRADE STEP — Responsive Violation Boxes (A+ Design Standards w/ Animation Preservation)\n\nWe’re continuing the UI upgrade toward a top-tier, A+ website. This step focuses on refining the .violation-box layout for responsiveness, spacing, and visual polish without altering the existing interactive behavior.\n\n✅ OBJECTIVE\nImprove the visual structure and responsiveness of the violation boxes while preserving the existing interactive feedback when a violation box is clicked — specifically:\n\nThe slight bounce/pop-out effect\n\nThe orange glow around the box\n\nThese behaviors are excellent and should remain unchanged.\n\n🛠️ IMPLEMENTATION INSTRUCTIONS\n🔒 1. Preserve Existing Click Animation\nDo not remove or overwrite the current :active, :focus, or clicked animation logic\n\nKeep the slight scale-up / bounce and the orange glow\n\nEnsure your CSS upgrades do not reset or break these transitions\n\ncss\nCopy\nEdit\n/* EXAMPLE (preserve this type of logic) */\n.violation-box.clicked {\n  animation: bounceHighlight 0.3s ease;\n  box-shadow: 0 0 0 3px #f26419;\n}\n✅ 2. Responsive Layout Enhancements (Safe to Adjust)\nYou may improve the layout and spacing with these guidelines:\n\ncss\nCopy\nEdit\n.violation-box {\n  width: 100%;\n  max-width: 860px;\n  margin: 12px auto;\n  padding: 20px 24px;\n  border-radius: 24px;\n  box-sizing: border-box;\n  background-color: #f1f1f1;\n  box-shadow: 0px 2px 8px rgba(0,0,0,0.05); /* keep subtle shadow */\n  transition: all 0.2s ease-in-out;\n}\nResponsive tweaks:\n\ncss\nCopy\nEdit\n@media (max-width: 768px) {\n  .violation-box {\n    padding: 18px 16px;\n    font-size: 0.96rem;\n  }\n}\n✅ 3. Typography Consistency\nKeep font behavior stable across devices, using scalable units:\n\ncss\nCopy\nEdit\n.violation-code {\n  font-weight: 600;\n  font-size: 1rem;\n  margin-bottom: 6px;\n}\n\n.violation-description {\n  font-size: 0.97rem;\n  line-height: 1.5;\n}\n✅ SUMMARY OF PROTECTED INTERACTION\n🔥 Do not change the click/activation glow or animation\n\n✅ You can change padding, max-width, font-size, spacing, border-radius\n\n🔁 All other interaction/hover/focus states should remain untouched\n\n"
             }
           }
-        },
-        {
-          "display": "now position them both to the right and preserve padding to made sure button does now butt up to the right edge of its container. ",
-          "pastedContents": {}
         }
       ],
       "dontCrawlDirectory": true,
