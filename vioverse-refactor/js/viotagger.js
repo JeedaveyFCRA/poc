@@ -231,19 +231,8 @@ class VioTagger {
             syncedAt: new Date().toISOString()
         };
         
-        // Convert from 1920x1080 to 810x920 coordinates for storage
-        const reportCoords = this.vioverse.canvasSync.viotaggerToReportViewer({
-            x: violation.x,
-            y: violation.y,
-            width: violation.width,
-            height: violation.height
-        });
-        
-        // Store with report viewer coordinates
-        violation.x = reportCoords.x;
-        violation.y = reportCoords.y;
-        violation.width = reportCoords.width;
-        violation.height = reportCoords.height;
+        // Violations are stored in native PNG coordinates (2550x3300)
+        // No conversion needed as VioTagger canvas now uses native dimensions
         
         // Add to violations data
         if (!this.vioverse.violationsData) {
@@ -292,8 +281,8 @@ class VioTagger {
         
         // Draw each violation
         violations.forEach(violation => {
-            // Convert from report viewer to tagger coordinates
-            const taggerCoords = this.vioverse.canvasSync.reportViewerToViotagger({
+            // Violations are already in native PNG coordinates (2550x3300)
+            const taggerCoords = {
                 x: violation.x,
                 y: violation.y,
                 width: violation.width,

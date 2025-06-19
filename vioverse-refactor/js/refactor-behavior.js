@@ -782,27 +782,14 @@ class VioVerse {
         box.setAttribute('tabindex', '0');
         box.setAttribute('data-violation-id', violation.id);
         
-        // Convert stored coordinates (810x920) back to 1920x1080 for display
-        // Since Report View now uses 1920x1080 base like VioTagger
-        let displayCoords;
-        if (violation.mode === 'viotagger') {
-            // VioTagger violations are already converted and stored in 810x920
-            // Convert back to 1920x1080 for display
-            displayCoords = this.canvasSync.reportViewerToViotagger({
-                x: violation.x,
-                y: violation.y,
-                width: violation.width || 80,
-                height: violation.height || 50
-            });
-        } else {
-            // Legacy violations may be in 810x920 coordinates
-            displayCoords = {
-                x: violation.x,
-                y: violation.y,
-                width: violation.width || 80,
-                height: violation.height || 50
-            };
-        }
+        // Violations are stored in native PNG coordinates (2550x3300)
+        // Display them directly since the container uses the same coordinate system
+        const displayCoords = {
+            x: violation.x,
+            y: violation.y,
+            width: violation.width || 80,
+            height: violation.height || 50
+        };
         
         box.style.left = `${displayCoords.x}px`;
         box.style.top = `${displayCoords.y}px`;

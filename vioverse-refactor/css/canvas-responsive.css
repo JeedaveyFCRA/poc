@@ -1,0 +1,166 @@
+/* Canvas Responsive Styles - Maintains Perfect Alignment Across Devices */
+
+/* Desktop and larger screens (default) */
+.report-canvas-container,
+.tagger-canvas-container {
+    /* Container maintains fixed aspect ratio */
+    position: absolute;
+    left: 360px;
+    top: 76px;
+    width: 810px;
+    height: 920px;
+}
+
+/* Ensure canvas content scales together */
+.canvas-scale-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Tablet (1024px and below) */
+@media (max-width: 1024px) {
+    .report-canvas-container,
+    .tagger-canvas-container {
+        /* Make canvas responsive */
+        position: relative;
+        left: auto;
+        top: auto;
+        width: calc(100vw - 40px);
+        max-width: 810px;
+        height: calc((100vw - 40px) * 1.135802); /* Maintain 810:920 ratio */
+        max-height: 920px;
+        margin: 20px auto;
+    }
+    
+    /* Scale the internal content proportionally */
+    .report-canvas .report-image,
+    .canvas-content-wrapper > .viobox-container {
+        transform: scale(var(--canvas-scale, 0.317647), var(--canvas-scale-y, 0.278788));
+    }
+    
+    /* Calculate dynamic scale based on container width */
+    .report-canvas-container,
+    .tagger-canvas-container {
+        --canvas-scale: calc((100vw - 40px) / 2550);
+        --canvas-scale-y: calc((100vw - 40px) * 1.135802 / 3300);
+    }
+    
+    /* Hide sidebar on tablets */
+    .sidebar-canvas {
+        display: none;
+    }
+}
+
+/* Mobile landscape (768px and below) */
+@media (max-width: 768px) and (orientation: landscape) {
+    .report-canvas-container,
+    .tagger-canvas-container {
+        width: calc(100vh - 100px);
+        height: calc((100vh - 100px) * 1.135802);
+        max-width: none;
+        max-height: none;
+    }
+    
+    .report-canvas-container,
+    .tagger-canvas-container {
+        --canvas-scale: calc((100vh - 100px) / 2550);
+        --canvas-scale-y: calc((100vh - 100px) * 1.135802 / 3300);
+    }
+}
+
+/* Mobile portrait (480px and below) */
+@media (max-width: 480px) {
+    .report-canvas-container,
+    .tagger-canvas-container {
+        width: 100vw;
+        height: calc(100vw * 1.135802);
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .report-canvas-container,
+    .tagger-canvas-container {
+        --canvas-scale: calc(100vw / 2550);
+        --canvas-scale-y: calc(100vw * 1.135802 / 3300);
+    }
+    
+    /* Adjust canvas wrapper */
+    .canvas-content-wrapper {
+        border-radius: 0;
+    }
+    
+    /* Ensure vioboxes scale with canvas */
+    .viobox {
+        /* Scale touch targets inversely to maintain usability */
+        min-width: calc(44px / var(--canvas-scale, 0.317647)) !important;
+        min-height: calc(44px / var(--canvas-scale, 0.317647)) !important;
+    }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .report-canvas .report-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Ensure consistent scaling for both views */
+.tagger-canvas-container .tagger-report-image,
+.tagger-canvas-container .tagger-drawing-canvas,
+.tagger-canvas-container .tagger-viobox-container {
+    transform: scale(var(--canvas-scale, 0.317647), var(--canvas-scale-y, 0.278788));
+}
+
+/* Override the app-wide scaling for canvas containers */
+@media (max-width: 1024px) {
+    /* Keep the original transform for now - just adjust canvas separately
+    .vioverse-app {
+        transform: none !important;
+    }
+    
+    body::after {
+        display: none !important;
+    }
+    
+    .vioverse-app {
+        width: 100vw;
+        height: auto;
+        min-height: 100vh;
+        position: relative;
+    } */
+    
+    /* Stack layout vertically on mobile */
+    .content-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    /* Adjust navigation bars for mobile */
+    .report-nav-bar,
+    .evidence-nav-bar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: calc(100% - 18px);
+        z-index: 100;
+        margin: 0 9px;
+    }
+}
+
+/* Print styles to maintain alignment */
+@media print {
+    .report-canvas-container,
+    .tagger-canvas-container {
+        page-break-inside: avoid;
+        width: 810px !important;
+        height: 920px !important;
+    }
+    
+    .report-canvas .report-image,
+    .canvas-content-wrapper > .viobox-container {
+        transform: scale(0.317647, 0.278788) !important;
+    }
+}

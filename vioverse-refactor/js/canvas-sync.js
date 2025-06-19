@@ -1,22 +1,22 @@
 /**
  * Canvas Synchronization Module
  * Ensures Viotagger and Report Viewer use identical coordinate systems
- * Base canvas: 1920x1080 fixed layout
+ * Base canvas: 2550x3300 (PNG actual dimensions)
  */
 
 class CanvasSync {
     constructor() {
-        // Base canvas dimensions (Viotagger standard)
-        this.BASE_WIDTH = 1920;
-        this.BASE_HEIGHT = 1080;
+        // Base canvas dimensions (PNG actual size)
+        this.BASE_WIDTH = 2550;
+        this.BASE_HEIGHT = 3300;
         
         // Report Viewer container dimensions
         this.REPORT_VIEWER_WIDTH = 810;
         this.REPORT_VIEWER_HEIGHT = 920;
         
         // Calculate scale factors
-        this.scaleX = this.REPORT_VIEWER_WIDTH / this.BASE_WIDTH;
-        this.scaleY = this.REPORT_VIEWER_HEIGHT / this.BASE_HEIGHT;
+        this.scaleX = this.REPORT_VIEWER_WIDTH / this.BASE_WIDTH; // 0.317647
+        this.scaleY = this.REPORT_VIEWER_HEIGHT / this.BASE_HEIGHT; // 0.278788
     }
     
     /**

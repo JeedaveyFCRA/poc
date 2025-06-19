@@ -56,7 +56,7 @@
 }
 
 .report-canvas::before {
-    content: "REPORT CANVAS (810x456px)" !important;
+    content: "REPORT CANVAS (2550x3300 scaled to 810x920)" !important;
     position: absolute !important;
     top: -25px !important;
     left: 10px !important;
