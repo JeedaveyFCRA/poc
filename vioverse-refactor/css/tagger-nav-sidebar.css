@@ -1,6 +1,6 @@
 /* Tagger Navigation Bar in Sidebar */
 .tagger-nav-bar-sidebar {
-    position: absolute;
+    position: fixed; /* Changed from absolute to fixed to ensure proper positioning */
     top: 330px; /* Position below search box */
     left: 45px; /* Centered: (360px - 270px) / 2 = 45px */
     width: 270px;
@@ -10,7 +10,7 @@
     border-radius: 36px;
     padding: 8px 12px;
     display: none; /* Hidden by default, shown when tagger view is active */
-    z-index: 5;
+    z-index: 100; /* Increased to ensure visibility above canvas elements */
 }
 
 .tagger-nav-bar-sidebar .navigation-section {
