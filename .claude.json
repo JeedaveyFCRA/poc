@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "this did not solve the issue. Use the same logic that you currently have built that is working correctly on the width of the vioboxes, in mobile format only, and apply the concept to the height of the vioboxes! IT should be that simple ",
+          "pastedContents": {}
+        },
+        {
           "display": "there hs been no change on the mobile site",
           "pastedContents": {}
         },
@@ -537,16 +541,6 @@
               "id": 1,
               "type": "text",
               "content": "I need you to resolve two bugs and one layout fix before we proceed to mobile work. Here’s what’s happening:\n\n---\n\n### 🪲 1. **Filter Bug: “Current Page Only” Still Displays Descriptions When Counters Are Zero**\n\n**Behavior:**\n- When the **“Selected Violations”** filter is active, and no violations are selected → the counters correctly show zero and **no violation details are shown** ✅\n- But when **“Current Page Only”** is toggled **without any selected boxes**, the **counters correctly show zero**, **but the violation descriptions still appear** ❌\n\n**Fix:**  \nWhen **Current Page Only is active** and **there are no selected violations** on that page, the **FCRA Review Summary should show nothing.**  \nMake sure it **follows the same logic as “Selected Violations”** and hides the descriptions unless there's at least one selected violation.\n\n---\n\n### 🎨 2. **Reduce Vertical Spacing Between Violation Descriptions**\n\nThe current spacing between `.violation-description` boxes is **too wide**.\n\n**Fix:**\n- Reduce vertical gap (margin/padding between boxes) by about **50%**\n- Suggested max vertical spacing: `6px–8px` between descriptions\n- Make sure it works cleanly across screen sizes\n\n---\n\n### 📐 3. **Add Padding Inside the Violation Description Boxes**\n\nRight now, `.violation-description` or `.viobox` containers are **touching the edges** of the container.\n\n**Fix:**\n- Add **left and right padding** (suggested: `12px`–`16px`) inside each description box so the text doesn’t touch the outer boundary\n- Maintain consistency for mobile and desktop (we’ll refine mobile layout after)\n\n---\n\nOnce these three fixes are complete, let me know and we’ll begin implementing the responsive/mobile layout.\n[I"
-            }
-          }
-        },
-        {
-          "display": "[Pasted text #1 +38 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "🛠️ FIX 1: SEVERITY COUNTER LOGIC\n\nPlease update the logic that controls the severity counters (High / Medium / Low) on the report canvas sidebar.\n\nRequirements:\n- When the \"Current Page Only\" toggle is enabled, the severity counters should reflect ONLY the visible and actively selected violation boxes.\n- If all boxes are in the unselected (default) state, all three counters should show zero.\n- The counters should update dynamically:\n   - When a box is selected or unselected\n   - When a filter is applied\n   - When navigating between report pages\n\nConfirm that the counters are correctly zeroed out when no boxes are selected and increment only based on what is actively checked.\n\n🛠️ FIX 2: FCRA REVIEW SUMMARY SPACING\n\nPlease tighten the vertical spacing between violation descriptions in the FCRA Review Summary panel.\n\n- Set vertical gap between items (e.g., `.fcra-review-item` or `.review-entry`) to 6–8px\n- Ensure there is no excess padding or line-height that adds visual noise\n- Maintain good mobile responsiveness:\n   - On screens narrower than 768px, allow slightly larger line-height but still limit margin-bottom to 10px max\n\nSuggested CSS:\n.fcra-review-item {\n  margin-bottom: 8px;\n  line-height: 1.35;\n}\n@media (max-width: 768px) {\n  .fcra-review-item {\n    margin-bottom: 10px;\n    line-height: 1.45;\n  }\n}\n\n💡 Optional: Add a utility class or scoped override if the gap is being inherited globally from another CSS rule.\n\nPlease confirm when both issues are resolved and tested.\n"
             }
           }
         }

@@ -1,17 +1,7 @@
 /* Mobile Responsive Fixes for Viotagger */
 /* Improves usability on smaller devices */
 
-/* Override inline styles with attribute selector */
-@media (max-width: 768px) {
-    /* Target VIOboxes with any inline height style */
-    .viobox-container .viobox[style*="height"],
-    .tagger-viobox-container .viobox[style*="height"],
-    button.viobox[style*="height"] {
-        height: 26px !important;
-        min-height: 26px !important;
-        max-height: 26px !important;
-    }
-}
+/* Let VIOboxes use their JS-set dimensions on mobile, same as desktop */
 
 /* Tablet screens (768px - 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -37,47 +27,12 @@
     }
     
     /* Enhanced VIObox design for mobile landscape */
-    .viobox-container .viobox,
-    .tagger-viobox-container .viobox,
-    button.viobox {
-        /* Compact height matching icon size */
-        height: 26px !important;
-        min-height: 26px !important;
-        max-height: 26px !important;
-        
-        /* Maintain touch-friendly width */
+    .viobox {
+        /* Maintain touch-friendly width - same as desktop behavior */
         min-width: 60px !important;
-        
-        /* Visual adjustments */
-        padding: 3px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
+        /* NO height constraints - let JS set it like desktop */
     }
     
-    /* Maintain original icon size */
-    .viobox-container .viobox .severity-icon,
-    .tagger-viobox-container .viobox .severity-icon,
-    button.viobox .severity-icon {
-        width: 20px !important;
-        height: 20px !important;
-        margin-left: 0 !important;
-        padding: 3px !important;
-        flex-shrink: 0 !important;
-    }
-    
-    /* Invisible touch target for accessibility */
-    .viobox-container .viobox::before,
-    .tagger-viobox-container .viobox::before,
-    button.viobox::before {
-        content: '';
-        position: absolute;
-        top: -17px; /* (60px - 26px) / 2 */
-        left: 0;
-        right: 0;
-        height: 60px;
-        pointer-events: auto;
-    }
     
     /* Make sidebar scrollable if needed */
     .sidebar-wrapper {
@@ -112,48 +67,12 @@
     }
     
     /* Enhanced VIObox design for mobile portrait */
-    .viobox-container .viobox,
-    .tagger-viobox-container .viobox,
-    button.viobox {
-        /* Compact height matching icon size */
-        height: 26px !important;
-        min-height: 26px !important;
-        max-height: 26px !important;
-        
-        /* Maintain touch-friendly width */
+    .viobox {
+        /* Maintain touch-friendly width - same as desktop behavior */
         min-width: 44px !important; /* iOS touch target minimum */
-        
-        /* Visual adjustments */
-        padding: 3px !important;
-        border-width: 3px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
+        /* NO height constraints - let JS set it like desktop */
     }
     
-    /* Maintain original icon size */
-    .viobox-container .viobox .severity-icon,
-    .tagger-viobox-container .viobox .severity-icon,
-    button.viobox .severity-icon {
-        width: 20px !important;
-        height: 20px !important;
-        margin-left: 0 !important;
-        padding: 3px !important;
-        flex-shrink: 0 !important;
-    }
-    
-    /* Invisible touch target for accessibility */
-    .viobox-container .viobox::before,
-    .tagger-viobox-container .viobox::before,
-    button.viobox::before {
-        content: '';
-        position: absolute;
-        top: -9px; /* (44px - 26px) / 2 */
-        left: 0;
-        right: 0;
-        height: 44px;
-        pointer-events: auto;
-    }
     
     /* Sidebar mobile optimization */
     .sidebar-wrapper {
@@ -210,30 +129,9 @@
         min-width: 320px;
     }
     
-    /* Compact VIOboxes for very small screens */
-    .viobox-container .viobox,
-    .tagger-viobox-container .viobox,
-    button.viobox {
-        height: 24px !important;
-        min-height: 24px !important;
-        max-height: 24px !important;
-        border-radius: 12px !important;
-    }
-    
-    .viobox-container .viobox .severity-icon,
-    .tagger-viobox-container .viobox .severity-icon,
-    button.viobox .severity-icon {
-        width: 18px !important;
-        height: 18px !important;
-        padding: 2px !important;
-    }
-    
-    /* Adjust touch target */
-    .viobox-container .viobox::before,
-    .tagger-viobox-container .viobox::before,
-    button.viobox::before {
-        top: -10px; /* (44px - 24px) / 2 */
-        height: 44px;
+    /* Keep same approach - just min-width, no height constraints */
+    .viobox {
+        min-width: 44px !important;
     }
     
     /* Ensure minimum readability */
@@ -249,13 +147,18 @@
 
 /* Touch-friendly adjustments for all mobile devices */
 @media (hover: none) and (pointer: coarse) {
-    /* Increase clickable areas for buttons */
-    button, .button, .clickable {
+    /* Increase clickable areas for buttons - but NOT viobox */
+    button:not(.viobox), .button, .clickable {
         min-height: 44px;
         min-width: 44px;
     }
     
-    /* VIObox specific handling - already handled in viewport-specific rules above */
+    /* VIObox only needs min-width, not min-height */
+    .viobox {
+        min-width: 44px !important;
+        /* NO min-height - let JS set actual height */
+    }
+    
     /* Remove hover effects on touch devices */
     .viobox:hover {
         transform: none !important;
