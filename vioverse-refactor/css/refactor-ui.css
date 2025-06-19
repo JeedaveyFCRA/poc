@@ -624,7 +624,7 @@ input {
    ======================================== */
 .view-toggle-new {
     position: absolute; /* Changed from fixed to absolute */
-    top: 36px; /* Restored original position - was shifted down 40px */
+    top: 36px; /* Top-aligned with canvases and sidebar */
     left: 70px;
     width: 270px;
     height: 40px;
@@ -1294,7 +1294,7 @@ input {
 .sidebar-variable-heading {
     position: absolute;
     left: 40px; /* 1220px - 1180px container position */
-    top: 16px; /* Adjusted for new container position (was -24px + 40px shift = 16px) */
+    top: -24px; /* Restored to proper position above sidebar */
     width: 374px;
     height: 39px;
     font-family: "jaf-bernino-sans-comp", sans-serif;
