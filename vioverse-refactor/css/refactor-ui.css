@@ -757,7 +757,7 @@ input {
 .evidence-canvas-container {
     position: absolute; /* Changed from fixed to absolute */
     left: 360px;
-    top: 69px;
+    top: 76px; /* Aligned with View Toggle and FCRA Summary */
     width: 810px;
     height: 920px;
     background-color: #ffffff;
@@ -772,7 +772,7 @@ input {
 .tagger-canvas-container {
     position: absolute;
     left: 360px;
-    top: 69px;
+    top: 76px; /* Aligned with View Toggle and FCRA Summary */
     width: 810px;
     height: 920px;
     background-color: #ffffff;
@@ -1109,14 +1109,32 @@ input {
 
 /* Canvas and sidebar are now fixed position, no flex needed */
 
-.report-image {
-    width: 100%;
-    height: auto;
-    max-height: 100%;
+/* Report Image - direct child of report-canvas */
+.report-canvas .report-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    transform: scale(0.421875, 0.851852); /* 810/1920, 920/1080 */
+    transform-origin: top left;
     object-fit: contain;
 }
 
-/* VIObox Container */
+/* VIObox container in report canvas - sibling to image */
+.report-canvas .viobox-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    transform: scale(0.421875, 0.851852); /* 810/1920, 920/1080 */
+    transform-origin: top left;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* VIObox Container - default styles for other views */
 .viobox-container {
     position: absolute;
     top: 0;
@@ -1126,6 +1144,8 @@ input {
     pointer-events: none;
     z-index: 3;
 }
+
+/* Removed - viobox-container is now a sibling, not child of wrapper */
 
 /* VIObox Styles */
 .viobox {
@@ -1205,7 +1225,7 @@ input {
 .sidebar-canvas {
     position: absolute; /* Changed from fixed to absolute */
     left: 1180px;
-    top: 69px;
+    top: 76px; /* Aligned with View Toggle */
     width: 452px;
     height: 920px;
     z-index: 100; /* Higher than base elements */
@@ -1229,7 +1249,7 @@ input {
 .sidebar-top-box {
     position: absolute;
     left: 16px; /* 1196px - 1180px (sidebar-canvas position) */
-    top: 57px; /* 126px - 69px (sidebar-canvas top position) */
+    top: 50px; /* Adjusted for container now at 76px (was 126px - 69px = 57px, now 126px - 76px = 50px) */
     width: 419px;
     height: 848px;
     background-color: #ffffff;
@@ -1248,7 +1268,7 @@ input {
 .sidebar-variable-heading {
     position: absolute;
     left: 40px; /* 1220px - 1180px container position */
-    top: -24px; /* Moved down 4px (from -28px to -24px) */
+    top: 0px; /* Adjusted for container now at 76px */
     width: 374px;
     height: 39px;
     font-family: "jaf-bernino-sans-comp", sans-serif;
@@ -3182,20 +3202,10 @@ body.dragging-scroll {
     z-index: 10;
 }
 
-/* Canvas wrapper for scaling */
-.tagger-canvas-wrapper {
-    position: relative;
-    width: 810px;
-    height: 920px;
-    transform-origin: top left;
-    overflow: hidden;
-    border-radius: 24px;
-}
-
-/* Scale the 1920x1080 content to fit 810x920 */
-.tagger-report-image,
-.tagger-drawing-canvas,
-.tagger-viobox-container {
+/* Scale the 1920x1080 content to fit 810x920 - direct children of tagger-canvas-container */
+.tagger-canvas-container .tagger-report-image,
+.tagger-canvas-container .tagger-drawing-canvas,
+.tagger-canvas-container .tagger-viobox-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -3205,10 +3215,8 @@ body.dragging-scroll {
     transform-origin: top left;
 }
 
-.tagger-report-image {
+.tagger-canvas-container .tagger-report-image {
     object-fit: contain;
-    width: 1920px;
-    height: 1080px;
 }
 
 .tagger-drawing-canvas {
@@ -3379,3 +3387,37 @@ body.dragging-scroll {
 .tagger-drawing-canvas.deleting {
     cursor: not-allowed;
 }
+
+/* DEBUG STYLES - TEMPORARY */
+.tagger-nav-bar .nav-section {
+    background: rgba(255, 255, 0, 0.5); /* Yellow for nav section */
+    border: 2px solid purple;
+    padding: 5px;
+}
+
+.tagger-nav-bar .nav-btn {
+    background: rgba(255, 0, 255, 0.5) \!important; /* Magenta for buttons */
+    border: 2px solid black \!important;
+    opacity: 1 \!important;
+    visibility: visible \!important;
+}
+
+.tagger-nav-bar .page-input,
+.tagger-nav-bar .tagger-page-input {
+    background: rgba(0, 255, 255, 0.5) \!important; /* Cyan for input */
+    border: 2px solid red \!important;
+    color: black \!important;
+    font-weight: bold \!important;
+}
+
+.tagger-report-image {
+    opacity: 0.7; /* Make image semi-transparent to see layers */
+    border: 5px solid orange;
+}
+
+/* Make sure all text is visible */
+.tagger-nav-bar * {
+    color: black \!important;
+    font-weight: bold \!important;
+}
+EOF < /dev/null

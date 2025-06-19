@@ -59,10 +59,10 @@ class VioTagger {
         this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
         this.canvas.addEventListener('mouseleave', (e) => this.handleMouseLeave(e));
         
-        // Navigation events for tagger view
-        const taggerNav = document.querySelector('.tagger-nav-bar');
-        if (taggerNav) {
-            taggerNav.querySelectorAll('.nav-btn').forEach(btn => {
+        // Navigation events for tagger view - now in sidebar
+        const taggerNavSidebar = document.querySelector('.tagger-nav-bar-sidebar');
+        if (taggerNavSidebar) {
+            taggerNavSidebar.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const action = e.currentTarget.dataset.nav;
                     if (action === 'prev-page') {
@@ -75,7 +75,7 @@ class VioTagger {
                 });
             });
             
-            const pageInput = taggerNav.querySelector('.tagger-page-input');
+            const pageInput = taggerNavSidebar.querySelector('.tagger-page-input');
             if (pageInput) {
                 pageInput.addEventListener('change', (e) => {
                     const newPage = parseInt(e.target.value);
@@ -366,9 +366,8 @@ class VioTagger {
         // Update image
         const img = document.querySelector('.tagger-report-image');
         if (img) {
-            const paddedPage = this.vioverse.currentPage < 10 ? 
-                String(this.vioverse.currentPage).padStart(2, '0') : 
-                String(this.vioverse.currentPage);
+            // Always pad to 2 digits for pages 1-99
+            const paddedPage = String(this.vioverse.currentPage).padStart(2, '0');
             const filename = `assets/reports/${this.vioverse.currentCreditor}-${this.vioverse.currentBureau}-${this.vioverse.reportDate}-P${paddedPage}.png`;
             img.src = filename;
         }

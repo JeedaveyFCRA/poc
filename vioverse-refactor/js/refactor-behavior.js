@@ -435,6 +435,12 @@ class VioVerse {
             indicator.className = 'toggle-indicator ' + indicatorClass;
         }
         
+        // Show/hide tagger navigation in sidebar
+        const taggerNavSidebar = document.getElementById('tagger-nav-sidebar');
+        if (taggerNavSidebar) {
+            taggerNavSidebar.style.display = viewName === 'tagger' ? 'block' : 'none';
+        }
+        
         // Update new toggle label states
         document.querySelectorAll('.view-label').forEach(label => {
             const isActive = label.dataset.view === viewName;
@@ -775,15 +781,38 @@ class VioVerse {
         box.setAttribute('aria-label', `${violation.severity} severity violation: ${violation.description || ''}`);
         box.setAttribute('tabindex', '0');
         box.setAttribute('data-violation-id', violation.id);
-        box.style.left = `${violation.x}px`;
-        box.style.top = `${violation.y}px`;
+        
+        // Convert stored coordinates (810x920) back to 1920x1080 for display
+        // Since Report View now uses 1920x1080 base like VioTagger
+        let displayCoords;
+        if (violation.mode === 'viotagger') {
+            // VioTagger violations are already converted and stored in 810x920
+            // Convert back to 1920x1080 for display
+            displayCoords = this.canvasSync.reportViewerToViotagger({
+                x: violation.x,
+                y: violation.y,
+                width: violation.width || 80,
+                height: violation.height || 50
+            });
+        } else {
+            // Legacy violations may be in 810x920 coordinates
+            displayCoords = {
+                x: violation.x,
+                y: violation.y,
+                width: violation.width || 80,
+                height: violation.height || 50
+            };
+        }
+        
+        box.style.left = `${displayCoords.x}px`;
+        box.style.top = `${displayCoords.y}px`;
         
         // Set custom width/height if provided
-        if (violation.width) {
-            box.style.width = `${violation.width}px`;
+        if (displayCoords.width) {
+            box.style.width = `${displayCoords.width}px`;
         }
-        if (violation.height) {
-            box.style.height = `${violation.height}px`;
+        if (displayCoords.height) {
+            box.style.height = `${displayCoords.height}px`;
         }
         
         // Add active class if violation is pre-selected

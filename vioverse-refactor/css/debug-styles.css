@@ -1,0 +1,71 @@
+/* DEBUG STYLES - CANVAS ELEMENTS VISUALIZATION */
+
+/* REPORT VIEW CANVAS */
+.report-canvas {
+    background: rgba(255, 255, 0, 0.2) !important; /* Light yellow background */
+    border: 3px solid #FFD700 !important; /* Gold border */
+}
+
+.report-canvas .report-image {
+    background: rgba(0, 255, 0, 0.3) !important; /* Light green */
+    border: 5px solid #00FF00 !important; /* Bright green border */
+    opacity: 0.8 !important;
+}
+
+.report-canvas .viobox-container {
+    background: rgba(255, 0, 0, 0.2) !important; /* Light red */
+    border: 4px dashed #FF0000 !important; /* Red dashed border */
+}
+
+.report-canvas .viobox {
+    background: rgba(255, 0, 255, 0.6) !important; /* Magenta */
+    border: 2px solid #FF00FF !important;
+}
+
+/* VIOTAGGER VIEW CANVAS */
+.tagger-canvas-container {
+    background: rgba(0, 0, 255, 0.2) !important; /* Light blue background */
+    border: 3px solid #0000FF !important; /* Blue border */
+}
+
+.tagger-canvas-container .tagger-report-image {
+    background: rgba(0, 255, 255, 0.3) !important; /* Light cyan */
+    border: 5px solid #00FFFF !important; /* Cyan border */
+    opacity: 0.8 !important;
+}
+
+.tagger-canvas-container .tagger-drawing-canvas {
+    background: rgba(255, 165, 0, 0.2) !important; /* Light orange */
+    border: 4px dotted #FFA500 !important; /* Orange dotted border */
+}
+
+.tagger-canvas-container .tagger-viobox-container {
+    background: rgba(128, 0, 128, 0.2) !important; /* Light purple */
+    border: 4px dashed #800080 !important; /* Purple dashed border */
+}
+
+.tagger-canvas-container .viobox {
+    background: rgba(255, 192, 203, 0.8) !important; /* Pink */
+    border: 2px solid #FFC0CB !important;
+}
+
+/* Add labels to identify elements */
+.report-canvas::before {
+    content: "REPORT CANVAS" !important;
+    position: absolute !important;
+    top: -25px !important;
+    left: 10px !important;
+    font-weight: bold !important;
+    color: #FFD700 !important;
+    z-index: 1000 !important;
+}
+
+.tagger-canvas-container::before {
+    content: "TAGGER CANVAS" !important;
+    position: absolute !important;
+    top: -25px !important;
+    left: 10px !important;
+    font-weight: bold !important;
+    color: #0000FF !important;
+    z-index: 1000 !important;
+}
