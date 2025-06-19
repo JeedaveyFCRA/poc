@@ -1,0 +1,54 @@
+/* Solution 2: Scale severity icon to match container height */
+/* This makes the icon fill the available space on mobile */
+
+/* Mobile landscape (568px - 768px) */
+@media (max-width: 768px) and (min-width: 569px) {
+    .viobox {
+        /* Keep the min-height for touch targets */
+        min-width: 60px !important;
+        min-height: 60px !important;
+        padding: 0 !important; /* Remove padding to maximize icon space */
+        justify-content: center !important;
+    }
+    
+    /* Scale up the severity icon */
+    .viobox .severity-icon {
+        width: 36px !important; /* 60% of container height */
+        height: 36px !important;
+        margin-left: 0 !important;
+        padding: 6px !important; /* Adjust padding for larger icon */
+    }
+}
+
+/* Mobile portrait (320px - 568px) */
+@media (max-width: 568px) {
+    .viobox {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        padding: 0 !important;
+        justify-content: center !important;
+    }
+    
+    /* Scale up the severity icon */
+    .viobox .severity-icon {
+        width: 28px !important; /* ~64% of 44px container */
+        height: 28px !important;
+        margin-left: 0 !important;
+        padding: 4px !important;
+    }
+}
+
+/* Touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .viobox {
+        padding: 0 !important;
+        justify-content: center !important;
+    }
+    
+    .viobox .severity-icon {
+        /* Dynamically scale based on parent height */
+        width: calc(min(28px, 64%)) !important;
+        height: calc(min(28px, 64%)) !important;
+        margin-left: 0 !important;
+    }
+}

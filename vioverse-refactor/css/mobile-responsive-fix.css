@@ -24,10 +24,41 @@
         height: calc(1080px * 0.5) !important;
     }
     
-    /* Enhance touch targets */
+    /* Enhanced VIObox design for mobile landscape */
     .viobox {
+        /* Compact height matching icon size */
+        height: 26px !important;
+        min-height: 26px !important;
+        max-height: 26px !important;
+        
+        /* Maintain touch-friendly width */
         min-width: 60px !important;
-        min-height: 60px !important;
+        
+        /* Visual adjustments */
+        padding: 3px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+    
+    /* Maintain original icon size */
+    .viobox .severity-icon {
+        width: 20px !important;
+        height: 20px !important;
+        margin-left: 0 !important;
+        padding: 3px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Invisible touch target for accessibility */
+    .viobox::before {
+        content: '';
+        position: absolute;
+        top: -17px; /* (60px - 26px) / 2 */
+        left: 0;
+        right: 0;
+        height: 60px;
+        pointer-events: auto;
     }
     
     /* Make sidebar scrollable if needed */
@@ -62,11 +93,42 @@
         padding: 12px 16px !important;
     }
     
-    /* Improve touch targets */
+    /* Enhanced VIObox design for mobile portrait */
     .viobox {
+        /* Compact height matching icon size */
+        height: 26px !important;
+        min-height: 26px !important;
+        max-height: 26px !important;
+        
+        /* Maintain touch-friendly width */
         min-width: 44px !important; /* iOS touch target minimum */
-        min-height: 44px !important;
+        
+        /* Visual adjustments */
+        padding: 3px !important;
         border-width: 3px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+    
+    /* Maintain original icon size */
+    .viobox .severity-icon {
+        width: 20px !important;
+        height: 20px !important;
+        margin-left: 0 !important;
+        padding: 3px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Invisible touch target for accessibility */
+    .viobox::before {
+        content: '';
+        position: absolute;
+        top: -9px; /* (44px - 26px) / 2 */
+        left: 0;
+        right: 0;
+        height: 44px;
+        pointer-events: auto;
     }
     
     /* Sidebar mobile optimization */
@@ -124,6 +186,26 @@
         min-width: 320px;
     }
     
+    /* Compact VIOboxes for very small screens */
+    .viobox {
+        height: 24px !important;
+        min-height: 24px !important;
+        max-height: 24px !important;
+        border-radius: 12px !important;
+    }
+    
+    .viobox .severity-icon {
+        width: 18px !important;
+        height: 18px !important;
+        padding: 2px !important;
+    }
+    
+    /* Adjust touch target */
+    .viobox::before {
+        top: -10px; /* (44px - 24px) / 2 */
+        height: 44px;
+    }
+    
     /* Ensure minimum readability */
     .violation-description {
         font-size: 12px !important;
@@ -137,12 +219,13 @@
 
 /* Touch-friendly adjustments for all mobile devices */
 @media (hover: none) and (pointer: coarse) {
-    /* Increase clickable areas */
-    button, .button, .viobox, .clickable {
+    /* Increase clickable areas for buttons */
+    button, .button, .clickable {
         min-height: 44px;
         min-width: 44px;
     }
     
+    /* VIObox specific handling - already handled in viewport-specific rules above */
     /* Remove hover effects on touch devices */
     .viobox:hover {
         transform: none !important;

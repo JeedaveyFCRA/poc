@@ -1,0 +1,70 @@
+/* Solution 3: Mobile-specific compact VIObox design */
+/* This creates a mobile-optimized design that maintains icon size but adjusts container */
+
+/* Base mobile adjustments */
+@media (max-width: 768px) {
+    .viobox {
+        /* Override the dynamic height set by JavaScript */
+        height: 26px !important; /* Just enough for 20px icon + padding */
+        min-height: 26px !important;
+        max-height: 26px !important;
+        
+        /* Maintain dynamic width */
+        min-width: 44px !important; /* Touch target minimum */
+        
+        /* Adjust visual properties */
+        padding: 3px !important;
+        border-radius: 13px !important;
+        
+        /* Ensure proper alignment */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+    }
+    
+    /* Keep icon at original size */
+    .viobox .severity-icon {
+        width: 20px !important;
+        height: 20px !important;
+        margin-left: 0 !important;
+        padding: 3px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* Add touch-friendly tap area using padding-box trick */
+    .viobox::before {
+        content: '';
+        position: absolute;
+        top: -9px; /* (44px - 26px) / 2 */
+        left: 0;
+        right: 0;
+        height: 44px;
+        pointer-events: auto;
+        /* Debug: uncomment to see touch area */
+        /* background: rgba(255, 0, 0, 0.1); */
+    }
+}
+
+/* Mobile landscape specific */
+@media (max-width: 768px) and (min-width: 569px) and (orientation: landscape) {
+    .viobox::before {
+        top: -17px; /* (60px - 26px) / 2 */
+        height: 60px; /* Larger touch target in landscape */
+    }
+}
+
+/* Fallback for very small screens */
+@media (max-width: 320px) {
+    .viobox {
+        height: 24px !important;
+        min-height: 24px !important;
+        max-height: 24px !important;
+        border-radius: 12px !important;
+    }
+    
+    .viobox .severity-icon {
+        width: 18px !important;
+        height: 18px !important;
+        padding: 2px !important;
+    }
+}
