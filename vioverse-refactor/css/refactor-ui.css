@@ -624,7 +624,7 @@ input {
    ======================================== */
 .view-toggle-new {
     position: absolute; /* Changed from fixed to absolute */
-    top: 36px; /* Top-aligned with canvases and sidebar */
+    top: 76px; /* Slightly offset from canvases as per original design */
     left: 70px;
     width: 270px;
     height: 40px;
