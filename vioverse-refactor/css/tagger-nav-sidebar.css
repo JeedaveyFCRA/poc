@@ -86,7 +86,7 @@
 
 /* VioTagger Selection Section */
 .tagger-selection-section {
-    margin-bottom: 24px;
+    margin-bottom: 16px; /* Reduced to minimize vertical offset */
 }
 
 /* Section Heading - matching filter-counter-title style */
@@ -112,7 +112,8 @@
     align-items: flex-start;
     max-width: 100%;
     box-sizing: border-box;
-    padding: 0 29px; /* Add horizontal padding to match filter section */
+    padding: 0; /* Remove padding to prevent offset */
+    margin-top: -20px; /* Move up by 20px */
 }
 
 /* Individual Selector Box - matching severity-box style */
@@ -131,27 +132,29 @@
 
 /* Bureau Selector */
 .bureau-selector {
-    flex: 0 0 auto;
-    width: 140px;
+    flex: 0 0 109px; /* Fixed flex-basis of 109px */
+    max-width: 109px;
+    margin-left: 29px; /* Add left margin to match filter section */
 }
 
 /* Creditor Selector */
 .creditor-selector {
     flex: 1;
     min-width: 280px;
+    margin-right: 29px; /* Add right margin to match filter section */
 }
 
 /* Custom Radio Button Styles */
 .custom-radio-group {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 2.25px; /* Reduced by another 25% from 3px */
 }
 
 .custom-radio-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 5 columns per row */
-    gap: 2px 10px; /* Reduced row gap to match filter section */
+    gap: 1.5px 7px; /* Reduced row gap by another 25% from 2px */
     width: 100%;
 }
 
@@ -160,7 +163,8 @@
     align-items: center;
     cursor: pointer;
     user-select: none;
-    gap: 8px;
+    gap: 5.6px; /* Reduced by 30% from 8px */
+    padding: 4px 0; /* Add vertical padding to labels */
 }
 
 .custom-radio-input {
@@ -224,7 +228,7 @@
     .tagger-selectors-container {
         flex-direction: column;
         gap: 8px;
-        padding: 0 20px; /* Reduced padding for tablets */
+        padding: 0;
     }
     
     .tagger-section-heading {
@@ -233,8 +237,10 @@
     
     .bureau-selector,
     .creditor-selector {
-        width: 100%;
+        width: calc(100% - 40px); /* Account for margins */
         min-width: unset;
+        margin-left: 20px;
+        margin-right: 20px;
     }
     
     .tagger-selector-box {
@@ -254,7 +260,14 @@
     
     .tagger-selectors-container {
         gap: 8px;
-        padding: 0 15px; /* Further reduced for mobile */
+        padding: 0;
+    }
+    
+    .bureau-selector,
+    .creditor-selector {
+        width: calc(100% - 30px); /* Account for margins */
+        margin-left: 15px;
+        margin-right: 15px;
     }
     
     .tagger-selector-box {
@@ -264,7 +277,7 @@
     
     .custom-radio-grid {
         grid-template-columns: repeat(4, 1fr); /* 4 columns on mobile */
-        gap: 2px 8px; /* Keep row gap small */
+        gap: 1.125px 5.6px; /* Reduced row gap by another 25% from 1.5px */
     }
 }
 
