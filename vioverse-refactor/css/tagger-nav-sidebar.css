@@ -83,3 +83,188 @@
 .tagger-nav-bar {
     display: none !important;
 }
+
+/* VioTagger Selection Section */
+.tagger-selection-section {
+    margin-bottom: 24px;
+}
+
+/* Section Heading - matching filter-counter-title style */
+.tagger-section-heading {
+    font-family: "jaf-bernino-sans-comp", sans-serif;
+    font-weight: 800;
+    font-size: 24pt;
+    color: #253541;
+    text-transform: lowercase;
+    margin: 0 0 16px 0;
+    padding: 0 29px; /* Match horizontal padding with content */
+}
+
+/* Red number in heading */
+.tagger-section-heading .heading-number {
+    color: #ff0000;
+}
+
+/* Selectors Container */
+.tagger-selectors-container {
+    display: flex;
+    gap: 8px; /* Reduced by 50% from 16px */
+    align-items: flex-start;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 29px; /* Add horizontal padding to match filter section */
+}
+
+/* Individual Selector Box - matching severity-box style */
+.tagger-selector-box {
+    background-color: #e3e2e1;
+    border: 1px solid white;
+    border-radius: 32px;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    height: 90px; /* Fixed height for both boxes */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Bureau Selector */
+.bureau-selector {
+    flex: 0 0 auto;
+    width: 140px;
+}
+
+/* Creditor Selector */
+.creditor-selector {
+    flex: 1;
+    min-width: 280px;
+}
+
+/* Custom Radio Button Styles */
+.custom-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.custom-radio-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns per row */
+    gap: 2px 10px; /* Reduced row gap to match filter section */
+    width: 100%;
+}
+
+.custom-radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    gap: 8px;
+}
+
+.custom-radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Custom Radio Button Circle */
+.custom-radio-button {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #253541;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 200ms ease;
+}
+
+/* Selected State */
+.custom-radio-input:checked + .custom-radio-button {
+    background-color: #ff0000;
+}
+
+/* Hover State */
+.custom-radio-label:hover .custom-radio-button {
+    border-color: #2f424f;
+    box-shadow: 0 0 0 2px rgba(37, 53, 65, 0.1);
+}
+
+/* Radio Text */
+.custom-radio-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400; /* Regular weight, not bold */
+    font-size: 8pt; /* Match filter label size */
+    color: #253541;
+    line-height: 1.2;
+}
+
+/* Bureau text - lowercase */
+.bureau-selector .custom-radio-text {
+    text-transform: lowercase;
+}
+
+/* Creditor text - uppercase */
+.creditor-selector .custom-radio-text {
+    text-transform: uppercase;
+}
+
+/* Grid Layout for Creditor Radio Buttons */
+.creditor-selector .custom-radio-label {
+    justify-content: center;
+    min-width: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tagger-selectors-container {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 20px; /* Reduced padding for tablets */
+    }
+    
+    .tagger-section-heading {
+        padding: 0 20px; /* Match reduced padding */
+    }
+    
+    .bureau-selector,
+    .creditor-selector {
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .tagger-selector-box {
+        height: 80px; /* Slightly smaller on tablets */
+    }
+    
+    .tagger-section-heading {
+        font-size: 20pt;
+    }
+}
+
+@media (max-width: 480px) {
+    .tagger-section-heading {
+        font-size: 18pt;
+        padding: 0 15px; /* Further reduced for mobile */
+    }
+    
+    .tagger-selectors-container {
+        gap: 8px;
+        padding: 0 15px; /* Further reduced for mobile */
+    }
+    
+    .tagger-selector-box {
+        padding: 16px;
+        height: 70px; /* Even smaller on mobile */
+    }
+    
+    .custom-radio-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on mobile */
+        gap: 2px 8px; /* Keep row gap small */
+    }
+}
+

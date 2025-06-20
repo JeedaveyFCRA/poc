@@ -588,41 +588,103 @@
                         <div class="sidebar-bottom-box"></div>
                         <h2 class="sidebar-variable-heading">viotagger tools</h2>
                         <div class="sidebar-top-box">
-                            <!-- Drawing tools -->
-                            <div class="tagger-tools">
-                                <div class="tool-section">
-                                    <h3>Drawing Mode</h3>
-                                    <div class="tool-buttons">
-                                        <button class="tool-btn active" data-tool="select" title="Select">
-                                            <i data-lucide="mouse-pointer"></i>
-                                        </button>
-                                        <button class="tool-btn" data-tool="draw" title="Draw Rectangle">
-                                            <i data-lucide="square"></i>
-                                        </button>
-                                        <button class="tool-btn" data-tool="delete" title="Delete">
-                                            <i data-lucide="trash-2"></i>
-                                        </button>
+                            <!-- Section 1: Bureau and Creditor Selection -->
+                            <div class="tagger-selection-section">
+                                <h3 class="tagger-section-heading"><span class="heading-number">1.</span> select bureau & creditor to begin</h3>
+                                
+                                <!-- Bureau and Creditor Selectors Container -->
+                                <div class="tagger-selectors-container">
+                                    <!-- Bureau Selector Box -->
+                                    <div class="tagger-selector-box bureau-selector">
+                                        <div class="custom-radio-group" role="radiogroup" aria-label="Select bureau">
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-bureau" value="equifax" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">equifax</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-bureau" value="experian" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">experian</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-bureau" value="transunion" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">transunion</span>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tool-section">
-                                    <h3>Severity</h3>
-                                    <div class="severity-buttons">
-                                        <button class="severity-btn high active" data-severity="high">
-                                            <i data-lucide="shield-x"></i> High
-                                        </button>
-                                        <button class="severity-btn medium" data-severity="medium">
-                                            <i data-lucide="triangle-alert"></i> Medium
-                                        </button>
-                                        <button class="severity-btn low" data-severity="low">
-                                            <i data-lucide="circle-alert"></i> Low
-                                        </button>
+                                    
+                                    <!-- Creditor Selector Box -->
+                                    <div class="tagger-selector-box creditor-selector">
+                                        <div class="custom-radio-grid" role="radiogroup" aria-label="Select creditor">
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="AL" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">AL</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="BB" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">BB</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="BK" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">BK</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="BY" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">BY</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="C1" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">C1</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="C2" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">C2</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="CR" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">CR</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="DB" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">DB</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="DL" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">DL</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="HD" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">HD</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="JP" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">JP</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="MF" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">MF</span>
+                                            </label>
+                                            <label class="custom-radio-label">
+                                                <input type="radio" name="tagger-creditor" value="SR" class="custom-radio-input">
+                                                <span class="custom-radio-button"></span>
+                                                <span class="custom-radio-text">SR</span>
+                                            </label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tool-section">
-                                    <h3>Violation Details</h3>
-                                    <input type="text" class="violation-label-input" placeholder="Enter violation label...">
-                                    <input type="text" class="violation-codes-input" placeholder="Enter codes (e.g., §1681e(b))...">
-                                    <button class="save-violation-btn">Save Violation</button>
                                 </div>
                             </div>
                         </div>
