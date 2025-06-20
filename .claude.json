@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "the png select boxes should not stack if there are two pages, they should be in one row",
+          "pastedContents": {}
+        },
+        {
           "display": "i made a mistake, the casing should exactly match the actual png filename e.g. AL-EQ-2024-04-25-P57.png",
           "pastedContents": {}
         },
@@ -477,16 +481,6 @@
               "id": 1,
               "type": "text",
               "content": "🔒 STRICT SCOPE INSTRUCTION\n\nYou are ONLY allowed to perform the following:\n\n1. Identify the orange container currently wrapping the PNG image in Report View and/or VioTagger.\n2. DELETE this container completely from the DOM. It is a mistakenly inserted wrapper from a prior FCRA review block.\n3. DO NOT:\n   - Alter any canvas size, transform, scaling, or coordinate systems\n   - Modify the viobox container or its position\n   - Touch any SNAP POS logic\n   - Modify CSS unless explicitly instructed\n\nClass identifiers that must be preserved:\n- .report-image\n- .tagger-report-image\n- .viobox-container\n- .drawing-canvas\n- .report-canvas-wrapper\n- .tagger-canvas-wrapper\n\nThis action should result in:\n✅ The PNG image being displayed at correct scale inside the canvas\n✅ The vioboxes retaining perfect alignment and position\n✅ No layout distortion, box compression, or scaling bugs\n[I"
-            }
-          }
-        },
-        {
-          "display": "[Pasted text #1 +18 lines]",
-          "pastedContents": {
-            "1": {
-              "id": 1,
-              "type": "text",
-              "content": "Let’s correct the layout in the Report View.\n\nHere’s the problem:\n- In Report View, the PNG image and the `.viobox-container` are both wrapped inside the orange container (likely `.report-canvas-wrapper`)\n- In VioTagger View, only the PNG is wrapped in the orange container — the `.viobox-container` is **outside**, which is correct\n- Because of this, the Report View compresses the vioboxes and they do not align properly\n\n🎯 Your task:\n- In Report View, move `.viobox-container` outside the orange wrapper — place it as a sibling to the PNG, not a child\n- Ensure both are still contained within the same parent 1920×1080 scaling environment\n- The `.viobox-container` must stay aligned using the same `transform: scale(...)` logic\n- After this, both views should match structurally: the orange box wraps the image only, and the overlay is rendered separately but aligned\n\n🛑 Do not delete the orange wrapper if it's used for PNG scaling\n🛑 Do not change VioTagger View\n🛑 Do not affect SNAP POS or responsiveness\n\nThis is a targeted fix to bring Report View into structural alignment with VioTagger and restore viobox positioning.\n[I"
             }
           }
         }

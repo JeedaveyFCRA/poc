@@ -296,7 +296,7 @@
 
 .tagger-report-selectors {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Prevent wrapping - keep in one row */
     gap: 8px;
     justify-content: center;
     margin-top: -12px; /* Match section 1 positioning */
@@ -348,6 +348,10 @@
 @media (max-width: 768px) {
     .tagger-report-container {
         padding: 0 20px;
+    }
+    
+    .tagger-report-selectors {
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
     
     .report-selector {
