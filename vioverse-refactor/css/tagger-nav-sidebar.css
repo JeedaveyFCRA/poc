@@ -114,7 +114,7 @@
     max-width: 100%;
     box-sizing: border-box;
     padding: 0; /* Remove padding to prevent offset */
-    margin-top: -20px; /* Move up by 20px */
+    margin-top: -12px; /* Move up by 12px (was -20px, now +8px down) */
 }
 
 /* Individual Selector Box - matching severity-box style */
@@ -139,8 +139,8 @@
 
 /* Creditor Selector */
 .creditor-selector {
-    flex: 1;
-    min-width: 280px;
+    flex: 0 0 264px; /* Fixed width of 264px on desktop */
+    max-width: 264px;
 }
 
 /* Custom Radio Button Styles */
@@ -278,3 +278,7 @@
     }
 }
 
+/* Fix white container position - move down 6px */
+.sidebar-top-box {
+    top: 56px !important; /* Move down 6px from 50px */
+}
