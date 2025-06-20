@@ -299,7 +299,7 @@
     flex-wrap: nowrap; /* Prevent wrapping - keep in one row */
     gap: 8px;
     justify-content: center;
-    margin-top: -12px; /* Match section 1 positioning */
+    margin-top: -45px; /* Move up 33px more (was -12px, now -45px) */
 }
 
 /* Report Selector Box */
@@ -352,6 +352,7 @@
     
     .tagger-report-selectors {
         flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        margin-top: -30px; /* Proportionally less negative margin on tablet */
     }
     
     .report-selector {
@@ -365,6 +366,10 @@
 @media (max-width: 480px) {
     .tagger-report-container {
         padding: 0 15px;
+    }
+    
+    .tagger-report-selectors {
+        margin-top: -20px; /* Even less negative margin on mobile */
     }
     
     .report-selector {
