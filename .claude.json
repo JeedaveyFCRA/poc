@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "the heading was also supposed to move up as well",
+          "pastedContents": {}
+        },
+        {
           "display": "move the stack up 33 px on a 1920 x 1080 viewport, flex the rest",
           "pastedContents": {}
         },
@@ -472,10 +476,6 @@
         },
         {
           "display": "you put everything back inside. IMPORTANT!: Do this --  create the temporary debug using different color shaded boxes for each item in the report canvas  and the viotagger canvas",
-          "pastedContents": {}
-        },
-        {
-          "display": "1. In the report view, the vioboxes are still inside the orange wrapper. they need to be in the same places as the png now. in the viotagger view, the png is still inside the orange container (the violation boxes are the correct size and position in the viotagger canvas)",
           "pastedContents": {}
         }
       ],
