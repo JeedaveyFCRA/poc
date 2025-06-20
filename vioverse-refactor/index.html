@@ -25,6 +25,9 @@
     <!-- Debug styles disabled -->
     <!-- <link rel="stylesheet" href="css/debug-styles.css"> -->
     
+    <!-- VioTagger Dynamic Script -->
+    <script src="js/viotagger-dynamic.js" defer></script>
+    
     <!-- Inline style overrides for violation details -->
 
 
@@ -685,6 +688,16 @@
                                             </label>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Section 2: Report Page Selection (Initially Hidden) -->
+                            <div class="tagger-report-section" id="tagger-report-section" style="display: none;">
+                                <h3 class="tagger-section-heading"><span class="heading-number">2.</span> select a report page & date</h3>
+                                
+                                <!-- Dynamic Report Selectors Container -->
+                                <div class="tagger-report-container" id="tagger-report-container">
+                                    <!-- Report page boxes will be dynamically inserted here -->
                                 </div>
                             </div>
                         </div>

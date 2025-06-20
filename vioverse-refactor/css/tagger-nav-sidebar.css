@@ -282,3 +282,93 @@
 .sidebar-top-box {
     top: 56px !important; /* Move down 6px from 50px */
 }
+
+/* Section 2: Report Page Selection */
+.tagger-report-section {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+/* Report Selectors Container */
+.tagger-report-container {
+    padding: 0 29px; /* Match section 1 padding */
+}
+
+.tagger-report-selectors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: -12px; /* Match section 1 positioning */
+}
+
+/* Report Selector Box */
+.report-selector {
+    flex: 0 0 178px; /* Fixed width */
+    width: 178px;
+    height: 47px;
+    padding: 12px;
+}
+
+/* Report Selector Label */
+.report-selector-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    gap: 5.6px;
+    height: 100%;
+}
+
+/* Report Filename Text - matching bureau label style */
+.report-filename-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400; /* Regular, not bold */
+    font-size: 8pt; /* Match bureau label size */
+    color: #253541;
+    /* No text-transform - show exact filename casing */
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* No Reports Message */
+.no-reports-message {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 10pt;
+    color: #5c646d;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tagger-report-container {
+        padding: 0 20px;
+    }
+    
+    .report-selector {
+        flex: 1 1 auto; /* Flexible width on tablet */
+        width: 100%;
+        max-width: 100%;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tagger-report-container {
+        padding: 0 15px;
+    }
+    
+    .report-selector {
+        height: 40px;
+        padding: 10px;
+    }
+    
+    .report-filename-text {
+        font-size: 7pt; /* Slightly smaller on mobile */
+    }
+}
