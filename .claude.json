@@ -25,6 +25,10 @@
       "allowedTools": [],
       "history": [
         {
+          "display": "move the png boxes up 6 px",
+          "pastedContents": {}
+        },
+        {
           "display": "the heading was also supposed to move up as well",
           "pastedContents": {}
         },
@@ -472,10 +476,6 @@
         },
         {
           "display": "My question is, on the report canvas you have certain colors selected, and in the viotagger view, you have different colors selected. If they were matching identical, wouldn't they be the same color in each one? So does that mean that the boxes aren't the same? Please explain in detain",
-          "pastedContents": {}
-        },
-        {
-          "display": "you put everything back inside. IMPORTANT!: Do this --  create the temporary debug using different color shaded boxes for each item in the report canvas  and the viotagger canvas",
           "pastedContents": {}
         }
       ],

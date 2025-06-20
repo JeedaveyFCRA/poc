@@ -299,7 +299,7 @@
     flex-wrap: nowrap; /* Prevent wrapping - keep in one row */
     gap: 8px;
     justify-content: center;
-    margin-top: -12px; /* Match section 1 positioning */
+    margin-top: -18px; /* Move up 6px more (was -12px, now -18px) */
 }
 
 /* Report Selector Box */
