@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse Universal Design System - Test Implementation</title>
+    
+    <!-- Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Adobe Fonts for Bernino Sans (if you have the typekit ID, add it here) -->
+    <!-- <link rel="stylesheet" href="https://use.typekit.net/YOUR_TYPEKIT_ID.css"> -->
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="layout-container">
+        <!-- Sidebar Container (dark blue background) -->
+        <aside class="sidebar">
+            <!-- WBC - Whitebox Container -->
+            <div class="WBC">
+                <!-- SHD - Sidebar Heading with Number -->
+                <h2 class="SHD SHD--numbered">
+                    <span class="number">1.</span>
+                    <span>select bureau & creditor to begin</span>
+                </h2>
+                
+                <!-- GRB - Generic Rounded Box for Bureau Selection -->
+                <div class="GRB">
+                    <div class="radio-group" role="radiogroup" aria-labelledby="bureau-heading">
+                        <h3 id="bureau-heading" class="visually-hidden">Select Bureau</h3>
+                        
+                        <!-- Radio Button Option 1 -->
+                        <label class="radio-item">
+                            <input type="radio" name="bureau" value="equifax" class="RDB" checked>
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">Equifax</span>
+                        </label>
+                        
+                        <!-- Radio Button Option 2 -->
+                        <label class="radio-item">
+                            <input type="radio" name="bureau" value="experian" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">Experian</span>
+                        </label>
+                        
+                        <!-- Radio Button Option 3 -->
+                        <label class="radio-item">
+                            <input type="radio" name="bureau" value="transunion" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">TransUnion</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- GRB - Generic Rounded Box for Creditor Selection (5-5-3 grid layout) -->
+                <div class="GRB">
+                    <div class="radio-group radio-group--creditors" role="radiogroup" aria-labelledby="creditor-heading">
+                        <h3 id="creditor-heading" class="visually-hidden">Select Creditor</h3>
+                        
+                        <!-- First row of 5 -->
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="al" class="RDB" checked>
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">AL</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="bb" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">BB</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="bk" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">BK</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="ca" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">CA</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="ch" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">CH</span>
+                        </label>
+                        
+                        <!-- Second row of 5 -->
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="ci" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">CI</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="cs" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">CS</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="dc" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">DC</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="jp" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">JP</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="pf" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">PF</span>
+                        </label>
+                        
+                        <!-- Third row of 3 -->
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="sc" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">SC</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="td" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">TD</span>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="creditor" value="wf" class="RDB">
+                            <span class="RDB-visual" aria-hidden="true"></span>
+                            <span class="LBL">WF</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- SHD - Second Sidebar Heading -->
+                <h2 class="SHD SHD--numbered">
+                    <span class="number">2.</span>
+                    <span>select a report page & date</span>
+                </h2>
+                
+                <!-- Additional GRB for future content -->
+                <div class="GRB">
+                    <div style="padding: var(--space-md); text-align: center; color: var(--color-gray-500);">
+                        <!-- Content for report selection would go here -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content Area (placeholder for canvas/panel) -->
+        <main class="main-content hide-mobile">
+            <div style="padding: var(--space-xl); background: var(--color-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                <h1 style="font-family: var(--font-primary); font-size: var(--text-2xl); color: var(--color-navy-800); margin-bottom: var(--space-md);">
+                    VioVerse Universal Design System
+                </h1>
+                <p style="color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
+                    This test implementation demonstrates the responsive, token-based component system.
+                    Resize your browser to see how the layout adapts from mobile to desktop views.
+                </p>
+                <br>
+                <p style="color: var(--color-text-secondary); line-height: var(--leading-relaxed);">
+                    <strong>Key Features:</strong>
+                </p>
+                <ul style="color: var(--color-text-secondary); line-height: var(--leading-relaxed); padding-left: var(--space-xl);">
+                    <li>Fluid typography using clamp()</li>
+                    <li>Responsive spacing that scales with viewport</li>
+                    <li>Mobile-first approach with proper stacking</li>
+                    <li>Token-based design for consistency</li>
+                    <li>Accessible form controls</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Optional: Add interactivity -->
+    <script>
+        // Simple logging to demonstrate radio button functionality
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                console.log(`Selected ${e.target.name}: ${e.target.value}`);
+            });
+        });
+        
+        // Add visual feedback for focus navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-nav');
+            }
+        });
+        
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-nav');
+        });
+    </script>
+    
+    <style>
+        /* Additional styles for keyboard navigation */
+        body.keyboard-nav *:focus {
+            outline: 2px solid var(--color-navy-900) !important;
+            outline-offset: 2px !important;
+        }
+    </style>
+</body>
+</html>

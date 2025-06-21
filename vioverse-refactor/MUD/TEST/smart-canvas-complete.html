@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse Smart Canvas - Complete Interface</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* VioVerse Brand Colors */
+            --primary: #f26419;
+            --primary-dark: #e05410;
+            --secondary: #6366F1;
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --success: #10b981;
+            
+            /* Grays from current site */
+            --dark: #253541;
+            --gray-900: #1a1a1a;
+            --gray-800: #2d2d2d;
+            --gray-700: #404040;
+            --gray-600: #525252;
+            --gray-500: #737373;
+            --gray-400: #b7b5b3;
+            --gray-300: #d4d4d4;
+            --gray-200: #e5e5e5;
+            --gray-100: #f5f5f5;
+            --gray-50: #fafafa;
+            --white: #ffffff;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            --radius: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-full: 9999px;
+            
+            --transition: all 0.2s ease;
+            --transition-fast: all 0.15s ease;
+            
+            /* Layout dimensions for 1920x1080 */
+            --sidebar-width: 450px;
+            --canvas-width: 810px;
+            --panel-width: 380px;
+            --header-height: 80px;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-900);
+            overflow: hidden;
+            height: 100vh;
+            text-transform: lowercase;
+        }
+        
+        /* Main Layout Grid */
+        .app-container {
+            display: grid;
+            grid-template-rows: var(--header-height) 1fr;
+            grid-template-columns: var(--sidebar-width) var(--canvas-width) 1fr;
+            height: 100vh;
+            width: 100vw;
+            max-width: 1920px;
+            margin: 0 auto;
+            background: var(--gray-50);
+        }
+        
+        /* Header spans all columns */
+        .app-header {
+            grid-column: 1 / -1;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            gap: 2rem;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: lowercase;
+        }
+        
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            pointer-events: none;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.625rem 1rem 0.625rem 3rem;
+            font-size: 0.875rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            outline: none;
+            transition: var(--transition);
+            font-family: inherit;
+            background: var(--gray-50);
+            text-transform: lowercase;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(242, 100, 25, 0.1);
+            background: var(--white);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-header {
+            padding: 0.625rem 1.25rem;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: lowercase;
+        }
+        
+        .btn-header:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-300);
+            color: var(--primary);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: var(--dark);
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .selection-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--white);
+        }
+        
+        .selection-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            text-transform: lowercase;
+        }
+        
+        /* Date Navigation */
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            background: var(--gray-50);
+            padding: 0.5rem;
+            border-radius: var(--radius);
+        }
+        
+        .date-btn {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray-600);
+            transition: var(--transition);
+            border-radius: var(--radius);
+        }
+        
+        .date-btn:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+        
+        .current-date {
+            font-weight: 600;
+            color: var(--gray-900);
+            text-transform: lowercase;
+        }
+        
+        /* Bureau Selector */
+        .bureau-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .bureau-pill {
+            padding: 0.625rem;
+            border: 2px solid transparent;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            text-transform: lowercase;
+        }
+        
+        .bureau-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .bureau-pill.active {
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .bureau-pill.eq { color: var(--danger); }
+        .bureau-pill.eq.active { background: var(--danger); border-color: var(--danger); }
+        
+        .bureau-pill.ex { color: var(--primary); }
+        .bureau-pill.ex.active { background: var(--primary); border-color: var(--primary); }
+        
+        .bureau-pill.tu { color: var(--warning); }
+        .bureau-pill.tu.active { background: var(--warning); border-color: var(--warning); }
+        
+        /* Creditor Grid */
+        .creditor-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .creditor-grid-row {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+        }
+        
+        .creditor-grid-row.last {
+            grid-template-columns: repeat(3, 1fr);
+            margin: 0 auto;
+            width: 60%;
+        }
+        
+        .creditor-card {
+            aspect-ratio: 1;
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase; /* Keep creditor codes uppercase */
+        }
+        
+        .creditor-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .creditor-card.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            transform: scale(0.95);
+        }
+        
+        /* Canvas Area */
+        .canvas-container {
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .canvas-header {
+            padding: 1rem 1.5rem;
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .canvas-title {
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-transform: lowercase;
+        }
+        
+        .canvas-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .canvas-btn {
+            padding: 0.5rem 0.75rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: lowercase;
+        }
+        
+        .canvas-btn:hover {
+            background: var(--gray-50);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .canvas-content {
+            flex: 1;
+            position: relative;
+            overflow: auto;
+            background: var(--gray-50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .report-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .canvas-placeholder {
+            text-align: center;
+            color: var(--gray-400);
+            text-transform: lowercase;
+        }
+        
+        .canvas-placeholder i {
+            margin-bottom: 1rem;
+        }
+        
+        /* Right Panel */
+        .right-panel {
+            background: var(--white);
+            border-left: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .panel-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .panel-tab {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: var(--transition);
+            position: relative;
+            text-transform: lowercase;
+        }
+        
+        .panel-tab:hover {
+            background: var(--gray-50);
+        }
+        
+        .panel-tab.active {
+            color: var(--primary);
+        }
+        
+        .panel-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .panel-content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        /* Recent Items */
+        .recent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .recent-item {
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .recent-item:hover {
+            background: #fff3ed;
+            transform: translateX(4px);
+        }
+        
+        .recent-info {
+            flex: 1;
+        }
+        
+        .recent-combo {
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .recent-combo .creditor-code {
+            text-transform: uppercase;
+        }
+        
+        .recent-date {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            text-transform: lowercase;
+        }
+        
+        .bureau-badge {
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+        
+        .bureau-badge.eq { background: var(--danger); }
+        .bureau-badge.ex { background: var(--primary); }
+        .bureau-badge.tu { background: var(--warning); }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid var(--gray-200);
+            padding: 0.5rem;
+            z-index: 200;
+        }
+        
+        .mobile-nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .mobile-nav-tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: var(--gray-50);
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: var(--transition);
+            text-transform: lowercase;
+        }
+        
+        .mobile-nav-tab.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1600px) {
+            :root {
+                --sidebar-width: 380px;
+                --canvas-width: 700px;
+                --panel-width: 320px;
+            }
+        }
+        
+        @media (max-width: 1400px) {
+            :root {
+                --sidebar-width: 350px;
+                --canvas-width: 600px;
+                --panel-width: 300px;
+            }
+            
+            .creditor-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .app-container {
+                grid-template-columns: var(--sidebar-width) 1fr;
+            }
+            
+            .right-panel {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: var(--header-height) 1fr 60px;
+            }
+            
+            .sidebar,
+            .canvas-container,
+            .right-panel {
+                display: none;
+            }
+            
+            .sidebar.active,
+            .canvas-container.active,
+            .right-panel.active {
+                display: flex;
+                grid-column: 1;
+                grid-row: 2;
+            }
+            
+            .mobile-nav {
+                display: block;
+                grid-column: 1;
+                grid-row: 3;
+            }
+            
+            .creditor-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .creditor-grid-row.last {
+                width: 100%;
+            }
+            
+            .selection-card {
+                margin: 0;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--gray-300);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Selection Animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.3s ease;
+        }
+        
+        /* Zoom Controls */
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            padding: 0.25rem;
+            border-radius: var(--radius);
+        }
+        
+        .zoom-btn {
+            padding: 0.375rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .zoom-btn:hover:not(:disabled) {
+            background: var(--gray-50);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .zoom-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .zoom-level {
+            min-width: 50px;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">vioverse</div>
+            <div class="search-container">
+                <i data-feather="search" class="search-icon"></i>
+                <input type="text" class="search-input" placeholder="quick search: type creditor, bureau, or date..." id="searchInput">
+            </div>
+            <div class="header-actions">
+                <button class="btn-header">
+                    <i data-feather="clock" size="16"></i>
+                    recent
+                </button>
+                <button class="btn-header">
+                    <i data-feather="star" size="16"></i>
+                    saved
+                </button>
+                <button class="btn-header">
+                    <i data-feather="settings" size="16"></i>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar active" id="sidebar">
+            <div class="selection-card">
+                <h2 class="selection-title">select report</h2>
+                
+                <!-- Date Navigation -->
+                <div class="date-nav">
+                    <button class="date-btn" onclick="changeMonth(-1)">
+                        <i data-feather="chevron-left" size="20"></i>
+                    </button>
+                    <div class="current-date" id="currentDate">april 2024</div>
+                    <button class="date-btn" onclick="changeMonth(1)">
+                        <i data-feather="chevron-right" size="20"></i>
+                    </button>
+                </div>
+                
+                <!-- Bureau Selector -->
+                <div class="bureau-selector">
+                    <button class="bureau-pill eq active" onclick="selectBureau('EQ', this)">
+                        equifax
+                    </button>
+                    <button class="bureau-pill ex" onclick="selectBureau('EX', this)">
+                        experian
+                    </button>
+                    <button class="bureau-pill tu" onclick="selectBureau('TU', this)">
+                        transunion
+                    </button>
+                </div>
+                
+                <!-- Creditor Grid -->
+                <div class="creditor-grid" id="creditorGrid">
+                    <!-- First row of 5 -->
+                    <div class="creditor-card" onclick="selectCreditor('AL', this)"><span>AL</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('BB', this)"><span>BB</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('BK', this)"><span>BK</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('CA', this)"><span>CA</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('CH', this)"><span>CH</span></div>
+                    
+                    <!-- Second row of 5 -->
+                    <div class="creditor-card" onclick="selectCreditor('CI', this)"><span>CI</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('CS', this)"><span>CS</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('DC', this)"><span>DC</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('JP', this)"><span>JP</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('PF', this)"><span>PF</span></div>
+                </div>
+                
+                <!-- Last row of 3 (centered) -->
+                <div class="creditor-grid-row last" style="margin-top: 0.5rem;">
+                    <div class="creditor-card" onclick="selectCreditor('SC', this)"><span>SC</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('TD', this)"><span>TD</span></div>
+                    <div class="creditor-card" onclick="selectCreditor('WF', this)"><span>WF</span></div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="selection-card" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);">
+                <div style="color: white; font-size: 0.875rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="opacity: 0.7;">total reports:</span>
+                        <span style="font-weight: 600;">351</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="opacity: 0.7;">this month:</span>
+                        <span style="font-weight: 600;">39</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="opacity: 0.7;">last viewed:</span>
+                        <span style="font-weight: 600; text-transform: uppercase;">JP-EQ</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Canvas Area -->
+        <main class="canvas-container" id="canvasContainer">
+            <div class="canvas-header">
+                <div class="canvas-title">
+                    <span id="canvasTitle">select a report to view</span>
+                    <span class="loading" id="loadingSpinner" style="display: none;"></span>
+                </div>
+                <div class="canvas-controls">
+                    <div class="zoom-controls">
+                        <button class="zoom-btn" onclick="adjustZoom(-10)">
+                            <i data-feather="minus" size="16"></i>
+                        </button>
+                        <span class="zoom-level" id="zoomLevel">100%</span>
+                        <button class="zoom-btn" onclick="adjustZoom(10)">
+                            <i data-feather="plus" size="16"></i>
+                        </button>
+                    </div>
+                    <button class="canvas-btn">
+                        <i data-feather="maximize" size="16"></i>
+                        fullscreen
+                    </button>
+                    <button class="canvas-btn">
+                        <i data-feather="download" size="16"></i>
+                        export
+                    </button>
+                </div>
+            </div>
+            <div class="canvas-content" id="canvasContent">
+                <div class="canvas-placeholder">
+                    <i data-feather="file-text" size="64" style="color: var(--gray-300);"></i>
+                    <p>select a creditor and bureau to load the report</p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Right Panel -->
+        <aside class="right-panel" id="rightPanel">
+            <div class="panel-tabs">
+                <button class="panel-tab active" onclick="switchTab('recent', this)">recent</button>
+                <button class="panel-tab" onclick="switchTab('violations', this)">violations</button>
+                <button class="panel-tab" onclick="switchTab('notes', this)">notes</button>
+            </div>
+            <div class="panel-content" id="panelContent">
+                <div class="recent-list">
+                    <div class="recent-item" onclick="quickSelect('JP', 'EQ', 'april 2024')">
+                        <div class="recent-info">
+                            <div class="recent-combo">
+                                <span class="creditor-code">JP</span> <span class="bureau-badge eq">EQ</span>
+                            </div>
+                            <div class="recent-date">april 2024 • 2 hours ago</div>
+                        </div>
+                        <i data-feather="chevron-right" size="16"></i>
+                    </div>
+                    <div class="recent-item" onclick="quickSelect('AL', 'EX', 'april 2024')">
+                        <div class="recent-info">
+                            <div class="recent-combo">
+                                <span class="creditor-code">AL</span> <span class="bureau-badge ex">EX</span>
+                            </div>
+                            <div class="recent-date">april 2024 • yesterday</div>
+                        </div>
+                        <i data-feather="chevron-right" size="16"></i>
+                    </div>
+                    <div class="recent-item" onclick="quickSelect('BK', 'TU', 'march 2024')">
+                        <div class="recent-info">
+                            <div class="recent-combo">
+                                <span class="creditor-code">BK</span> <span class="bureau-badge tu">TU</span>
+                            </div>
+                            <div class="recent-date">march 2024 • 3 days ago</div>
+                        </div>
+                        <i data-feather="chevron-right" size="16"></i>
+                    </div>
+                    <div class="recent-item" onclick="quickSelect('CA', 'EQ', 'march 2024')">
+                        <div class="recent-info">
+                            <div class="recent-combo">
+                                <span class="creditor-code">CA</span> <span class="bureau-badge eq">EQ</span>
+                            </div>
+                            <div class="recent-date">march 2024 • last week</div>
+                        </div>
+                        <i data-feather="chevron-right" size="16"></i>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-tabs">
+                <button class="mobile-nav-tab active" onclick="switchMobileView('sidebar')">
+                    <i data-feather="menu" size="20"></i>
+                </button>
+                <button class="mobile-nav-tab" onclick="switchMobileView('canvas')">
+                    <i data-feather="file-text" size="20"></i>
+                </button>
+                <button class="mobile-nav-tab" onclick="switchMobileView('panel')">
+                    <i data-feather="clock" size="20"></i>
+                </button>
+            </div>
+        </nav>
+    </div>
+    
+    <script>
+        // Initialize Feather icons
+        feather.replace();
+        
+        // Data
+        const bureaus = { 'EQ': 'equifax', 'EX': 'experian', 'TU': 'transunion' };
+        const months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+        
+        // State
+        let currentMonthIndex = 3; // April
+        let currentYear = 2024;
+        let selectedCreditor = null;
+        let selectedBureau = 'EQ';
+        let selectedDate = 'april 2024';
+        let currentZoom = 100;
+        
+        // Sample PNG URL (replace with actual URL)
+        const sampleReportUrl = '/home/avid_arrajeedavey/vioverse-refactor/MUD/OTHER/viotagger-palcement.png';
+        
+        // Select creditor
+        function selectCreditor(creditor, element) {
+            // Remove previous selection
+            document.querySelectorAll('.creditor-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection
+            element.classList.add('selected', 'pulse');
+            selectedCreditor = creditor;
+            
+            // Update display
+            updateCanvas();
+            
+            // Remove pulse animation
+            setTimeout(() => {
+                element.classList.remove('pulse');
+            }, 300);
+            
+            // On mobile, switch to canvas view after selection
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    switchMobileView('canvas');
+                }, 300);
+            }
+        }
+        
+        // Select bureau
+        function selectBureau(bureau, element) {
+            // Remove previous selection
+            document.querySelectorAll('.bureau-pill').forEach(pill => {
+                pill.classList.remove('active');
+            });
+            
+            // Add selection
+            element.classList.add('active');
+            selectedBureau = bureau;
+            
+            // Update display
+            if (selectedCreditor) {
+                updateCanvas();
+            }
+        }
+        
+        // Change month
+        function changeMonth(direction) {
+            currentMonthIndex += direction;
+            
+            if (currentMonthIndex > 11) {
+                currentMonthIndex = 0;
+                currentYear++;
+            } else if (currentMonthIndex < 0) {
+                currentMonthIndex = 11;
+                currentYear--;
+            }
+            
+            selectedDate = `${months[currentMonthIndex]} ${currentYear}`;
+            document.getElementById('currentDate').textContent = selectedDate;
+            
+            if (selectedCreditor) {
+                updateCanvas();
+            }
+        }
+        
+        // Update canvas
+        function updateCanvas() {
+            const canvasContent = document.getElementById('canvasContent');
+            const canvasTitle = document.getElementById('canvasTitle');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            if (selectedCreditor && selectedBureau && selectedDate) {
+                // Show loading
+                loadingSpinner.style.display = 'inline-block';
+                canvasTitle.innerHTML = `loading <span style="text-transform: uppercase;">${selectedCreditor}-${selectedBureau}</span>-${selectedDate}...`;
+                
+                // Simulate loading
+                setTimeout(() => {
+                    loadingSpinner.style.display = 'none';
+                    canvasTitle.innerHTML = `<span style="text-transform: uppercase;">${selectedCreditor}</span> - ${bureaus[selectedBureau]} - ${selectedDate}`;
+                    
+                    // Load actual image
+                    canvasContent.innerHTML = `
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: auto;">
+                            <img src="${sampleReportUrl}" 
+                                 alt="Credit Report" 
+                                 class="report-image" 
+                                 id="reportImage"
+                                 style="transform: scale(${currentZoom / 100});"
+                                 onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%271000%27 viewBox=%270 0 800 1000%27%3E%3Crect width=%27800%27 height=%271000%27 fill=%27white%27/%3E%3Ctext x=%27400%27 y=%2750%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-size=%2724%27 font-weight=%27bold%27%3E${selectedCreditor} - ${bureaus[selectedBureau]}%3C/text%3E%3Ctext x=%27400%27 y=%2780%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-size=%2718%27 fill=%27gray%27%3E${selectedDate} - Page 1%3C/text%3E%3Crect x=%2750%27 y=%27120%27 width=%27700%27 height=%27850%27 fill=%27none%27 stroke=%27%23e5e7eb%27 stroke-width=%272%27/%3E%3C/svg%3E';">
+                        </div>
+                    `;
+                    
+                    // Add to recent
+                    addToRecent(selectedCreditor, selectedBureau, selectedDate);
+                }, 500);
+            }
+        }
+        
+        // Quick select from recent
+        function quickSelect(creditor, bureau, date) {
+            // Update date if different
+            const [month, year] = date.split(' ');
+            currentMonthIndex = months.indexOf(month);
+            currentYear = parseInt(year);
+            selectedDate = date;
+            document.getElementById('currentDate').textContent = selectedDate;
+            
+            // Update bureau
+            selectedBureau = bureau;
+            document.querySelectorAll('.bureau-pill').forEach(pill => {
+                pill.classList.remove('active');
+                if (pill.classList.contains(bureau.toLowerCase())) {
+                    pill.classList.add('active');
+                }
+            });
+            
+            // Update creditor
+            selectedCreditor = creditor;
+            document.querySelectorAll('.creditor-card').forEach(card => {
+                card.classList.remove('selected');
+                if (card.textContent === creditor) {
+                    card.classList.add('selected');
+                }
+            });
+            
+            updateCanvas();
+            
+            // On mobile, switch to canvas view
+            if (window.innerWidth <= 768) {
+                switchMobileView('canvas');
+            }
+        }
+        
+        // Add to recent
+        function addToRecent(creditor, bureau, date) {
+            console.log(`added to recent: ${creditor}-${bureau}-${date}`);
+        }
+        
+        // Zoom controls
+        function adjustZoom(delta) {
+            currentZoom = Math.max(50, Math.min(200, currentZoom + delta));
+            document.getElementById('zoomLevel').textContent = `${currentZoom}%`;
+            
+            const image = document.getElementById('reportImage');
+            if (image) {
+                image.style.transform = `scale(${currentZoom / 100})`;
+            }
+        }
+        
+        // Tab switching
+        function switchTab(tab, element) {
+            document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            
+            const content = document.getElementById('panelContent');
+            if (tab === 'violations') {
+                content.innerHTML = `
+                    <div style="color: var(--gray-400); text-align: center; padding: 2rem;">
+                        <i data-feather="alert-circle" size="48" style="margin-bottom: 1rem;"></i>
+                        <p>no violations found for this report</p>
+                    </div>
+                `;
+                feather.replace();
+            } else if (tab === 'notes') {
+                content.innerHTML = `
+                    <div style="color: var(--gray-400); text-align: center; padding: 2rem;">
+                        <i data-feather="edit-3" size="48" style="margin-bottom: 1rem;"></i>
+                        <p>no notes added yet</p>
+                        <button class="btn-header" style="margin-top: 1rem;">add note</button>
+                    </div>
+                `;
+                feather.replace();
+            }
+        }
+        
+        // Mobile view switching
+        function switchMobileView(view) {
+            // Hide all
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('canvasContainer').classList.remove('active');
+            document.getElementById('rightPanel').classList.remove('active');
+            
+            // Update nav tabs
+            document.querySelectorAll('.mobile-nav-tab').forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected
+            if (view === 'sidebar') {
+                document.getElementById('sidebar').classList.add('active');
+                document.querySelectorAll('.mobile-nav-tab')[0].classList.add('active');
+            } else if (view === 'canvas') {
+                document.getElementById('canvasContainer').classList.add('active');
+                document.querySelectorAll('.mobile-nav-tab')[1].classList.add('active');
+            } else if (view === 'panel') {
+                document.getElementById('rightPanel').classList.add('active');
+                document.querySelectorAll('.mobile-nav-tab')[2].classList.add('active');
+            }
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            
+            // Filter creditors
+            document.querySelectorAll('.creditor-card').forEach(card => {
+                const creditor = card.textContent.toLowerCase();
+                if (creditor.includes(query)) {
+                    card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto';
+                } else {
+                    card.style.opacity = '0.3';
+                    card.style.pointerEvents = 'none';
+                }
+            });
+            
+            // Reset if empty
+            if (!query) {
+                document.querySelectorAll('.creditor-card').forEach(card => {
+                    card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto';
+                });
+            }
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changeMonth(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeMonth(1);
+            } else if (e.key === '1') {
+                document.querySelector('.bureau-pill.eq').click();
+            } else if (e.key === '2') {
+                document.querySelector('.bureau-pill.ex').click();
+            } else if (e.key === '3') {
+                document.querySelector('.bureau-pill.tu').click();
+            } else if (e.key === 'Escape') {
+                // Clear selection
+                selectedCreditor = null;
+                document.querySelectorAll('.creditor-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                document.getElementById('canvasContent').innerHTML = `
+                    <div class="canvas-placeholder">
+                        <i data-feather="file-text" size="64" style="color: var(--gray-300);"></i>
+                        <p>select a creditor and bureau to load the report</p>
+                    </div>
+                `;
+                feather.replace();
+            }
+        });
+    </script>
+</body>
+</html>

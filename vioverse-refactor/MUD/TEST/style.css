@@ -1,0 +1,295 @@
+/* ===================================
+   Universal Design System - Component Styles
+   =================================== */
+
+@import url('tokens.css');
+
+/* ========== RESET & BASE ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-secondary);
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  min-height: 100vh;
+}
+
+/* ========== LAYOUT CONTAINER ========== */
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  padding: var(--space-md);
+  gap: var(--space-lg);
+}
+
+/* Tablet: Side-by-side layout */
+@media (min-width: 768px) {
+  .layout-container {
+    flex-direction: row;
+    padding: var(--space-xl);
+    gap: var(--space-xl);
+  }
+}
+
+/* Desktop: Optimal spacing */
+@media (min-width: 1024px) {
+  .layout-container {
+    padding: var(--space-2xl);
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+}
+
+/* ========== SIDEBAR CONTAINER ========== */
+.sidebar {
+  width: 100%;
+  max-width: var(--width-sidebar);
+  background-color: #253541; /* Dark blue sidebar background */
+  padding: clamp(0.75rem, 1.5vw, 1rem);
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: var(--width-sidebar);
+    flex-shrink: 0;
+  }
+}
+
+/* ========== WBC - WHITEBOX CONTAINER ========== */
+.WBC {
+  width: 100%;
+  max-width: var(--width-whitebox);
+  background-color: #FFFFFF; /* White background */
+  border: var(--WBC-border-width) solid var(--WBC-border-color);
+  border-radius: var(--WBC-radius);
+  padding: var(--WBC-padding);
+  margin: 0 auto;
+  
+  /* Soft shadow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  
+  /* Content spacing and centering */
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: center;
+}
+
+/* All content inside WBC should be full width but centered */
+.WBC > * {
+  width: 100%;
+  max-width: calc(100% - var(--space-lg));
+}
+
+@media (min-width: 768px) {
+  .WBC {
+    padding: calc(var(--WBC-padding) * 1.5);
+  }
+}
+
+/* ========== SHD - SIDEBAR HEADING ========== */
+.SHD {
+  font-family: 'Bernino Sans Compressed Extrabold', Arial Black, sans-serif;
+  font-size: var(--SHD-font-size);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  color: var(--color-navy-800); /* Dark text on white background */
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+  text-align: left;
+  display: flex;
+  align-items: baseline; /* Ensures baseline alignment */
+  gap: 0.25em;
+}
+
+/* First heading in container */
+.SHD:first-child {
+  margin-top: 0;
+}
+
+/* Numbered variant */
+.SHD--numbered .number {
+  color: var(--SHD-number-color);
+  font-family: inherit; /* Same font as heading */
+  font-weight: inherit;
+  flex-shrink: 0;
+}
+
+/* ========== GRB - GENERIC ROUNDED BOX ========== */
+.GRB {
+  width: 100%;
+  background-color: #d8d7d6; /* 30% tint of #b7b5b3 */
+  border-radius: var(--GRB-radius);
+  padding: clamp(0.75rem, 1.5vw, 1rem); /* Reduced padding */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  
+  /* Content layout */
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.5vw, 0.5rem); /* Reduced gap */
+}
+
+@media (min-width: 768px) {
+  .GRB {
+    padding: clamp(1rem, 2vw, 1.25rem);
+  }
+}
+
+/* ========== RADIO GROUP CONTAINER ========== */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 0.5vw, 0.375rem); /* Tighter spacing */
+}
+
+/* Special layout for creditor radio group - 3 columns */
+.radio-group--creditors {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+}
+
+/* Adjust grid for 5-5-3 layout */
+@media (min-width: 480px) {
+  .radio-group--creditors {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  /* Make last 3 items span appropriately */
+  .radio-group--creditors .radio-item:nth-child(11),
+  .radio-group--creditors .radio-item:nth-child(12),
+  .radio-group--creditors .radio-item:nth-child(13) {
+    grid-column: span 1;
+  }
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: var(--RDB-gap);
+  cursor: pointer;
+  padding: clamp(0.125rem, 0.25vw, 0.25rem) clamp(0.25rem, 0.5vw, 0.5rem);
+  transition: background-color var(--transition-fast);
+  border-radius: var(--radius-sm);
+}
+
+.radio-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* ========== RDB - RADIO BUTTON CIRCLE ========== */
+.RDB {
+  /* Hide native input */
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.RDB-visual {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--RDB-size);
+  height: var(--RDB-size);
+  min-width: var(--RDB-size);
+  border: 2.5px solid var(--color-navy-900); /* 2pt dark blue border */
+  border-radius: var(--radius-full);
+  background-color: #FFFFFF; /* White fill by default */
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+/* Checked state - red fill */
+.RDB:checked + .RDB-visual {
+  background-color: var(--RDB-checked-bg); /* Red fill when selected */
+}
+
+/* Focus state for accessibility */
+.RDB:focus + .RDB-visual {
+  outline: 2px solid var(--color-navy-900);
+  outline-offset: 2px;
+}
+
+/* ========== LBL - LABEL TEXT ========== */
+.LBL {
+  font-family: var(--LBL-font-family);
+  font-size: var(--LBL-font-size);
+  font-weight: var(--weight-regular);
+  line-height: var(--LBL-line-height);
+  color: var(--LBL-color);
+  user-select: none;
+  flex: 1;
+}
+
+/* Smaller labels for creditor codes */
+.radio-group--creditors .LBL {
+  font-size: clamp(0.875rem, 1.6vw, 1rem);
+  font-weight: var(--weight-medium);
+}
+
+/* ========== UTILITY CLASSES ========== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========== RESPONSIVE UTILITIES ========== */
+/* Hide on mobile */
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none;
+  }
+}
+
+/* Hide on tablet and up */
+@media (min-width: 768px) {
+  .hide-tablet-up {
+    display: none;
+  }
+}
+
+/* ========== BERNINO SANS FONT SETUP ========== */
+/* Adobe Fonts integration - fallback to Arial Black */
+@font-face {
+  font-family: 'Bernino Sans Compressed Extrabold';
+  src: local('Arial Black'), local('Arial-Black');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+  .layout-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    background-color: transparent;
+    break-inside: avoid;
+  }
+  
+  .WBC {
+    border-color: var(--color-gray-500);
+    page-break-inside: avoid;
+  }
+}

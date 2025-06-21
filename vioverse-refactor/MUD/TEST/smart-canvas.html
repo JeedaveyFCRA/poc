@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VioVerse Smart Canvas - Revolutionary Selection System</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --secondary: #6366F1;
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --dark: #1E293B;
+            --gray-900: #0F172A;
+            --gray-800: #1E293B;
+            --gray-700: #334155;
+            --gray-600: #475569;
+            --gray-500: #64748B;
+            --gray-400: #94A3B8;
+            --gray-300: #CBD5E1;
+            --gray-200: #E2E8F0;
+            --gray-100: #F1F5F9;
+            --gray-50: #F8FAFC;
+            --white: #FFFFFF;
+            
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            --radius: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-full: 9999px;
+            
+            --transition: all 0.2s ease;
+            --transition-fast: all 0.15s ease;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+        }
+        
+        /* Header Section */
+        .header {
+            background: var(--white);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .header-top {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .search-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            pointer-events: none;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            font-size: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            outline: none;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+        }
+        
+        .search-input::placeholder {
+            color: var(--gray-400);
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-icon {
+            padding: 0.75rem;
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-icon:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--gray-50);
+        }
+        
+        /* Date Navigation */
+        .date-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .date-btn {
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray-400);
+            transition: var(--transition);
+            border-radius: var(--radius);
+        }
+        
+        .date-btn:hover {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+        
+        .current-date {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+        
+        /* Creditor Grid */
+        .creditor-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .bureau-selector {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: var(--gray-50);
+            border-radius: var(--radius);
+        }
+        
+        .bureau-pill {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            background: var(--white);
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bureau-pill:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .bureau-pill.active {
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .bureau-pill.eq { color: var(--danger); }
+        .bureau-pill.eq.active { background: var(--danger); }
+        
+        .bureau-pill.ex { color: var(--primary); }
+        .bureau-pill.ex.active { background: var(--primary); }
+        
+        .bureau-pill.tu { color: var(--warning); }
+        .bureau-pill.tu.active { background: var(--warning); }
+        
+        .creditor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 1rem;
+        }
+        
+        .creditor-card {
+            aspect-ratio: 1;
+            background: var(--white);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .creditor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .creditor-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .creditor-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .creditor-card.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            transform: scale(0.95);
+        }
+        
+        .creditor-card span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .sidebar-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .sidebar-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        
+        .recent-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            margin: -0.25rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .recent-item:hover {
+            background: var(--gray-50);
+        }
+        
+        .recent-info {
+            flex: 1;
+        }
+        
+        .recent-combo {
+            font-weight: 600;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .recent-date {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+        
+        .bureau-badge {
+            padding: 0.125rem 0.5rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+        
+        .bureau-badge.eq { background: var(--danger); }
+        .bureau-badge.ex { background: var(--primary); }
+        .bureau-badge.tu { background: var(--warning); }
+        
+        /* Selection Display */
+        .selection-display {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            border-radius: var(--radius);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .selection-display.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .selection-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .selection-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 0.3s ease;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .creditor-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .sidebar {
+                grid-row: 1;
+            }
+        }
+        
+        /* Loading State */
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            100% { left: 100%; }
+        }
+        
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+            font-size: 0.875rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .tooltip:hover::before {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <div class="search-container">
+                    <i data-feather="search" class="search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Quick search: Type creditor, bureau, or date..." id="searchInput">
+                </div>
+                <div class="quick-actions">
+                    <button class="btn-icon tooltip" data-tooltip="Recent Selections">
+                        <i data-feather="clock"></i>
+                    </button>
+                    <button class="btn-icon tooltip" data-tooltip="Saved Favorites">
+                        <i data-feather="star"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="date-nav">
+                <button class="date-btn" onclick="changeMonth(-1)">
+                    <i data-feather="chevron-left"></i>
+                </button>
+                <div class="current-date" id="currentDate">April 2024</div>
+                <button class="date-btn" onclick="changeMonth(1)">
+                    <i data-feather="chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Creditor Grid Section -->
+            <div class="creditor-section">
+                <!-- Bureau Selector -->
+                <div class="bureau-selector">
+                    <button class="bureau-pill eq active" onclick="selectBureau('EQ', this)">
+                        <i data-feather="circle" size="16" style="display: inline; vertical-align: middle; margin-right: 0.5rem;"></i>
+                        Equifax
+                    </button>
+                    <button class="bureau-pill ex" onclick="selectBureau('EX', this)">
+                        <i data-feather="circle" size="16" style="display: inline; vertical-align: middle; margin-right: 0.5rem;"></i>
+                        Experian
+                    </button>
+                    <button class="bureau-pill tu" onclick="selectBureau('TU', this)">
+                        <i data-feather="circle" size="16" style="display: inline; vertical-align: middle; margin-right: 0.5rem;"></i>
+                        TransUnion
+                    </button>
+                </div>
+                
+                <!-- Creditor Grid -->
+                <div class="creditor-grid" id="creditorGrid">
+                    <!-- Creditors will be generated by JavaScript -->
+                </div>
+                
+                <!-- Selection Display -->
+                <div class="selection-display" id="selectionDisplay">
+                    <div class="selection-text" id="selectionText">
+                        <!-- Selection will be shown here -->
+                    </div>
+                    <div class="selection-actions">
+                        <button class="btn btn-primary" onclick="confirmSelection()">
+                            <i data-feather="check-circle"></i>
+                            Open Report
+                        </button>
+                        <button class="btn btn-secondary" onclick="saveSelection()">
+                            <i data-feather="star"></i>
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Recent Selections -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Recent Selections</h3>
+                    <div id="recentList">
+                        <div class="recent-item" onclick="quickSelect('JP', 'EQ', 'April 2024')">
+                            <div class="recent-info">
+                                <div class="recent-combo">
+                                    JP <span class="bureau-badge eq">EQ</span>
+                                </div>
+                                <div class="recent-date">April 2024</div>
+                            </div>
+                        </div>
+                        <div class="recent-item" onclick="quickSelect('AL', 'EX', 'April 2024')">
+                            <div class="recent-info">
+                                <div class="recent-combo">
+                                    AL <span class="bureau-badge ex">EX</span>
+                                </div>
+                                <div class="recent-date">April 2024</div>
+                            </div>
+                        </div>
+                        <div class="recent-item" onclick="quickSelect('BK', 'TU', 'March 2024')">
+                            <div class="recent-info">
+                                <div class="recent-combo">
+                                    BK <span class="bureau-badge tu">TU</span>
+                                </div>
+                                <div class="recent-date">March 2024</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Saved Favorites -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Keyboard Shortcuts</h3>
+                    <div style="font-size: 0.875rem; color: var(--gray-600); line-height: 1.75;">
+                        <div><kbd style="background: var(--gray-100); padding: 0.125rem 0.5rem; border-radius: 0.25rem;">↑↓</kbd> Navigate dates</div>
+                        <div><kbd style="background: var(--gray-100); padding: 0.125rem 0.5rem; border-radius: 0.25rem;">1-3</kbd> Select bureau</div>
+                        <div><kbd style="background: var(--gray-100); padding: 0.125rem 0.5rem; border-radius: 0.25rem;">Enter</kbd> Confirm</div>
+                        <div><kbd style="background: var(--gray-100); padding: 0.125rem 0.5rem; border-radius: 0.25rem;">Esc</kbd> Clear</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize Feather icons
+        feather.replace();
+        
+        // Data
+        const creditors = ['AL', 'BB', 'BK', 'CA', 'CH', 'CI', 'CS', 'DC', 'JP', 'PF', 'SC', 'TD', 'WF'];
+        const bureaus = { 'EQ': 'Equifax', 'EX': 'Experian', 'TU': 'TransUnion' };
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        // State
+        let currentMonthIndex = 3; // April
+        let currentYear = 2024;
+        let selectedCreditor = null;
+        let selectedBureau = 'EQ';
+        let selectedDate = 'April 2024';
+        
+        // Initialize creditor grid
+        function initCreditorGrid() {
+            const grid = document.getElementById('creditorGrid');
+            creditors.forEach(creditor => {
+                const card = document.createElement('div');
+                card.className = 'creditor-card';
+                card.innerHTML = `<span>${creditor}</span>`;
+                card.onclick = () => selectCreditor(creditor, card);
+                grid.appendChild(card);
+            });
+        }
+        
+        // Select creditor
+        function selectCreditor(creditor, element) {
+            // Remove previous selection
+            document.querySelectorAll('.creditor-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection
+            element.classList.add('selected', 'pulse');
+            selectedCreditor = creditor;
+            
+            // Update display
+            updateSelection();
+            
+            // Remove pulse animation
+            setTimeout(() => {
+                element.classList.remove('pulse');
+            }, 300);
+        }
+        
+        // Select bureau
+        function selectBureau(bureau, element) {
+            // Remove previous selection
+            document.querySelectorAll('.bureau-pill').forEach(pill => {
+                pill.classList.remove('active');
+            });
+            
+            // Add selection
+            element.classList.add('active');
+            selectedBureau = bureau;
+            
+            // Update display
+            if (selectedCreditor) {
+                updateSelection();
+            }
+        }
+        
+        // Change month
+        function changeMonth(direction) {
+            currentMonthIndex += direction;
+            
+            if (currentMonthIndex > 11) {
+                currentMonthIndex = 0;
+                currentYear++;
+            } else if (currentMonthIndex < 0) {
+                currentMonthIndex = 11;
+                currentYear--;
+            }
+            
+            selectedDate = `${months[currentMonthIndex]} ${currentYear}`;
+            document.getElementById('currentDate').textContent = selectedDate;
+            
+            if (selectedCreditor) {
+                updateSelection();
+            }
+        }
+        
+        // Update selection display
+        function updateSelection() {
+            const display = document.getElementById('selectionDisplay');
+            const text = document.getElementById('selectionText');
+            
+            if (selectedCreditor && selectedBureau && selectedDate) {
+                text.innerHTML = `${selectedCreditor} - ${bureaus[selectedBureau]} - ${selectedDate}`;
+                display.classList.add('show');
+                
+                // Add to recent (in real app, this would be smarter)
+                addToRecent(selectedCreditor, selectedBureau, selectedDate);
+            }
+        }
+        
+        // Quick select from recent
+        function quickSelect(creditor, bureau, date) {
+            // Update date if different
+            const [month, year] = date.split(' ');
+            currentMonthIndex = months.indexOf(month);
+            currentYear = parseInt(year);
+            selectedDate = date;
+            document.getElementById('currentDate').textContent = selectedDate;
+            
+            // Update bureau
+            selectedBureau = bureau;
+            document.querySelectorAll('.bureau-pill').forEach(pill => {
+                pill.classList.remove('active');
+                if (pill.textContent.includes(bureaus[bureau])) {
+                    pill.classList.add('active');
+                }
+            });
+            
+            // Update creditor
+            selectedCreditor = creditor;
+            document.querySelectorAll('.creditor-card').forEach(card => {
+                card.classList.remove('selected');
+                if (card.textContent === creditor) {
+                    card.classList.add('selected');
+                }
+            });
+            
+            updateSelection();
+        }
+        
+        // Add to recent (simplified for demo)
+        function addToRecent(creditor, bureau, date) {
+            // In real app, this would update the recent list dynamically
+        }
+        
+        // Confirm selection
+        function confirmSelection() {
+            if (selectedCreditor && selectedBureau && selectedDate) {
+                alert(`Opening report: ${selectedCreditor} - ${bureaus[selectedBureau]} - ${selectedDate}`);
+                // In real app, this would navigate to the report
+            }
+        }
+        
+        // Save selection
+        function saveSelection() {
+            if (selectedCreditor && selectedBureau && selectedDate) {
+                alert(`Saved to favorites: ${selectedCreditor} - ${bureaus[selectedBureau]} - ${selectedDate}`);
+                // In real app, this would save to user preferences
+            }
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            
+            // Filter creditors
+            document.querySelectorAll('.creditor-card').forEach(card => {
+                const creditor = card.textContent.toLowerCase();
+                if (creditor.includes(query)) {
+                    card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto';
+                } else {
+                    card.style.opacity = '0.3';
+                    card.style.pointerEvents = 'none';
+                }
+            });
+            
+            // Reset if empty
+            if (!query) {
+                document.querySelectorAll('.creditor-card').forEach(card => {
+                    card.style.opacity = '1';
+                    card.style.pointerEvents = 'auto';
+                });
+            }
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changeMonth(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeMonth(1);
+            } else if (e.key === '1') {
+                document.querySelector('.bureau-pill.eq').click();
+            } else if (e.key === '2') {
+                document.querySelector('.bureau-pill.ex').click();
+            } else if (e.key === '3') {
+                document.querySelector('.bureau-pill.tu').click();
+            } else if (e.key === 'Enter' && selectedCreditor) {
+                confirmSelection();
+            } else if (e.key === 'Escape') {
+                // Clear selection
+                selectedCreditor = null;
+                document.querySelectorAll('.creditor-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                document.getElementById('selectionDisplay').classList.remove('show');
+            }
+        });
+        
+        // Initialize
+        initCreditorGrid();
+    </script>
+</body>
+</html>
